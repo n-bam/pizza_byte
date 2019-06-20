@@ -1,0 +1,185 @@
+﻿@model PizzaByteSite.Models.FiltrosUsuarioModel
+
+@{
+    ViewBag.Title = "Usuários";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="form-horizontal">
+        <div class="content-header">
+            <h1>
+                Usuários
+                <small>Listagem</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="~/Usuario/Inicio"><i class="fa fa-home"></i> Inicio</a></li>
+                <li><a class="active"><i class="fa fa-tags"></i> Usuários</a></li>
+            </ol>
+        </div>
+
+        <div class="content">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Pesquisa de usuários</h3>
+                        </div>
+
+                        <div class="box-body">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Nome, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                <div class="col-lg-9 col-md-10 col-sm-9 col-xs-12">
+                                    @Html.EditorFor(m => m.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Email, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                <div class="col-lg-9 col-md-10 col-sm-9 col-xs-12">
+                                    @Html.EditorFor(m => m.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ObterAdministrador, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
+                                    @Html.DropDownListFor(m => m.ObterAdministrador, Model.ListaAdministrador, new { @class = "form-control" })
+                                </div>
+
+                                @Html.LabelFor(m => m.ObterInativos, new { @class = "control-label col-lg-1 col-md-2 col-sm-3 col-xs-12" })
+                                <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
+                                    @Html.DropDownListFor(m => m.ObterInativos, Model.ListaInativo, new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-3 col-lg-10 col-md-10 col-sm-9 col-xs-12">
+                                    <button class="btn btn-primary" id="btnBuscarUsuarios"><i class="fa fa-search"></i> Buscar</button>
+                                    <a class="btn btn-success" href="Incluir"><i class="fa fa-plus"></i> Novo usuario</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="overlay" id="divCarregando">
+                            <i class="fa fa-refresh fa-spin"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Lista de usuarios cadastrados</h3>
+                        </div>
+
+                        <div class="box-body table-responsive">
+                            <table class="table table-hover" id="tblResultados">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Email</th>
+                                        <th>Administrador</th>
+                                        <th>Inativo</th>
+                                        <th>Opções</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+
+                        <div class="box-footer clearfix">
+                            <ul class="pagination pagination-md no-margin pull-right" id="ulPaginacao">
+                                @*
+                                    <li>
+                                        @Html.ActionLink("<<", "Index", new
+                                                   {
+                                                       Nome = Model.Nome,
+                                                       Email = Model.Email,
+                                                       Pagina = 1
+                                                   })
+                                    </li>
+
+                                        @{
+                                           if (Model.TotalPaginas <= 5 || Model.Pagina <= 3)
+                                                    {
+                                                        for (int i = 1; i <= ((Model.TotalPaginas > 5) ? 5 : Model.TotalPaginas); i++)
+                                                        {
+                                                            <li>
+                                                                <button></button>
+                                                                @Html.ActionLink(i.ToString(), "Index", new
+                                                                   {
+                                                                       Nome = Model.Nome,
+                                                                       Email = Model.Email,
+                                                                       Pagina = i
+                                                                   })
+                                                            </li>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        if (Model.Pagina >= Model.TotalPaginas - 2)
+                                                        {
+                                                            for (int i = Model.TotalPaginas - 5; i <= Model.TotalPaginas; i++)
+                                                            {
+                                                                <li>
+                                                                    @Html.ActionLink(i.ToString(), "Index", new
+                                                                       {
+                                                                           Nome = Model.Nome,
+                                                                           Email = Model.Email,
+                                                                           Pagina = i
+                                                                       })
+                                                                </li>
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            for (int i = Model.Pagina - 2; i <= Model.Pagina + 2; i++)
+                                                            {
+                                                                <li>
+                                                                    @Html.ActionLink(i.ToString(), "Index", new
+                                                                       {
+                                                                           Nome = Model.Nome,
+                                                                           Email = Model.Email,
+                                                                           Pagina = i
+                                                                       })
+                                                                </li>
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                <li>
+                                                    @Html.ActionLink(">>", "Index", new
+                                                       {
+                                                           Nome = Model.Nome,
+                                                           Email = Model.Email,
+                                                           Pagina = Model.TotalPaginas
+                                                       })
+                                                </li>*@
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/PizzaByteSite/plugins/jQueryUI/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/PizzaByteSite/plugins/jQueryUI/toastr.min.js"></script>
+<script src="~/Scripts/PizzaByteSite/Telas/Geral.js"></script>
+<script src="~/Scripts/PizzaByteSite/Telas/IndexUsuario.js"></script>
+
+<script>
+    $(document).ready(function () {
+        var retorno = '@TempData["Retorno"]';
+        MostrarMensagemRetorno(retorno, "O usuário");
+        BuscarUsuarios(1);
+
+        $("#btnBuscarUsuarios").click(function () {
+            BuscarUsuarios(1);
+        });
+    });
+</script>

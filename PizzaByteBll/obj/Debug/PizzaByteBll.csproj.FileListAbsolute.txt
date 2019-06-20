@@ -1,0 +1,84 @@
+C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteBll\bin\Debug\PizzaByteBll.dll.config
+C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteBll\bin\Debug\PizzaByteBll.dll
+C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteBll\bin\Debug\PizzaByteBll.pdb
+C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteBll\bin\Debug\EntityFramework.dll
+C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteBll\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteBll\bin\Debug\PizzaByteDal.dll
+C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteBll\bin\Debug\PizzaByteDto.dll
+C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteBll\bin\Debug\PizzaByteEnum.dll
+C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteBll\bin\Debug\PizzaByteVo.dll
+C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteBll\bin\Debug\PizzaByteDal.pdb
+C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteBll\bin\Debug\PizzaByteDal.dll.config
+C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteBll\bin\Debug\PizzaByteDto.pdb
+C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteBll\bin\Debug\PizzaByteEnum.pdb
+C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteBll\bin\Debug\PizzaByteVo.pdb
+C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteBll\bin\Debug\EntityFramework.xml
+C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteBll\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteBll\obj\Debug\PizzaByteBll.csprojAssemblyReference.cache
+C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteBll\obj\Debug\PizzaByteBll.csproj.CoreCompileInputs.cache
+C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteBll\obj\Debug\PizzaByteBll.csproj.CopyComplete
+C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteBll\obj\Debug\PizzaByteBll.dll
+C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteBll\obj\Debug\PizzaByteBll.pdb
+C:\Users\jlman\Documents\Visual Studio 2017\TCC-v1\PizzaByteBll\bin\Debug\PizzaByteBll.dll.config
+C:\Users\jlman\Documents\Visual Studio 2017\TCC-v1\PizzaByteBll\bin\Debug\PizzaByteBll.dll
+C:\Users\jlman\Documents\Visual Studio 2017\TCC-v1\PizzaByteBll\bin\Debug\PizzaByteBll.pdb
+C:\Users\jlman\Documents\Visual Studio 2017\TCC-v1\PizzaByteBll\bin\Debug\EntityFramework.dll
+C:\Users\jlman\Documents\Visual Studio 2017\TCC-v1\PizzaByteBll\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\jlman\Documents\Visual Studio 2017\TCC-v1\PizzaByteBll\bin\Debug\PizzaByteDal.dll
+C:\Users\jlman\Documents\Visual Studio 2017\TCC-v1\PizzaByteBll\bin\Debug\PizzaByteDto.dll
+C:\Users\jlman\Documents\Visual Studio 2017\TCC-v1\PizzaByteBll\bin\Debug\PizzaByteEnum.dll
+C:\Users\jlman\Documents\Visual Studio 2017\TCC-v1\PizzaByteBll\bin\Debug\PizzaByteVo.dll
+C:\Users\jlman\Documents\Visual Studio 2017\TCC-v1\PizzaByteBll\bin\Debug\PizzaByteDal.pdb
+C:\Users\jlman\Documents\Visual Studio 2017\TCC-v1\PizzaByteBll\bin\Debug\PizzaByteDal.dll.config
+C:\Users\jlman\Documents\Visual Studio 2017\TCC-v1\PizzaByteBll\bin\Debug\PizzaByteDto.pdb
+C:\Users\jlman\Documents\Visual Studio 2017\TCC-v1\PizzaByteBll\bin\Debug\PizzaByteEnum.pdb
+C:\Users\jlman\Documents\Visual Studio 2017\TCC-v1\PizzaByteBll\bin\Debug\PizzaByteVo.pdb
+C:\Users\jlman\Documents\Visual Studio 2017\TCC-v1\PizzaByteBll\bin\Debug\EntityFramework.xml
+C:\Users\jlman\Documents\Visual Studio 2017\TCC-v1\PizzaByteBll\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\jlman\Documents\Visual Studio 2017\TCC-v1\PizzaByteBll\obj\Debug\PizzaByteBll.csprojAssemblyReference.cache
+C:\Users\jlman\Documents\Visual Studio 2017\TCC-v1\PizzaByteBll\obj\Debug\PizzaByteBll.csproj.CoreCompileInputs.cache
+C:\Users\jlman\Documents\Visual Studio 2017\TCC-v1\PizzaByteBll\obj\Debug\PizzaByteBll.csproj.CopyComplete
+C:\Users\jlman\Documents\Visual Studio 2017\TCC-v1\PizzaByteBll\obj\Debug\PizzaByteBll.dll
+C:\Users\jlman\Documents\Visual Studio 2017\TCC-v1\PizzaByteBll\obj\Debug\PizzaByteBll.pdb
+C:\Users\Huxley\Desktop\Pizzabyte\PizzaByteBll\obj\Debug\PizzaByteBll.csprojAssemblyReference.cache
+C:\Users\Huxley\Desktop\Pizzabyte\PizzaByteBll\obj\Debug\PizzaByteBll.csproj.CoreCompileInputs.cache
+C:\Users\Huxley\Desktop\Pizzabyte\PizzaByteBll\obj\Debug\PizzaByteBll.dll
+C:\Users\Huxley\Desktop\Pizzabyte\PizzaByteBll\obj\Debug\PizzaByteBll.pdb
+C:\Users\Huxley\Desktop\Pizzabyte\PizzaByteBll\bin\Debug\PizzaByteBll.dll.config
+C:\Users\Huxley\Desktop\Pizzabyte\PizzaByteBll\bin\Debug\PizzaByteBll.dll
+C:\Users\Huxley\Desktop\Pizzabyte\PizzaByteBll\bin\Debug\PizzaByteBll.pdb
+C:\Users\Huxley\Desktop\Pizzabyte\PizzaByteBll\bin\Debug\EntityFramework.dll
+C:\Users\Huxley\Desktop\Pizzabyte\PizzaByteBll\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Huxley\Desktop\Pizzabyte\PizzaByteBll\bin\Debug\PizzaByteDal.dll
+C:\Users\Huxley\Desktop\Pizzabyte\PizzaByteBll\bin\Debug\PizzaByteDto.dll
+C:\Users\Huxley\Desktop\Pizzabyte\PizzaByteBll\bin\Debug\PizzaByteEnum.dll
+C:\Users\Huxley\Desktop\Pizzabyte\PizzaByteBll\bin\Debug\PizzaByteVo.dll
+C:\Users\Huxley\Desktop\Pizzabyte\PizzaByteBll\bin\Debug\PizzaByteDal.pdb
+C:\Users\Huxley\Desktop\Pizzabyte\PizzaByteBll\bin\Debug\PizzaByteDal.dll.config
+C:\Users\Huxley\Desktop\Pizzabyte\PizzaByteBll\bin\Debug\PizzaByteDto.pdb
+C:\Users\Huxley\Desktop\Pizzabyte\PizzaByteBll\bin\Debug\PizzaByteEnum.pdb
+C:\Users\Huxley\Desktop\Pizzabyte\PizzaByteBll\bin\Debug\PizzaByteVo.pdb
+C:\Users\Huxley\Desktop\Pizzabyte\PizzaByteBll\bin\Debug\EntityFramework.xml
+C:\Users\Huxley\Desktop\Pizzabyte\PizzaByteBll\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Huxley\Desktop\Pizzabyte\PizzaByteBll\obj\Debug\PizzaByteBll.csproj.CopyComplete
+C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteBll\bin\Debug\PizzaByteBll.dll.config
+C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteBll\bin\Debug\PizzaByteBll.dll
+C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteBll\bin\Debug\PizzaByteBll.pdb
+C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteBll\bin\Debug\EntityFramework.dll
+C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteBll\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteBll\bin\Debug\PizzaByteDal.dll
+C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteBll\bin\Debug\PizzaByteDto.dll
+C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteBll\bin\Debug\PizzaByteEnum.dll
+C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteBll\bin\Debug\PizzaByteVo.dll
+C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteBll\bin\Debug\PizzaByteDal.pdb
+C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteBll\bin\Debug\PizzaByteDal.dll.config
+C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteBll\bin\Debug\PizzaByteDto.pdb
+C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteBll\bin\Debug\PizzaByteEnum.pdb
+C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteBll\bin\Debug\PizzaByteVo.pdb
+C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteBll\bin\Debug\EntityFramework.xml
+C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteBll\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteBll\obj\Debug\PizzaByteBll.csprojAssemblyReference.cache
+C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteBll\obj\Debug\PizzaByteBll.csproj.CoreCompileInputs.cache
+C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteBll\obj\Debug\PizzaByteBll.csproj.CopyComplete
+C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteBll\obj\Debug\PizzaByteBll.dll
+C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteBll\obj\Debug\PizzaByteBll.pdb

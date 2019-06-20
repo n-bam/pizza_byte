@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sitemanifest>
+  <IisApp path="C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteSite\obj\Release\Package\PackageTmp" />
+  <setAcl path="C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteSite\obj\Release\Package\PackageTmp" setAclResourceType="Directory" />
+  <setAcl path="C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteSite\obj\Release\Package\PackageTmp" setAclUser="anonymousAuthenticationUser" setAclResourceType="Directory" />
+</sitemanifest>

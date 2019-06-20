@@ -1,0 +1,36 @@
+C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteDto\bin\Debug\PizzaByteDto.dll
+C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteDto\bin\Debug\PizzaByteDto.pdb
+C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteDto\bin\Debug\PizzaByteEnum.dll
+C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteDto\bin\Debug\PizzaByteEnum.pdb
+C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteDto\obj\Debug\PizzaByteDto.csprojAssemblyReference.cache
+C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteDto\obj\Debug\PizzaByteDto.csproj.CoreCompileInputs.cache
+C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteDto\obj\Debug\PizzaByteDto.csproj.CopyComplete
+C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteDto\obj\Debug\PizzaByteDto.dll
+C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteDto\obj\Debug\PizzaByteDto.pdb
+C:\Users\jlman\Documents\Visual Studio 2017\TCC-v1\PizzaByteDto\bin\Debug\PizzaByteDto.dll
+C:\Users\jlman\Documents\Visual Studio 2017\TCC-v1\PizzaByteDto\bin\Debug\PizzaByteDto.pdb
+C:\Users\jlman\Documents\Visual Studio 2017\TCC-v1\PizzaByteDto\bin\Debug\PizzaByteEnum.dll
+C:\Users\jlman\Documents\Visual Studio 2017\TCC-v1\PizzaByteDto\bin\Debug\PizzaByteEnum.pdb
+C:\Users\jlman\Documents\Visual Studio 2017\TCC-v1\PizzaByteDto\obj\Debug\PizzaByteDto.csprojAssemblyReference.cache
+C:\Users\jlman\Documents\Visual Studio 2017\TCC-v1\PizzaByteDto\obj\Debug\PizzaByteDto.csproj.CoreCompileInputs.cache
+C:\Users\jlman\Documents\Visual Studio 2017\TCC-v1\PizzaByteDto\obj\Debug\PizzaByteDto.csproj.CopyComplete
+C:\Users\jlman\Documents\Visual Studio 2017\TCC-v1\PizzaByteDto\obj\Debug\PizzaByteDto.dll
+C:\Users\jlman\Documents\Visual Studio 2017\TCC-v1\PizzaByteDto\obj\Debug\PizzaByteDto.pdb
+C:\Users\Huxley\Desktop\Pizzabyte\PizzaByteDto\bin\Debug\PizzaByteDto.dll
+C:\Users\Huxley\Desktop\Pizzabyte\PizzaByteDto\bin\Debug\PizzaByteDto.pdb
+C:\Users\Huxley\Desktop\Pizzabyte\PizzaByteDto\bin\Debug\PizzaByteEnum.dll
+C:\Users\Huxley\Desktop\Pizzabyte\PizzaByteDto\bin\Debug\PizzaByteEnum.pdb
+C:\Users\Huxley\Desktop\Pizzabyte\PizzaByteDto\obj\Debug\PizzaByteDto.csprojAssemblyReference.cache
+C:\Users\Huxley\Desktop\Pizzabyte\PizzaByteDto\obj\Debug\PizzaByteDto.csproj.CoreCompileInputs.cache
+C:\Users\Huxley\Desktop\Pizzabyte\PizzaByteDto\obj\Debug\PizzaByteDto.csproj.CopyComplete
+C:\Users\Huxley\Desktop\Pizzabyte\PizzaByteDto\obj\Debug\PizzaByteDto.dll
+C:\Users\Huxley\Desktop\Pizzabyte\PizzaByteDto\obj\Debug\PizzaByteDto.pdb
+C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteDto\bin\Debug\PizzaByteDto.dll
+C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteDto\bin\Debug\PizzaByteDto.pdb
+C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteDto\bin\Debug\PizzaByteEnum.dll
+C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteDto\bin\Debug\PizzaByteEnum.pdb
+C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteDto\obj\Debug\PizzaByteDto.csprojAssemblyReference.cache
+C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteDto\obj\Debug\PizzaByteDto.csproj.CoreCompileInputs.cache
+C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteDto\obj\Debug\PizzaByteDto.csproj.CopyComplete
+C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteDto\obj\Debug\PizzaByteDto.dll
+C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteDto\obj\Debug\PizzaByteDto.pdb

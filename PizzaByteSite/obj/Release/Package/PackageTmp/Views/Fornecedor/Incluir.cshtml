@@ -1,0 +1,95 @@
+﻿@model PizzaByteSite.Models.FornecedorModel
+
+@{
+    ViewBag.Title = "Incluir Fornecedor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="content-wrapper">
+    <div class="content-header">
+        <h1>
+            Fornecedor
+            <small>Incluir</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-home"></i> Inicio</a></li>
+            <li><a href="~/Fornecedor/Index"><i class="fa fa-tags"></i> Fornecedores</a></li>
+            <li class="active"><i class="fa fa-plus"></i> Incluir</li>
+        </ol>
+    </div>
+
+    <div class="content">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="box">
+
+                    <div class="box-header with-border">
+                        <h2 class="box-title">Informações do novo fornecedor</h2>
+                    </div>
+
+                    @using (Html.BeginForm())
+                    {
+                        <div class="box-body">
+                            <div class="form-horizontal">
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.NomeFantasia, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
+                                        @Html.EditorFor(m => m.NomeFantasia, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(m => m.NomeFantasia, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.RazaoSocial, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
+                                        @Html.EditorFor(m => m.RazaoSocial, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(m => m.RazaoSocial, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Cnpj, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
+                                        @Html.EditorFor(m => m.Cnpj, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(m => m.Cnpj, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    @Html.LabelFor(m => m.Telefone, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
+                                        @Html.EditorFor(m => m.Telefone, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(m => m.Telefone, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Obs, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
+                                        @Html.EditorFor(m => m.Obs, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(m => m.Obs, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <h3 class="box-title">Endereço</h3>
+                                <hr class="hr-line-drashed" />
+
+                                @Html.Partial("_Endereco", Model)
+
+                                <div class="box-footer">
+                                    <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-3">
+                                        <button type="button" class="btn btn-default" onclick="window.history.back();"><i class="fa fa-mail-reply "></i> Cancelar</button>
+                                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Gravar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,36 @@
+C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteVo\bin\Debug\PizzaByteVo.dll
+C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteVo\bin\Debug\PizzaByteVo.pdb
+C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteVo\bin\Debug\PizzaByteEnum.dll
+C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteVo\bin\Debug\PizzaByteEnum.pdb
+C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteVo\obj\Debug\PizzaByteVo.csprojAssemblyReference.cache
+C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteVo\obj\Debug\PizzaByteVo.csproj.CoreCompileInputs.cache
+C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteVo\obj\Debug\PizzaByteVo.csproj.CopyComplete
+C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteVo\obj\Debug\PizzaByteVo.dll
+C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteVo\obj\Debug\PizzaByteVo.pdb
+C:\Users\jlman\Documents\Visual Studio 2017\TCC-v1\PizzaByteVo\bin\Debug\PizzaByteVo.dll
+C:\Users\jlman\Documents\Visual Studio 2017\TCC-v1\PizzaByteVo\bin\Debug\PizzaByteVo.pdb
+C:\Users\jlman\Documents\Visual Studio 2017\TCC-v1\PizzaByteVo\bin\Debug\PizzaByteEnum.dll
+C:\Users\jlman\Documents\Visual Studio 2017\TCC-v1\PizzaByteVo\bin\Debug\PizzaByteEnum.pdb
+C:\Users\jlman\Documents\Visual Studio 2017\TCC-v1\PizzaByteVo\obj\Debug\PizzaByteVo.csprojAssemblyReference.cache
+C:\Users\jlman\Documents\Visual Studio 2017\TCC-v1\PizzaByteVo\obj\Debug\PizzaByteVo.csproj.CoreCompileInputs.cache
+C:\Users\jlman\Documents\Visual Studio 2017\TCC-v1\PizzaByteVo\obj\Debug\PizzaByteVo.csproj.CopyComplete
+C:\Users\jlman\Documents\Visual Studio 2017\TCC-v1\PizzaByteVo\obj\Debug\PizzaByteVo.dll
+C:\Users\jlman\Documents\Visual Studio 2017\TCC-v1\PizzaByteVo\obj\Debug\PizzaByteVo.pdb
+C:\Users\Huxley\Desktop\Pizzabyte\PizzaByteVo\bin\Debug\PizzaByteVo.dll
+C:\Users\Huxley\Desktop\Pizzabyte\PizzaByteVo\bin\Debug\PizzaByteVo.pdb
+C:\Users\Huxley\Desktop\Pizzabyte\PizzaByteVo\bin\Debug\PizzaByteEnum.dll
+C:\Users\Huxley\Desktop\Pizzabyte\PizzaByteVo\bin\Debug\PizzaByteEnum.pdb
+C:\Users\Huxley\Desktop\Pizzabyte\PizzaByteVo\obj\Debug\PizzaByteVo.csprojAssemblyReference.cache
+C:\Users\Huxley\Desktop\Pizzabyte\PizzaByteVo\obj\Debug\PizzaByteVo.csproj.CoreCompileInputs.cache
+C:\Users\Huxley\Desktop\Pizzabyte\PizzaByteVo\obj\Debug\PizzaByteVo.csproj.CopyComplete
+C:\Users\Huxley\Desktop\Pizzabyte\PizzaByteVo\obj\Debug\PizzaByteVo.dll
+C:\Users\Huxley\Desktop\Pizzabyte\PizzaByteVo\obj\Debug\PizzaByteVo.pdb
+C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteVo\bin\Debug\PizzaByteVo.dll
+C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteVo\bin\Debug\PizzaByteVo.pdb
+C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteVo\bin\Debug\PizzaByteEnum.dll
+C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteVo\bin\Debug\PizzaByteEnum.pdb
+C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteVo\obj\Debug\PizzaByteVo.csprojAssemblyReference.cache
+C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteVo\obj\Debug\PizzaByteVo.csproj.CoreCompileInputs.cache
+C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteVo\obj\Debug\PizzaByteVo.csproj.CopyComplete
+C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteVo\obj\Debug\PizzaByteVo.dll
+C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteVo\obj\Debug\PizzaByteVo.pdb

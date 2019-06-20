@@ -1,0 +1,18 @@
+.alinhadoDireita {
+    text-align: right;
+    display: block;
+}
+
+.hr-line-drashed {
+    border-top: 1px dashed #808080;
+    color: #ffffff;
+    background-color: #ffffff;
+    height: 2px;
+    margin: 20px 0;
+    opacity: 0.4;
+}
+
+.swal-footer {
+    font-size: 20px;
+    text-align: center;
+}
