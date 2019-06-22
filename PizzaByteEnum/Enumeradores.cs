@@ -65,7 +65,26 @@
             IncluirFornecedor = 7,
             EditarFornecedor = 8,
             ObterFornecedor = 9,
-            ObterListaFornecedor = 10
+            ObterListaFornecedor = 10,
+            IncluirCep = 11,
+            ExcluirCep = 12,
+            ObterCep = 13,
+            ObterCepPorCep = 14,
+            ObterListaCep = 15,
+            EditarCep = 16,
+            IncluirProduto = 17,
+            ExcluirProduto = 18,
+            ObterProduto = 19,
+            ObterListaProduto = 20,
+            EditarProduto = 21,
+            IncluirUsuario = 22,
+            ExcluirUsuario = 23,
+            FazerLogin = 24,
+            EnviarEmailRecuperacao = 25,
+            ObterUsuario = 26,
+            ObterListaUsuario = 27,
+            EditarUsuario = 28,
+
         }
 
         public enum TipoMensagemSuporte

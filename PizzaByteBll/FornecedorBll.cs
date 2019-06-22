@@ -446,7 +446,7 @@ namespace PizzaByteBll
                     retornoDto.Mensagem = "Erro ao converter para DTO: " + mensagemErro;
                     retornoDto.Retorno = false;
 
-                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaFornecedor, Guid.Empty, retornoDto.Mensagem);
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaFornecedor, fornecedor.Id, retornoDto.Mensagem);
                     return false;
                 }
 

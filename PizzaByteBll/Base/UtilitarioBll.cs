@@ -201,7 +201,7 @@ namespace PizzaByteBll.Base
         }
 
         /// <summary>
-        /// Guid de velidação das requisições
+        /// Guid de validação das requisições
         /// </summary>
         /// <returns></returns>
         internal static string RetornaGuidValidação()

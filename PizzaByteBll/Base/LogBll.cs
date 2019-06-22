@@ -124,6 +124,30 @@ namespace PizzaByteBll.Base
         }
 
         /// <summary>
+        /// Registra um LOG se precisar fazer o login
+        /// </summary>
+        /// <param name="logVo"></param>
+        /// <param name="retornoDto"></param>
+        internal void RegistrarLogVo(LogVo logVo, [CallerLineNumber]int linha = 0, [CallerMemberName]string metodo = "")
+        {
+            string mensagemErro = "";
+
+            logVo.Mensagem = $"Classe: {classeOrigem}. \n " +
+                             $"Método: {metodo} \n" +
+                             $"Linha: {linha} \n" +
+                             $"Mensagem: {logVo.Mensagem}";
+
+            // Prepara a inclusão no banco de dados
+            if (!IncluirBd(logVo, ref mensagemErro))
+            {
+                return;
+            }
+
+            // Salva as alterações
+            pizzaByteContexto.Salvar(ref mensagemErro);
+        }
+
+        /// <summary>
         /// Converte um log Vo para um log Dto
         /// </summary>
         /// <param name="logDto"></param>

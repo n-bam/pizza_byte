@@ -3,33 +3,18 @@ using PizzaByteDal;
 using PizzaByteDto.Entidades;
 using PizzaByteDto.RetornosRequisicoes;
 using PizzaByteVo;
+using PizzaByteVo.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static PizzaByteEnum.Enumeradores;
 
 namespace PizzaByteBll
 {
     public class UsuarioBll : BaseBll<UsuarioVo, UsuarioDto>
     {
-        private static LogBll logBll = new LogBll("CepBll");
+        private static LogBll logBll = new LogBll("UsuarioBll");
         private bool salvar = true;
-
-        /// <summary>
-        /// Retorna uma identificação e um id para acessar os módulos
-        /// </summary>
-        /// <param name="identificacao"></param>
-        /// <param name="idUsuario"></param>
-        /// <returns></returns>
-        public bool FazerLoginTestes(ref string identificacaoCriptografada, Guid idUsuario)
-        {
-            string identificacao = DateTime.Now.ToString("dd/MM/yyyy hh:mm") + UtilitarioBll.RetornaGuidValidação() + idUsuario.ToString() + "Adm=1";
-            if (!UtilitarioBll.CriptografarIdentificacao(identificacao, ref identificacaoCriptografada))
-            {
-                return false;
-            }
-
-            return true;
-        }
 
         /// <summary>
         /// Iniciar com um novo contexto, indicando se deve salvar ou não as alterações
@@ -70,6 +55,8 @@ namespace PizzaByteBll
                 retornoDto.Retorno = false;
                 retornoDto.Mensagem = "Este usuário não é administrador. Para incluir um novo usuário é necessário " +
                     $"logar com um usuário administrador. {mensagemErro}";
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirUsuario, Guid.Empty, retornoDto.Mensagem);
                 return false;
             }
 
@@ -80,6 +67,8 @@ namespace PizzaByteBll
             {
                 retornoDto.Retorno = false;
                 retornoDto.Mensagem = "Falha ao converter o usuario para VO: " + mensagemErro;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirUsuario, Guid.Empty, retornoDto.Mensagem);
                 return false;
             }
 
@@ -88,6 +77,8 @@ namespace PizzaByteBll
             {
                 retornoDto.Retorno = false;
                 retornoDto.Mensagem = "Falha ao converter o usuario para VO: " + mensagemErro;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirUsuario, Guid.Empty, retornoDto.Mensagem);
                 return false;
             }
 
@@ -98,6 +89,8 @@ namespace PizzaByteBll
                 {
                     retornoDto.Retorno = false;
                     retornoDto.Mensagem = mensagemErro;
+
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirUsuario, Guid.Empty, retornoDto.Mensagem);
                     return false;
                 }
             }
@@ -126,6 +119,8 @@ namespace PizzaByteBll
                 retornoDto.Retorno = false;
                 retornoDto.Mensagem = "Este usuário não é administrador. Para consultar os usuários é necessário " +
                     $"logar com um usuário administrador. {mensagemErro}";
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ExcluirUsuario, requisicaoDto.Id, retornoDto.Mensagem);
                 return false;
             }
 
@@ -136,6 +131,8 @@ namespace PizzaByteBll
                 {
                     retornoDto.Retorno = false;
                     retornoDto.Mensagem = mensagemErro;
+
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.ExcluirUsuario, requisicaoDto.Id, retornoDto.Mensagem);
                     return false;
                 }
             }
@@ -150,11 +147,22 @@ namespace PizzaByteBll
         /// </summary>
         public bool FazerLogin(RequisicaoFazerLoginDto requisicaoDto, ref RetornoFazerLoginDto retornoDto)
         {
+            LogVo logVo = new LogVo()
+            {
+                Id = Guid.NewGuid(),
+                IdEntidade = Guid.Empty,
+                IdUsuario = Guid.Empty,
+                Recurso = LogRecursos.FazerLogin
+            };
+
             //Validar email e senha
             if (string.IsNullOrWhiteSpace(requisicaoDto.Email))
             {
                 retornoDto.Retorno = false;
                 retornoDto.Mensagem = "O email é obrigatório para fazer o login";
+
+                logVo.Mensagem = retornoDto.Mensagem;
+                logBll.RegistrarLogVo(logVo);
                 return false;
             }
 
@@ -162,6 +170,9 @@ namespace PizzaByteBll
             {
                 retornoDto.Retorno = false;
                 retornoDto.Mensagem = "A senha é obrigatória para fazer o login";
+
+                logVo.Mensagem = retornoDto.Mensagem;
+                logBll.RegistrarLogVo(logVo);
                 return false;
             }
 
@@ -179,6 +190,9 @@ namespace PizzaByteBll
                 {
                     retornoDto.Retorno = false;
                     retornoDto.Mensagem = "Senha de suporte incorreta.";
+
+                    logVo.Mensagem = retornoDto.Mensagem;
+                    logBll.RegistrarLogVo(logVo);
                     return false;
                 }
 
@@ -192,6 +206,9 @@ namespace PizzaByteBll
                 {
                     retornoDto.Retorno = false;
                     retornoDto.Mensagem = $"Falha ao listar os usuários: {mensagemErro}";
+
+                    logVo.Mensagem = retornoDto.Mensagem;
+                    logBll.RegistrarLogVo(logVo);
                     return false;
                 }
 
@@ -208,6 +225,9 @@ namespace PizzaByteBll
                 {
                     retornoDto.Retorno = false;
                     retornoDto.Mensagem = $"Falha ao obter o usuário do banco de dados: {ex.Message}";
+
+                    logVo.Mensagem = retornoDto.Mensagem;
+                    logBll.RegistrarLogVo(logVo);
                     return false;
                 }
 
@@ -215,6 +235,9 @@ namespace PizzaByteBll
                 {
                     retornoDto.Retorno = false;
                     retornoDto.Mensagem = $"Email ou senha inválidos. ";
+
+                    logVo.Mensagem = retornoDto.Mensagem;
+                    logBll.RegistrarLogVo(logVo);
                     return false;
                 }
 
@@ -222,6 +245,9 @@ namespace PizzaByteBll
                 {
                     retornoDto.Retorno = false;
                     retornoDto.Mensagem = $"Email ou senha inválidos ";
+
+                    logVo.Mensagem = retornoDto.Mensagem;
+                    logBll.RegistrarLogVo(logVo);
                     return false;
                 }
 
@@ -237,6 +263,9 @@ namespace PizzaByteBll
             {
                 retornoDto.Mensagem = "Falha ao fazer o login: Não foi possível obter a identificação.";
                 retornoDto.Retorno = false;
+
+                logVo.Mensagem = retornoDto.Mensagem;
+                logBll.RegistrarLogVo(logVo);
                 return false;
             }
 
@@ -255,10 +284,21 @@ namespace PizzaByteBll
         /// <param name="retornoDto"></param>
         public bool EnviarEmailRecuperacao(RequisicaoFazerLoginDto requisicaoDto, RetornoDto retornoDto)
         {
+            LogVo logVo = new LogVo()
+            {
+                Id = Guid.NewGuid(),
+                IdEntidade = Guid.Empty,
+                IdUsuario = Guid.Empty,
+                Recurso = LogRecursos.FazerLogin
+            };
+
             if (string.IsNullOrWhiteSpace(requisicaoDto.Email))
             {
                 retornoDto.Mensagem = "Informe o email para recuperar a senha.";
                 retornoDto.Retorno = false;
+
+                logVo.Mensagem = retornoDto.Mensagem;
+                logBll.RegistrarLogVo(logVo);
                 return false;
             }
 
@@ -268,6 +308,9 @@ namespace PizzaByteBll
             {
                 retornoDto.Retorno = false;
                 retornoDto.Mensagem = $"Erro ao listar os usuários: {mensagemErro}";
+
+                logVo.Mensagem = retornoDto.Mensagem;
+                logBll.RegistrarLogVo(logVo);
                 return false;
             }
 
@@ -283,6 +326,9 @@ namespace PizzaByteBll
             {
                 retornoDto.Retorno = false;
                 retornoDto.Mensagem = $"Falha ao obter o usuário do banco de dados: {ex.Message}";
+
+                logVo.Mensagem = retornoDto.Mensagem;
+                logBll.RegistrarLogVo(logVo);
                 return false;
             }
 
@@ -290,6 +336,9 @@ namespace PizzaByteBll
             {
                 retornoDto.Retorno = false;
                 retornoDto.Mensagem = $"Email não encontrado.";
+
+                logVo.Mensagem = retornoDto.Mensagem;
+                logBll.RegistrarLogVo(logVo);
                 return false;
             }
 
@@ -304,6 +353,9 @@ namespace PizzaByteBll
             if (!EditarBd(usuarioVo, ref mensagemErro))
             {
                 retornoDto.Mensagem = $"Erro ao editar o usuário: {retornoDto.Mensagem}";
+
+                logVo.Mensagem = retornoDto.Mensagem;
+                logBll.RegistrarLogVo(logVo);
                 return false;
             }
 
@@ -312,6 +364,9 @@ namespace PizzaByteBll
             {
                 retornoDto.Mensagem = $"Erro ao converter o usuário de Vo para Dto: {mensagemErro}";
                 retornoDto.Retorno = false;
+
+                logVo.Mensagem = retornoDto.Mensagem;
+                logBll.RegistrarLogVo(logVo);
                 return false;
             }
 
@@ -325,6 +380,9 @@ namespace PizzaByteBll
             {
                 retornoDto.Mensagem = $"Problemas para enviar o email com a nova senha. Se o erro persistir, entre em contato com o suporte. Mensagem: " + mensagemErro;
                 retornoDto.Retorno = false;
+
+                logVo.Mensagem = retornoDto.Mensagem;
+                logBll.RegistrarLogVo(logVo);
                 return false;
             }
 
@@ -333,6 +391,9 @@ namespace PizzaByteBll
             {
                 retornoDto.Retorno = false;
                 retornoDto.Mensagem = "Problemas para salvar a nova senha: " + mensagemErro;
+
+                logVo.Mensagem = retornoDto.Mensagem;
+                logBll.RegistrarLogVo(logVo);
                 return false;
             }
 
@@ -360,6 +421,8 @@ namespace PizzaByteBll
                 retornoDto.Retorno = false;
                 retornoDto.Mensagem = "Este usuário não é administrador. Para consultar os usuários é necessário " +
                     $"logar com um usuário administrador. {mensagemErro}";
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterUsuario, requisicaoDto.Id, retornoDto.Mensagem);
                 return false;
             }
 
@@ -368,13 +431,19 @@ namespace PizzaByteBll
             {
                 retornoDto.Mensagem = "Erro ao obter o usuario: " + mensagemErro;
                 retornoDto.Retorno = false;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterUsuario, requisicaoDto.Id, retornoDto.Mensagem);
                 return false;
             }
 
             retornoDto.Mensagem = "Ok";
             if (usuarioVo == null)
             {
+                retornoDto.Retorno = false;
                 retornoDto.Mensagem = "Usuário não encontrado";
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterUsuario, usuarioVo.Id, retornoDto.Mensagem);
+                return false;
             }
 
             UsuarioDto usuarioDto = new UsuarioDto();
@@ -382,6 +451,8 @@ namespace PizzaByteBll
             {
                 retornoDto.Mensagem = "Erro ao converter o usuário: " + mensagemErro;
                 retornoDto.Retorno = false;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterUsuario, usuarioVo.Id, retornoDto.Mensagem);
                 return false;
             }
 
@@ -470,6 +541,8 @@ namespace PizzaByteBll
                 retornoDto.Retorno = false;
                 retornoDto.Mensagem = "Este usuário não é administrador. Para consultar os usuários é necessário " +
                     $"logar com um usuário administrador. {mensagemErro}";
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaUsuario, Guid.Empty, retornoDto.Mensagem);
                 return false;
             }
 
@@ -479,6 +552,8 @@ namespace PizzaByteBll
             {
                 retornoDto.Mensagem = $"Houve um problema ao listar os usuários: {mensagemErro}";
                 retornoDto.Retorno = false;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaUsuario, Guid.Empty, retornoDto.Mensagem);
                 return false;
             }
 
@@ -502,6 +577,8 @@ namespace PizzaByteBll
                         {
                             retornoDto.Mensagem = $"Fala ao converter o filtro de 'administrador'.";
                             retornoDto.Retorno = false;
+
+                            logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaUsuario, Guid.Empty, retornoDto.Mensagem);
                             return false;
                         }
 
@@ -515,6 +592,8 @@ namespace PizzaByteBll
                         {
                             retornoDto.Mensagem = $"Fala ao converter o filtro de 'inativo'.";
                             retornoDto.Retorno = false;
+
+                            logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaUsuario, Guid.Empty, retornoDto.Mensagem);
                             return false;
                         }
 
@@ -524,6 +603,8 @@ namespace PizzaByteBll
                     default:
                         retornoDto.Mensagem = $"O filtro {filtro.Key} não está definido para esta pesquisa.";
                         retornoDto.Retorno = false;
+
+                        logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaUsuario, Guid.Empty, retornoDto.Mensagem);
                         return false;
                 }
             }
@@ -566,6 +647,8 @@ namespace PizzaByteBll
                 {
                     retornoDto.Mensagem = "Erro ao converter para DTO: " + mensagemErro;
                     retornoDto.Retorno = false;
+
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaUsuario, usuario.Id, retornoDto.Mensagem);
                     return false;
                 }
 
@@ -597,15 +680,18 @@ namespace PizzaByteBll
                 retornoDto.Retorno = false;
                 retornoDto.Mensagem = "Este usuário não é administrador. Para consultar os usuários é necessário " +
                     $"logar com um usuário administrador. {mensagemErro}";
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarUsuario, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
                 return false;
             }
 
             UsuarioVo usuarioVo = new UsuarioVo();
-
             if (!ObterPorIdBd(requisicaoDto.EntidadeDto.Id, out usuarioVo, ref mensagemErro))
             {
                 retornoDto.Mensagem = "Problemas para encontrar o usuário: " + mensagemErro;
                 retornoDto.Retorno = false;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarUsuario, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
                 return false;
             }
 
@@ -613,6 +699,8 @@ namespace PizzaByteBll
             {
                 retornoDto.Mensagem = "A senha atual informada não está correta.";
                 retornoDto.Retorno = false;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarUsuario, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
                 return false;
             }
 
@@ -620,6 +708,8 @@ namespace PizzaByteBll
             {
                 retornoDto.Mensagem = "Problemas ao converter o usuário para Vo: " + mensagemErro;
                 retornoDto.Retorno = false;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarUsuario, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
                 return false;
             }
 
@@ -628,6 +718,8 @@ namespace PizzaByteBll
             {
                 retornoDto.Retorno = false;
                 retornoDto.Mensagem = "Falha ao salvar os novos dados do usuário: " + mensagemErro;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarUsuario, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
                 return false;
             }
 
@@ -638,6 +730,8 @@ namespace PizzaByteBll
                 {
                     retornoDto.Retorno = false;
                     retornoDto.Mensagem = mensagemErro;
+
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarUsuario, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
                     return false;
                 }
             }

@@ -141,7 +141,7 @@ namespace PizzaByteDal.Base
         /// <param name="entidade">Entidade encontrada</param>
         /// <param name="mensagemErro">Mensagem de erro, caso ocorra</param>
         /// <returns></returns>
-        protected bool ObterPorIdBd(Guid id, out T entidade, ref string mensagemErro)
+        protected bool ObterPorIdBd(Guid id, out T entidade, ref string mensagemErro, bool obterExcluidos = false)
         {
             // Inicializar a entidade
             entidade = null;
@@ -155,8 +155,16 @@ namespace PizzaByteDal.Base
 
             try
             {
-                // Obter a entidade do banco de dados
-                entidade = pizzaByteContexto.Set<T>().Where(p => p.Id == id).FirstOrDefault();
+                if (obterExcluidos)
+                {
+                    // Obter a entidade do banco de dados
+                    entidade = pizzaByteContexto.Set<T>().Where(p => p.Id == id).FirstOrDefault();
+                }
+                else
+                {
+                    // Não obter os excluídos por padrão
+                    entidade = pizzaByteContexto.Set<T>().Where(p => p.Id == id && p.Excluido == false).FirstOrDefault();
+                }
 
                 if (entidade == null)
                 {

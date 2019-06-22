@@ -6,6 +6,7 @@ using PizzaByteVo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static PizzaByteEnum.Enumeradores;
 
 namespace PizzaByteBll
 {
@@ -55,6 +56,8 @@ namespace PizzaByteBll
             {
                 retornoDto.Retorno = false;
                 retornoDto.Mensagem = "Falha ao converter o cep para VO: " + mensagemErro;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirCep, Guid.Empty, retornoDto.Mensagem);
                 return false;
             }
 
@@ -63,6 +66,8 @@ namespace PizzaByteBll
             {
                 retornoDto.Retorno = false;
                 retornoDto.Mensagem = "Falha ao converter o cep para VO: " + mensagemErro;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirCep, Guid.Empty, retornoDto.Mensagem);
                 return false;
             }
 
@@ -73,6 +78,8 @@ namespace PizzaByteBll
                 {
                     retornoDto.Retorno = false;
                     retornoDto.Mensagem = mensagemErro;
+
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirCep, Guid.Empty, retornoDto.Mensagem);
                     return false;
                 }
             }
@@ -104,6 +111,8 @@ namespace PizzaByteBll
                 {
                     retornoDto.Retorno = false;
                     retornoDto.Mensagem = mensagemErro;
+
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.ExcluirCep, requisicaoDto.Id, retornoDto.Mensagem);
                     return false;
                 }
             }
@@ -133,13 +142,19 @@ namespace PizzaByteBll
             {
                 retornoDto.Mensagem = "Erro ao obter o cep: " + mensagemErro;
                 retornoDto.Retorno = false;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterCep, requisicaoDto.Id, retornoDto.Mensagem);
                 return false;
             }
 
             retornoDto.Mensagem = "Ok";
             if (cepVo == null)
             {
+                retornoDto.Retorno = false;
                 retornoDto.Mensagem = "Cep não encontrado";
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterCep, requisicaoDto.Id, retornoDto.Mensagem);
+                return false;
             }
 
             CepDto cepDto = new CepDto();
@@ -147,6 +162,8 @@ namespace PizzaByteBll
             {
                 retornoDto.Mensagem = "Erro ao converter o cep: " + mensagemErro;
                 retornoDto.Retorno = false;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterCep, requisicaoDto.Id, retornoDto.Mensagem);
                 return false;
             }
 
@@ -174,6 +191,8 @@ namespace PizzaByteBll
             {
                 retornoDto.Mensagem = $"Informe um CEP para obter o endereço";
                 retornoDto.Retorno = false;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterCepPorCep, Guid.Empty, retornoDto.Mensagem);
                 return false;
             }
 
@@ -183,6 +202,8 @@ namespace PizzaByteBll
             {
                 retornoDto.Mensagem = $"Houve um problema ao listar os cepes: {mensagemErro}";
                 retornoDto.Retorno = false;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterCepPorCep, Guid.Empty, retornoDto.Mensagem);
                 return false;
             }
 
@@ -206,6 +227,7 @@ namespace PizzaByteBll
                     retornoDto.Retorno = false;
                     retornoDto.Mensagem = $"Erro ao converter o CEP para DTO: {mensagemErro}";
 
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterCepPorCep, Guid.Empty, retornoDto.Mensagem);
                     return false;
                 }
 
@@ -294,8 +316,10 @@ namespace PizzaByteBll
             // Obter a query primária
             if (!this.ObterQueryBd(out query, ref mensagemErro))
             {
-                retornoDto.Mensagem = $"Houve um problema ao listar os cepes: {mensagemErro}";
+                retornoDto.Mensagem = $"Houve um problema ao listar os CEPs: {mensagemErro}";
                 retornoDto.Retorno = false;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaCep, Guid.Empty, retornoDto.Mensagem);
                 return false;
             }
 
@@ -328,6 +352,8 @@ namespace PizzaByteBll
                         {
                             retornoDto.Mensagem = $"Fala ao converter o filtro de 'inativo'.";
                             retornoDto.Retorno = false;
+
+                            logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaCep, Guid.Empty, retornoDto.Mensagem);
                             return false;
                         }
 
@@ -337,6 +363,8 @@ namespace PizzaByteBll
                     default:
                         retornoDto.Mensagem = $"O filtro {filtro.Key} não está definido para esta pesquisa.";
                         retornoDto.Retorno = false;
+
+                        logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaCep, Guid.Empty, retornoDto.Mensagem);
                         return false;
                 }
             }
@@ -383,6 +411,8 @@ namespace PizzaByteBll
                 {
                     retornoDto.Mensagem = "Erro ao converter para DTO: " + mensagemErro;
                     retornoDto.Retorno = false;
+
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaCep, cep.Id, retornoDto.Mensagem);
                     return false;
                 }
 
@@ -414,6 +444,8 @@ namespace PizzaByteBll
             {
                 retornoDto.Mensagem = "Problemas para encontrar o cep: " + mensagemErro;
                 retornoDto.Retorno = false;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarCep, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
                 return false;
             }
 
@@ -421,13 +453,17 @@ namespace PizzaByteBll
             {
                 retornoDto.Mensagem = "Problemas ao converter o cep para Vo: " + mensagemErro;
                 retornoDto.Retorno = false;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarCep, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
                 return false;
             }
 
             if (!EditarBd(cepVo, ref mensagemErro))
             {
                 retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Falha ao salvar os novos dados do cep: " + mensagemErro;
+                retornoDto.Mensagem = "Falha ao editar os novos dados do CEP: " + mensagemErro;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarCep, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
                 return false;
             }
 
@@ -437,7 +473,9 @@ namespace PizzaByteBll
                 if (!pizzaByteContexto.Salvar(ref mensagemErro))
                 {
                     retornoDto.Retorno = false;
-                    retornoDto.Mensagem = mensagemErro;
+                    retornoDto.Mensagem = "Falha ao salvar os novos dados: " + mensagemErro;
+
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarCep, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
                     return false;
                 }
             }

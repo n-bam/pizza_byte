@@ -56,6 +56,8 @@ namespace PizzaByteBll
             {
                 retornoDto.Retorno = false;
                 retornoDto.Mensagem = "Falha ao converter o produto para VO: " + mensagemErro;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirProduto, Guid.Empty, retornoDto.Mensagem);
                 return false;
             }
 
@@ -64,6 +66,8 @@ namespace PizzaByteBll
             {
                 retornoDto.Retorno = false;
                 retornoDto.Mensagem = "Falha ao converter o produto para VO: " + mensagemErro;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirProduto, Guid.Empty, retornoDto.Mensagem);
                 return false;
             }
 
@@ -74,6 +78,8 @@ namespace PizzaByteBll
                 {
                     retornoDto.Retorno = false;
                     retornoDto.Mensagem = mensagemErro;
+
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirProduto, Guid.Empty, retornoDto.Mensagem);
                     return false;
                 }
             }
@@ -102,6 +108,8 @@ namespace PizzaByteBll
                 retornoDto.Retorno = false;
                 retornoDto.Mensagem = "Este usuário não é administrador. Para excluir produtos é necessário " +
                     $"logar com um usuário administrador. {mensagemErro}";
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ExcluirProduto, requisicaoDto.Id, retornoDto.Mensagem);
                 return false;
             }
 
@@ -112,6 +120,8 @@ namespace PizzaByteBll
                 {
                     retornoDto.Retorno = false;
                     retornoDto.Mensagem = mensagemErro;
+
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.ExcluirProduto, requisicaoDto.Id, retornoDto.Mensagem);
                     return false;
                 }
             }
@@ -141,13 +151,19 @@ namespace PizzaByteBll
             {
                 retornoDto.Mensagem = "Erro ao obter o produto: " + mensagemErro;
                 retornoDto.Retorno = false;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterProduto, requisicaoDto.Id, retornoDto.Mensagem);
                 return false;
             }
 
             retornoDto.Mensagem = "Ok";
             if (produtoVo == null)
             {
+                retornoDto.Retorno = false;
                 retornoDto.Mensagem = "Produto não encontrado";
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterProduto, requisicaoDto.Id, retornoDto.Mensagem);
+                return false;
             }
 
             ProdutoDto produtoDto = new ProdutoDto();
@@ -155,6 +171,8 @@ namespace PizzaByteBll
             {
                 retornoDto.Mensagem = "Erro ao converter o produto: " + mensagemErro;
                 retornoDto.Retorno = false;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterProduto, requisicaoDto.Id, retornoDto.Mensagem);
                 return false;
             }
 
@@ -240,6 +258,8 @@ namespace PizzaByteBll
             {
                 retornoDto.Mensagem = $"Houve um problema ao listar os produtoes: {mensagemErro}";
                 retornoDto.Retorno = false;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaProduto, Guid.Empty, retornoDto.Mensagem);
                 return false;
             }
 
@@ -258,6 +278,8 @@ namespace PizzaByteBll
                         {
                             retornoDto.Mensagem = $"Problema ao converter o filtro de preço (maior que).";
                             retornoDto.Retorno = false;
+
+                            logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaProduto, Guid.Empty, retornoDto.Mensagem);
                             return false;
                         }
 
@@ -270,6 +292,8 @@ namespace PizzaByteBll
                         {
                             retornoDto.Mensagem = $"Problema ao converter o filtro de preço (menor que).";
                             retornoDto.Retorno = false;
+
+                            logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaProduto, Guid.Empty, retornoDto.Mensagem);
                             return false;
                         }
 
@@ -282,6 +306,8 @@ namespace PizzaByteBll
                         {
                             retornoDto.Mensagem = $"Problema ao converter o filtro de preço.";
                             retornoDto.Retorno = false;
+
+                            logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaProduto, Guid.Empty, retornoDto.Mensagem);
                             return false;
                         }
 
@@ -295,6 +321,8 @@ namespace PizzaByteBll
                         {
                             retornoDto.Mensagem = $"Problema ao converter o filtro de tipo.";
                             retornoDto.Retorno = false;
+
+                            logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaProduto, Guid.Empty, retornoDto.Mensagem);
                             return false;
                         }
 
@@ -308,6 +336,8 @@ namespace PizzaByteBll
                         {
                             retornoDto.Mensagem = $"Fala ao converter o filtro de 'inativo'.";
                             retornoDto.Retorno = false;
+
+                            logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaProduto, Guid.Empty, retornoDto.Mensagem);
                             return false;
                         }
 
@@ -317,6 +347,8 @@ namespace PizzaByteBll
                     default:
                         retornoDto.Mensagem = $"O filtro {filtro.Key} não está definido para esta pesquisa.";
                         retornoDto.Retorno = false;
+
+                        logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaProduto, Guid.Empty, retornoDto.Mensagem);
                         return false;
                 }
             }
@@ -363,6 +395,8 @@ namespace PizzaByteBll
                 {
                     retornoDto.Mensagem = "Erro ao converter para DTO: " + mensagemErro;
                     retornoDto.Retorno = false;
+
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaProduto, produto.Id, retornoDto.Mensagem);
                     return false;
                 }
 
@@ -393,6 +427,8 @@ namespace PizzaByteBll
             {
                 retornoDto.Mensagem = "Problemas para encontrar o produto: " + mensagemErro;
                 retornoDto.Retorno = false;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarProduto, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
                 return false;
             }
 
@@ -400,6 +436,8 @@ namespace PizzaByteBll
             {
                 retornoDto.Mensagem = "Problemas ao converter o produto para Vo: " + mensagemErro;
                 retornoDto.Retorno = false;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarProduto, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
                 return false;
             }
 
@@ -407,6 +445,8 @@ namespace PizzaByteBll
             {
                 retornoDto.Retorno = false;
                 retornoDto.Mensagem = "Falha ao salvar os novos dados do produto: " + mensagemErro;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarProduto, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
                 return false;
             }
 
@@ -417,6 +457,8 @@ namespace PizzaByteBll
                 {
                     retornoDto.Retorno = false;
                     retornoDto.Mensagem = mensagemErro;
+
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarProduto, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
                     return false;
                 }
             }
