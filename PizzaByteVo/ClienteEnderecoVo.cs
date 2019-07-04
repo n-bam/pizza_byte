@@ -14,11 +14,13 @@ namespace PizzaByteVo
     {
         /// <summary>
         /// Numero do endereço do cliente
+        /// MIN: 1 / MAX: 400
         /// </summary>
         public string NumeroEndereco;
 
         /// <summary>
         /// Pontos de referência do endereço do cliente
+        /// MIN: 0 / MAX: 2000
         /// </summary>
         public string ComplementeEndereco;
 
@@ -29,6 +31,7 @@ namespace PizzaByteVo
 
         /// <summary>
         /// Identifica o CEP do endereço
+        /// MIN: 1 / MAX: 8
         /// </summary>
         public string Cep;
 

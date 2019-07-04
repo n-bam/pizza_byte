@@ -7,11 +7,13 @@
     {
         /// <summary>
         /// Bairro que a taxa de entrega abrange
+        /// MIN: 3 
         /// </summary>
         public string Bairro;
 
         /// <summary>
         /// Valor de entrega para o bairro correspondente
+        /// MIN: 0
         /// </summary>
         public float ValorTaxa;
     }

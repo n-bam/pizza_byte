@@ -170,6 +170,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CepController.cs" />
+    <Compile Include="Controllers\FuncionarioController.cs" />
     <Compile Include="Controllers\PedidoController.cs" />
     <Compile Include="Controllers\ProdutoController.cs" />
     <Compile Include="Controllers\FornecedorController.cs" />
@@ -180,8 +181,10 @@
     <Compile Include="Helpers\HMTLHelperExtensions.cs" />
     <Compile Include="Models\ClienteEnderecoModel.cs" />
     <Compile Include="Models\FiltrosPesquisa\FiltrosCepModel.cs" />
+    <Compile Include="Models\FiltrosPesquisa\FiltrosFuncionarioModel .cs" />
     <Compile Include="Models\FiltrosPesquisa\FiltrosFornecedorModel.cs" />
     <Compile Include="Models\FiltrosPesquisa\FiltrosUsuarioModel.cs" />
+    <Compile Include="Models\FuncionarioModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\FornecedorModel.cs" />
     <Compile Include="Models\UsuarioModel.cs" />
@@ -4152,6 +4155,16 @@
     <Content Include="Views\Produto\Index.cshtml" />
     <Content Include="Views\Produto\Visualizar.cshtml" />
     <Content Include="Views\Usuario\RecuperarSenha.cshtml" />
+    <Content Include="Views\Produto\Fornecedor\Editar.cshtml" />
+    <Content Include="Views\Produto\Fornecedor\Excluir.cshtml" />
+    <Content Include="Views\Produto\Fornecedor\Incluir.cshtml" />
+    <Content Include="Views\Produto\Fornecedor\Index.cshtml" />
+    <Content Include="Views\Produto\Fornecedor\Visualizar.cshtml" />
+    <Content Include="Views\Funcionario\Editar.cshtml" />
+    <Content Include="Views\Funcionario\Excluir.cshtml" />
+    <Content Include="Views\Funcionario\Incluir.cshtml" />
+    <Content Include="Views\Funcionario\Index.cshtml" />
+    <Content Include="Views\Funcionario\Visualizar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

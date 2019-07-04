@@ -10,11 +10,13 @@ namespace PizzaByteVo
     {
         /// <summary>
         /// Indica se é entrega, retirada ou balcão
+        /// MIN: 0
         /// </summary>
         public TipoPedido Tipo { get; set; }
 
         /// <summary>
         /// Valor total do pedido
+        /// MIN: 0 
         /// </summary>
         public float Total { get; set; }
 
@@ -25,6 +27,7 @@ namespace PizzaByteVo
 
         /// <summary>
         /// Valor da taxa de entrega de acordo com o bairro
+        /// MIN: 0 
         /// </summary>
         public float TaxaEntrega { get; set; }
 

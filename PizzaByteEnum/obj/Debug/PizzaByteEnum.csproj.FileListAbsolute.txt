@@ -20,3 +20,9 @@ C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteEnum\obj\Debug\
 C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteEnum\obj\Debug\PizzaByteEnum.csproj.CoreCompileInputs.cache
 C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteEnum\obj\Debug\PizzaByteEnum.dll
 C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteEnum\obj\Debug\PizzaByteEnum.pdb
+C:\Users\Huxley\Source\Repos\pizza_byte\PizzaByteEnum\bin\Debug\PizzaByteEnum.dll
+C:\Users\Huxley\Source\Repos\pizza_byte\PizzaByteEnum\bin\Debug\PizzaByteEnum.pdb
+C:\Users\Huxley\Source\Repos\pizza_byte\PizzaByteEnum\obj\Debug\PizzaByteEnum.csprojAssemblyReference.cache
+C:\Users\Huxley\Source\Repos\pizza_byte\PizzaByteEnum\obj\Debug\PizzaByteEnum.csproj.CoreCompileInputs.cache
+C:\Users\Huxley\Source\Repos\pizza_byte\PizzaByteEnum\obj\Debug\PizzaByteEnum.dll
+C:\Users\Huxley\Source\Repos\pizza_byte\PizzaByteEnum\obj\Debug\PizzaByteEnum.pdb
