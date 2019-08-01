@@ -125,3 +125,34 @@ C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteTestesUnitarios
 C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteTestesUnitarios\obj\Debug\PizzaByteTestesUnitarios.csproj.CopyComplete
 C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteTestesUnitarios\obj\Debug\PizzaByteTestesUnitarios.dll
 C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteTestesUnitarios\obj\Debug\PizzaByteTestesUnitarios.pdb
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteTestesUnitarios\obj\Debug\PizzaByteTestesUnitarios.csprojAssemblyReference.cache
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteTestesUnitarios\obj\Debug\PizzaByteTestesUnitarios.csproj.CoreCompileInputs.cache
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteTestesUnitarios\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteTestesUnitarios\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteTestesUnitarios\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteTestesUnitarios\bin\Debug\PizzaByteTestesUnitarios.dll.config
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteTestesUnitarios\bin\Debug\PizzaByteTestesUnitarios.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteTestesUnitarios\bin\Debug\PizzaByteTestesUnitarios.pdb
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteTestesUnitarios\bin\Debug\EntityFramework.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteTestesUnitarios\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteTestesUnitarios\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteTestesUnitarios\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteTestesUnitarios\bin\Debug\PizzaByteBll.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteTestesUnitarios\bin\Debug\PizzaByteDal.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteTestesUnitarios\bin\Debug\PizzaByteDto.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteTestesUnitarios\bin\Debug\PizzaByteEnum.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteTestesUnitarios\bin\Debug\PizzaByteVo.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteTestesUnitarios\bin\Debug\PizzaByteBll.pdb
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteTestesUnitarios\bin\Debug\PizzaByteBll.dll.config
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteTestesUnitarios\bin\Debug\PizzaByteDal.pdb
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteTestesUnitarios\bin\Debug\PizzaByteDal.dll.config
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteTestesUnitarios\bin\Debug\PizzaByteDto.pdb
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteTestesUnitarios\bin\Debug\PizzaByteEnum.pdb
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteTestesUnitarios\bin\Debug\PizzaByteVo.pdb
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteTestesUnitarios\bin\Debug\EntityFramework.xml
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteTestesUnitarios\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteTestesUnitarios\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteTestesUnitarios\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteTestesUnitarios\obj\Debug\PizzaByteTestesUnitarios.csproj.CopyComplete
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteTestesUnitarios\obj\Debug\PizzaByteTestesUnitarios.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteTestesUnitarios\obj\Debug\PizzaByteTestesUnitarios.pdb

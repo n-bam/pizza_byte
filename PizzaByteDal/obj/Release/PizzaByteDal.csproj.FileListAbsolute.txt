@@ -18,3 +18,22 @@ C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteDal\obj
 C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteDal\obj\Release\PizzaByteDal.dll
 C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteDal\obj\Release\PizzaByteDal.pdb
 C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteDal\obj\Release\PizzaByteDal.Migrations.AdicionarTabelaFornecedorECeps.resources
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDal\bin\Release\PizzaByteDal.dll.config
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDal\bin\Release\PizzaByteDal.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDal\bin\Release\PizzaByteDal.pdb
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDal\bin\Release\EntityFramework.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDal\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDal\bin\Release\PizzaByteEnum.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDal\bin\Release\PizzaByteVo.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDal\bin\Release\PizzaByteEnum.pdb
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDal\bin\Release\PizzaByteVo.pdb
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDal\bin\Release\EntityFramework.xml
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDal\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDal\obj\Release\PizzaByteDal.csprojAssemblyReference.cache
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDal\obj\Release\PizzaByteDal.Migrations.IncluirTabelasIniciais.resources
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDal\obj\Release\PizzaByteDal.Migrations.IncluirTabelaTaxaEntrega.resources
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDal\obj\Release\PizzaByteDal.csproj.GenerateResource.cache
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDal\obj\Release\PizzaByteDal.csproj.CoreCompileInputs.cache
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDal\obj\Release\PizzaByteDal.csproj.CopyComplete
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDal\obj\Release\PizzaByteDal.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDal\obj\Release\PizzaByteDal.pdb

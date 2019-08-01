@@ -1,0 +1,130 @@
+﻿@model PizzaByteSite.Models.FornecedorModel
+
+@{
+    ViewBag.Title = "Editar Fornecedor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="content-wrapper">
+    <div class="content-header">
+        <h1>
+            Fornecedores
+            <small>Visualizar</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="~/Usuario/Inicio"><i class="fa fa-home"></i> Inicio</a></li>
+            <li><a href="~/Fornecedor/Index"><i class="fa fa-tags"></i> Fornecedores</a></li>
+            <li class="active"><i class="fa fa-eye"></i> Visualizar</li>
+        </ol>
+    </div>
+
+    <div class="content">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h2 class="box-title">Informações do fornecedor</h2>
+                    </div>
+                    <div class="box-body">
+                        <div class="form-horizontal">
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Inativo, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-3" })
+                                <div class="col-lg-1 col-md-1 col-sm-2 col-xs-12" style="margin-top: 5px" disabled>
+                                    @Html.EditorFor(m => m.Inativo, new { @class = "form-control checkbox" })
+                                    @Html.ValidationMessageFor(m => m.Inativo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.NomeFantasia, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
+                                    @Html.EditorFor(m => m.NomeFantasia, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(m => m.NomeFantasia, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.RazaoSocial, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
+                                    @Html.EditorFor(m => m.RazaoSocial, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(m => m.RazaoSocial, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Cnpj, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
+                                    @Html.EditorFor(m => m.Cnpj, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(m => m.Cnpj, "", new { @class = "text-danger" })
+                                </div>
+
+                                @Html.LabelFor(m => m.Telefone, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
+                                    @Html.EditorFor(m => m.Telefone, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(m => m.Telefone, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Obs, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
+                                    @Html.EditorFor(m => m.Obs, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(m => m.Obs, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <h4 class="box-title">Dados do endereço</h4>
+                            <hr class="hr-line-drashed" />
+
+                            @Html.Partial("_Endereco", Model.Endereco, new ViewDataDictionary(Html.ViewData) { TemplateInfo = new System.Web.Mvc.TemplateInfo { HtmlFieldPrefix = "Endereco" } })
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.NumeroEndereco, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
+                                    @Html.EditorFor(m => m.NumeroEndereco, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(m => m.NumeroEndereco, "", new { @class = "text-danger" })
+                                </div>
+
+                                @Html.LabelFor(m => m.ComplementoEndereco, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
+                                    @Html.EditorFor(m => m.ComplementoEndereco, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(m => m.ComplementoEndereco, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.DataInclusao, new { @class = "col-lg-4 col-md-3 col-sm-3 col-xs-12 alinhadoDireita small" })
+                                <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12 alinhadoDireita small">
+                                    @Html.HiddenFor(m => m.DataInclusao)
+                                    @Html.DisplayFor(m => m.DataInclusao, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.DataInclusao, "", new { @class = "text-danger" })
+                                </div>
+
+                                @Html.LabelFor(m => m.DataAlteracao, new { @class = "col-lg-4 col-md-3 col-sm-3 col-xs-12 alinhadoDireita small" })
+                                <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12 alinhadoDireita small">
+                                    @Html.HiddenFor(m => m.DataAlteracao)
+                                    @Html.DisplayFor(m => m.DataAlteracao, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.DataAlteracao, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="box-footer">
+                                <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-3">
+                                    <a class="btn btn-default" href="~/Fornecedor/Index"><i class="fa fa-mail-reply"></i> Voltar</a>
+                                    <a class="btn btn-primary" href="~/Fornecedor/Editar/@Model.Id"><i class="fa fa-pencil"></i> Editar</a>
+                                    <a class="btn btn-danger" href="~/Fornecedor/Excluir/@Model.Id?@(Model.NomeFantasia + " (" + Model.RazaoSocial + ")")"><i class="fa fa-trash"></i> Excluir</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(".form-control").attr("readonly", "readonly");
+    $("#btnBuscarCep").attr("disabled", "disabled");
+    $("#btnBuscarEndereco").attr("disabled", "disabled");
+</script>

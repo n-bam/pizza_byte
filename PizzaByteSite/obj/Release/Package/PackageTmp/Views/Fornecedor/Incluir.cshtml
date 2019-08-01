@@ -71,10 +71,24 @@
                                     </div>
                                 </div>
 
-                                <h3 class="box-title">Endereço</h3>
+                                <h4 class="box-title">Dados do endereço</h4>
                                 <hr class="hr-line-drashed" />
 
-                                @Html.Partial("_Endereco", Model)
+                                @Html.Partial("_Endereco", Model.Endereco, new ViewDataDictionary(Html.ViewData) { TemplateInfo = new System.Web.Mvc.TemplateInfo { HtmlFieldPrefix = "Endereco" } })
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.NumeroEndereco, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
+                                        @Html.EditorFor(m => m.NumeroEndereco, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(m => m.NumeroEndereco, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    @Html.LabelFor(m => m.ComplementoEndereco, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
+                                        @Html.EditorFor(m => m.ComplementoEndereco, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(m => m.ComplementoEndereco, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
 
                                 <div class="box-footer">
                                     <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-3">
@@ -91,5 +105,14 @@
     </div>
 </div>
 
+<script src="~/Scripts/PizzaByteSite/plugins/mask/jquery.mask.min.js"></script>
 
+<script>
+    $(document).ready(function () {
+
+        $("#Cnpj").mask("99.999.999/9999-99", { placeholder: "__.___.___/____-__" });
+        $("#Telefone").mask("(99) 9999-99999", { placeholder: "(__) _____-____" });       
+       
+    });
+</script>
 

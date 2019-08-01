@@ -4,3 +4,9 @@ C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteEnum\ob
 C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteEnum\obj\Release\PizzaByteEnum.csproj.CoreCompileInputs.cache
 C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteEnum\obj\Release\PizzaByteEnum.dll
 C:\Users\jlman\Documents\Visual Studio 2017\C#\PizzaByte\TCC-v1\PizzaByteEnum\obj\Release\PizzaByteEnum.pdb
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteEnum\bin\Release\PizzaByteEnum.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteEnum\bin\Release\PizzaByteEnum.pdb
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteEnum\obj\Release\PizzaByteEnum.csprojAssemblyReference.cache
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteEnum\obj\Release\PizzaByteEnum.csproj.CoreCompileInputs.cache
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteEnum\obj\Release\PizzaByteEnum.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteEnum\obj\Release\PizzaByteEnum.pdb

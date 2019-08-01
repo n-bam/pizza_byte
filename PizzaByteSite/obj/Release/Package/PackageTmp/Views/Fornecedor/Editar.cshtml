@@ -11,7 +11,7 @@
             <small>Editar</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="~/Fornecedor/Inicio"><i class="fa fa-home"></i> Inicio</a></li>
+            <li><a href="~/Usuario/Inicio"><i class="fa fa-home"></i> Inicio</a></li>
             <li><a href="~/Fornecedor/Index"><i class="fa fa-tags"></i> Fornecedores</a></li>
             <li class="active"><i class="fa fa-pencil"></i> Editar</li>
         </ol>
@@ -72,10 +72,24 @@
                                     </div>
                                 </div>
 
-                                <h3 class="box-title">Endereço</h3>
+                                <h4 class="box-title">Dados do endereço</h4>
                                 <hr class="hr-line-drashed" />
 
-                                @Html.Partial("_Endereco", Model)
+                                @Html.Partial("_Endereco", Model.Endereco, new ViewDataDictionary(Html.ViewData) { TemplateInfo = new System.Web.Mvc.TemplateInfo { HtmlFieldPrefix = "Endereco" } })
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.NumeroEndereco, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
+                                        @Html.EditorFor(m => m.NumeroEndereco, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(m => m.NumeroEndereco, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    @Html.LabelFor(m => m.ComplementoEndereco, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
+                                        @Html.EditorFor(m => m.ComplementoEndereco, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(m => m.ComplementoEndereco, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
 
                                 <div class="form-group">
                                     @Html.LabelFor(m => m.DataInclusao, new { @class = "col-lg-4 col-md-3 col-sm-3 col-xs-12 alinhadoDireita small" })
@@ -95,7 +109,7 @@
 
                                 <div class="box-footer">
                                     <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-3">
-                                        <button type="button" class="btn btn-default" onclick="window.history.back();"><i class="fa fa-mail-reply "></i> Cancelar</button>
+                                        <button type="button" class="btn btn-default" onclick="window.history.back();"><i class="fa fa-mail-reply"></i> Cancelar</button>
                                         <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Gravar</button>
                                     </div>
                                 </div>
@@ -108,3 +122,13 @@
     </div>
 </div>
 
+<script src="~/Scripts/PizzaByteSite/plugins/mask/jquery.mask.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        $("#Cnpj").mask("99.999.999/9999-99", { placeholder: "__.___.___/____-__" });
+        $("#Telefone").mask("(99) 9999-99999", { placeholder: "(__) _____-____" });
+
+    });
+</script>

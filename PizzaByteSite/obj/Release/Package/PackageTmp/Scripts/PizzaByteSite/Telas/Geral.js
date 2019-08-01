@@ -1,4 +1,13 @@
-﻿function MostrarMensagemRetorno(retornoMensagem, inicioMensagem) {
+﻿// -------> Retorna o endereço do site
+function RetornarEndereco() {
+    //var enderecoServico = "http://localhost:55751";
+    var enderecoServico = window.location.protocol + "//" + window.location.host;
+    //var enderecoServico = "http://pizzabyte.gearhostpreview.com";
+    return enderecoServico;
+}
+
+// -------> Mostra o toast com a mensagem de erro ou sucesso
+function MostrarMensagemRetorno(retornoMensagem, inicioMensagem) {
     toastr.options = {
         "showDuration": "400",
         "hideDuration": "600",
@@ -8,15 +17,15 @@
 
     switch (retornoMensagem) {
         case "INCLUIDO":
-            toastr.success(inicioMensagem + " foi incluído com sucesso!", "Produto incluído");
+            toastr.success(inicioMensagem + " foi incluído com sucesso!", "Tudo certo!");
             break;
 
         case "ALTERADO":
-            toastr.success(inicioMensagem + " foi alterado com sucesso!");
+            toastr.success(inicioMensagem + " foi alterado com sucesso!", "Tudo certo!");
             break;
 
         case "EXCLUIDO":
-            toastr.success(inicioMensagem + " foi excluído com sucesso!");
+            toastr.success(inicioMensagem + " foi excluído com sucesso!", "Tudo certo!");
             break;
 
         default:
@@ -24,100 +33,121 @@
     }
 }
 
-function RetornarEndereco() {
-    var enderecoServico = "http://localhost:55751/";
-    return enderecoServico;
-}
-
-function PaginarPesquisa() {
-
-}
-
+// -------> Exibe a div de carregando
 function ExibirCarregando() {
     $("#divCarregando").attr("class", "overlay");
     $("#divCarregando").hide();
-
 }
 
+// -------> Esconde a div de carregando
 function EsconderCarregando() {
     $("#divCarregando").removeAttr("class");
     $("#divCarregando").hide();
 
 }
 
-function ObterEndereco(cepPesquisado) {
-    $("#Endereco_Logradouro").attr("readonly", "readonly");
-    $("#Endereco_Cidade").attr("readonly", "readonly");
-    $("#Endereco_Bairro").attr("readonly", "readonly");
+// -------> Monta a paginação de uma pesquisa com 5 botões que correm de acordo com a pg selecionada
+function PaginarPesquisa(totalPaginas, paginaSelecionado, metodoPesquisa) {
 
-    $.ajax({
-        type: "POST",
-        url: RetornarEndereco() + "/Cep/ObterPorCep",
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        data: JSON.stringify({
-            cep: cepPesquisado,
-        }),
-        traditional: true,
-        success: function (dados, status, request) {
-            if (dados.Error != undefined) {
-                swal({
-                    title: "Ops...",
-                    html: true,
-                    text: "Ocorreu um problema ao fazer a pesquisa de CEP. \n"
-                        + "\n Mensagem de retorno: " + dados.Error,
-                    icon: "warning",
-                    button: "Ok"
-                });
+    //Remover as paginas da pesquisa anterior e adicionar uma nova paginação
+    $("#divPaginas ul").remove();
+    $("#divPaginas").append('<ul class="pagination pagination-md no-margin pull-right" id="paginacao"></ul>');
 
-                return;
-            }
+    if (totalPaginas > 0) {
+        //Adicionar botão para voltar para a 1ª pg, se não for ela a selecionadas
+        if (paginaSelecionado !== 1) {
+            $("#paginacao").append('<li><a href="#" onclick="' + metodoPesquisa + '(1)">«</a>');
+        }
 
-            if (!dados.Retorno) {
-                swal({
-                    title: "Ops...",
-                    text: "Ocorreu um problema ao fazer a pesquisa de CEP. \n"
-                        + "Se o problema continuar, entre em contato com o suporte. \n"
-                        + "Mensagem de retorno: " + dados.Mensagem,
-                    icon: "warning",
-                    button: "Ok",
-                });
+        //Se tiver até 5 paginas (número máximo de botões)
+        if (totalPaginas <= 5) {
 
-            } else {
-
-                if (dados.Entidade != null) {
-                    $("#Endereco_Logradouro").val(dados.Entidade.Logradouro);
-                    $("#Endereco_Cidade").val(dados.Entidade.Cidade);
-                    $("#Endereco_Bairro").val(dados.Entidade.Bairro);
-                    $("#Endereco_Id").val(dados.Entidade.Id);
-
-                } else {
-                    toastr.success("CEP não encontrado. Para adicionar, preencha os dados do endereço.", "Pesquisa de CEP");
-
-                    $("#Endereco_Id").val("00000000-0000-0000-0000-000000000000");
-                    $("#Endereco_Logradouro").removeAttr("readonly");
-                    $("#Endereco_Cidade").removeAttr("readonly");
-                    $("#Endereco_Bairro").removeAttr("readonly");
-                    $("#Endereco_Logradouro").focus();
+            //Percorrer as páginas e adiconar os botões para todas
+            for (var i = 1; i <= totalPaginas; i++) {
+                if (i === paginaSelecionado) {
+                    $('#paginacao').append('<li><a href="#">' + i + '</a></li>');
+                }
+                else {
+                    $('#paginacao').append('<li><a href="#" onclick="' + metodoPesquisa + '(' + i + ')">' + i + '</a></li>');
                 }
             }
-        },
-        error: function (request, status, error) {
-            swal({
-                title: "Ops...",
-                text: "Ocorreu um problema ao fazer a pesquisa de CEP. \n"
-                    + "Se o problema continuar, entre em contato com o suporte. \n"
-                    + "Mensagem de retorno: " + dados.Mensagem,
-                icon: "warning",
-                button: "Ok",
-            });
+
+        } else { //Se tiver mais de 5
+
+            //Até a página 3
+            if (paginaSelecionado <= 3) {
+                //sequencia normal até a 5ª pagina
+                for (var i = 1; i <= 5; i++) {
+                    if (i === paginaSelecionado) {
+                        $('#paginacao').append('<li><a href="#">' + i + '</a></li>');
+                    }
+                    else {
+                        $('#paginacao').append('<li><a href="#" onclick="' + metodoPesquisa + '(' + i + ')">' + i + '</a></li>');
+                    }
+                }
+
+            } else { //Maior que a pg 3
+
+                //Se tiver mais que 2 paginas restantes depois da selecionada
+                var restante = totalPaginas - paginaSelecionado;
+                if (restante >= 2) {
+
+                    //Mostrar a selecionada no meio, duas anteriores e próximas duas
+                    for (var i = -2; i <= 2; i++) {
+                        if (paginaSelecionado - i === paginaSelecionado) {
+                            $('#paginacao').append('<li><a href="#">' + paginaSelecionado + '</a></li>');
+                        }
+                        else {
+                            $('#paginacao').append('<li><a href="#" onclick="' + metodoPesquisa + '('
+                                + (paginaSelecionado + i) + ')">' + (paginaSelecionado + i) + '</a></li>');
+                        }
+                    }
+
+                    //Se tiver menos que 2 pg
+                } else {
+                    //Mostrar as 5 últimas pgs
+                    for (var i = totalPaginas - 4; i <= totalPaginas; i++) {
+                        if (i === paginaSelecionado) {
+                            $('#paginacao').append('<li><a href="#">' + i + '</a></li>');
+                        }
+                        else {
+                            $('#paginacao').append('<li><a href="#" onclick="' + metodoPesquisa + '('
+                                + i + ')">' + i + '</a></li>');
+                        }
+                    }
+                }
+            }
         }
-    });
+
+        //Adicionar botão para ir para a última pg, se não for ela a selecionadas
+        if (paginaSelecionado != totalPaginas && totalPaginas !== 0) {
+            $("#paginacao").append('<li><a href="#" onclick="' + metodoPesquisa + '(' + totalPaginas + ')">»</a>');
+        }
+    }
 }
 
-$(document).keypress(function (e) {
-    if (e.keyCode === 13) {
-        e.preventDefault();
-        return false;
+// -------> Retorna o texto do CNPJ com pontuação
+function FormatarCnpj(cnpj) {
+    if (cnpj !== "" && cnpj != null && cnpj.length > 0) {
+
+        cnpj = cnpj.replace(/\D/g, '')
+            .replace(/^(\d{2})(\d{3})?(\d{3})?(\d{4})?(\d{2})?/, "$1.$2.$3/$4-$5");
+
+        return cnpj;
+    } else {
+        return "";
     }
-});
+}
+
+// -------> Retorna o texto do CEP com pontuação
+function FormatarCep(cep) {
+    if (cep !== "" && cep != null && cep.length > 0) {
+
+        cep = cep.replace(/\D/g, '')
+            .replace(/^(\d{5})(\d{3})/, "$1-$2");
+
+        return cep;
+    } else {
+        return "";
+    }
+}

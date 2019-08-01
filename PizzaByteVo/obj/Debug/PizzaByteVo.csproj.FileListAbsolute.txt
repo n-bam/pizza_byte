@@ -34,12 +34,12 @@ C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteVo\obj\Debug\Pi
 C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteVo\obj\Debug\PizzaByteVo.csproj.CopyComplete
 C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteVo\obj\Debug\PizzaByteVo.dll
 C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteVo\obj\Debug\PizzaByteVo.pdb
-C:\Users\Huxley\Source\Repos\pizza_byte\PizzaByteVo\bin\Debug\PizzaByteVo.dll
-C:\Users\Huxley\Source\Repos\pizza_byte\PizzaByteVo\bin\Debug\PizzaByteVo.pdb
-C:\Users\Huxley\Source\Repos\pizza_byte\PizzaByteVo\bin\Debug\PizzaByteEnum.dll
-C:\Users\Huxley\Source\Repos\pizza_byte\PizzaByteVo\bin\Debug\PizzaByteEnum.pdb
-C:\Users\Huxley\Source\Repos\pizza_byte\PizzaByteVo\obj\Debug\PizzaByteVo.csprojAssemblyReference.cache
-C:\Users\Huxley\Source\Repos\pizza_byte\PizzaByteVo\obj\Debug\PizzaByteVo.csproj.CoreCompileInputs.cache
-C:\Users\Huxley\Source\Repos\pizza_byte\PizzaByteVo\obj\Debug\PizzaByteVo.csproj.CopyComplete
-C:\Users\Huxley\Source\Repos\pizza_byte\PizzaByteVo\obj\Debug\PizzaByteVo.dll
-C:\Users\Huxley\Source\Repos\pizza_byte\PizzaByteVo\obj\Debug\PizzaByteVo.pdb
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteVo\bin\Debug\PizzaByteVo.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteVo\bin\Debug\PizzaByteVo.pdb
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteVo\bin\Debug\PizzaByteEnum.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteVo\bin\Debug\PizzaByteEnum.pdb
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteVo\obj\Debug\PizzaByteVo.csprojAssemblyReference.cache
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteVo\obj\Debug\PizzaByteVo.csproj.CoreCompileInputs.cache
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteVo\obj\Debug\PizzaByteVo.csproj.CopyComplete
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteVo\obj\Debug\PizzaByteVo.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteVo\obj\Debug\PizzaByteVo.pdb

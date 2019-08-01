@@ -1,0 +1,130 @@
+﻿@model PizzaByteSite.Models.FiltrosCepModel
+
+@{
+    ViewBag.Title = "CEPs";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="form-horizontal">
+        <div class="content-header">
+            <h1>
+                CEPs
+                <small>Listagem</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="~/Usuario/Inicio"><i class="fa fa-home"></i> Inicio</a></li>
+                <li><a class="active"><i class="fa fa-tags"></i> CEPs</a></li>
+            </ol>
+        </div>
+
+        <div class="content">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Pesquisa de CEP</h3>
+                        </div>
+
+                        <div class="box-body">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Cep, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                <div class="col-lg-4 col-md-5 col-sm-9 col-xs-12">
+                                    @Html.EditorFor(m => m.Cep, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+
+                                @Html.LabelFor(m => m.Cidade, new { @class = "control-label col-lg-1 col-md-2 col-sm-3 col-xs-12" })
+                                <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
+                                    @Html.EditorFor(m => m.Cidade, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Logradouro, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                <div class="col-lg-9 col-md-10 col-sm-9 col-xs-12">
+                                    @Html.EditorFor(m => m.Logradouro, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Bairro, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
+                                    @Html.EditorFor(m => m.Bairro, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+
+                                @Html.LabelFor(m => m.ObterInativos, new { @class = "control-label col-lg-1 col-md-2 col-sm-3 col-xs-12" })
+                                <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
+                                    @Html.DropDownListFor(m => m.ObterInativos, Model.ListaInativo, new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-3 col-lg-10 col-md-10 col-sm-9 col-xs-12">
+                                    <button class="btn btn-primary" id="btnBuscarCeps"><i class="fa fa-search"></i> Buscar</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="overlay" id="divCarregando">
+                            <i class="fa fa-refresh fa-spin"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Lista de CEPs cadastrados</h3>
+                        </div>
+
+                        <div class="box-body table-responsive">
+                            <table class="table table-hover" id="tblResultados">
+                                <thead>
+                                    <tr>
+                                        <th>CEP</th>
+                                        <th>Logradouro</th>
+                                        <th>Bairro</th>
+                                        <th>Cidade</th>
+                                        <th>Inativo</th>
+                                        <th>Opções</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+
+                        <div class="box-footer clearfix" id="divPaginas">
+                            <a class="btn btn-primary" href="Incluir"><i class="fa fa-plus"></i> Novo CEP</a>
+                            @*Paginação da pesquisa*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/PizzaByteSite/plugins/jQueryUI/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/PizzaByteSite/plugins/jQueryUI/toastr.min.js"></script>
+<script src="~/Scripts/PizzaByteSite/Telas/Geral.js"></script>
+<script src="~/Scripts/PizzaByteSite/Telas/IndexCep.js"></script>
+
+<script>
+    $(document).ready(function () {
+        var retorno = '@TempData["Retorno"]';
+        MostrarMensagemRetorno(retorno, "O fornecedor");
+        BuscarCeps(1);
+
+        $("#btnBuscarCeps").click(function () {
+            BuscarCeps(1);
+        });
+
+     $(document).keypress(function (e) {
+            if (e.keyCode === 13) {
+                $("#btnBuscarCeps").click();
+            }
+        });
+    });
+</script>

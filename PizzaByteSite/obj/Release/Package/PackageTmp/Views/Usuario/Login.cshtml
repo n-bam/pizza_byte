@@ -51,7 +51,8 @@
                     </div>
                 </div>
                 <br />
-                <a href="#">Esqueci minha senha</a><br>
+                @* <a href="">Esqueci minha senha</a><br>*@
+                @Html.ActionLink("Esqueci Minha senha", "RecuperarSenha")
             </div>
         </div>
         <script src="~/Scripts/PizzaByteSite/components/jquery/dist/jquery.min.js"></script>
@@ -59,3 +60,12 @@
     </body>
 }
 </html>
+
+<script>
+    $(document).ready(function () {
+        var retorno = '@TempData["Retorno"]';
+        if (retorno == "SENHAALTERADA") {
+            alert("Senha alterada com sucesso! Acesse seu e-mail para ver a nova senha.");
+        }
+    });
+</script>

@@ -3,3 +3,12 @@
 ################################################################################
 
 /.vs/PizzaByte/v15
+/PizzaByteBll/bin/Debug
+*.cache
+*.CopyComplete
+*.dll
+*.force
+*.pdb
+*.xml
+*.config
+*.resources

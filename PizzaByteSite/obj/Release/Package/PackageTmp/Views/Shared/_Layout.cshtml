@@ -7,7 +7,8 @@
     <title>@ViewBag.Title - PizzaByte</title>
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/jQuery/toastr")
-    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jquery")
+    @*@Scripts.Render("~/bundles/jqueryui")*@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     @if (IsSectionDefined("Styles"))
@@ -23,9 +24,8 @@
     </div>
 
     @*@Scripts.Render("~/bundles/mask")*@
-    @Scripts.Render("~/bundles/toastr")
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/lib")
+    @*@Scripts.Render("~/bundles/toastr")*@
+    @*@Scripts.Render("~/bundles/lib")*@
     @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -76,21 +76,21 @@ C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteDal\obj\Debug\P
 C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteDal\obj\Debug\PizzaByteDal.csproj.CopyComplete
 C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteDal\obj\Debug\PizzaByteDal.dll
 C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteDal\obj\Debug\PizzaByteDal.pdb
-C:\Users\Huxley\Source\Repos\pizza_byte\PizzaByteDal\bin\Debug\PizzaByteDal.dll.config
-C:\Users\Huxley\Source\Repos\pizza_byte\PizzaByteDal\bin\Debug\PizzaByteDal.dll
-C:\Users\Huxley\Source\Repos\pizza_byte\PizzaByteDal\bin\Debug\PizzaByteDal.pdb
-C:\Users\Huxley\Source\Repos\pizza_byte\PizzaByteDal\bin\Debug\EntityFramework.dll
-C:\Users\Huxley\Source\Repos\pizza_byte\PizzaByteDal\bin\Debug\EntityFramework.SqlServer.dll
-C:\Users\Huxley\Source\Repos\pizza_byte\PizzaByteDal\bin\Debug\PizzaByteEnum.dll
-C:\Users\Huxley\Source\Repos\pizza_byte\PizzaByteDal\bin\Debug\PizzaByteVo.dll
-C:\Users\Huxley\Source\Repos\pizza_byte\PizzaByteDal\bin\Debug\PizzaByteEnum.pdb
-C:\Users\Huxley\Source\Repos\pizza_byte\PizzaByteDal\bin\Debug\PizzaByteVo.pdb
-C:\Users\Huxley\Source\Repos\pizza_byte\PizzaByteDal\bin\Debug\EntityFramework.xml
-C:\Users\Huxley\Source\Repos\pizza_byte\PizzaByteDal\bin\Debug\EntityFramework.SqlServer.xml
-C:\Users\Huxley\Source\Repos\pizza_byte\PizzaByteDal\obj\Debug\PizzaByteDal.csprojAssemblyReference.cache
-C:\Users\Huxley\Source\Repos\pizza_byte\PizzaByteDal\obj\Debug\PizzaByteDal.Migrations.IncluirTabelasIniciais.resources
-C:\Users\Huxley\Source\Repos\pizza_byte\PizzaByteDal\obj\Debug\PizzaByteDal.csproj.GenerateResource.cache
-C:\Users\Huxley\Source\Repos\pizza_byte\PizzaByteDal\obj\Debug\PizzaByteDal.csproj.CoreCompileInputs.cache
-C:\Users\Huxley\Source\Repos\pizza_byte\PizzaByteDal\obj\Debug\PizzaByteDal.csproj.CopyComplete
-C:\Users\Huxley\Source\Repos\pizza_byte\PizzaByteDal\obj\Debug\PizzaByteDal.dll
-C:\Users\Huxley\Source\Repos\pizza_byte\PizzaByteDal\obj\Debug\PizzaByteDal.pdb
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDal\bin\Debug\PizzaByteDal.dll.config
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDal\bin\Debug\PizzaByteDal.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDal\bin\Debug\PizzaByteDal.pdb
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDal\bin\Debug\EntityFramework.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDal\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDal\bin\Debug\PizzaByteEnum.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDal\bin\Debug\PizzaByteVo.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDal\bin\Debug\PizzaByteEnum.pdb
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDal\bin\Debug\PizzaByteVo.pdb
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDal\bin\Debug\EntityFramework.xml
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDal\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDal\obj\Debug\PizzaByteDal.csprojAssemblyReference.cache
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDal\obj\Debug\PizzaByteDal.csproj.CoreCompileInputs.cache
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDal\obj\Debug\PizzaByteDal.csproj.CopyComplete
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDal\obj\Debug\PizzaByteDal.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDal\obj\Debug\PizzaByteDal.pdb
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDal\obj\Debug\PizzaByteDal.Migrations.CriacaoBancoDados.resources
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDal\obj\Debug\PizzaByteDal.csproj.GenerateResource.cache
