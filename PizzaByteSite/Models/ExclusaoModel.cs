@@ -19,5 +19,10 @@ namespace PizzaByteSite.Models
         /// </summary>
         [Display(Name = "Descrição")]
         public string Descricao { get; set; }
+
+        /// <summary>
+        /// Caso a entidade deletada venha de um cadastro pai
+        /// </summary>
+        public string IdPai { get; set; }
     }
 }

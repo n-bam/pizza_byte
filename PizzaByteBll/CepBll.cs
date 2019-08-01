@@ -1,6 +1,8 @@
 ﻿using PizzaByteBll.Base;
 using PizzaByteDal;
+using PizzaByteDto;
 using PizzaByteDto.Base;
+using PizzaByteDto.ClassesBase;
 using PizzaByteDto.RetornosRequisicoes;
 using PizzaByteVo;
 using System;
@@ -48,27 +50,67 @@ namespace PizzaByteBll
                 return false;
             }
 
-            CepVo cepVo = new CepVo();
+            CepVo cepVo;
             string mensagemErro = "";
-
-            // Converte para VO a ser incluída no banco de dados
-            if (!ConverterDtoParaVo(requisicaoDto.EntidadeDto, ref cepVo, ref mensagemErro))
+            if (!VerificarExistente(requisicaoDto, requisicaoDto.EntidadeDto.Cep, out cepVo, ref mensagemErro))
             {
                 retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Falha ao converter o cep para VO: " + mensagemErro;
+                retornoDto.Mensagem = "Falha ao verificar se o CEP já existe no banco de dados: " + mensagemErro;
 
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirCep, Guid.Empty, retornoDto.Mensagem);
                 return false;
             }
 
-            // Prepara a inclusão no banco de dados
-            if (!IncluirBd(cepVo, ref mensagemErro))
+            // Se o CEP não existir
+            if (cepVo == null)
             {
-                retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Falha ao converter o cep para VO: " + mensagemErro;
+                cepVo = new CepVo();
 
-                logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirCep, Guid.Empty, retornoDto.Mensagem);
-                return false;
+                // Converte para VO a ser incluída no banco de dados
+                if (!ConverterDtoParaVo(requisicaoDto.EntidadeDto, ref cepVo, ref mensagemErro))
+                {
+                    retornoDto.Retorno = false;
+                    retornoDto.Mensagem = "Falha ao converter o cep para VO: " + mensagemErro;
+
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirCep, Guid.Empty, retornoDto.Mensagem);
+                    return false;
+                }
+
+                // Prepara a inclusão no banco de dados
+                if (!IncluirBd(cepVo, ref mensagemErro))
+                {
+                    retornoDto.Retorno = false;
+                    retornoDto.Mensagem = "Falha ao converter o cep para VO: " + mensagemErro;
+
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirCep, Guid.Empty, retornoDto.Mensagem);
+                    return false;
+                }
+            }
+            else
+            {
+                // Se existir, atualizar os dados
+                requisicaoDto.EntidadeDto.Id = cepVo.Id;
+                requisicaoDto.EntidadeDto.DataInclusao = cepVo.DataInclusao;
+                requisicaoDto.EntidadeDto.Excluido = false;
+
+                // Converte para VO a ser incluída no banco de dados
+                if (!ConverterDtoParaVo(requisicaoDto.EntidadeDto, ref cepVo, ref mensagemErro))
+                {
+                    retornoDto.Retorno = false;
+                    retornoDto.Mensagem = "Falha ao converter o cep para VO: " + mensagemErro;
+
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirCep, Guid.Empty, retornoDto.Mensagem);
+                    return false;
+                }
+
+                if (!EditarBd(cepVo, ref mensagemErro))
+                {
+                    retornoDto.Retorno = false;
+                    retornoDto.Mensagem = "Falha ao restaurar o CEP: " + mensagemErro;
+
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirCep, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
+                    return false;
+                }
             }
 
             if (salvar)
@@ -103,7 +145,6 @@ namespace PizzaByteBll
             }
 
             string mensagemErro = "";
-
             if (salvar)
             {
                 // Salva as alterações
@@ -200,7 +241,7 @@ namespace PizzaByteBll
             IQueryable<CepVo> query;
             if (!this.ObterQueryBd(out query, ref mensagemErro))
             {
-                retornoDto.Mensagem = $"Houve um problema ao listar os cepes: {mensagemErro}";
+                retornoDto.Mensagem = $"Houve um problema ao listar os CEPs: {mensagemErro}";
                 retornoDto.Retorno = false;
 
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterCepPorCep, Guid.Empty, retornoDto.Mensagem);
@@ -298,7 +339,7 @@ namespace PizzaByteBll
         }
 
         /// <summary>
-        /// Obtém uma lista de cepes com filtros aplicados, podendo ser paginada
+        /// Obtém uma lista de CEPs com filtros aplicados, podendo ser paginada
         /// </summary>
         /// <param name="requisicaoDto"></param>
         /// <param name="retornoDto"></param>
@@ -483,6 +524,153 @@ namespace PizzaByteBll
             retornoDto.Retorno = true;
             retornoDto.Mensagem = "OK";
             return true;
+        }
+
+        /// <summary>
+        /// Obtem a lista de bairros cadastrados
+        /// </summary>
+        /// <param name="requisicaoDto"></param>
+        /// <param name="listaBairros"></param>
+        /// <param name="mensagemErro"></param>
+        /// <returns></returns>
+        internal bool ObterListaBairros(BaseRequisicaoDto requisicaoDto, ref List<BairroCidadeDto> listaBairros, ref string mensagemErro)
+        {
+            IQueryable<CepVo> query;
+
+            // Obter a query primária
+            if (!this.ObterQueryBd(out query, ref mensagemErro))
+            {
+                mensagemErro = $"Houve um problema ao listar os bairros: {mensagemErro}";
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaBairro, Guid.Empty, mensagemErro);
+                return false;
+            }
+
+            try
+            {
+                query = query.Where(p => p.Inativo == false).OrderBy(p => p.Bairro);
+                listaBairros = query.GroupBy(p => new { p.Cidade, p.Bairro }).Select(p => new BairroCidadeDto { Cidade = p.Key.Cidade, Bairro = p.Key.Bairro }).ToList();
+                return true;
+            }
+            catch (Exception)
+            {
+                mensagemErro = $"Houve um problema ao listar os bairros: {mensagemErro}";
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaBairro, Guid.Empty, mensagemErro);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Obtem a cidade que o bairro pertence
+        /// </summary>
+        /// <param name="requisicaoDto"></param>
+        /// <param name="bairro"></param>
+        /// <param name="cidade"></param>
+        /// <param name="mensagemErro"></param>
+        /// <returns></returns>
+        internal bool ObterCidadePorBairro(BaseRequisicaoDto requisicaoDto, string bairro, ref string cidade, ref string mensagemErro)
+        {
+            if (string.IsNullOrWhiteSpace(bairro))
+            {
+                mensagemErro = "Informe o bairro para obter a cidade";
+                return false;
+            }
+
+            // Obter a query primária
+            IQueryable<CepVo> query;
+            if (!this.ObterQueryBd(out query, ref mensagemErro))
+            {
+                mensagemErro = $"Houve um problema ao obter a cidade: {mensagemErro}";
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterCidadePorBairro, Guid.Empty, mensagemErro);
+                return false;
+            }
+
+            try
+            {
+                bairro = bairro.Trim();
+                CepVo endereco = query.Where(p => p.Bairro == bairro).FirstOrDefault();
+                cidade = endereco == null ? "" : endereco.Cidade.Trim();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                mensagemErro = $"Houve um problema ao obter a cidade: {ex.Message}";
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterCidadePorBairro, Guid.Empty, mensagemErro);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Obtem uma lista de CEP por id
+        /// </summary>
+        /// <param name="listaIds"></param>
+        /// <param name="listaCeps"></param>
+        /// <param name="mensagemErro"></param>
+        /// <returns></returns>
+        internal bool ObterListaEnderecosPorId(List<Guid> listaIds, ref List<CepVo> listaCeps, ref string mensagemErro)
+        {
+            if (listaIds.Count <= 0)
+            {
+                return true;
+            }
+
+            // Obter a query primária
+            IQueryable<CepVo> query;
+            if (!this.ObterQueryBd(out query, ref mensagemErro))
+            {
+                mensagemErro = $"Houve um problema ao listar os CEPs: {mensagemErro}";
+                return false;
+            }
+
+            try
+            {
+                query = query.Where(p => listaIds.Contains(p.Id));
+                listaCeps = query.ToList();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                mensagemErro = $"Houve um problema para obter a lista de CEPs: {ex.Message}";
+                return false;
+            }
+
+        }
+
+        /// <summary>
+        /// Verifica se um CEP já existe na tabela
+        /// </summary>
+        /// <param name="cepVo"></param>
+        /// <param name="mensagemErro"></param>
+        /// <returns></returns>
+        private bool VerificarExistente(BaseRequisicaoDto requisicaoDto, string cep, out CepVo cepVo, ref string mensagemErro)
+        {
+            cepVo = null;
+            if (string.IsNullOrWhiteSpace(cep))
+            {
+                mensagemErro = "Informe um CEP para verificar a existência no banco de dados";
+                return false;
+            }
+
+            // Obter a query primária
+            IQueryable<CepVo> query;
+            if (!this.ObterQueryBd(out query, ref mensagemErro, true))
+            {
+                mensagemErro = $"Houve um problema ao listar os CEPs: {mensagemErro}";
+                return false;
+            }
+
+            try
+            {
+                cep = cep.Replace("-", "");
+                query = query.Where(p => p.Cep == cep.Trim());
+                cepVo = query.FirstOrDefault();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                mensagemErro = ex.Message;
+                return false;
+            }
         }
     }
 }

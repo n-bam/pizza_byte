@@ -7,13 +7,13 @@ namespace PizzaByteDal.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class IncluirTabelasIniciais : IMigrationMetadata
+    public sealed partial class CriacaoBancoDados : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(IncluirTabelasIniciais));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(CriacaoBancoDados));
         
         string IMigrationMetadata.Id
         {
-            get { return "201906182246303_IncluirTabelasIniciais"; }
+            get { return "201908010027073_CriacaoBancoDados"; }
         }
         
         string IMigrationMetadata.Source

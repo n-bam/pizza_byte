@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\SuporteVo.cs" />
     <Compile Include="CepVo.cs" />
     <Compile Include="Base\EntidadeBaseVo.cs" />
     <Compile Include="ClienteEnderecoVo.cs" />
@@ -55,7 +56,6 @@
     <Compile Include="ProdutoVo.cs" />
     <Compile Include="FuncionarioVo.cs" />
     <Compile Include="FornecedorVo.cs" />
-    <Compile Include="SuporteVo.cs" />
     <Compile Include="TaxaEntregaVo.cs" />
     <Compile Include="UsuarioVo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

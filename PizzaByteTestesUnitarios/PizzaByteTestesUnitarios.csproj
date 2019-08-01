@@ -58,8 +58,10 @@
   <ItemGroup>
     <Compile Include="Cep.cs" />
     <Compile Include="Funcionario.cs" />
+    <Compile Include="Suporte.cs" />
     <Compile Include="Produto.cs" />
     <Compile Include="Fornecedor.cs" />
+    <Compile Include="TaxaEntrega.cs" />
     <Compile Include="Usuario.cs" />
     <Compile Include="Cliente.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

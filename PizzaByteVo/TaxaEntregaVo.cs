@@ -7,14 +7,14 @@
     {
         /// <summary>
         /// Bairro que a taxa de entrega abrange
-        /// MIN: 3 
+        /// MIN.: 3 / MAX.: 50
         /// </summary>
-        public string Bairro;
+
+        public string Bairro { get; set; }
 
         /// <summary>
         /// Valor de entrega para o bairro correspondente
-        /// MIN: 0
         /// </summary>
-        public float ValorTaxa;
+        public float ValorTaxa { get; set; }
     }
 }

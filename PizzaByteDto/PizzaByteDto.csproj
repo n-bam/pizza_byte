@@ -41,21 +41,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BairroCidadeDto.cs" />
     <Compile Include="Base\CepDto.cs" />
     <Compile Include="Base\BaseEntidadeDto.cs" />
     <Compile Include="Base\BaseRequisicaoDto.cs" />
+    <Compile Include="Base\SuporteDto.cs" />
     <Compile Include="Base\LogDto.cs" />
+    <Compile Include="Entidades\ClienteEnderecoDto.cs" />
+    <Compile Include="Entidades\TaxaEntregaDto.cs" />
     <Compile Include="Entidades\ProdutoDto.cs" />
     <Compile Include="Entidades\FuncionarioDto.cs" />
     <Compile Include="Entidades\FornecedorDto.cs" />
     <Compile Include="Entidades\UsuarioDto.cs" />
     <Compile Include="Entidades\ClienteDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RetornosRequisicoes\RequisicaoListaEntidadesDto.cs" />
     <Compile Include="RetornosRequisicoes\RequisicaoEntidadeDto.cs" />
     <Compile Include="RetornosRequisicoes\RequisicaoFazerLoginDto.cs" />
     <Compile Include="RetornosRequisicoes\RequisicaoObterCepPorCepDto.cs" />
     <Compile Include="RetornosRequisicoes\RequisicaoObterDto.cs" />
     <Compile Include="RetornosRequisicoes\RequisicaoObterListaDto.cs" />
+    <Compile Include="RetornosRequisicoes\RetornoGuidDto.cs" />
     <Compile Include="RetornosRequisicoes\RetornoDto.cs" />
     <Compile Include="RetornosRequisicoes\RetornoFazerLoginDto.cs" />
     <Compile Include="RetornosRequisicoes\RetornoObterDto.cs" />

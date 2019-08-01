@@ -21,7 +21,6 @@
         /// CPF do cliente
         /// MIN/MAX.: 11
         /// </summary>
-        public string Cpf { get; set; }
-        
+        public string Cpf { get; set; }        
     }
 }

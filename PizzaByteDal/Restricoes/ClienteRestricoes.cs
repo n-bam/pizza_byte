@@ -9,7 +9,7 @@ namespace PizzaByteDal.Restricoes
     {
         public ClienteRestricoes()
         {
-            ToTable("Cliente", "PizzaByte");
+            ToTable("Clientes", "PizzaByte");
             HasKey(p => p.Id);
             HasIndex(p => p.Id)
             .IsUnique();
@@ -30,6 +30,7 @@ namespace PizzaByteDal.Restricoes
             .IsOptional()
             .HasMaxLength(11)
             .IsFixedLength();
+
         }
     }
 }

@@ -40,6 +40,7 @@ namespace PizzaByteBll.Base
             string mensagemErro = "";
             if (!UtilitarioBll.ValidarIdentificacao(requisicaoDto.Identificacao, requisicaoDto.IdUsuario, ref mensagemErro))
             {
+                retornoDto.Retorno = false;
                 retornoDto.Mensagem = mensagemErro;
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.BaseIncluir, Guid.Empty, mensagemErro);
                 return false;
@@ -47,6 +48,7 @@ namespace PizzaByteBll.Base
 
             if (requisicaoDto.EntidadeDto == null)
             {
+                retornoDto.Retorno = false;
                 retornoDto.Mensagem = "Não é possível incluir uma entidade nula.";
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.BaseIncluir, Guid.Empty, retornoDto.Mensagem);
                 return false;
@@ -54,6 +56,7 @@ namespace PizzaByteBll.Base
 
             if (!requisicaoDto.EntidadeDto.ValidarEntidade(ref mensagemErro))
             {
+                retornoDto.Retorno = false;
                 retornoDto.Mensagem = mensagemErro;
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.BaseIncluir, Guid.Empty, mensagemErro);
                 return false;
@@ -72,6 +75,7 @@ namespace PizzaByteBll.Base
             string mensagemErro = "";
             if (!UtilitarioBll.ValidarIdentificacao(requisicaoDto.Identificacao, requisicaoDto.IdUsuario, ref mensagemErro))
             {
+                retornoDto.Retorno = false;
                 retornoDto.Mensagem = mensagemErro;
                 Guid idEntidade = (requisicaoDto.EntidadeDto == null) ? Guid.Empty : requisicaoDto.EntidadeDto.Id;
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.BaseEditar, idEntidade, mensagemErro);
@@ -80,6 +84,7 @@ namespace PizzaByteBll.Base
 
             if (requisicaoDto.EntidadeDto == null)
             {
+                retornoDto.Retorno = false;
                 retornoDto.Mensagem = "Não é possível editar uma entidade nula.";
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.BaseEditar, Guid.Empty, retornoDto.Mensagem);
                 return false;
@@ -87,6 +92,7 @@ namespace PizzaByteBll.Base
 
             if (!requisicaoDto.EntidadeDto.ValidarEntidade(ref mensagemErro))
             {
+                retornoDto.Retorno = false;
                 retornoDto.Mensagem = mensagemErro;
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.BaseEditar, requisicaoDto.EntidadeDto.Id, mensagemErro);
                 return false;
@@ -105,6 +111,7 @@ namespace PizzaByteBll.Base
             string mensagemErro = "";
             if (!UtilitarioBll.ValidarIdentificacao(requisicaoDto.Identificacao, requisicaoDto.IdUsuario, ref mensagemErro))
             {
+                retornoDto.Retorno = false;
                 retornoDto.Mensagem = mensagemErro;
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.BaseObter, requisicaoDto.Id, mensagemErro);
                 return false;
@@ -112,6 +119,7 @@ namespace PizzaByteBll.Base
 
             if (requisicaoDto.Id == Guid.Empty)
             {
+                retornoDto.Retorno = false;
                 retornoDto.Mensagem = "O id é obrigatório para obter uma entidade.";
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.BaseObter, requisicaoDto.Id, mensagemErro);
                 return false;
@@ -130,6 +138,7 @@ namespace PizzaByteBll.Base
             string mensagemErro = "";
             if (!UtilitarioBll.ValidarIdentificacao(requisicaoDto.Identificacao, requisicaoDto.IdUsuario, ref mensagemErro))
             {
+                retornoDto.Retorno = false;
                 retornoDto.Mensagem = mensagemErro;
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.BaseObterListaFiltrada, Guid.Empty, mensagemErro);
                 return false;

@@ -239,7 +239,7 @@ namespace PizzaByteBll
             if (!UtilitarioBll.ValidarUsuarioAdm(requisicaoDto.Identificacao, ref mensagemErro))
             {
                 retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Este usuário não é administrador. Para alterar os fornecedores é necessário " +
+                retornoDto.Mensagem = "Este usuário não é administrador. Para excluir os fornecedores é necessário " +
                     $"logar com um usuário administrador. {mensagemErro}";
 
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.ExcluirFornecedor, requisicaoDto.Id, retornoDto.Mensagem);
@@ -390,7 +390,7 @@ namespace PizzaByteBll
                         bool filtroInativo;
                         if (!bool.TryParse(filtro.Value, out filtroInativo))
                         {
-                            retornoDto.Mensagem = $"Fala ao converter o filtro de 'inativo'.";
+                            retornoDto.Mensagem = $"Falha ao converter o filtro de 'inativo'.";
                             retornoDto.Retorno = false;
                             return false;
                         }

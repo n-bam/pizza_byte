@@ -73,7 +73,7 @@
                 }
 
                 EsconderCarregando();
-                PaginarPesquisa(dados.NumeroPaginas, nPagina, "BuscarCepes");
+                PaginarPesquisa(dados.NumeroPaginas, nPagina, "BuscarCeps");
             }
         },
         error: function (request, status, error) {

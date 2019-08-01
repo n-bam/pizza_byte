@@ -238,7 +238,7 @@ namespace PizzaByteBll
         }
 
         /// <summary>
-        /// Obtém uma lista de produtoes com filtros aplicados, podendo ser paginada
+        /// Obtém uma lista de produtos com filtros aplicados, podendo ser paginada
         /// </summary>
         /// <param name="requisicaoDto"></param>
         /// <param name="retornoDto"></param>
@@ -256,7 +256,7 @@ namespace PizzaByteBll
             // Obter a query primária
             if (!this.ObterQueryBd(out query, ref mensagemErro))
             {
-                retornoDto.Mensagem = $"Houve um problema ao listar os produtoes: {mensagemErro}";
+                retornoDto.Mensagem = $"Houve um problema ao listar os produtos: {mensagemErro}";
                 retornoDto.Retorno = false;
 
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaProduto, Guid.Empty, retornoDto.Mensagem);
@@ -311,7 +311,7 @@ namespace PizzaByteBll
                             return false;
                         }
 
-                        query = query.Where(p => p.Preco <= preco);
+                        query = query.Where(p => p.Preco == preco);
                         break;
 
                     case "TIPO":

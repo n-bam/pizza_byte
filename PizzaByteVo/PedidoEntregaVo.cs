@@ -19,7 +19,6 @@ namespace PizzaByteVo
 
         /// <summary>
         /// Observações gerais
-        /// MIN: 0 / MAX: 2000
         /// </summary>
         public string Obs { get; set; }
 

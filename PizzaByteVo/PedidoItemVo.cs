@@ -10,19 +10,16 @@ namespace PizzaByteVo
     {
         /// <summary>
         /// Descrição do item no momento da venda
-        /// MIN: 3 / MAX: 2000
         /// </summary>
         public string DescricaoProduto { get; set; }
 
         /// <summary>
         /// Preço do item no momento da venda
-        /// MIN: 0 
         /// </summary>
         public float PrecoProduto { get; set; }
 
         /// <summary>
         /// Tipo do item no momento da venda
-        /// MIN: 0
         /// </summary>
         public TipoProduto TipoProduto { get; set; }
 

@@ -88,6 +88,7 @@ namespace PizzaByteDto.Entidades
                 }
             }
 
+            mensagemErro = sb.ToString();
             return retorno;
         }
 

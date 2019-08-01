@@ -13,7 +13,7 @@ namespace PizzaByteDal
             this.Configuration.LazyLoadingEnabled = false;
             this.Configuration.ProxyCreationEnabled = false;
             Database.Connection.ConnectionString = @"Data Source =.\SQLExpress;Initial Catalog = PizzariaNacoes; User ID=sa;Password=125478; Connection Timeout=30;Trusted_Connection=false;Encrypt=false;Connection Timeout=30";
-            //Database.Connection.ConnectionString = @"Data Source =den1.mssql8.gear.host;Initial Catalog = PizzaByte; User ID=pizzabyte;Password=Bw3Hw50n!87_; Connection Timeout=30;Trusted_Connection=false;Encrypt=false;Connection Timeout=30";
+            //Database.Connection.ConnectionString = @"Data Source =den1.mssql7.gear.host;Initial Catalog = PizzaByteDb; User ID=pizzabytedb;Password=Qg1kJe9Cp?K?; Connection Timeout=30;Trusted_Connection=false;Encrypt=false;Connection Timeout=30";
         }
 
         protected override void OnModelCreating(DbModelBuilder modelbuilder)
@@ -26,15 +26,24 @@ namespace PizzaByteDal
             modelbuilder.Configurations.Add(new CepRestricoes());
             modelbuilder.Configurations.Add(new UsuarioRestricoes());
             modelbuilder.Configurations.Add(new LogRestricoes());
+            modelbuilder.Configurations.Add(new TaxaEntregaRestricoes());
+            modelbuilder.Configurations.Add(new ClienteRestricoes());
+            modelbuilder.Configurations.Add(new ClienteEnderecoRestricoes());
+            modelbuilder.Configurations.Add(new SuporteRestricoes());
+            modelbuilder.Configurations.Add(new FuncionarioRestricoes());
 
         }
 
+        public DbSet<FuncionarioVo> Funcionario { get; set; }
         public DbSet<ProdutoVo> Produto { get; set; }
         public DbSet<UsuarioVo> Usuario { get; set; }
         public DbSet<FornecedorVo> Fornecedor { get; set; }
         public DbSet<CepVo> Cep { get; set; }
         public DbSet<LogVo> Log { get; set; }
-
+        public DbSet<TaxaEntregaVo> TaxaEntrega { get; set; }
+        public DbSet<ClienteVo> Cliente { get; set; }
+        public DbSet<ClienteEnderecoVo> ClienteEndereco { get; set; }
+        public DbSet<SuporteVo> Suporte { get; set; }
 
         /// <summary>
         /// Salva as mudanças
@@ -60,7 +69,6 @@ namespace PizzaByteDal
                 }
                 else
                 {
-                    //LOGAR a exceção
                     mensagemErro = "Erro ao salvar as alterações no banco de dados: " + ex.InnerException;
                     return false;
                 }

@@ -96,7 +96,7 @@ namespace PizzaByteSite.Controllers
             string mensagemErro = "";
             if (!model.ConverterModelParaDto(ref fornecedorDto, ref mensagemErro))
             {
-                ModelState.AddModelError("Servico", $"Erro ao converter para Dto: {mensagemErro}");
+                ModelState.AddModelError("", $"Erro ao converter para Dto: {mensagemErro}");
                 return View(model);
             }
 
@@ -149,7 +149,7 @@ namespace PizzaByteSite.Controllers
             //Obtem o fornecedor pelo ID
             if (!this.ObterFornecedor(id, ref model, ref mensagemRetorno))
             {
-                ViewBag.Mensagem = mensagemRetorno;
+                ViewBag.MensagemErro = mensagemRetorno;
                 return View("Erro");
             }
 
@@ -186,7 +186,7 @@ namespace PizzaByteSite.Controllers
             //Obtem o fornecedor pelo ID
             if (!this.ObterFornecedor(id, ref model, ref mensagemRetorno))
             {
-                ViewBag.Mensagem = mensagemRetorno;
+                ViewBag.MensagemErro = mensagemRetorno;
                 return View("Erro");
             }
 
@@ -229,7 +229,7 @@ namespace PizzaByteSite.Controllers
             string mensagemErro = "";
             if (!model.ConverterModelParaDto(ref fornecedorDto, ref mensagemErro))
             {
-                ViewBag.Mensagem = mensagemErro;
+                ViewBag.MensagemErro = mensagemErro;
                 return View("Erro");
             }
 

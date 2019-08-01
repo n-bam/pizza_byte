@@ -18,7 +18,7 @@ namespace PizzaByteSite.Models
         [MaxLength(150, ErrorMessage = "O nome do funcionario deve ter até 150 caracteres")]
         [MinLength(3, ErrorMessage = "O nome do funcionario deve ter pelo menos 3 caracteres")]
         [Display(Name = "Nome")]
-        public string NomeFantasia { get; set; }
+        public string Nome { get; set; }
 
         /// <summary>
         /// Telefone para contato

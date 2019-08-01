@@ -9,7 +9,7 @@ namespace PizzaByteDal.Restricoes
     {
         public UsuarioRestricoes()
         {
-            ToTable("Usuario", "PizzaByte");
+            ToTable("Usuarios", "PizzaByte");
             HasKey(p => p.Id);
 
             this.Property(p => p.Nome)

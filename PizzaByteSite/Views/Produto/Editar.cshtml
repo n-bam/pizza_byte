@@ -11,7 +11,7 @@
             <small>Editar</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="~/Produto/Inicio"><i class="fa fa-home"></i> Inicio</a></li>
+            <li><a href="~/Usuario/Inicio"><i class="fa fa-home"></i> Inicio</a></li>
             <li><a href="~/Produto/Index"><i class="fa fa-tags"></i> Produtos</a></li>
             <li class="active"><i class="fa fa-pencil"></i> Editar</li>
         </ol>
@@ -60,6 +60,22 @@
                                     @Html.LabelFor(m => m.Tipo, new { @class = "control-label col-lg-2 col-md-2 col-sm-1 col-xs-12" })
                                     <div class="col-lg-4 col-md-5 col-sm-5 col-xs-12">
                                         @Html.DropDownListFor(m => m.Tipo, Model.ListaTipos, new { @class = "form-control" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.DataInclusao, new { @class = "col-lg-4 col-md-3 col-sm-3 col-xs-12 alinhadoDireita small" })
+                                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12 alinhadoDireita small">
+                                        @Html.HiddenFor(m => m.DataInclusao)
+                                        @Html.DisplayFor(m => m.DataInclusao, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.DataInclusao, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    @Html.LabelFor(m => m.DataAlteracao, new { @class = "col-lg-4 col-md-3 col-sm-3 col-xs-12 alinhadoDireita small" })
+                                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12 alinhadoDireita small">
+                                        @Html.HiddenFor(m => m.DataAlteracao)
+                                        @Html.DisplayFor(m => m.DataAlteracao, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.DataAlteracao, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
 

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PizzaByteVo
 {
@@ -14,26 +10,35 @@ namespace PizzaByteVo
     {
         /// <summary>
         /// Numero do endereço do cliente
-        /// MIN: 1 / MAX: 400
+        /// MIN: 1 / MAX: 10
         /// </summary>
-        public string NumeroEndereco;
+        public string NumeroEndereco { get; set; }
 
         /// <summary>
         /// Pontos de referência do endereço do cliente
-        /// MIN: 0 / MAX: 2000
+        /// MIN: 0 / MAX: 50
         /// </summary>
-        public string ComplementeEndereco;
+        public string ComplementeEndereco { get; set; }
+
+        /// <summary>
+        /// Id do cliente que possui o endereço
+        /// </summary>
+        public Guid IdCliente { get; set; }
 
         /// <summary>
         /// Identificação do cliente no qual o endereço pertence
         /// </summary>
-        public string IdCliente;
+        public ClienteVo Cliente { get; set; }
+
+        /// <summary>
+        /// Id do endereço relacionando a tabela CEP
+        /// </summary>
+        public Guid IdCep { get; set; }
 
         /// <summary>
         /// Identifica o CEP do endereço
-        /// MIN: 1 / MAX: 8
         /// </summary>
-        public string Cep;
+        public CepVo Endereco { get; set; }
 
     }
 }

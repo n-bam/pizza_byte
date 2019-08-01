@@ -84,7 +84,7 @@
                 }
 
                 EsconderCarregando();
-                PaginarPesquisa(dados.NumeroPaginas, nPagina, "BuscarProdutoes");
+                PaginarPesquisa(dados.NumeroPaginas, nPagina, "BuscarProdutos");
             }
         },
         error: function (request, status, error) {

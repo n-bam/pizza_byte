@@ -49,19 +49,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\Repositorio.cs" />
-    <Compile Include="Migrations\201906182246303_IncluirTabelasIniciais.cs" />
-    <Compile Include="Migrations\201906182246303_IncluirTabelasIniciais.Designer.cs">
-      <DependentUpon>201906182246303_IncluirTabelasIniciais.cs</DependentUpon>
+    <Compile Include="Migrations\201908010027073_CriacaoBancoDados.cs" />
+    <Compile Include="Migrations\201908010027073_CriacaoBancoDados.Designer.cs">
+      <DependentUpon>201908010027073_CriacaoBancoDados.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PizzaByteContexto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Restricoes\FuncionarioRestricoes.cs" />
+    <Compile Include="Restricoes\SuporteRestricoes.cs" />
+    <Compile Include="Restricoes\ClienteEnderecoRestricoes.cs" />
     <Compile Include="Restricoes\LogRestricoes.cs" />
     <Compile Include="Restricoes\ProdutoRestricoes.cs" />
     <Compile Include="Restricoes\ClienteRestricoes.cs" />
     <Compile Include="Restricoes\CepRestricoes.cs" />
     <Compile Include="Restricoes\FornecedorRestricoes.cs" />
+    <Compile Include="Restricoes\TaxaEntregaRestricoes.cs" />
     <Compile Include="Restricoes\UsuarioRestricoes.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -79,8 +82,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201906182246303_IncluirTabelasIniciais.resx">
-      <DependentUpon>201906182246303_IncluirTabelasIniciais.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201908010027073_CriacaoBancoDados.resx">
+      <DependentUpon>201908010027073_CriacaoBancoDados.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

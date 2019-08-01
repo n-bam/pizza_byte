@@ -1,0 +1,123 @@
+﻿@model List<PizzaByteSite.Models.TaxaEntregaModel>
+
+@{
+    ViewBag.Title = "Configurar taxas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="content-wrapper">
+    <div class="content-header">
+        <h1>
+            Taxa de entrega
+            <small>Configurar</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-home"></i> Inicio</a></li>
+            <li><a href="~/TaxaEntrega/Index"><i class="fa fa-motorcycle"></i> Taxas de entrega</a></li>
+            <li class="active"><i class="fa fa-gears"></i> Configurar</li>
+        </ol>
+    </div>
+
+    <div class="content">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="box">
+
+                    <div class="box-header with-border">
+                        <h2 class="box-title"> Lista de taxas disponíveis</h2>
+                    </div>
+
+                    @using (Html.BeginForm())
+                    {
+                        <div class="box-body">
+                            <div class="form-horizontal">
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4 col-md-5 col-sm-6 col-xs-12 col-lg-offset-5 col-md-offset-3">Aumentar todas as taxas em R$</label>
+                                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-8">
+                                        <div class="input-group">
+                                            <input type="text" id="txtValorAumento" class="form-control valor" />
+                                            <div class="input-group-btn">
+                                                <button id="btnAlterarEmMassa" type="button" class="btn btn-primary"><i class="fa fa-search"></i> Aplicar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Bairro</th>
+                                                <th>Cidade</th>
+                                                <th>Valor</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="bodyTaxas">
+                                            @for (int i = 0; i < Model.Count; i++)
+                                            {
+                                                <tr>
+                                                    @Html.HiddenFor(m => m[i].Id)
+                                                    <td class="col-lg-2 col-md-3 col-lg-1-sm-4 col-xs-5">
+                                                        @Html.HiddenFor(m => m[i].Bairro)
+                                                        @Html.DisplayFor(m => m[i].Bairro, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.ValidationMessageFor(m => m[i].Bairro, "", new { @class = "text-danger" })
+                                                    </td>
+                                                    <td class="col-lg-2 col-md-3 col-lg-1-sm-4 col-xs-5">
+                                                        @Html.HiddenFor(m => m[i].Cidade)
+                                                        @Html.DisplayFor(m => m[i].Cidade, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.ValidationMessageFor(m => m[i].Cidade, "", new { @class = "text-danger" })
+                                                    </td>
+                                                    <td class="col-lg-2 col-md-3 col-lg-1-sm-4 col-xs-5">
+                                                        @Html.EditorFor(m => m[i].ValorTaxa, new { htmlAttributes = new { @class = "form-control valor" } })
+                                                        @Html.ValidationMessageFor(m => m[i].ValorTaxa, "", new { @class = "text-danger" })
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="box-footer">
+                                    <div class="">
+                                        <button type="button" class="btn btn-default" onclick="window.history.back();"><i class="fa fa-mail-reply "></i> Cancelar</button>
+                                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Gravar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/PizzaByteSite/plugins/mask/jquery.maskMoney.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        $(".valor").maskMoney({ allowNegative: false, decimal: ",", precision: 2 });
+        $("#txtValorAumento").maskMoney({ allowNegative: true, decimal: ",", precision: 2 });
+        
+        $(document).keypress(function (e) {
+            if (e.keyCode === 13) {
+                $("#btnAlterarEmMassa").click();
+            }
+        });
+
+        $("#btnAlterarEmMassa").click(function () {
+            var linhas = document.getElementById("bodyTaxas").rows.length;
+            var aumento = parseFloat($("#txtValorAumento").val().replace(",", "."));
+
+            for (var i = 0; i < linhas; i++) {
+                var campo = document.getElementsByName("[" + i + "].ValorTaxa");
+                var valorAtual = parseFloat(campo[0].value.replace(",", "."));
+                valorAtual = valorAtual + aumento;
+
+                campo[0].value = (valorAtual < 0 ? 0 : valorAtual).toFixed(2).replace(".", ",");
+            }
+        });
+    });
+</script>
+

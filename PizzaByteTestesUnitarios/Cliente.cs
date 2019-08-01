@@ -21,7 +21,7 @@ namespace PizzaByteTestesUnitarios
                 Cpf = "",
                 Id = Guid.NewGuid(),
                 Inativo = false,
-                Telefone = "333333333"
+                Telefone = "19987456523"
             };
 
             return clienteDto;
@@ -68,6 +68,65 @@ namespace PizzaByteTestesUnitarios
             Assert.AreEqual(true, retornoObterDto.Retorno);
 
         }
-        
+
+        /// <summary>
+        /// Testa a falha da inclusão, obtenção, alteração e exclusão de um cliente
+        /// </summary>
+        [TestMethod]
+        public void CrudClienteComErro()
+        {
+            RequisicaoEntidadeDto<ClienteDto> requisicaoDto = new RequisicaoEntidadeDto<ClienteDto>()
+            {
+                EntidadeDto = RetornarNovoCliente()
+            };
+
+            Assert.IsTrue(Utilidades.RetornarAutenticacaoRequisicaoPreenchida(requisicaoDto));
+            ClienteBll clienteBll = new ClienteBll(true);
+
+            // Incluir
+            requisicaoDto.EntidadeDto.Nome = "";
+            RetornoDto retornoDto = new RetornoDto();
+            clienteBll.Incluir(requisicaoDto, ref retornoDto);
+            Assert.AreEqual(false, retornoDto.Retorno);
+            Assert.AreEqual("O nome do cliente é obrigatório! Por favor, informe o nome do cliente " +
+                    "no campo indicado para continuar. ", retornoDto.Mensagem);
+
+            requisicaoDto.EntidadeDto.Nome = "Te";
+            retornoDto = new RetornoDto();
+            clienteBll.Incluir(requisicaoDto, ref retornoDto);
+            Assert.AreEqual(false, retornoDto.Retorno);
+            Assert.AreEqual("O nome do cliente deve ter, ao menos, 3 caracteres! Por favor, informe um nome " +
+                    "válido para continuar. ", retornoDto.Mensagem);
+
+            requisicaoDto.EntidadeDto.Nome = "Testes";
+            retornoDto = new RetornoDto();
+            clienteBll.Incluir(requisicaoDto, ref retornoDto);
+            Assert.AreEqual(true, retornoDto.Retorno);
+           
+            // Editar
+            requisicaoDto.EntidadeDto.Nome = "";
+            clienteBll.Editar(requisicaoDto, ref retornoDto);
+            Assert.AreEqual(false, retornoDto.Retorno);
+            Assert.AreEqual("O nome do cliente é obrigatório! Por favor, informe o nome do cliente " +
+                    "no campo indicado para continuar. ", retornoDto.Mensagem);
+
+            // Obter
+            RetornoObterDto<ClienteDto> retornoObterDto = new RetornoObterDto<ClienteDto>();
+            RequisicaoObterDto requisicaoObterDto = new RequisicaoObterDto()
+            {
+                Id = Guid.Empty,
+                IdUsuario = requisicaoDto.IdUsuario,
+                Identificacao = requisicaoDto.Identificacao
+            };
+
+            clienteBll.Obter(requisicaoObterDto, ref retornoObterDto);
+            Assert.AreEqual(false, retornoObterDto.Retorno);
+
+            // Excluir
+            clienteBll.Excluir(requisicaoObterDto, ref retornoDto);
+            Assert.AreEqual(false, retornoObterDto.Retorno);
+
+        }
+
     }
 }

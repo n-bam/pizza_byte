@@ -42,7 +42,7 @@ namespace PizzaByteDto.Entidades
             // Validar o nome
             if (string.IsNullOrWhiteSpace(Descricao))
             {
-                sb.Append("A escrição do produto é obrigatória! Por favor, informe a descrição do produto " +
+                sb.Append("A descrição do produto é obrigatória! Por favor, informe a descrição do produto " +
                     "no campo indicado para continuar. ");
                 retorno = false;
             }

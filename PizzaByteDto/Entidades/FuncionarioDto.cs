@@ -60,7 +60,7 @@ namespace PizzaByteDto.Entidades
                 retorno = false;
             }
 
-            // Validar o Telefone
+            // Validar a senha
             if (!string.IsNullOrWhiteSpace(Telefone))
             {
                 if (Telefone.Length > 20)
