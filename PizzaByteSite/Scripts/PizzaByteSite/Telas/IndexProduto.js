@@ -49,6 +49,7 @@
             } else {
 
                 if (dados.ListaEntidades.length == 0) {
+                    toastr.options.preventDuplicates = true;
                     toastr.info("Não foram encontrados produtos com os filtros preenchidos", "Pesquisa de produtos");
                 } else {
                     for (var i = 0; i < dados.ListaEntidades.length; i++) {

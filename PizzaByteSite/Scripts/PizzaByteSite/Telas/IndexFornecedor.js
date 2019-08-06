@@ -48,6 +48,7 @@
             } else {
 
                 if (dados.ListaEntidades.length == 0) {
+                    toastr.options.preventDuplicates = true;
                     toastr.info("Não foram encontrados fornecedores com os filtros preenchidos", "Pesquisa de fornecedores");
                 } else {
                     for (var i = 0; i < dados.ListaEntidades.length; i++) {

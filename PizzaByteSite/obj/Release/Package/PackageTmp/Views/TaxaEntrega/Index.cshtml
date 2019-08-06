@@ -14,7 +14,7 @@
             </h1>
             <ol class="breadcrumb">
                 <li><a href="~/Usuario/Inicio"><i class="fa fa-home"></i> Inicio</a></li>
-                <li><a class="active"><i class="fa fa-tags"></i> Taxas de entrega</a></li>
+                <li><a class="active"><i class="fa fa-motorcycle"></i> Taxas de entrega</a></li>
             </ol>
         </div>
 
@@ -29,12 +29,12 @@
                         <div class="box-body">
                             <div class="form-group">
                                 @Html.LabelFor(m => m.Bairro, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
-                                <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
+                                <div class="col-lg-5 col-md-4 col-sm-9 col-xs-12">
                                     @Html.EditorFor(m => m.Bairro, new { htmlAttributes = new { @class = "form-control" } })
                                 </div>
 
                                 @Html.LabelFor(m => m.ObterInativos, new { @class = "control-label col-lg-1 col-md-2 col-sm-3 col-xs-12" })
-                                <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
+                                <div class="col-lg-3 col-md-4 col-sm-9 col-xs-12">
                                     @Html.DropDownListFor(m => m.ObterInativos, Model.ListaInativo, new { @class = "form-control" })
                                 </div>
                             </div>

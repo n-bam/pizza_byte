@@ -1,14 +1,21 @@
 ﻿using PizzaByteDto.Entidades;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
+using static PizzaByteEnum.Enumeradores;
 
 namespace PizzaByteSite.Models
 {
     /// <summary>
-    /// Classe que representa os dados de um funcionario
+    /// Classe que representa os dados de um funcionario no site
     /// </summary>
     public class FuncionarioModel : BaseModel
     {
+        public FuncionarioModel()
+        {
+            ListaTipos = Utilidades.RetornarListaTiposFuncionario();
+        }
 
         /// <summary>
         /// Nome popular do funcionario
@@ -29,6 +36,17 @@ namespace PizzaByteSite.Models
         [Display(Name = "Telefone")]
         public string Telefone { set; get; }
 
+        /// <summary>
+        /// Indica o tipo do funcionario (Motoboy, Atendente, Cozinheiro, etc..)
+        /// </summary>
+        [Required(ErrorMessage = "Por favor, selecione qual o tipo de funcionario")]
+        [Display(Name = "Tipo")]
+        public TipoFuncionario Tipo { get; set; }
+
+        /// <summary>
+        /// Lista com as opções de tipos de funcionarios
+        /// </summary>
+        public List<SelectListItem> ListaTipos { get; set; }
 
         /// <summary>
         /// Converte um funcionario de DTO para Model
@@ -40,12 +58,15 @@ namespace PizzaByteSite.Models
         {
             try
             {
-                this.Nome = string.IsNullOrWhiteSpace(funcionarioDto.Nome) ? "" : funcionarioDto.Nome.Trim();
-                this.Telefone = string.IsNullOrWhiteSpace(funcionarioDto.Telefone) ? "" : funcionarioDto.Telefone.Trim();
-                this.DataAlteracao = funcionarioDto.DataAlteracao;
-                this.DataInclusao = funcionarioDto.DataInclusao;
-                this.Id = funcionarioDto.Id;
-                this.Inativo = funcionarioDto.Inativo;
+
+                Nome = string.IsNullOrWhiteSpace(funcionarioDto.Nome) ? "" : funcionarioDto.Nome.Trim();
+                Telefone = funcionarioDto.Telefone;
+                Tipo = funcionarioDto.Tipo;
+                DataAlteracao = funcionarioDto.DataAlteracao;
+                DataInclusao = funcionarioDto.DataInclusao;
+                Id = funcionarioDto.Id;
+                Inativo = funcionarioDto.Inativo;
+
 
                 return true;
             }
@@ -59,7 +80,7 @@ namespace PizzaByteSite.Models
         /// <summary>
         /// Converte um funcionario de Model para Dto
         /// </summary>
-        /// <param name="fornecedorDto"></param>
+        /// <param name="funcionarioDto"></param>
         /// <param name="mensagemErro"></param>
         /// <returns></returns>
         public bool ConverterModelParaDto(ref FuncionarioDto funcionarioDto, ref string mensagemErro)
@@ -67,12 +88,12 @@ namespace PizzaByteSite.Models
             try
             {
                 funcionarioDto.Nome = string.IsNullOrWhiteSpace(Nome) ? "" : Nome.Trim();
-                funcionarioDto.Telefone = string.IsNullOrWhiteSpace(Telefone) ? "" : Telefone.Trim();
+                funcionarioDto.Telefone = Telefone;
+                funcionarioDto.Tipo = Tipo;
                 funcionarioDto.DataAlteracao = this.DataAlteracao;
                 funcionarioDto.DataInclusao = this.DataInclusao;
                 funcionarioDto.Id = this.Id;
                 funcionarioDto.Inativo = this.Inativo;
-
 
                 return true;
             }
@@ -82,5 +103,6 @@ namespace PizzaByteSite.Models
                 return false;
             }
         }
+
     }
 }

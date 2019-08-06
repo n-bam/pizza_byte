@@ -21,6 +21,22 @@ namespace PizzaByteSite
         }
 
         /// <summary>
+        /// Popula as opções para tipos de funcionario
+        /// </summary>
+        /// <param name="listaTipos"></param>
+        public static List<SelectListItem> RetornarListaTiposFuncionario()
+        {
+            List<SelectListItem> listaTipos = new List<SelectListItem>();
+            listaTipos.Add(new SelectListItem { Value = TipoFuncionario.Motoboy.ToString(), Text = "Motoboy" });
+            listaTipos.Add(new SelectListItem { Value = TipoFuncionario.Atendente.ToString(), Text = "Atendente " });
+            listaTipos.Add(new SelectListItem { Value = TipoFuncionario.Cozinheiro.ToString(), Text = "Cozinheiro " });
+            listaTipos.Add(new SelectListItem { Value = TipoFuncionario.Gestor.ToString(), Text = "Gestor" });
+
+
+            return listaTipos;
+        }
+
+        /// <summary>
         /// Popula as opções para tipos de pedido
         /// </summary>
         /// <param name="listaTipos"></param>

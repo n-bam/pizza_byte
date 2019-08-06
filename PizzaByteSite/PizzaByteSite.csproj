@@ -307,8 +307,6 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\FontAwesome.otf" />
-    <None Include="Properties\PublishProfiles\pizzabyte - FTP.pubxml" />
-    <None Include="Properties\PublishProfiles\pizzabyte - Web Deploy.pubxml" />
     <Content Include="Scripts\PizzaByteSite\plugins\input-mask\phone-codes\phone-be.json" />
     <Content Include="Scripts\PizzaByteSite\plugins\input-mask\phone-codes\phone-codes.json" />
     <None Include="Properties\PublishProfiles\pizzabytesite - FTP.pubxml" />
@@ -4122,6 +4120,7 @@
     <Content Include="Scripts\PizzaByteSite\plugins\timepicker\bootstrap-timepicker.min.js" />
     <Content Include="Scripts\PizzaByteSite\plugins\jQueryUI\toastr.js" />
     <Content Include="Scripts\PizzaByteSite\plugins\jQueryUI\toastr.min.js" />
+    <Content Include="Scripts\PizzaByteSite\Telas\IndexFuncionario.js" />
     <Content Include="Scripts\PizzaByteSite\Telas\IndexSuporte.js" />
     <Content Include="Scripts\PizzaByteSite\Telas\VisualizarCliente.js" />
     <Content Include="Scripts\PizzaByteSite\Telas\IndexCliente.js" />
@@ -4194,6 +4193,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Funcionario1\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

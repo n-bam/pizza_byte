@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using static PizzaByteEnum.Enumeradores;
 
 namespace PizzaByteSite.Controllers
 {
@@ -27,7 +28,7 @@ namespace PizzaByteSite.Controllers
             }
 
             // Filtros da página inicial
-             FiltrosFornecedorModel model = new FiltrosFornecedorModel()
+             FiltrosFuncionarioModel model = new FiltrosFuncionarioModel()
             {
                 Pagina = 1
             };
@@ -369,7 +370,7 @@ namespace PizzaByteSite.Controllers
         /// </summary>
         /// <param name="filtros"></param>
         /// <returns></returns>
-        public string ObterListaFiltrada(FiltrosfuncionarioModel filtros)
+        public string ObterListaFiltrada(FiltrosFuncionarioModel filtros)
         {
             //Requisição para obter a lista
             RequisicaoObterListaDto requisicaoDto = new RequisicaoObterListaDto()
@@ -392,6 +393,12 @@ namespace PizzaByteSite.Controllers
             {
                 requisicaoDto.ListaFiltros.Add("INATIVO", filtros.ObterInativos.Trim());
             }
+
+            if (filtros.Tipo != TipoFuncionario.NaoIdentificado)
+            {
+                requisicaoDto.ListaFiltros.Add("TIPO", ((int)filtros.Tipo).ToString());
+            }
+
 
             //Consumir o serviço
             FuncionarioBll funcionarioBll = new FuncionarioBll(true);

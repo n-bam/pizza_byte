@@ -107,6 +107,11 @@
             ExcluirSuporte = 49,
             ObterSuporte = 50,
             ObterListaSuporte = 51,
+            ExcluirFuncionario = 52,
+            IncluirFuncionario = 53,
+            EditarFuncionario = 54,
+            ObterFuncionario = 55,
+            ObterListaFuncionario = 56,
         }
 
         public enum TipoMensagemSuporte

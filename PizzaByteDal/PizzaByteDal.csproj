@@ -53,6 +53,14 @@
     <Compile Include="Migrations\201908010027073_CriacaoBancoDados.Designer.cs">
       <DependentUpon>201908010027073_CriacaoBancoDados.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908050021389_CriandoBD.cs" />
+    <Compile Include="Migrations\201908050021389_CriandoBD.Designer.cs">
+      <DependentUpon>201908050021389_CriandoBD.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908051446343_AdicionarNovoBd.cs" />
+    <Compile Include="Migrations\201908051446343_AdicionarNovoBd.Designer.cs">
+      <DependentUpon>201908051446343_AdicionarNovoBd.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PizzaByteContexto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -84,6 +92,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201908010027073_CriacaoBancoDados.resx">
       <DependentUpon>201908010027073_CriacaoBancoDados.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908050021389_CriandoBD.resx">
+      <DependentUpon>201908050021389_CriandoBD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908051446343_AdicionarNovoBd.resx">
+      <DependentUpon>201908051446343_AdicionarNovoBd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

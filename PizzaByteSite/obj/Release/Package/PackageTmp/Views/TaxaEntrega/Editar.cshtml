@@ -12,7 +12,7 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="~/Usuario/Inicio"><i class="fa fa-home"></i> Inicio</a></li>
-            <li><a href="~/TaxaEntrega/Index"><i class="fa fa-tags"></i> Taxas de entrega</a></li>
+            <li><a href="~/TaxaEntrega/Index"><i class="fa fa-motorcycle"></i> Taxas de entrega</a></li>
             <li class="active"><i class="fa fa-pencil"></i> Editar</li>
         </ol>
     </div>
@@ -43,24 +43,24 @@
                                 </div>
 
                                 <div class="form-group">
-                                    @Html.LabelFor(m => m.Cidade, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
-                                    <div class="col-lg-8 col-md-10 col-sm-9 col-xs-12">
-                                        @Html.EditorFor(m => m.Cidade, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                                        @Html.ValidationMessageFor(m => m.Cidade, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
                                     @Html.LabelFor(m => m.Bairro, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
-                                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+                                    <div class="col-lg-4 col-md-4 col-sm-3 col-xs-12">
                                         @Html.EditorFor(m => m.Bairro, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                                         @Html.ValidationMessageFor(m => m.Bairro, "", new { @class = "text-danger" })
                                     </div>
 
                                     @Html.LabelFor(m => m.ValorTaxa, new { @class = "control-label col-lg-2 col-md-2 col-sm-1 col-xs-12" })
-                                    <div class="col-lg-4 col-md-5 col-sm-5 col-xs-12">
+                                    <div class="col-lg-2 col-md-3 col-sm-5 col-xs-12">
                                         @Html.EditorFor(m => m.ValorTaxa, new { htmlAttributes = new { @class = "form-control" } })
                                         @Html.ValidationMessageFor(m => m.ValorTaxa, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Cidade, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-4 col-md-4 col-sm-3 col-xs-12">
+                                        @Html.EditorFor(m => m.Cidade, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                        @Html.ValidationMessageFor(m => m.Cidade, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
 

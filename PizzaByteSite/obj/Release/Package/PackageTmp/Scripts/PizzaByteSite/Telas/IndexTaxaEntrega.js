@@ -61,10 +61,6 @@
                             + "<td>" + ((dados.ListaEntidades[i].Inativo) ? "Sim" : "Não") + "</td>"
                             + "<td><a class='btn btn-sm btn-info' href='../TaxaEntrega/Editar/"
                             + dados.ListaEntidades[i].Id + "'><i class='fa fa-pencil'></i></a>"
-                            + " <a class='btn btn-sm btn-danger' href='../TaxaEntrega/Excluir/"
-                            + dados.ListaEntidades[i].Id + "?Descricao="
-                            + dados.ListaEntidades[i].Bairro + " (R$" + dados.ListaEntidades[i].ValorTaxa.toFixed(2).replace(".", ",") 
-                            + ")'><i class='fa fa-trash'></i></a>"
                             + "</td></tr>");
                     }
                 }
