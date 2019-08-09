@@ -12,7 +12,9 @@ namespace PizzaByteDal
         {
             this.Configuration.LazyLoadingEnabled = false;
             this.Configuration.ProxyCreationEnabled = false;
-            Database.Connection.ConnectionString = @"Data Source =.\SQLExpress;Initial Catalog = PizzariaNacoes; User ID=sa;Password=125478; Connection Timeout=30;Trusted_Connection=false;Encrypt=false;Connection Timeout=30";
+            Database.Connection.ConnectionString = @"Data Source =den1.mssql7.gear.host;Initial Catalog = PizzaByte; User ID=pizzabyte;Password=Wk8StsqK?7?W; Connection Timeout=30;Trusted_Connection=false;Encrypt=false;Connection Timeout=30";
+
+            //Database.Connection.ConnectionString = @"Data Source =.\SQLExpress;Initial Catalog = PizzariaNacoes; User ID=sa;Password=125478; Connection Timeout=30;Trusted_Connection=false;Encrypt=false;Connection Timeout=30";
             //Database.Connection.ConnectionString = @"Data Source =den1.mssql7.gear.host;Initial Catalog = PizzaByteDb; User ID=pizzabytedb;Password=Qg1kJe9Cp?K?; Connection Timeout=30;Trusted_Connection=false;Encrypt=false;Connection Timeout=30";
         }
 

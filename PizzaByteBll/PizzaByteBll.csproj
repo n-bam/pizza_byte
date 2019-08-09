@@ -54,10 +54,10 @@
     <Compile Include="Base\LogBll.cs" />
     <Compile Include="ClienteEnderecoBll.cs" />
     <Compile Include="Base\SuporteBll.cs" />
+    <Compile Include="FuncionarioBll.cs" />
     <Compile Include="TaxaEntregaBll.cs" />
     <Compile Include="ProdutoBll.cs" />
     <Compile Include="CepBll.cs" />
-    <Compile Include="FuncionarioBll.cs" />
     <Compile Include="FornecedorBll.cs" />
     <Compile Include="UsuarioBll.cs" />
     <Compile Include="ClienteBll.cs" />

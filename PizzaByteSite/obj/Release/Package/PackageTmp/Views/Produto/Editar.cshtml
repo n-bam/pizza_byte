@@ -63,6 +63,22 @@
                                     </div>
                                 </div>
 
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.DataInclusao, new { @class = "col-lg-4 col-md-3 col-sm-3 col-xs-12 alinhadoDireita small" })
+                                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12 alinhadoDireita small">
+                                        @Html.HiddenFor(m => m.DataInclusao)
+                                        @Html.DisplayFor(m => m.DataInclusao, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.DataInclusao, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    @Html.LabelFor(m => m.DataAlteracao, new { @class = "col-lg-4 col-md-3 col-sm-3 col-xs-12 alinhadoDireita small" })
+                                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12 alinhadoDireita small">
+                                        @Html.HiddenFor(m => m.DataAlteracao)
+                                        @Html.DisplayFor(m => m.DataAlteracao, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.DataAlteracao, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
                                 <div class="box-footer">
                                     <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-3">
                                         <button type="button" class="btn btn-default" onclick="window.history.back();"><i class="fa fa-mail-reply"></i> Cancelar</button>

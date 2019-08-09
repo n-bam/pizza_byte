@@ -48,9 +48,9 @@
     <Compile Include="Base\SuporteDto.cs" />
     <Compile Include="Base\LogDto.cs" />
     <Compile Include="Entidades\ClienteEnderecoDto.cs" />
+    <Compile Include="Entidades\FuncionarioDto.cs" />
     <Compile Include="Entidades\TaxaEntregaDto.cs" />
     <Compile Include="Entidades\ProdutoDto.cs" />
-    <Compile Include="Entidades\FuncionarioDto.cs" />
     <Compile Include="Entidades\FornecedorDto.cs" />
     <Compile Include="Entidades\UsuarioDto.cs" />
     <Compile Include="Entidades\ClienteDto.cs" />

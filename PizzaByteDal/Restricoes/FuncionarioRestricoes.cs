@@ -10,7 +10,7 @@ namespace PizzaByteDal.Restricoes
         public FuncionarioRestricoes()
         {
             // Nome da tebela no banco, nome do domínio
-            ToTable("Funcionario", "PizzaByte");
+            ToTable("Funcionarios", "PizzaByte");
 
             // Campo que é a chave primária
             HasKey(p => p.Id);
@@ -21,11 +21,11 @@ namespace PizzaByteDal.Restricoes
             .IsRequired() // Obrigartório
             .HasColumnAnnotation(IndexAnnotation.AnnotationName, new IndexAnnotation(new[]
             {
-                new IndexAttribute("ix_Nome_Usuario") // Index para deixar a pesquisa mais rápida
+                new IndexAttribute("ix_Nome_Funcionario") // Index para deixar a pesquisa mais rápida
             }));
 
             this.Property(p => p.Telefone)
-            .HasMaxLength(8);
+            .HasMaxLength(20);
         }
     }
 }

@@ -151,3 +151,65 @@ function FormatarCep(cep) {
         return "";
     }
 }
+
+// -------> Retorna o texto do CNPJ com pontuação
+function FormatarCpf(cpf) {
+    if (cpf !== "" && cpf != null && cpf.length > 0) {
+
+        cpf = cpf.replace(/\D/g, '')
+            .replace(/^(\d{3})(\d{3})?(\d{3})?(\d{2})/, "$1.$2.$3-$4");
+
+        return cpf;
+    } else {
+        return "";
+    }
+}
+
+// -------> Retorna o texto do CNPJ com pontuação
+function FormatarTelefone(telefone) {
+    if (telefone !== "" && telefone != null && telefone.length > 0) {
+
+        if (telefone.length == 11) {
+            telefone = telefone.replace(/\D/g, '')
+                .replace(/^(\d{2})(\d{5})?(\d{4})/, "$1)$2-$3");
+        } else {
+            telefone = telefone.replace(/\D/g, '')
+                .replace(/^(\d{2})(\d{4})?(\d{4})/, "$1)$2-$3");
+        }
+
+        return "(" + telefone;
+    } else {
+        return "";
+    }
+}
+
+// -------> Converte uma data e hora vinda do JSON
+function ConverterDataHoraJson(dataJson) {
+
+    if (dataJson != "" && dataJson != null) {
+
+        var dataJson = new Date(parseInt(dataJson.replace("/Date(", "").replace(")/", ""), 10));
+        var dataConvertida = Padl(dataJson.getDate().toString(), 2, '0');
+        dataConvertida += "/" + Padl((dataJson.getMonth() + 1).toString(), 2, '0') + "/" + dataJson.getFullYear();
+        dataConvertida += " " + dataJson.toString().substring(16, 24);
+
+        return dataConvertida;
+    } else {
+
+        return "/ /    : : ";
+    }
+}
+
+// --------> Completa com o caracter passado a esquerda
+function Padl(texto, comprimento, caracter) {
+    var comprimentoAtual = texto.length;
+    var diferenca = comprimento - comprimentoAtual;
+    var textoEsquerda = "";
+    if (diferenca > 0) {
+        for (var i = 0; i < diferenca; i++) {
+            textoEsquerda = textoEsquerda + caracter;
+        }
+    }
+    var resultado = textoEsquerda + texto;
+    return resultado;
+}

@@ -48,6 +48,7 @@
             } else {
 
                 if (retornoDto.ListaEntidades.length == 0) {
+                    toastr.options.preventDuplicates = true;
                     toastr.info("Não foram encontrados usuários com os filtros preenchidos", "Pesquisa de usuários");
                 } else {
                     for (var i = 0; i < retornoDto.ListaEntidades.length; i++) {
