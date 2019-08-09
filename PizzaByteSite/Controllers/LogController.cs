@@ -41,7 +41,7 @@ namespace PizzaByteSite.Controllers
             //Requisição para obter a lista
             RequisicaoObterListaDto requisicaoDto = new RequisicaoObterListaDto()
             {
-                CampoOrdem = "CEP",
+                CampoOrdem = "DATAINCLUSAO",
                 IdUsuario = SessaoUsuario.SessaoLogin.IdUsuario,
                 Identificacao = SessaoUsuario.SessaoLogin.Identificacao,
                 NaoPaginarPesquisa = filtros.NaoPaginaPesquisa,
