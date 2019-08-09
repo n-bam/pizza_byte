@@ -12,3 +12,4 @@
 *.xml
 *.config
 *.resources
+/PizzaByteSite/obj/Release/Package/PackageTmp
