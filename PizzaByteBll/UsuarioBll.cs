@@ -1,5 +1,6 @@
 ﻿using PizzaByteBll.Base;
 using PizzaByteDal;
+using PizzaByteDto.ClassesBase;
 using PizzaByteDto.Entidades;
 using PizzaByteDto.RetornosRequisicoes;
 using PizzaByteVo;
@@ -738,6 +739,28 @@ namespace PizzaByteBll
 
             retornoDto.Retorno = true;
             retornoDto.Mensagem = "OK";
+            return true;
+        }
+
+        public bool ObterListaParaSelecao(BaseRequisicaoDto requisicaoDto, ref IDictionary<Guid, string> listaUsuarios, ref string mensagemErro)
+        {
+            if (!UtilitarioBll.ValidarIdentificacao(requisicaoDto.Identificacao, requisicaoDto.IdUsuario, ref mensagemErro))
+            {
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaUsuariosParaSelecao, Guid.Empty, mensagemErro);
+                return false;
+            }
+
+            // Obter a query primária
+            IQueryable<UsuarioVo> query;
+            if (!this.ObterQueryBd(out query, ref mensagemErro))
+            {
+                mensagemErro = $"Erro ao obter a query: {mensagemErro}";
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaUsuario, Guid.Empty, mensagemErro);
+                return false;
+            }
+
+            listaUsuarios = query.Where(p => p.Excluido == false).Select(p => new { p.Id, p.Nome }).AsEnumerable().ToDictionary(p => p.Id, p => p.Nome);
             return true;
         }
     }

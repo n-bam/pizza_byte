@@ -112,6 +112,8 @@
             EditarFuncionario = 54,
             ObterFuncionario = 55,
             ObterListaFuncionario = 56,
+            ObterListaLog = 57,
+            ObterListaUsuariosParaSelecao = 58
         }
 
         public enum TipoMensagemSuporte

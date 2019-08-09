@@ -1,4 +1,5 @@
 ﻿using PizzaByteSite.Models;
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using static PizzaByteEnum.Enumeradores;
@@ -83,6 +84,26 @@ namespace PizzaByteSite
             }
 
             return retorno;
+        }
+
+        /// <summary>
+        /// Preenche as listas de filtros dos logs
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static bool PreencherListasFiltrosLog(FiltrosLogModel model)
+        {
+            LogRecursos[] elementos = Enum.GetValues(typeof(LogRecursos)) as LogRecursos[];
+            foreach (var recurso in elementos)
+            {
+                model.ListaRecursos.Add(new SelectListItem()
+                {
+                    Text = recurso.ToString(),
+                    Value = ((int)recurso).ToString()
+                });
+            }
+
+            return true;
         }
     }
 }
