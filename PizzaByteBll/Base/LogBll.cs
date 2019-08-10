@@ -4,6 +4,7 @@ using PizzaByteDto.RetornosRequisicoes;
 using PizzaByteVo.Base;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using static PizzaByteEnum.Enumeradores;
@@ -218,7 +219,7 @@ namespace PizzaByteBll.Base
             IQueryable<LogVo> query;
 
             // Obter a query primária
-            if (!this.ObterQueryBd(out query, ref mensagemErro))
+            if (!this.ObterQueryBd(out query, ref mensagemErro, true))
             {
                 retornoDto.Mensagem = $"Houve um problema ao listar os logs: {mensagemErro}";
                 retornoDto.Retorno = false;
@@ -243,7 +244,7 @@ namespace PizzaByteBll.Base
                             return false;
                         }
 
-                        query = query.Where(p => p.DataInclusao >= filtroDataInicial);
+                        query = query.Where(p => EntityFunctions.TruncateTime(p.DataInclusao) >= filtroDataInicial);
                         break;
 
                     case "DATAINCLUSAOFINAL":
@@ -257,11 +258,26 @@ namespace PizzaByteBll.Base
                             return false;
                         }
 
-                        query = query.Where(p => p.DataInclusao <= filtroDataFinal);
+                        query = query.Where(p => EntityFunctions.TruncateTime(p.DataInclusao) <= filtroDataFinal);
                         break;
 
                     case "MENSAGEM":
                         query = query.Where(p => p.Mensagem.Contains(filtro.Value));
+                        break;
+
+                    case "RECURSO":
+                        int codigoRecurso;
+
+                        if (!int.TryParse(filtro.Value, out codigoRecurso))
+                        {
+                            retornoDto.Mensagem = $"Falha ao converter o filtro de 'recurso'.";
+                            retornoDto.Retorno = false;
+
+                            logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaLog, Guid.Empty, retornoDto.Mensagem);
+                            return false;
+                        }
+
+                        query = query.Where(p => p.Recurso == (LogRecursos)codigoRecurso);
                         break;
 
                     case "IDUSUARIO":
