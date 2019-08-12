@@ -1,5 +1,10 @@
-﻿using PizzaByteSite.Models;
+﻿using PizzaByteBll;
+using PizzaByteDto.ClassesBase;
+using PizzaByteDto.RetornosRequisicoes;
+using PizzaByteSite.Models;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using static PizzaByteEnum.Enumeradores;
 
@@ -83,6 +88,55 @@ namespace PizzaByteSite
             }
 
             return retorno;
+        }
+
+        /// <summary>
+        /// Preenche as listas de filtros dos logs
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static bool PreencherListasFiltrosLog(FiltrosLogModel model, ref string mensagemErro)
+        {
+            // Preencher todos os recursos disponíveis
+            LogRecursos[] elementos = Enum.GetValues(typeof(LogRecursos)) as LogRecursos[];
+            foreach (var recurso in elementos)
+            {
+                model.ListaRecursos.Add(new SelectListItem()
+                {
+                    Text = recurso.ToString(),
+                    Value = ((int)recurso).ToString()
+                });
+            }
+
+            model.ListaRecursos.RemoveAt(0);
+            model.ListaRecursos = model.ListaRecursos.OrderBy(p => p.Text).ToList();
+
+            UsuarioBll usuarioBll = new UsuarioBll(false);
+            RetornoObterDicionarioDto<Guid, string> retornoDto = new RetornoObterDicionarioDto<Guid, string>();
+            BaseRequisicaoDto requisicaoDto = new BaseRequisicaoDto()
+            {
+                Identificacao = SessaoUsuario.SessaoLogin.Identificacao,
+                IdUsuario = SessaoUsuario.SessaoLogin.IdUsuario
+            };
+
+            // Obter a lista de usuários cadastrados
+            if (!usuarioBll.ObterListaParaSelecao(requisicaoDto, ref retornoDto))
+            {
+                mensagemErro = retornoDto.Mensagem;
+                return false;
+            }
+
+            // Popular a lista da model com os usuários retornados
+            foreach (var usuario in retornoDto.ListaEntidades)
+            {
+                model.ListaUsuarios.Add(new SelectListItem()
+                {
+                    Text = usuario.Value,
+                    Value = usuario.Key.ToString()
+                });
+            }
+
+            return true;
         }
     }
 }

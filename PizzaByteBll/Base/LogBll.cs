@@ -3,6 +3,9 @@ using PizzaByteDto.ClassesBase;
 using PizzaByteDto.RetornosRequisicoes;
 using PizzaByteVo.Base;
 using System;
+using System.Collections.Generic;
+using System.Data.Entity.Core.Objects;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using static PizzaByteEnum.Enumeradores;
 
@@ -183,12 +186,11 @@ namespace PizzaByteBll.Base
         {
             try
             {
+                logDto.Mensagem = string.IsNullOrWhiteSpace(logVo.Mensagem) ? "" : logVo.Mensagem.Trim();
                 logDto.Recurso = logVo.Recurso;
                 logDto.IdUsuario = logVo.IdUsuario;
                 logDto.IdEntidade = logVo.IdEntidade;
                 logDto.Id = logVo.Id;
-                logDto.Inativo = logVo.Inativo;
-                logDto.DataAlteracao = logVo.DataAlteracao;
                 logDto.DataInclusao = logVo.DataInclusao;
 
                 return true;
@@ -198,6 +200,163 @@ namespace PizzaByteBll.Base
                 mensagemErro = "Erro ao converter o log para Vo: " + ex.Message;
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Obtém uma lista de logs com filtros aplicados, podendo ser paginada
+        /// </summary>
+        /// <param name="requisicaoDto"></param>
+        /// <param name="retornoDto"></param>
+        /// <returns></returns>
+        public override bool ObterListaFiltrada(RequisicaoObterListaDto requisicaoDto, ref RetornoObterListaDto<LogDto> retornoDto)
+        {
+            if (!base.ObterListaFiltrada(requisicaoDto, ref retornoDto))
+            {
+                return false;
+            }
+
+            string mensagemErro = "";
+            IQueryable<LogVo> query;
+
+            // Obter a query primária
+            if (!this.ObterQueryBd(out query, ref mensagemErro, true))
+            {
+                retornoDto.Mensagem = $"Houve um problema ao listar os logs: {mensagemErro}";
+                retornoDto.Retorno = false;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaLog, Guid.Empty, retornoDto.Mensagem);
+                return false;
+            }
+
+            // Aplicar os filtros
+            foreach (var filtro in requisicaoDto.ListaFiltros)
+            {
+                switch (filtro.Key)
+                {
+                    case "DATAINCLUSAOINICIAL":
+                        DateTime filtroDataInicial;
+                        if (!DateTime.TryParse(filtro.Value, out filtroDataInicial))
+                        {
+                            retornoDto.Mensagem = $"Falha ao converter o filtro de data.";
+                            retornoDto.Retorno = false;
+
+                            logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaLog, Guid.Empty, retornoDto.Mensagem);
+                            return false;
+                        }
+
+                        query = query.Where(p => EntityFunctions.TruncateTime(p.DataInclusao) >= filtroDataInicial);
+                        break;
+
+                    case "DATAINCLUSAOFINAL":
+                        DateTime filtroDataFinal;
+                        if (!DateTime.TryParse(filtro.Value, out filtroDataFinal))
+                        {
+                            retornoDto.Mensagem = $"Falha ao converter o filtro de data.";
+                            retornoDto.Retorno = false;
+
+                            logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaLog, Guid.Empty, retornoDto.Mensagem);
+                            return false;
+                        }
+
+                        query = query.Where(p => EntityFunctions.TruncateTime(p.DataInclusao) <= filtroDataFinal);
+                        break;
+
+                    case "MENSAGEM":
+                        query = query.Where(p => p.Mensagem.Contains(filtro.Value));
+                        break;
+
+                    case "RECURSO":
+                        int codigoRecurso;
+
+                        if (!int.TryParse(filtro.Value, out codigoRecurso))
+                        {
+                            retornoDto.Mensagem = $"Falha ao converter o filtro de 'recurso'.";
+                            retornoDto.Retorno = false;
+
+                            logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaLog, Guid.Empty, retornoDto.Mensagem);
+                            return false;
+                        }
+
+                        query = query.Where(p => p.Recurso == (LogRecursos)codigoRecurso);
+                        break;
+
+                    case "IDUSUARIO":
+
+                        Guid filtroId;
+                        if (!Guid.TryParse(filtro.Value, out filtroId))
+                        {
+                            retornoDto.Mensagem = $"Falha ao converter o filtro de 'idUsuario'.";
+                            retornoDto.Retorno = false;
+
+                            logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaLog, Guid.Empty, retornoDto.Mensagem);
+                            return false;
+                        }
+
+                        query = query.Where(p => p.IdUsuario == filtroId);
+                        break;
+
+                    default:
+                        retornoDto.Mensagem = $"O filtro {filtro.Key} não está definido para esta pesquisa.";
+                        retornoDto.Retorno = false;
+
+                        logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaLog, Guid.Empty, retornoDto.Mensagem);
+                        return false;
+                }
+            }
+
+            requisicaoDto.CampoOrdem = string.IsNullOrWhiteSpace(requisicaoDto.CampoOrdem) ? "" : requisicaoDto.CampoOrdem.ToUpper().Trim();
+            switch (requisicaoDto.CampoOrdem)
+            {
+                case "DATAINCLUSAO":
+                    query = query.OrderBy(p => p.DataInclusao).ThenBy(p => p.Recurso).ThenBy(p => p.IdUsuario);
+                    break;
+
+                case "RECURSO":
+                    query = query.OrderBy(p => p.Recurso).ThenBy(p => p.DataInclusao).ThenBy(p => p.IdUsuario);
+                    break;
+
+                case "IDUSUARIO":
+                    query = query.OrderByDescending(p => p.IdUsuario).ThenBy(p => p.DataInclusao).ThenBy(p => p.Recurso);
+                    break;
+
+                default:
+                    query = query.OrderBy(p => p.DataInclusao).ThenBy(p => p.Recurso).ThenBy(p => p.IdUsuario);
+                    break;
+            }
+
+            double totalItens = query.Count();
+            double paginas = totalItens <= requisicaoDto.NumeroItensPorPagina ? 1 : totalItens / requisicaoDto.NumeroItensPorPagina;
+            retornoDto.NumeroPaginas = (int)Math.Ceiling(paginas);
+
+            int pular = (requisicaoDto.Pagina - 1) * requisicaoDto.NumeroItensPorPagina;
+            query = query.Skip(pular).Take(requisicaoDto.NumeroItensPorPagina);
+
+            if (totalItens == 0)
+            {
+                retornoDto.Mensagem = "Nenhum resultado encontrado.";
+                retornoDto.Retorno = true;
+                return true;
+            }
+
+            List<LogVo> listaVo = query.ToList();
+            foreach (var log in listaVo)
+            {
+                LogDto logDto = new LogDto();
+                if (!ConverterVoParaDto(log, ref logDto, ref mensagemErro))
+                {
+                    retornoDto.Mensagem = "Erro ao converter para DTO: " + mensagemErro;
+                    retornoDto.Retorno = false;
+
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaLog, log.Id, retornoDto.Mensagem);
+                    return false;
+                }
+
+                retornoDto.ListaEntidades.Add(logDto);
+            }
+
+            retornoDto.Mensagem = "Ok";
+            retornoDto.Retorno = true;
+            return true;
         }
 
     }

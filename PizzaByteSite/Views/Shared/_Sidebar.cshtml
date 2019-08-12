@@ -27,7 +27,7 @@
             <li class="@Html.IsSelected(controller: "ContasPagarReceber")">
                 <a href="@Url.Action("Index", "Entregas")"><i class="fa fa-money"></i><span> &nbsp;Contas</span></a>
             </li>
-            
+
             <li class="treeview @Html.IsSelected(controller: "Cadastros")">
                 <a href="@Url.Action("Cadastros")">
                     <i class="fa fa-edit"></i> <span>Cadastros</span>
@@ -54,6 +54,11 @@
             <li class="header">Opções de ajuda</li>
             <li><a href="@Url.Action("Index", "Suporte")"><i class="fa fa-comments-o"></i> <span>Suporte</span></a></li>
             <li><a href="#"><i class="fa fa-eye"></i> <span>Manual</span></a></li>
+            @if (!string.IsNullOrWhiteSpace(SessaoUsuario.SessaoLogin.IdUsuario.ToString())
+               && SessaoUsuario.SessaoLogin.IdUsuario.ToString().ToUpper().Substring(0, 8) == "F93C1FC2")
+            {
+                <li><a href="@Url.Action("Index", "Log")"><i class="fa fa-warning"></i> <span>Registro LOG</span></a></li>
+            }
         </ul>
     </section>
     <!-- /.sidebar -->

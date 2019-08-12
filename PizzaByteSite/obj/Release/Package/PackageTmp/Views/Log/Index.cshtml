@@ -1,7 +1,7 @@
-﻿@model PizzaByteSite.Models.FiltrosFornecedorModel
+﻿@model PizzaByteSite.Models.FiltrosLogModel
 
 @{
-    ViewBag.Title = "Fornecedores";
+    ViewBag.Title = "LOGs";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -9,12 +9,12 @@
     <div class="form-horizontal">
         <div class="content-header">
             <h1>
-                Fornecedores
+                LOGs
                 <small>Listagem</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="~/Usuario/Inicio"><i class="fa fa-home"></i> Inicio</a></li>
-                <li><a class="active"><i class="fa fa-truck"></i> Fornecedores</a></li>
+                <li><a class="active"><i class="fa fa-tags"></i> LOGs</a></li>
             </ol>
         </div>
 
@@ -23,39 +23,44 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Pesquisa de fornecedores</h3>
+                            <h3 class="box-title">Pesquisa de LOGs</h3>
                         </div>
 
                         <div class="box-body">
                             <div class="form-group">
-                                @Html.LabelFor(m => m.NomeFantasia, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                @Html.LabelFor(m => m.Mensagem, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
                                 <div class="col-lg-9 col-md-10 col-sm-9 col-xs-12">
-                                    @Html.EditorFor(m => m.NomeFantasia, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.EditorFor(m => m.Mensagem, new { htmlAttributes = new { @class = "form-control" } })
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                @Html.LabelFor(m => m.RazaoSocial, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
-                                <div class="col-lg-9 col-md-10 col-sm-9 col-xs-12">
-                                    @Html.EditorFor(m => m.RazaoSocial, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.LabelFor(m => m.Recurso, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                <div class="col-lg-2 col-md-4 col-sm-9 col-xs-12">
+                                    @Html.DropDownListFor(m => m.Tipo, Model.ListaRecursos, "Todos", new { @class = "form-control" })
+                                </div>
+
+                                @Html.LabelFor(m => m.IdUsuario, new { @class = "control-label col-lg-1 col-md-2 col-sm-3 col-xs-12" })
+                                <div class="col-lg-3 col-md-4 col-sm-9 col-xs-12">
+                                    @Html.DropDownListFor(m => m.IdUsuario, Model.ListaUsuarios, new { @class = "form-control" })
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                @Html.LabelFor(m => m.Cnpj, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
-                                <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
-                                    @Html.EditorFor(m => m.Cnpj, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.LabelFor(m => m.DataInicial, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                <div class="col-lg-2 col-md-3 col-sm-9 col-xs-12">
+                                    @Html.EditorFor(m => m.DataInicial, new { htmlAttributes = new { @class = "form-control" } })
                                 </div>
 
-                                @Html.LabelFor(m => m.ObterInativos, new { @class = "control-label col-lg-1 col-md-2 col-sm-3 col-xs-12" })
-                                <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
-                                    @Html.DropDownListFor(m => m.ObterInativos, Model.ListaInativo, new { @class = "form-control" })
+                                @Html.LabelFor(m => m.DataFinal, new { @class = "control-label col-lg-1 col-md-1 col-sm-3 col-xs-12" })
+                                <div class="col-lg-2 col-md-3 col-sm-9 col-xs-12">
+                                    @Html.EditorFor(m => m.DataFinal, new { htmlAttributes = new { @class = "form-control" } })
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-3 col-lg-10 col-md-10 col-sm-9 col-xs-12">
-                                    <button class="btn btn-primary" id="btnBuscarFornecedores"><i class="fa fa-search"></i> Buscar</button>
+                                    <button class="btn btn-primary" id="btnBuscarLogs"><i class="fa fa-search"></i> Buscar</button>
                                 </div>
                             </div>
                         </div>
@@ -71,18 +76,18 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Lista de fornecedores cadastrados</h3>
+                            <h3 class="box-title">Lista de LOGs registrados</h3>
                         </div>
 
                         <div class="box-body table-responsive">
                             <table class="table table-hover" id="tblResultados">
                                 <thead>
                                     <tr>
-                                        <th>Nome fantasia</th>
-                                        <th>Razão social</th>
-                                        <th>CNPJ</th>
-                                        <th>Inativo</th>
-                                        <th>Opções</th>
+                                        <th>Data</th>
+                                        <th>Mensagem</th>
+                                        <th>Usuário</th>
+                                        <th>Recurso</th>
+                                        <th>Id da entidade</th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -90,7 +95,6 @@
                         </div>
 
                         <div class="box-footer clearfix" id="divPaginas">
-                            <a class="btn btn-primary" href="Incluir"><i class="fa fa-plus"></i> Novo fornecedor</a>
                             @*Paginação da pesquisa*@
                         </div>
                     </div>
@@ -103,27 +107,25 @@
 <script src="~/Scripts/PizzaByteSite/plugins/jQueryUI/jquery-3.3.1.min.js"></script>
 <script src="~/Scripts/PizzaByteSite/plugins/jQueryUI/toastr.min.js"></script>
 <script src="~/Scripts/PizzaByteSite/Telas/Geral.js"></script>
-<script src="~/Scripts/PizzaByteSite/plugins/mask/jquery.mask.min.js"></script>
-<script src="~/Scripts/PizzaByteSite/Telas/IndexFornecedor.js"></script>
+<script src="~/Scripts/PizzaByteSite/Telas/IndexLog.js"></script>
 <script src="~/Scripts/PizzaByteSite/plugins/mask/jquery.mask.min.js"></script>
 
 <script>
     $(document).ready(function () {
-        $("#Cnpj").mask("99.999.999/9999-99", { placeholder: "__.___.___/____-__" });
-
         var retorno = '@TempData["Retorno"]';
-        MostrarMensagemRetorno(retorno, "O fornecedor");
-        BuscarFornecedores(1);
+        MostrarMensagemRetorno(retorno, "O LOG");
+        BuscarLogs(1);
 
-        $("#Cnpj").mask("99.999.999/9999-99", { placeholder: "__.___.___/____-__" });
+        $("#DataInicial").mask("99/99/9999");
+        $("#DataFinal").mask("99/99/9999");
 
-        $("#btnBuscarFornecedores").click(function () {
-            BuscarFornecedores(1);
+        $("#btnBuscarLogs").click(function () {
+            BuscarLogs(1);
         });
 
-     $(document).keypress(function (e) {
+        $(document).keypress(function (e) {
             if (e.keyCode === 13) {
-                $("#btnBuscarFornecedores").click();
+                $("#btnBuscarLogs").click();
             }
         });
     });

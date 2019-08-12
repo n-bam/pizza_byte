@@ -1,5 +1,6 @@
 ﻿using PizzaByteBll.Base;
 using PizzaByteDal;
+using PizzaByteDto.ClassesBase;
 using PizzaByteDto.Entidades;
 using PizzaByteDto.RetornosRequisicoes;
 using PizzaByteVo;
@@ -739,6 +740,51 @@ namespace PizzaByteBll
             retornoDto.Retorno = true;
             retornoDto.Mensagem = "OK";
             return true;
+        }
+
+        /// <summary>
+        /// Traz uma lista ID, Nome dos usuários para popular combos
+        /// </summary>
+        /// <param name="requisicaoDto"></param>
+        /// <param name="listaUsuarios"></param>
+        /// <param name="mensagemErro"></param>
+        /// <returns></returns>
+        public bool ObterListaParaSelecao(BaseRequisicaoDto requisicaoDto, ref RetornoObterDicionarioDto<Guid, string> retornoDto)
+        {
+            string mensagemErro = "";
+            if (!UtilitarioBll.ValidarIdentificacao(requisicaoDto.Identificacao, requisicaoDto.IdUsuario, ref mensagemErro))
+            {
+                retornoDto.Retorno = false;
+                retornoDto.Mensagem = mensagemErro;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaUsuariosParaSelecao, Guid.Empty, retornoDto.Mensagem);
+                return false;
+            }
+
+            // Obter a query primária
+            IQueryable<UsuarioVo> query;
+            if (!this.ObterQueryBd(out query, ref mensagemErro))
+            {
+                retornoDto.Retorno = false;
+                retornoDto.Mensagem = $"Erro ao obter a query: {mensagemErro}";
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaUsuario, Guid.Empty, retornoDto.Mensagem);
+                return false;
+            }
+
+            try
+            {
+                retornoDto.ListaEntidades = query.Where(p => p.Excluido == false).OrderBy(p => p.Nome).Select(p => new { p.Id, p.Nome }).AsEnumerable().ToDictionary(p => p.Id, p => p.Nome);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                retornoDto.Retorno = false;
+                retornoDto.Mensagem = $"Erro ao obter a query: {ex.Message}";
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaUsuario, Guid.Empty, retornoDto.Mensagem);
+                return false;
+            }
         }
     }
 }

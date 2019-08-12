@@ -2,6 +2,7 @@
 using PizzaByteDto.Base;
 using PizzaByteDto.RetornosRequisicoes;
 using PizzaByteSite.Models;
+using System;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
@@ -24,8 +25,17 @@ namespace PizzaByteSite.Controllers
             // Model a ser utilizada na tela
             FiltrosLogModel model = new FiltrosLogModel()
             {
-                Pagina = 1
+                Pagina = 1,
+                DataFinal = DateTime.Now,
+                DataInicial = DateTime.Now
             };
+
+            string mensagemErro = "";
+            if (!Utilidades.PreencherListasFiltrosLog(model, ref mensagemErro))
+            {
+                ViewBag.MensagemErro = mensagemErro;
+                return View("Erro");
+            }
 
             //Chamar a view
             return View(model);
@@ -41,12 +51,12 @@ namespace PizzaByteSite.Controllers
             //Requisição para obter a lista
             RequisicaoObterListaDto requisicaoDto = new RequisicaoObterListaDto()
             {
-                CampoOrdem = "CEP",
+                CampoOrdem = "DATAINCLUSAO",
                 IdUsuario = SessaoUsuario.SessaoLogin.IdUsuario,
                 Identificacao = SessaoUsuario.SessaoLogin.Identificacao,
                 NaoPaginarPesquisa = filtros.NaoPaginaPesquisa,
                 Pagina = filtros.Pagina,
-                NumeroItensPorPagina = 20
+                NumeroItensPorPagina = 10
             };
 
             requisicaoDto.ListaFiltros.Add("DATAINCLUSAOINICIAL", filtros.DataInicial.ToString());
@@ -65,7 +75,7 @@ namespace PizzaByteSite.Controllers
 
             if (filtros.Recurso != PizzaByteEnum.Enumeradores.LogRecursos.NaoIdentificado)
             {
-                requisicaoDto.ListaFiltros.Add("RECURSO", filtros.Recurso.ToString());
+                requisicaoDto.ListaFiltros.Add("RECURSO", ((int)filtros.Recurso).ToString());
             }
 
             //Consumir o serviço

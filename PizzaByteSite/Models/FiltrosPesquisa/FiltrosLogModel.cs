@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 using static PizzaByteEnum.Enumeradores;
 
 namespace PizzaByteSite.Models
@@ -9,6 +11,12 @@ namespace PizzaByteSite.Models
     /// </summary>
     public class FiltrosLogModel : BaseFiltrosModel
     {
+        public FiltrosLogModel()
+        {
+            ListaRecursos = new List<SelectListItem>();
+            ListaUsuarios = new List<SelectListItem>();
+        }
+
         /// <summary>
         /// Pesquisar por mensagem
         /// </summary>
@@ -38,5 +46,15 @@ namespace PizzaByteSite.Models
         /// </summary>
         [Display(Name = "Recurso")]
         public LogRecursos Recurso { get; set; }
+
+        /// <summary>
+        /// Lista com os recursos dinsponíveis
+        /// </summary>
+        public List<SelectListItem> ListaRecursos { get; set; }
+
+        /// <summary>
+        /// Lista com os usuários cadastrados
+        /// </summary>
+        public List<SelectListItem> ListaUsuarios { get; set; }
     }
 }
