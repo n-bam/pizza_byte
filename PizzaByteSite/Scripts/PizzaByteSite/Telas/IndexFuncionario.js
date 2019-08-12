@@ -6,12 +6,13 @@
 
     $.ajax({
         type: "POST",
-        url: RetornarNome() + "/Funcionario/ObterListaFiltrada",
+        url: RetornarEndereco() + "/Funcionario/ObterListaFiltrada",
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify({
             Nome: $("#Nome").val(),
             ObterInativos: $("#ObterInativos").val(),
+            Tipo: $("#Tipo").val(),
             Telefone: $("#Telefone").val(),
             Pagina: nPagina,
             NaoPaginaPesquisa: false
@@ -52,8 +53,31 @@
                 } else {
                     for (var i = 0; i < dados.ListaEntidades.length; i++) {
 
+                        var textoTipo = "";
+                        switch (dados.ListaEntidades[i].Tipo) {
+                            case 1:
+                                textoTipo = "Motoboy";
+                                break;
+
+                            case 2:
+                                textoTipo = "Atendente";
+                                break;
+
+                            case 2:
+                                textoTipo = "Cozinheiro";
+                                break;
+
+                            case 2:
+                                textoTipo = "Gestor";
+                                break;
+
+                            default:
+                                textoTipo = "Não identificado";
+                        }
+
                         $("#tblResultados tbody").append("<tr>"
                             + "<td>" + dados.ListaEntidades[i].Nome + "</td>"
+                            + "<td>" + textoTipo + "</td>"
                             + "<td>" + dados.ListaEntidades[i].Telefone + "</td>"
                             + "<td>" + ((dados.ListaEntidades[i].Inativo) ? "Sim" : "Não") + "</td>"
                             + "<td><a class='btn btn-sm btn-default' href='../Funcionarios/Visualizar/"
@@ -62,7 +86,7 @@
                             + dados.ListaEntidades[i].Id + "'><i class='fa fa-pencil'></i></a>"
                             + " <a class='btn btn-sm btn-danger' href='../Funcionario/Excluir/"
                             + dados.ListaEntidades[i].Id + "?Descricao="
-                            + dados.ListaEntidades[i].Nome + "'><i class='fa fa-trash'></i></a>"
+                            + dados.ListaEntidades[i].Descricao + "'><i class='fa fa-trash'></i></a>"
                             + "</td></tr>");
                     }
                 }
