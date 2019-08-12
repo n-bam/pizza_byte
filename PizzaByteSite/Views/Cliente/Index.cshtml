@@ -104,13 +104,20 @@
 <script src="~/Scripts/PizzaByteSite/plugins/jQueryUI/toastr.min.js"></script>
 <script src="~/Scripts/PizzaByteSite/Telas/Geral.js"></script>
 <script src="~/Scripts/PizzaByteSite/Telas/IndexCliente.js"></script>
+<script src="~/Scripts/PizzaByteSite/plugins/mask/jquery.mask.min.js"></script>
 
 <script>
+
     $(document).ready(function () {
+
+        $("#Cpf").mask("999.999.999-99");
+
+        $("#Telefone").mask("(99) 9999-99999", { placeholder: "(__) _____-____" });   
+
         var retorno = '@TempData["Retorno"]';
         MostrarMensagemRetorno(retorno, "O cliente");
         BuscarClientes(1);
-        
+
         $("#btnBuscarClientes").click(function () {
             BuscarClientes(1);
         });

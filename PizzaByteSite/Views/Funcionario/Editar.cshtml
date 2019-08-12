@@ -1,7 +1,7 @@
 ﻿@model PizzaByteSite.Models.FuncionarioModel
 
 @{
-    ViewBag.Title = "Editar funcionario";
+    ViewBag.Title = "Editar Funcionario";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="content-wrapper">
@@ -35,45 +35,58 @@
                                 @Html.HiddenFor(m => m.Id)
 
                                 <div class="form-group">
-                                    @Html.LabelFor(m => m.Nome, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
-                                    <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
-                                        @Html.EditorFor(m => m.Nome, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(m => m.Nome, "", new { @class = "text-danger" })
+                                    @Html.LabelFor(m => m.Inativo, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-3" })
+                                    <div class="col-lg-1 col-md-1 col-sm-2 col-xs-12" style="margin-top: 5px">
+                                        @Html.EditorFor(m => m.Inativo, new { @class = "form-control checkbox" })
+                                        @Html.ValidationMessageFor(m => m.Inativo, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
 
                                 <div class="form-group">
+                                    @Html.LabelFor(m => m.Nome, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-8 col-md-10 col-sm-9 col-xs-12">
+                                        @Html.EditorFor(m => m.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(m => m.Nome, "", new { @class = "text-danger" })
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+
+                                    @Html.LabelFor(m => m.Tipo, new { @class = "control-label col-lg-2 col-md-2 col-sm-1 col-xs-12" })
+                                    <div class="col-lg-4 col-md-5 col-sm-5 col-xs-12">
+                                        @Html.DropDownListFor(m => m.Tipo, Model.ListaTipos, new { @class = "form-control" })
+                                    </div>
+
                                     @Html.LabelFor(m => m.Telefone, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
                                     <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
                                         @Html.EditorFor(m => m.Telefone, new { htmlAttributes = new { @class = "form-control" } })
                                         @Html.ValidationMessageFor(m => m.Telefone, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.DataInclusao, new { @class = "col-lg-4 col-md-3 col-sm-3 col-xs-12 alinhadoDireita small" })
+                                        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12 alinhadoDireita small">
+                                            @Html.HiddenFor(m => m.DataInclusao)
+                                            @Html.DisplayFor(m => m.DataInclusao, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.DataInclusao, "", new { @class = "text-danger" })
+                                        </div>
 
-                                <div class="form-group">
-                                    @Html.LabelFor(m => m.DataInclusao, new { @class = "col-lg-4 col-md-3 col-sm-3 col-xs-12 alinhadoDireita small" })
-                                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12 alinhadoDireita small">
-                                        @Html.HiddenFor(m => m.DataInclusao)
-                                        @Html.DisplayFor(m => m.DataInclusao, new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(m => m.DataInclusao, "", new { @class = "text-danger" })
+                                        @Html.LabelFor(m => m.DataAlteracao, new { @class = "col-lg-4 col-md-3 col-sm-3 col-xs-12 alinhadoDireita small" })
+                                        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12 alinhadoDireita small">
+                                            @Html.HiddenFor(m => m.DataAlteracao)
+                                            @Html.DisplayFor(m => m.DataAlteracao, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.DataAlteracao, "", new { @class = "text-danger" })
+                                        </div>
                                     </div>
 
-                                    @Html.LabelFor(m => m.DataAlteracao, new { @class = "col-lg-4 col-md-3 col-sm-3 col-xs-12 alinhadoDireita small" })
-                                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12 alinhadoDireita small">
-                                        @Html.HiddenFor(m => m.DataAlteracao)
-                                        @Html.DisplayFor(m => m.DataAlteracao, new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(m => m.DataAlteracao, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-
-                                <div class="box-footer">
-                                    <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-3">
-                                        <button type="button" class="btn btn-default" onclick="window.history.back();"><i class="fa fa-mail-reply"></i> Cancelar</button>
-                                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Gravar</button>
+                                    <div class="box-footer">
+                                        <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-3">
+                                            <button type="button" class="btn btn-default" onclick="window.history.back();"><i class="fa fa-mail-reply"></i> Cancelar</button>
+                                            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Gravar</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                     }
                 </div>
             </div>
@@ -81,7 +94,7 @@
     </div>
 </div>
 
-<script src="~/Scripts/PizzaByteSite/plugins/mask/jquery.mask.min.js"></script>
+<script src="~/Scripts/PizzaByteSite/plugins/mask/jquery.maskMoney.min.js"></script>
 
 <script>
     $(document).ready(function () {

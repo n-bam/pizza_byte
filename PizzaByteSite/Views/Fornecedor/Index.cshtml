@@ -104,9 +104,12 @@
 <script src="~/Scripts/PizzaByteSite/plugins/jQueryUI/toastr.min.js"></script>
 <script src="~/Scripts/PizzaByteSite/Telas/Geral.js"></script>
 <script src="~/Scripts/PizzaByteSite/Telas/IndexFornecedor.js"></script>
+<script src="~/Scripts/PizzaByteSite/plugins/mask/jquery.mask.min.js"></script>
 
 <script>
     $(document).ready(function () {
+        $("#Cnpj").mask("99.999.999/9999-99", { placeholder: "__.___.___/____-__" });
+
         var retorno = '@TempData["Retorno"]';
         MostrarMensagemRetorno(retorno, "O fornecedor");
         BuscarFornecedores(1);
