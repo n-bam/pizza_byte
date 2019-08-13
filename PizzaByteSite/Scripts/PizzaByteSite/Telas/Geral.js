@@ -166,7 +166,7 @@ function FormatarCpf(cpf) {
     }
 }
 
-// -------> Retorna o texto do CNPJ com pontuação
+// -------> Retorna o texto do Telefone com pontuação
 function FormatarTelefone(telefone) {
     if (telefone !== "" && telefone != null && telefone.length > 0) {
 

@@ -4193,6 +4193,7 @@
     <Content Include="Views\Funcionario\Incluir.cshtml" />
     <Content Include="Views\Funcionario\Index.cshtml" />
     <Content Include="Views\Funcionario\Visualizar.cshtml" />
+    <Content Include="Views\Funcionario\Editar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

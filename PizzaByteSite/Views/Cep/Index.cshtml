@@ -110,9 +110,13 @@
 <script src="~/Scripts/PizzaByteSite/plugins/jQueryUI/toastr.min.js"></script>
 <script src="~/Scripts/PizzaByteSite/Telas/Geral.js"></script>
 <script src="~/Scripts/PizzaByteSite/Telas/IndexCep.js"></script>
+<script src="~/Scripts/PizzaByteSite/plugins/mask/jquery.mask.min.js"></script>
+
 
 <script>
     $(document).ready(function () {
+        $("#Cep").mask("99999-999", { placeholder: "_____-___" });
+
         var retorno = '@TempData["Retorno"]';
         MostrarMensagemRetorno(retorno, "O fornecedor");
         BuscarCeps(1);
