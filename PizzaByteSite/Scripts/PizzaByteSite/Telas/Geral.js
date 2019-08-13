@@ -12,7 +12,8 @@ function MostrarMensagemRetorno(retornoMensagem, inicioMensagem) {
         "showDuration": "400",
         "hideDuration": "600",
         "timeOut": "3000",
-        "positionClass": "toast-top-right"
+        "positionClass": "toast-top-right",
+        "preventDuplicates": "true"
     }
 
     switch (retornoMensagem) {
@@ -171,10 +172,10 @@ function FormatarTelefone(telefone) {
 
         if (telefone.length == 11) {
             telefone = telefone.replace(/\D/g, '')
-                .replace(/^(\d{2})(\d{5})?(\d{4})/, "$1)$2-$3");
+                .replace(/^(\d{2})(\d{5})?(\d{4})/, "$1) $2-$3");
         } else {
             telefone = telefone.replace(/\D/g, '')
-                .replace(/^(\d{2})(\d{4})?(\d{4})/, "$1)$2-$3");
+                .replace(/^(\d{2})(\d{4})?(\d{4})/, "$1) $2-$3");
         }
 
         return "(" + telefone;

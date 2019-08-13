@@ -28,7 +28,7 @@ namespace PizzaByteSite.Controllers
             }
 
             // Filtros da página inicial
-             FiltrosFuncionarioModel model = new FiltrosFuncionarioModel()
+            FiltrosFuncionarioModel model = new FiltrosFuncionarioModel()
             {
                 Pagina = 1
             };

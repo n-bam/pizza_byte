@@ -1,18 +1,18 @@
 ﻿@model PizzaByteSite.Models.FuncionarioModel
 
 @{
-    ViewBag.Title = "Editar Funcionario";
+    ViewBag.Title = "Editar funcionário";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="content-wrapper">
     <div class="content-header">
         <h1>
-            Funcionario
+            Funcionário
             <small>Editar</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="~/Usuario/Inicio"><i class="fa fa-home"></i> Inicio</a></li>
-            <li><a href="~/Funcionario/Index"><i class="fa fa-tags"></i> Funcionarios</a></li>
+            <li><a href="~/Funcionario/Index"><i class="fa fa-tags"></i> Funcionários</a></li>
             <li class="active"><i class="fa fa-pencil"></i> Editar</li>
         </ol>
     </div>
@@ -22,7 +22,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="box">
                     <div class="box-header with-border">
-                        <h2 class="box-title">Editar informações do funcionario</h2>
+                        <h2 class="box-title">Editar informações do funcionário</h2>
                     </div>
 
                     @using (Html.BeginForm())
@@ -51,11 +51,10 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-
                                     @Html.LabelFor(m => m.Tipo, new { @class = "control-label col-lg-2 col-md-2 col-sm-1 col-xs-12" })
                                     <div class="col-lg-4 col-md-5 col-sm-5 col-xs-12">
                                         @Html.DropDownListFor(m => m.Tipo, Model.ListaTipos, new { @class = "form-control" })
-                                    </div>
+                                        @Html.ValidationMessageFor(m => m.Tipo, "", new { @class = "text-danger" })
 
                                     @Html.LabelFor(m => m.Telefone, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
                                     <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
@@ -98,8 +97,6 @@
 
 <script>
     $(document).ready(function () {
-
         $("#Telefone").mask("(99) 9999-99999", { placeholder: "(__) _____-____" });
-
     });
 </script>

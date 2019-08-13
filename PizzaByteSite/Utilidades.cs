@@ -32,12 +32,18 @@ namespace PizzaByteSite
         public static List<SelectListItem> RetornarListaTiposFuncionario()
         {
             List<SelectListItem> listaTipos = new List<SelectListItem>();
-            listaTipos.Add(new SelectListItem { Value = TipoFuncionario.Motoboy.ToString(), Text = "Motoboy" });
-            listaTipos.Add(new SelectListItem { Value = TipoFuncionario.Atendente.ToString(), Text = "Atendente " });
-            listaTipos.Add(new SelectListItem { Value = TipoFuncionario.Cozinheiro.ToString(), Text = "Cozinheiro " });
-            listaTipos.Add(new SelectListItem { Value = TipoFuncionario.Gestor.ToString(), Text = "Gestor" });
+            TipoFuncionario[] elementos = Enum.GetValues(typeof(TipoFuncionario)) as TipoFuncionario[];
+            foreach (var recurso in elementos)
+            {
+                listaTipos.Add(new SelectListItem()
+                {
+                    Text = recurso.ToString(),
+                    Value = ((int)recurso).ToString()
+                });
+            }
 
-
+            listaTipos.RemoveAt(0);
+            listaTipos = listaTipos.OrderBy(p => p.Text).ToList();
             return listaTipos;
         }
 

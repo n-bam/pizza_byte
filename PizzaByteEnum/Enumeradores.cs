@@ -34,7 +34,7 @@
             NaoIdentificado = 0,
             Motoboy = 1,
             Atendente = 2,
-            Cozinheiro = 3,
+            Pizzaiolo = 3,
             Gestor = 4
         }
 
@@ -113,7 +113,8 @@
             ObterFuncionario = 55,
             ObterListaFuncionario = 56,
             ObterListaLog = 57,
-            ObterListaUsuariosParaSelecao = 58
+            ObterListaUsuariosParaSelecao = 58,
+            VerificarProdutoExistente = 59
         }
 
         public enum TipoMensagemSuporte
