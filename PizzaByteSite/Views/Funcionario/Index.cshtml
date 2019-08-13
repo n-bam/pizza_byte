@@ -1,7 +1,7 @@
 ﻿@model PizzaByteSite.Models.FiltrosFuncionarioModel
 
 @{
-    ViewBag.Title = "Funcionarios";
+    ViewBag.Title = "Funcionários";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -9,12 +9,12 @@
     <div class="form-horizontal">
         <div class="content-header">
             <h1>
-                Funcionarios
+                Funcionários
                 <small>Listagem</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="~/Usuario/Inicio"><i class="fa fa-home"></i> Inicio</a></li>
-                <li><a class="active"><i class="fa fa-tags"></i> Funcionarios</a></li>
+                <li><a class="active"><i class="fa fa-tags"></i> Funcionários</a></li>
             </ol>
         </div>
 
@@ -23,7 +23,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Pesquisa de funcionarios</h3>
+                            <h3 class="box-title">Pesquisa de funcionários</h3>
                         </div>
 
                         <div class="box-body">
@@ -31,18 +31,20 @@
                                 @Html.LabelFor(m => m.Nome, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
                                 <div class="col-lg-9 col-md-10 col-sm-9 col-xs-12">
                                     @Html.EditorFor(m => m.Nome, new { htmlAttributes = new { @class = "form-control" } })
-
-
                                 </div>
                             </div>
 
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ObterInativos, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
+                                    @Html.DropDownListFor(m => m.ObterInativos, Model.ListaInativo, new { @class = "form-control" })
+                                </div>
+                            </div>
 
                             <div class="form-group">
                                 <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-3 col-lg-10 col-md-10 col-sm-9 col-xs-12">
                                     <button class="btn btn-primary" id="btnBuscarFuncionarios"><i class="fa fa-search"></i> Buscar</button>
                                 </div>
-
-
                             </div>
                         </div>
 
@@ -59,36 +61,36 @@
                         <div class="box-header with-border">
                             <div class="form-group">
                                 <div class="col-md-6">
-                                    <h3 class="box-title">Lista de funcionarios cadastrados</h3>
+                                    <h3 class="box-title">Lista de funcionários cadastrados</h3>
                                 </div>
                                 <div class="col-md-6 alinhadoDireita">
-                                    <a class="btn btn-primary" href="Incluir"><i class="fa fa-plus"></i> Novo funcionario</a>
+                                    <a class="btn btn-primary" href="Incluir"><i class="fa fa-plus"></i> Novo funcionário</a>
                                 </div>
-                        </div>
-                        <div class="box-body table-responsive">
-                            <table class="table table-hover" id="tblResultados">
-                                <thead>
-                                    <tr>
-                                        <th>Nome</th>
-                                        <th>Telefone</th>
-                                        <th>Inativo</th>
-                                        <th>Opções</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
+                            </div>
+                            <div class="box-body table-responsive">
+                                <table class="table table-hover" id="tblResultados">
+                                    <thead>
+                                        <tr>
+                                            <th>Nome</th>
+                                            <th>Telefone</th>
+                                            <th>Inativo</th>
+                                            <th>Opções</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
 
-                        <div class="box-footer clearfix" id="divPaginas">
-                            
-                            @*Paginação da pesquisa*@
+                            <div class="box-footer clearfix" id="divPaginas">
+
+                                @*Paginação da pesquisa*@
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-  </div>
 </div>
 
 <script src="~/Scripts/PizzaByteSite/plugins/jQueryUI/jquery-3.3.1.min.js"></script>
@@ -99,13 +101,11 @@
 <script>
     $(document).ready(function () {
         var retorno = '@TempData["Retorno"]';
-        MostrarMensagemRetorno(retorno, "O funcionario");
+        MostrarMensagemRetorno(retorno, "O funcionário");
         BuscarFuncionarios(1);
-
         $("#btnBuscarFuncionarios").click(function () {
             BuscarFuncionarios(1);
         });
-
      $(document).keypress(function (e) {
             if (e.keyCode === 13) {
                 $("#btnBuscarFuncionarios").click();

@@ -35,7 +35,6 @@ namespace PizzaByteDal.Base
             }
             catch (Exception ex)
             {
-                //LOGAR
                 mensagemErro = "Erro ao editar a entidade: " + ex.Message;
                 return false;
             }

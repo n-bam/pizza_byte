@@ -6,7 +6,7 @@
 
     $.ajax({
         type: "POST",
-        url: RetornarNome() + "/Funcionario/ObterListaFiltrada",
+        url: RetornarEndereco() + "/Funcionario/ObterListaFiltrada",
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify({
@@ -23,7 +23,7 @@
                 swal({
                     title: "Ops...",
                     html: true,
-                    text: "Ocorreu um problema ao fazer a pesquisa de funcionarios. \n"
+                    text: "Ocorreu um problema ao fazer a pesquisa de funcionários. \n"
                         + "\n Mensagem de retorno: " + dados.Error,
                     icon: "warning",
                     button: "Ok"
@@ -36,7 +36,7 @@
             if (!dados.Retorno) {
                 swal({
                     title: "Ops...",
-                    text: "Ocorreu um problema ao fazer a pesquisa de funcionarios. \n"
+                    text: "Ocorreu um problema ao fazer a pesquisa de funcionários. \n"
                         + "Se o problema continuar, entre em contato com o suporte. \n"
                         + "Mensagem de retorno: " + dados.Mensagem,
                     icon: "warning",
@@ -47,16 +47,15 @@
             } else {
 
                 if (dados.ListaEntidades.length == 0) {
-                    toastr.options.preventDuplicates = true;
-                    toastr.info("Não foram encontrados funcionarios com os filtros preenchidos", "Pesquisa de funcionarios");
+                    toastr.info("Não foram encontrados funcionários com os filtros preenchidos", "Pesquisa de funcionários");
                 } else {
                     for (var i = 0; i < dados.ListaEntidades.length; i++) {
 
                         $("#tblResultados tbody").append("<tr>"
                             + "<td>" + dados.ListaEntidades[i].Nome + "</td>"
-                            + "<td>" + dados.ListaEntidades[i].Telefone + "</td>"
+                            + "<td>" + FormatarTelefone(dados.ListaEntidades[i].Telefone) + "</td>"
                             + "<td>" + ((dados.ListaEntidades[i].Inativo) ? "Sim" : "Não") + "</td>"
-                            + "<td><a class='btn btn-sm btn-default' href='../Funcionarios/Visualizar/"
+                            + "<td><a class='btn btn-sm btn-default' href='../Funcionario/Visualizar/"
                             + dados.ListaEntidades[i].Id + "'><i class='fa fa-eye'></i></a>"
                             + " <a class='btn btn-sm btn-info' href='../Funcionario/Editar/"
                             + dados.ListaEntidades[i].Id + "'><i class='fa fa-pencil'></i></a>"
@@ -74,7 +73,7 @@
         error: function (request, status, error) {
             swal({
                 title: "Ops...",
-                text: "Ocorreu um problema ao fazer a pesquisa de funcionarios. \n"
+                text: "Ocorreu um problema ao fazer a pesquisa de funcionários. \n"
                     + "Se o problema continuar, entre em contato com o suporte. \n"
                     + "Mensagem de retorno: \n" + error + " " + request.abort + " " + status,
                 icon: "warning",
