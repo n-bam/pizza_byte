@@ -1,5 +1,6 @@
 ﻿using PizzaByteBll.Base;
 using PizzaByteDal;
+using PizzaByteDto.ClassesBase;
 using PizzaByteDto.Entidades;
 using PizzaByteDto.RetornosRequisicoes;
 using PizzaByteVo;
@@ -61,14 +62,52 @@ namespace PizzaByteBll
                 return false;
             }
 
-            // Prepara a inclusão no banco de dados
-            if (!IncluirBd(produtoVo, ref mensagemErro))
+            // Verifica se o produto já existe
+            ProdutoVo produtoExistente = null;
+            if (!VerificarProdutoExistente(requisicaoDto, produtoVo.Descricao, ref produtoExistente, ref mensagemErro))
             {
                 retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Falha ao converter o produto para VO: " + mensagemErro;
-
-                logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirProduto, Guid.Empty, retornoDto.Mensagem);
+                retornoDto.Mensagem = mensagemErro;
                 return false;
+            }
+
+            // Se estiver excluído, restaurar o cadastro antigo
+            if (produtoExistente != null && produtoExistente.Excluido == true)
+            {
+                produtoExistente.Descricao = produtoVo.Descricao;
+                produtoExistente.Preco = produtoVo.Preco;
+                produtoExistente.Tipo = produtoVo.Tipo;
+                produtoExistente.Excluido = false;
+
+                if (!EditarBd(produtoExistente, ref mensagemErro))
+                {
+                    retornoDto.Retorno = false;
+                    retornoDto.Mensagem = "Falha ao salvar os dados do produto: " + mensagemErro;
+
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirProduto, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
+                    return false;
+                }
+            }
+            // Se não estiver excluído, não permitir incluir duplicado
+            else if (produtoExistente != null && produtoExistente.Excluido == false)
+            {
+                retornoDto.Retorno = false;
+                retornoDto.Mensagem = "Esse cadastro já existe, não é possível incluir cadastros duplicados.";
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirProduto, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
+                return false;
+            }
+            else
+            {
+                // Prepara a inclusão no banco de dados
+                if (!IncluirBd(produtoVo, ref mensagemErro))
+                {
+                    retornoDto.Retorno = false;
+                    retornoDto.Mensagem = "Falha ao converter o produto para VO: " + mensagemErro;
+
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirProduto, Guid.Empty, retornoDto.Mensagem);
+                    return false;
+                }
             }
 
             if (salvar)
@@ -466,6 +505,45 @@ namespace PizzaByteBll
             retornoDto.Retorno = true;
             retornoDto.Mensagem = "OK";
             return true;
+        }
+
+        /// <summary>
+        /// Verifica se o produto já existe com a mesma descrição
+        /// </summary>
+        /// <param name="requisicaoDto"></param>
+        /// <param name="descricao"></param>
+        /// <param name="produtoExistente"></param>
+        /// <param name="mensagemErro"></param>
+        /// <returns></returns>
+        private bool VerificarProdutoExistente(BaseRequisicaoDto requisicaoDto, string descricao, ref ProdutoVo produtoExistente, ref string mensagemErro)
+        {
+            if (string.IsNullOrWhiteSpace(descricao))
+            {
+                produtoExistente = null;
+                return true;
+            }
+
+            // Obter a query primária
+            IQueryable<ProdutoVo> query;
+            if (!this.ObterQueryBd(out query, ref mensagemErro, true))
+            {
+                mensagemErro = $"Houve um problema ao verificar se o produto já existe: {mensagemErro}";
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.VerificarProdutoExistente, Guid.Empty, mensagemErro);
+                return false;
+            }
+
+            try
+            {
+                produtoExistente = query.Where(p => p.Descricao.Trim() == descricao.Trim()).FirstOrDefault();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                mensagemErro = $"Houve um problema ao verificar se o produto já existe: {ex.Message}";
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.VerificarProdutoExistente, Guid.Empty, mensagemErro);
+                return false;
+            }
+
         }
     }
 }
