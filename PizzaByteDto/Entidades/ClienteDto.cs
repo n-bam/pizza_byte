@@ -86,6 +86,12 @@ namespace PizzaByteDto.Entidades
                     "CPF válido para continuar. ");
                     retorno = false;
                 }
+
+                if (!ValidarCpf(Cpf))
+                {
+                    sb.Append("O CPF informado não é válido.");
+                    retorno = false;
+                }
             }
 
             mensagemErro = sb.ToString();
