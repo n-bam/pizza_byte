@@ -2,14 +2,19 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs/PizzaByte/v15
-/PizzaByteBll/bin/Debug
-*.cache
-*.CopyComplete
-*.dll
-*.force
-*.pdb
-*.xml
-*.config
-*.resources
-/PizzaByteSite/obj/Release/Package/PackageTmp
+x64/
+x86/
+bld/
+*.lock
+*.ide
+*.ide-wal
+*.ide-shm
+*.suo
+*.suo
+*.user
+_ReSharper.*
+bin
+obj
+packages
+obj/Release
+.vs
