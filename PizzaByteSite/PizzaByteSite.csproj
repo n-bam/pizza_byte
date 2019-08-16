@@ -172,6 +172,7 @@
     <Compile Include="Controllers\CepController.cs" />
     <Compile Include="Controllers\ClienteEnderecoController.cs" />
     <Compile Include="Controllers\FuncionarioController.cs" />
+    <Compile Include="Controllers\BackupController.cs" />
     <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Controllers\PedidoController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
@@ -188,6 +189,7 @@
     <Compile Include="Models\FiltrosPesquisa\FiltrosCepModel.cs" />
     <Compile Include="Models\FiltrosPesquisa\FiltrosFornecedorModel.cs" />
     <Compile Include="Models\FiltrosPesquisa\FiltrosFuncionarioModel .cs" />
+    <Compile Include="Models\FiltrosPesquisa\FiltrosBackupModel.cs" />
     <Compile Include="Models\FiltrosPesquisa\FiltrosLogModel.cs" />
     <Compile Include="Models\FiltrosPesquisa\FiltrosTaxaEntregaModel.cs" />
     <Compile Include="Models\FiltrosPesquisa\FiltrosClienteModel.cs" />
@@ -4122,7 +4124,9 @@
     <Content Include="Scripts\PizzaByteSite\plugins\jQueryUI\toastr.js" />
     <Content Include="Scripts\PizzaByteSite\plugins\jQueryUI\toastr.min.js" />
     <Content Include="Scripts\PizzaByteSite\Telas\IndexFuncionario.js" />
+    <Content Include="Scripts\PizzaByteSite\Telas\IndexBackup.js" />
     <Content Include="Scripts\PizzaByteSite\Telas\IndexLog.js" />
+    <Content Include="Scripts\PizzaByteSite\Telas\IndexBackup .js" />
     <Content Include="Scripts\PizzaByteSite\Telas\IndexSuporte.js" />
     <Content Include="Scripts\PizzaByteSite\Telas\VisualizarCliente.js" />
     <Content Include="Scripts\PizzaByteSite\Telas\IndexCliente.js" />
@@ -4194,6 +4198,8 @@
     <Content Include="Views\Funcionario\Index.cshtml" />
     <Content Include="Views\Funcionario\Visualizar.cshtml" />
     <Content Include="Views\Funcionario\Editar.cshtml" />
+    <Content Include="Views\TaxaEntrega\Suporte\Index.cshtml" />
+    <Content Include="Views\Backup\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
