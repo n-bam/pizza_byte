@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\BackupVo.cs" />
     <Compile Include="Base\SuporteVo.cs" />
     <Compile Include="CepVo.cs" />
     <Compile Include="Base\EntidadeBaseVo.cs" />

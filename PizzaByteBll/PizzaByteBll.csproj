@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\IBaseBll.cs" />
+    <Compile Include="Base\BackupBll.cs" />
     <Compile Include="Base\UtilitarioBll.cs" />
     <Compile Include="Base\BaseBll.cs" />
     <Compile Include="Base\LogBll.cs" />
