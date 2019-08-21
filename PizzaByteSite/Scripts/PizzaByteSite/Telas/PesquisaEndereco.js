@@ -135,14 +135,13 @@ function ObterListaEnderecoPorLogradouro(pesquisa, cidade) {
                             columns: colunas,
                             source: enderecos,
                             select: function (event, ui) {
-                                event.preventDefault();
-
                                 //setar valores e desabilitar campo descrição
                                 $('.Endereco_Logradouro').val(ui.item[0]);
                                 $('.Endereco_Bairro').val(ui.item[1]);
                                 $('.Endereco_Cidade').val(ui.item[2]);
                                 $(".Endereco_Id").val(ui.item[3]);
                                 $(".Endereco_Cep").val(ui.item[4]);
+                                event.preventDefault();
                             },
                             focus: function (event, ui) {
                                 event.preventDefault();
