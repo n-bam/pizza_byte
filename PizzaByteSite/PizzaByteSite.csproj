@@ -213,6 +213,7 @@
     <Compile Include="Utilidades.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\jQuery\jquery-ui.css" />
     <Content Include="Content\jQuery\jquery-ui.min.css" />
     <Content Include="Content\PizzaByteSite\css\Personalizado.css" />
     <Content Include="Content\PizzaByteSite\css\AdminLTE.css" />
@@ -308,20 +309,9 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\FontAwesome.otf" />
-    <Content Include="Scripts\PizzaByteSite\plugins\input-mask\phone-codes\phone-be.json" />
-    <Content Include="Scripts\PizzaByteSite\plugins\input-mask\phone-codes\phone-codes.json" />
     <None Include="Properties\PublishProfiles\pizzabytesite - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\pizzabytesite - Web Deploy.pubxml" />
     <None Include="Scripts\PizzaByteSite\plugins\jQueryUI\jquery-3.3.1.intellisense.js" />
-    <Content Include="Scripts\PizzaByteSite\plugins\input-mask\jquery.inputmask.date.extensions.js" />
-    <Content Include="Scripts\PizzaByteSite\plugins\input-mask\jquery.inputmask.extensions.js" />
-    <Content Include="Scripts\PizzaByteSite\plugins\input-mask\jquery.inputmask.js" />
-    <Content Include="Scripts\PizzaByteSite\plugins\input-mask\jquery.inputmask.numeric.extensions.js" />
-    <Content Include="Scripts\PizzaByteSite\plugins\input-mask\jquery.inputmask.phone.extensions.js" />
-    <Content Include="Scripts\PizzaByteSite\plugins\input-mask\jquery.inputmask.regex.extensions.js" />
-    <Content Include="Scripts\PizzaByteSite\plugins\input-mask\phone-codes\readme.txt" />
-    <Content Include="Scripts\PizzaByteSite\plugins\jQueryUI\jquery.mask.js" />
-    <Content Include="Scripts\PizzaByteSite\plugins\jQueryUI\jquery.mask.min.js" />
     <Content Include="Scripts\PizzaByteSite\plugins\jQueryUI\jquery-3.3.1.js" />
     <Content Include="Scripts\PizzaByteSite\plugins\jQueryUI\jquery-3.3.1.min.js" />
     <Content Include="Scripts\PizzaByteSite\plugins\jQueryUI\jquery-3.3.1.slim.js" />
@@ -3911,8 +3901,6 @@
     <Content Include="Scripts\PizzaByteSite\components\jquery-slimscroll\jquery.slimscroll.min.js" />
     <Content Include="Scripts\PizzaByteSite\components\jquery-sparkline\dist\jquery.sparkline.js" />
     <Content Include="Scripts\PizzaByteSite\components\jquery-sparkline\dist\jquery.sparkline.min.js" />
-    <Content Include="Scripts\PizzaByteSite\components\jquery-ui\jquery-ui.js" />
-    <Content Include="Scripts\PizzaByteSite\components\jquery-ui\jquery-ui.min.js" />
     <Content Include="Scripts\PizzaByteSite\components\jquery\dist\core.js" />
     <Content Include="Scripts\PizzaByteSite\components\jquery\dist\jquery.js" />
     <Content Include="Scripts\PizzaByteSite\components\jquery\dist\jquery.min.js" />
@@ -4101,8 +4089,6 @@
     <Content Include="Scripts\PizzaByteSite\plugins\iCheck\square\_all.css" />
     <Content Include="Scripts\PizzaByteSite\plugins\jQueryUI\jquery-ui.js" />
     <Content Include="Scripts\PizzaByteSite\plugins\jQueryUI\jquery-ui.min.js" />
-    <Content Include="Scripts\PizzaByteSite\plugins\jQueryUI\jquery.maskMoney.js" />
-    <Content Include="Scripts\PizzaByteSite\plugins\jQueryUI\jquery.maskMoney.min.js" />
     <Content Include="Scripts\PizzaByteSite\plugins\jvectormap\jquery-jvectormap-1.2.2.css" />
     <Content Include="Scripts\PizzaByteSite\plugins\jvectormap\jquery-jvectormap-1.2.2.min.js" />
     <Content Include="Scripts\PizzaByteSite\plugins\jvectormap\jquery-jvectormap-usa-en.js" />

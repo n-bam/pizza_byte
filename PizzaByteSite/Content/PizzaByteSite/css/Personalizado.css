@@ -18,7 +18,7 @@
 }
 
 .ui-autocomplete {
-    position: absolute;
+    position: absolute; 
     top: 100%;
     left: 0;
     z-index: 1000;
@@ -47,7 +47,7 @@
     *border-bottom-width: 2px;
 }
 
-.ui-menu-item > a.ui-corner-all {
+.ui-autocomplete-item {
     display: block;
     padding: 3px 15px;
     clear: both;
@@ -57,7 +57,7 @@
     white-space: nowrap;
 }
 
-.ui-state-hover, .ui-state-active {
+/*.ui-state-hover, .ui-state-active {
     color: #ffffff;
     text-decoration: none;
     background-color: #0088cc;
@@ -65,4 +65,4 @@
     -webkit-border-radius: 0px;
     -moz-border-radius: 0px;
     background-image: none;
-}
+}*/
