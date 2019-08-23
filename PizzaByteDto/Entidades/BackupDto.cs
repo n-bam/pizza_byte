@@ -1,6 +1,8 @@
-﻿using static PizzaByteEnum.Enumeradores;
+﻿using PizzaByteDto.Base;
+using static PizzaByteEnum.Enumeradores;
 
-namespace PizzaByteDto.Base
+namespace PizzaByteDto.RetornosRequisicoes
+
 {
     public class BackupDto : BaseEntidadeDto
     {

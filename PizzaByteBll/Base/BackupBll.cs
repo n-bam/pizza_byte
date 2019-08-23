@@ -2,6 +2,7 @@
 using PizzaByteDal;
 using PizzaByteDto.Base;
 using PizzaByteDto.RetornosRequisicoes;
+using PizzaByteVo;
 using PizzaByteVo.Base;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using static PizzaByteEnum.Enumeradores;
 
 namespace PizzaByteBll.Base
 {
-    public class BackupBll : BaseBll<BackupVo, BackupDto>
+    public class BackupBll
     {
         private static LogBll logBll = new LogBll("BackupBll");
         private bool salvar = true;
@@ -19,12 +20,12 @@ namespace PizzaByteBll.Base
         /// Iniciar com um novo contexto, indicando se deve salvar ou não as alterações
         /// </summary>
         /// <param name="salvarAlteracoes"></param>
-        public BackupBll(bool salvarAlteracoes) : base(logBll)
+        public BackupBll(bool salvarAlteracoes) : base(BackupBll)
         {
             salvar = salvarAlteracoes;
         }
 
-        /// <summary>
+        /// <summary>p
         /// Iniciar com um contexto existente, indicando se deve ou não salvar as alterações
         /// </summary>
         /// <param name="contexto"></param>
@@ -34,57 +35,6 @@ namespace PizzaByteBll.Base
             salvar = salvarAlteracoes;
         }
 
-        /// <summary>
-        /// Inclui um backup no banco de dados
-        /// </summary>
-        /// <param name="requisicaoDto"></param>
-        /// <param name="retornoDto"></param>
-        /// <returns></returns>
-        public override bool Incluir(RequisicaoEntidadeDto<BackupDto> requisicaoDto, ref RetornoDto retornoDto)
-        {
-            // Valida a requisição
-            if (!base.Incluir(requisicaoDto, ref retornoDto))
-            {
-                return false;
-            }
-
-            BackupVo backupVo = new BackupVo();
-            string mensagemErro = "";
-
-            // Converte para VO a ser incluída no banco de dados
-            if (!ConverterDtoParaVo(requisicaoDto.EntidadeDto, ref backupVo, ref mensagemErro))
-            {
-                retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Falha ao converter o backup para VO: " + mensagemErro;
-
-                logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirBackup, Guid.Empty, retornoDto.Mensagem);
-                return false;
-            }
-
-            // Prepara a inclusão no banco de dados
-            if (!IncluirBd(backupVo, ref mensagemErro))
-            {
-                retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Falha ao converter o backup para VO: " + mensagemErro;
-
-                logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirBackup, Guid.Empty, retornoDto.Mensagem);
-                return false;
-            }
-
-            if (salvar)
-            {
-                // Salva as alterações
-                if (!pizzaByteContexto.Salvar(ref mensagemErro))
-                {
-                    retornoDto.Retorno = false;
-                    retornoDto.Mensagem = mensagemErro;
-
-                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirBackup, Guid.Empty, retornoDto.Mensagem);
-                    return false;
-                }
-            }
-
-        }
             // Se for mensagem do usuário, enviar alerta por email
           //  if (backupVo.Tipo == TipoMensagemBackup.Usuario)
         //    {
@@ -119,48 +69,7 @@ namespace PizzaByteBll.Base
         //   return true;
         //}
 
-        /// <summary>
-        /// Exclui um backup do banco de dados a partir do ID
-        /// </summary>
-        /// <param name="requisicaoDto"></param>
-        /// <param name="retornoDto"></param>
-        /// <returns></returns>
-        public override bool Excluir(RequisicaoObterDto requisicaoDto, ref RetornoDto retornoDto)
-        {
-            if (!base.Excluir(requisicaoDto, ref retornoDto))
-            {
-                return false;
-            }
-
-            string mensagemErro = "";
-            if (!UtilitarioBll.ValidarUsuarioAdm(requisicaoDto.Identificacao, ref mensagemErro))
-            {
-                retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Este usuário não é administrador. Para excluir mensagens de backup é necessário " +
-                    $"logar com um usuário administrador. {mensagemErro}";
-
-                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ExcluirBackup, requisicaoDto.Id, retornoDto.Mensagem);
-                return false;
-            }
-
-            if (salvar)
-            {
-                // Salva as alterações
-                if (!pizzaByteContexto.Salvar(ref mensagemErro))
-                {
-                    retornoDto.Retorno = false;
-                    retornoDto.Mensagem = mensagemErro;
-
-                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.ExcluirBackup, requisicaoDto.Id, retornoDto.Mensagem);
-                    return false;
-                }
-            }
-
-            retornoDto.Retorno = true;
-            retornoDto.Mensagem = "OK";
-            return true;
-        }
-
+       
         /// <summary>
         /// Obtém um backup pelo ID 
         /// </summary>

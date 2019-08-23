@@ -34,6 +34,12 @@
                                     @Html.ValidationMessageFor(m => m.Administrador, "", new { @class = "text-danger" })
                                 </div>
 
+                                @Html.LabelFor(m => m.Inativo, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-3" })
+                                <div class="col-lg-1 col-md-1 col-sm-2 col-xs-12" style="margin-top: 5px" disabled>
+                                    @Html.EditorFor(m => m.Inativo, new { @class = "form-control checkbox", @readonly = "readonly" })
+                                    @Html.ValidationMessageFor(m => m.Inativo, "", new { @class = "text-danger" })
+                                </div>
+
                             </div>
 
                             <div class="form-group">
@@ -72,9 +78,9 @@
 
                             <div class="box-footer">
                                 <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-3">
-                                    <a class="btn btn-default" href="~/Usuario/Index"><i class="fa fa-mail-reply"></i> Voltar</a>
+                                    <a class="btn btn-default" href="~/Usuario/Index"><i class="fa fa-mail-reply"></i> Cancelar</a>
                                     <a class="btn btn-primary" href="~/Usuario/Editar/@Model.Id"><i class="fa fa-pencil"></i> Editar</a>
-                                    <a class="btn btn-danger" href="~/Usuario/Excluir/@Model.Id?@(Model.Nome + " (" + Model.Email + ")")"><i class="fa fa-trash"></i> Excluir</a>
+                                    <a class="btn btn-danger" href="~/Usuario/Excluir/@Model.Id?Descricao=@(Model.Nome + " (" + Model.Email + ")")"><i class="fa fa-trash"></i> Excluir</a>
                                 </div>
                             </div>
                         </div>

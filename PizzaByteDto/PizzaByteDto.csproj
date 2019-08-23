@@ -45,7 +45,6 @@
     <Compile Include="Base\CepDto.cs" />
     <Compile Include="Base\BaseEntidadeDto.cs" />
     <Compile Include="Base\BaseRequisicaoDto.cs" />
-    <Compile Include="Base\BackupDto.cs" />
     <Compile Include="Base\SuporteDto.cs" />
     <Compile Include="Base\LogDto.cs" />
     <Compile Include="Entidades\ClienteEnderecoDto.cs" />
