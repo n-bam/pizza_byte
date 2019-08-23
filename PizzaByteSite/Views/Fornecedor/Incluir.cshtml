@@ -92,7 +92,7 @@
 
                                 <div class="box-footer">
                                     <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-3">
-                                        <button type="button" class="btn btn-default" onclick="window.history.back();"><i class="fa fa-mail-reply "></i> Cancelar</button>
+                                        <a class="btn btn-default" href="~/Fornecedor/Index"><i class="fa fa-mail-reply"></i> Cancelar</a>
                                         <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Gravar</button>
                                     </div>
                                 </div>
@@ -112,7 +112,7 @@
 
         $("#Cnpj").mask("99.999.999/9999-99", { placeholder: "__.___.___/____-__" });
         $("#Telefone").mask("(99) 9999-99999", { placeholder: "(__) _____-____" });      
-             
+        $("#NumeroEndereco").mask("9999999999", { placeholder: "" });       
        
     });
 </script>

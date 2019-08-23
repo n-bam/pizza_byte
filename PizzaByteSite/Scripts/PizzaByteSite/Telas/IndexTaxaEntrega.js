@@ -48,6 +48,7 @@
             } else {
 
                 if (dados.ListaEntidades.length == 0) {
+                    toastr.options.preventDuplicates = true;
                     toastr.info("Não foram encontrados taxas de entrega com os filtros preenchidos", "Pesquisa de taxas de entrega",
                         {
                             "preventDuplicates": true
