@@ -6,7 +6,7 @@ function AlterarTipoUsuario() {
 
 // Busca as mensagens de suporte enviadas
 function BuscarMensagens(nPagina) {
-
+    LimparMensagens();
     ExibirCarregando();
 
     $.ajax({
@@ -49,7 +49,7 @@ function BuscarMensagens(nPagina) {
             } else {
 
                 if (dados.ListaEntidades.length == 0) {
-                    toastr.info("Não foram encontrados mensagens de suporte", "Pesquisa de suporte");
+                    toastr.info("Não foram encontradas mensagens de suporte", "Pesquisa de suporte");
                     $("#bntMaisMensagens").hide();
                 } else {
                     for (var i = 0; i < dados.ListaEntidades.length; i++) {
@@ -66,7 +66,7 @@ function BuscarMensagens(nPagina) {
                     }
                 }
 
-                // EsconderCarregando();
+                EsconderCarregando();
             }
         },
         error: function (request, status, error) {
@@ -261,3 +261,9 @@ function ApagarMensagem(idSuporte) {
         });
     }
 }
+
+// Limpa a div de mensagens
+function LimparMensagens() {
+    $(".item").remove();
+}
+
