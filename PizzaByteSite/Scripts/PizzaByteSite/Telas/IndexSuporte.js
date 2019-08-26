@@ -2,9 +2,10 @@
 var tipoUsuario = 1;
 function AlterarTipoUsuario() {
     tipoUsuario = 2;
-}
+} 
 
 // Busca as mensagens de suporte enviadas
+
 function BuscarMensagens(nPagina) {
     LimparMensagens();
     ExibirCarregando();
