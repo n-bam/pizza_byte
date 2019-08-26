@@ -325,7 +325,7 @@ namespace PizzaByteSite.Controllers
             TempData["Retorno"] = "ALTERADO";
 
             //Voltar para o visualizar do usuario
-            return RedirectToAction("Visualizar", new { id = usuarioDto.Id });
+            return RedirectToAction("Index");
         }
 
         /// <summary>

@@ -256,7 +256,7 @@ namespace PizzaByteSite.Controllers
             TempData["Retorno"] = "ALTERADO";
 
             //Voltar para o visualizar do fornecedor
-            return RedirectToAction("Visualizar", new { id = fornecedorDto.Id });
+            return RedirectToAction("Index");
         }
 
         /// <summary>

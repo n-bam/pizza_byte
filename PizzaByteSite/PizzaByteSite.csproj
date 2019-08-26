@@ -4122,9 +4122,7 @@
     <Content Include="Scripts\PizzaByteSite\plugins\jQueryUI\toastr.js" />
     <Content Include="Scripts\PizzaByteSite\plugins\jQueryUI\toastr.min.js" />
     <Content Include="Scripts\PizzaByteSite\Telas\IndexFuncionario.js" />
-    <Content Include="Scripts\PizzaByteSite\Telas\IndexBackup.js" />
     <Content Include="Scripts\PizzaByteSite\Telas\IndexLog.js" />
-    <Content Include="Scripts\PizzaByteSite\Telas\IndexBackup .js" />
     <Content Include="Scripts\PizzaByteSite\Telas\IndexSuporte.js" />
     <Content Include="Scripts\PizzaByteSite\Telas\VisualizarCliente.js" />
     <Content Include="Scripts\PizzaByteSite\Telas\IndexCliente.js" />
