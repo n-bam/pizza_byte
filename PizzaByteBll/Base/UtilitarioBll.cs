@@ -35,7 +35,7 @@ namespace PizzaByteBll.Base
         /// <param name="descriptografado"></param>
         /// <param name="criptografado"></param>
         /// <returns></returns>
-        internal static bool CriptografarIdentificacao(string descriptografado, ref string criptografado)
+        internal static bool CriptografarString(string descriptografado, ref string criptografado)
         {
             byte[] Results;
             UTF8Encoding UTF8 = new UTF8Encoding();
@@ -74,7 +74,7 @@ namespace PizzaByteBll.Base
         /// <param name="criptografado"></param>
         /// <param name="descriotografado"></param>
         /// <returns></returns>
-        internal static bool DescriptografarIdentificacao(string criptografado, ref string descriotografado)
+        internal static bool DescriptografarString(string criptografado, ref string descriotografado)
         {
             byte[] Results;
             UTF8Encoding UTF8 = new UTF8Encoding();
@@ -119,7 +119,7 @@ namespace PizzaByteBll.Base
         internal static bool ValidarUsuarioAdm(string identificacao, ref string mensagemRetorno)
         {
             string descriptografado = "";
-            if (!DescriptografarIdentificacao(identificacao, ref descriptografado))
+            if (!DescriptografarString(identificacao, ref descriptografado))
             {
                 mensagemRetorno = "A identificação da requisição é inválida.";
                 return false;
@@ -155,7 +155,7 @@ namespace PizzaByteBll.Base
         internal static bool ValidarIdentificacao(string identificacao, Guid idUsuario, ref string mensagemRetorno)
         {
             string descriptografado = "";
-            if (!DescriptografarIdentificacao(identificacao, ref descriptografado))
+            if (!DescriptografarString(identificacao, ref descriptografado))
             {
                 mensagemRetorno = "Acesso  negado: a identificação da requisição é inválida.";
                 return false;
