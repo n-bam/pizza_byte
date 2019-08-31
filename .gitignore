@@ -17,3 +17,5 @@
 bin/Debug
 *.config
 /PizzaByteSite/obj/Release/Package/PackageTmp
+/packages
+/PizzaByteTestesUnitarios/bin/Debug
