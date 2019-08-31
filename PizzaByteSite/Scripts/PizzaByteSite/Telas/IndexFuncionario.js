@@ -55,19 +55,19 @@
                         var textoTipo = "";
                         switch (dados.ListaEntidades[i].Tipo) {
                             case 1:
-                                textoTipo = "Motoboy";
-                                break;
-
-                            case 2:
                                 textoTipo = "Atendente";
                                 break;
 
                             case 2:
-                                textoTipo = "Cozinheiro";
+                                textoTipo = "Gestor";
                                 break;
 
                             case 2:
-                                textoTipo = "Gestor";
+                                textoTipo = "Motoboy";
+                                break;
+
+                            case 2:
+                                textoTipo = "Pizzaiolo";
                                 break;
 
                             default:
@@ -85,7 +85,7 @@
                             + dados.ListaEntidades[i].Id + "'><i class='fa fa-pencil'></i></a>"
                             + " <a class='btn btn-sm btn-danger' href='../Funcionario/Excluir/"
                             + dados.ListaEntidades[i].Id + "?Descricao="
-                            + dados.ListaEntidades[i].Descricao + "'><i class='fa fa-trash'></i></a>"
+                            + dados.ListaEntidades[i].Nome + "'><i class='fa fa-trash'></i></a>"
                             + "</td></tr>");
                     }
                 }

@@ -49,7 +49,10 @@
 
                 if (dados.ListaEntidades.length == 0) {
                     toastr.options.preventDuplicates = true;
-                    toastr.info("Não foram encontrados clientes com os filtros preenchidos", "Pesquisa de clientes");
+                    toastr.info("Não foram encontrados clientes com os filtros preenchidos", "Pesquisa de clientes",
+                        {
+                            "preventDuplicates": true
+                        });
                 } else {
                     for (var i = 0; i < dados.ListaEntidades.length; i++) {
 
