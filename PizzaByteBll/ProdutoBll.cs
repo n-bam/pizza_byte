@@ -1,6 +1,5 @@
 ﻿using PizzaByteBll.Base;
 using PizzaByteDal;
-using PizzaByteDto.ClassesBase;
 using PizzaByteDto.Entidades;
 using PizzaByteDto.RetornosRequisicoes;
 using PizzaByteVo;
@@ -480,6 +479,30 @@ namespace PizzaByteBll
                 return false;
             }
 
+            ProdutoVo produtoExistente = null;
+            if (!VerificarProdutoExistente(requisicaoDto, produtoVo.Descricao, ref produtoExistente, ref mensagemErro))
+            {
+                retornoDto.Retorno = false;
+                retornoDto.Mensagem = "Falha ao verificar se o produto existe: " + mensagemErro;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarProduto, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
+                return false;
+            }
+
+            if (produtoExistente != null && produtoExistente.Excluido)
+            {
+                // Excluir definitivamento do banco de dados
+                // if(!)
+            }
+            else if (produtoExistente != null && !produtoExistente.Excluido)
+            {
+                retornoDto.Retorno = false;
+                retornoDto.Mensagem = $"Falha ao editar o produto: já existe um produto registrado com esta descricão ({produtoExistente.Descricao})";
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarProduto, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
+                return false;
+            }
+
             if (!EditarBd(produtoVo, ref mensagemErro))
             {
                 retornoDto.Retorno = false;
@@ -515,7 +538,7 @@ namespace PizzaByteBll
         /// <param name="produtoExistente"></param>
         /// <param name="mensagemErro"></param>
         /// <returns></returns>
-        private bool VerificarProdutoExistente(BaseRequisicaoDto requisicaoDto, string descricao, ref ProdutoVo produtoExistente, ref string mensagemErro)
+        private bool VerificarProdutoExistente(RequisicaoEntidadeDto<ProdutoDto> requisicaoDto, string descricao, ref ProdutoVo produtoExistente, ref string mensagemErro)
         {
             if (string.IsNullOrWhiteSpace(descricao))
             {
@@ -534,7 +557,7 @@ namespace PizzaByteBll
 
             try
             {
-                produtoExistente = query.Where(p => p.Descricao.Trim() == descricao.Trim()).FirstOrDefault();
+                produtoExistente = query.Where(p => p.Descricao.Trim() == descricao.Trim() && p.Id != requisicaoDto.EntidadeDto.Id).FirstOrDefault();
                 return true;
             }
             catch (Exception ex)
