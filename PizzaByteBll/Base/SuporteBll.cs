@@ -1,5 +1,4 @@
-﻿using PizzaByteBll.Base;
-using PizzaByteDal;
+﻿using PizzaByteDal;
 using PizzaByteDto.Base;
 using PizzaByteDto.RetornosRequisicoes;
 using PizzaByteVo.Base;
@@ -92,25 +91,25 @@ namespace PizzaByteBll.Base
                                   $"<p><strong>{suporteVo.Mensagem}</strong></p><br/>" +
                                   "<p> Entre com a senha de suporte para responder à solicitação.</p>";
 
-                // if (!UtilitarioBll.EnviarEmail("jlmanfrinato@hotmail.com", "Nova mensagem de suporte", corpoEmail, ref mensagemErro)) 
-                // {
-                //     logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirSuporte, suporteVo.Id, $"Problemas para enviar a mensagem por email: {mensagemErro}");
-                //}
+                if (!UtilitarioBll.EnviarEmail("jlmanfrinato@hotmail.com", "Nova mensagem de suporte", corpoEmail, ref mensagemErro))
+                {
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirSuporte, suporteVo.Id, $"Problemas para enviar a mensagem por email: {mensagemErro}");
+                }
 
                 if (!UtilitarioBll.EnviarEmail("huxxley@hotmail.com.br", "Nova mensagem de suporte", corpoEmail, ref mensagemErro))
                 {
                     logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirSuporte, suporteVo.Id, $"Problemas para enviar a mensagem por email: {mensagemErro}");
                 }
 
-                //                if (!UtilitarioBll.EnviarEmail("driramosbenite@gmail.com", "Nova mensagem de suporte", corpoEmail, ref mensagemErro))
-                // {
-                // logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirSuporte, suporteVo.Id, $"Problemas para enviar a mensagem por email: {mensagemErro}");
-                //}
+                if (!UtilitarioBll.EnviarEmail("driramosbenite@gmail.com", "Nova mensagem de suporte", corpoEmail, ref mensagemErro))
+                {
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirSuporte, suporteVo.Id, $"Problemas para enviar a mensagem por email: {mensagemErro}");
+                }
 
-                //if (!UtilitarioBll.EnviarEmail("barbaracocatosantos@gmail.com", "Nova mensagem de suporte", corpoEmail, ref mensagemErro))
-                //{
-                //logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirSuporte, suporteVo.Id, $"Problemas para enviar a mensagem por email: {mensagemErro}");
-                //}
+                if (!UtilitarioBll.EnviarEmail("barbaracocatosantos@gmail.com", "Nova mensagem de suporte", corpoEmail, ref mensagemErro))
+                {
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirSuporte, suporteVo.Id, $"Problemas para enviar a mensagem por email: {mensagemErro}");
+                }
             }
 
             retornoDto.Retorno = true;
@@ -258,6 +257,21 @@ namespace PizzaByteBll.Base
                         }
 
                         query = query.Where(p => p.Tipo == (TipoMensagemSuporte)tipo);
+                        break;
+
+                    case "DATAINCLUSAOMAIOR":
+                        DateTime data;
+                        if (!DateTime.TryParse(filtro.Value, out data))
+                        {
+                            retornoDto.Mensagem = $"Problema ao converter o filtro de data inclusão.";
+                            retornoDto.Retorno = false;
+
+                            logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaSuporte, Guid.Empty, retornoDto.Mensagem);
+                            return false;
+                        }
+
+                        data = data.AddMilliseconds(999);
+                        query = query.Where(p => p.DataInclusao > data);
                         break;
 
                     default:
