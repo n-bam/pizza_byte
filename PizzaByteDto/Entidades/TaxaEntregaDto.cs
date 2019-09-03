@@ -9,7 +9,7 @@ namespace PizzaByteDto.Entidades
         /// Bairro que a taxa de entrega abrange
         /// MIN.: 3 / MAX.: 50
         /// </summary>
-        public string Bairro { get; set; }
+        public string BairroCidade { get; set; }
 
         /// <summary>
         /// Valor de entrega para o bairro correspondente
@@ -37,20 +37,20 @@ namespace PizzaByteDto.Entidades
             mensagemErro = "";
 
             // Validar o bairro
-            if (string.IsNullOrWhiteSpace(Bairro))
+            if (string.IsNullOrWhiteSpace(BairroCidade))
             {
                 sb.Append("O bairro referente à taxa de entrega é obrigatório! Por favor, informe o bairro " +
                     "no campo indicado para continuar. ");
                 retorno = false;
             }
-            else if (Bairro.Length > 50)
+            else if (BairroCidade.Length > 50)
             {
                 sb.Append("O bairro da taxa de entrega pode ter, no máximo, 50 caracteres! " +
-                    $"O bairro inserido tem {Bairro.Length} caracteres, por favor remova ao menos {Bairro.Length - 50}" +
+                    $"O bairro inserido tem {BairroCidade.Length} caracteres, por favor remova ao menos {BairroCidade.Length - 50}" +
                     $" caracteres para continuar. ");
                 retorno = false;
             }
-            else if (Bairro.Length < 3)
+            else if (BairroCidade.Length < 3)
             {
                 sb.Append("O bairro da taxa de entrega deve ter, ao menos, 3 caracteres! Por favor, informe um bairro " +
                     "válido para continuar. ");

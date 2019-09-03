@@ -116,7 +116,37 @@ namespace PizzaByteSite.Controllers
             //Retornar para index
             return RedirectToAction("Index");
         }
-        
+
+        /// <summary>
+        /// Chama a tela para visualizar um cep
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult Visualizar(Guid id)
+        {
+            //Se não tiver login, encaminhar para a tela de login
+            if (string.IsNullOrWhiteSpace(SessaoUsuario.SessaoLogin.Identificacao))
+            {
+                return RedirectToAction("Login", "Usuario");
+            }
+
+            //Model a ser populada
+            CepModel model = new CepModel();
+            string mensagemRetorno = "";
+
+            //Obtem o cep pelo ID
+            if (!this.ObterCep(id, ref model, ref mensagemRetorno))
+            {
+                ViewBag.Mensagem = mensagemRetorno;
+                return View("Erro");
+            }
+
+            TempData["Retorno"] = "VISUALIZANDO";
+
+            //Chamar a view
+            return View(model);
+        }
+
         /// <summary>
         /// Chama a tela para editar um cep
         /// </summary>

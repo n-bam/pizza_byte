@@ -116,7 +116,7 @@ namespace PizzaByteSite.Controllers
         }
 
         /// <summary>
-        /// Chama a tela para visualizar um fornecedor
+        /// Chama a tela para visualizar um cliente
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>

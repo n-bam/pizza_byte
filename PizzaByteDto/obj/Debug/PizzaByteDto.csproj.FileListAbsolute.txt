@@ -34,3 +34,12 @@ C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteDto\obj\Debug\P
 C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteDto\obj\Debug\PizzaByteDto.csproj.CopyComplete
 C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteDto\obj\Debug\PizzaByteDto.dll
 C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteDto\obj\Debug\PizzaByteDto.pdb
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDto\bin\Debug\PizzaByteDto.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDto\bin\Debug\PizzaByteDto.pdb
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDto\bin\Debug\PizzaByteEnum.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDto\bin\Debug\PizzaByteEnum.pdb
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDto\obj\Debug\PizzaByteDto.csprojAssemblyReference.cache
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDto\obj\Debug\PizzaByteDto.csproj.CoreCompileInputs.cache
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDto\obj\Debug\PizzaByteDto.csproj.CopyComplete
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDto\obj\Debug\PizzaByteDto.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteDto\obj\Debug\PizzaByteDto.pdb

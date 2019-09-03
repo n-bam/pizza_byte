@@ -32,10 +32,11 @@
         public enum TipoFuncionario
         {
             NaoIdentificado = 0,
-            Motoboy = 1,
-            Atendente = 2,
-            Pizzaiolo = 3,
-            Gestor = 4
+            Atendente = 1,
+            Gestor = 2,
+            Motoboy = 3,
+            Pizzaiolo = 4,
+            
         }
 
         /// <summary>
@@ -115,8 +116,13 @@
             ObterListaLog = 57,
             ObterListaUsuariosParaSelecao = 58,
             VerificarProdutoExistente = 59,
-            Backup = 60,
-            RestaurarBackup = 61
+            IncluirBackup = 48,
+            ExcluirBackup = 49,
+            ObterBackup = 50,
+            ObterListaBackup = 51,
+            VerificarCepExistente = 52,
+            VerificarClienteExistente = 53,
+            VerificarUsuarioExistente = 54
         }
 
         public enum TipoMensagemSuporte

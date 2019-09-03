@@ -49,56 +49,70 @@ namespace PizzaByteBll
                 return false;
             }
 
-            // Não deixar incluir com CNPJ repetido
-            string mensagemErro = "";
-            if (!ValidarCnpj(requisicaoDto.EntidadeDto, ref mensagemErro))
-            {
-                retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Falha ao validar o CNPJ: " + mensagemErro;
-
-                logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirFornecedor, Guid.Empty, retornoDto.Mensagem);
-                return false;
-            }
-
-            // Se houver endereço preenchido e ele não existir ainda
-            if (requisicaoDto.EntidadeDto.Endereco.Id == Guid.Empty
-                && !string.IsNullOrWhiteSpace(requisicaoDto.EntidadeDto.Endereco.Cep))
-            {
-                CepBll cepBll = new CepBll(this.pizzaByteContexto, false);
-                RequisicaoEntidadeDto<CepDto> requisicaoCepDto = new RequisicaoEntidadeDto<CepDto>()
-                {
-                    IdUsuario = requisicaoDto.IdUsuario,
-                    Identificacao = requisicaoDto.Identificacao,
-                    EntidadeDto = requisicaoDto.EntidadeDto.Endereco
-                };
-
-                requisicaoCepDto.EntidadeDto.Id = Guid.NewGuid();
-
-                // Incluir o endereço
-                if (!cepBll.Incluir(requisicaoCepDto, ref retornoDto))
-                {
-                    // Logado na classe de CEP
-                    return false;
-                }
-            }
-
             // Converte para VO a ser incluída no banco de dados
+            string mensagemErro = "";
             FornecedorVo fornecedorVo = new FornecedorVo();
             if (!ConverterDtoParaVo(requisicaoDto.EntidadeDto, ref fornecedorVo, ref mensagemErro))
             {
                 retornoDto.Retorno = false;
                 retornoDto.Mensagem = "Falha ao converter o fornecedor para VO: " + mensagemErro;
+
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirFornecedor, Guid.Empty, retornoDto.Mensagem);
                 return false;
             }
 
-            // Prepara a inclusão no banco de dados
-            if (!IncluirBd(fornecedorVo, ref mensagemErro))
+            // Verifica se o fornecedor já existe
+            FornecedorVo fornecedorExistente = null;
+            if (!VerificarFornecedorExistente(requisicaoDto.EntidadeDto, ref fornecedorExistente, ref mensagemErro))
             {
                 retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Falha ao incluir o fornecedor no banco de dados: " + mensagemErro;
-                logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirFornecedor, Guid.Empty, retornoDto.Mensagem);
+                retornoDto.Mensagem = mensagemErro;
                 return false;
+            }
+
+            // Se estiver excluído, restaurar o cadastro antigo
+            if (fornecedorExistente != null && fornecedorExistente.Excluido == true)
+            {
+                fornecedorExistente.NomeFantasia = fornecedorVo.NomeFantasia;
+                fornecedorExistente.RazaoSocial = fornecedorVo.RazaoSocial;
+                fornecedorExistente.Telefone = fornecedorVo.Telefone;
+                fornecedorExistente.Cnpj = fornecedorVo.Cnpj;
+                fornecedorExistente.NumeroEndereco = fornecedorVo.NumeroEndereco;
+                fornecedorExistente.ComplementoEndereco = fornecedorVo.ComplementoEndereco;
+                fornecedorExistente.Obs = fornecedorVo.Obs;
+                fornecedorExistente.IdCep = fornecedorVo.IdCep;
+                fornecedorExistente.Endereco = fornecedorVo.Endereco;
+                fornecedorExistente.Excluido = false;
+
+                if (!EditarBd(fornecedorExistente, ref mensagemErro))
+                {
+                    retornoDto.Retorno = false;
+                    retornoDto.Mensagem = "Falha ao salvar os dados do produto: " + mensagemErro;
+
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirFornecedor, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
+                    return false;
+                }
+            }
+            // Se não estiver excluído, não permitir incluir duplicado
+            else if (fornecedorExistente != null && fornecedorExistente.Excluido == false)
+            {
+                retornoDto.Retorno = false;
+                retornoDto.Mensagem = "Esse cadastro já existe, não é possível incluir cadastros duplicados.";
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirFornecedor, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
+                return false;
+            }
+            else
+            {
+                // Prepara a inclusão no banco de dados
+                if (!IncluirBd(fornecedorVo, ref mensagemErro))
+                {
+                    retornoDto.Retorno = false;
+                    retornoDto.Mensagem = "Falha ao converter o fornecedor para VO: " + mensagemErro;
+
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirFornecedor, Guid.Empty, retornoDto.Mensagem);
+                    return false;
+                }
             }
 
             if (salvar)
@@ -107,9 +121,9 @@ namespace PizzaByteBll
                 if (!pizzaByteContexto.Salvar(ref mensagemErro))
                 {
                     retornoDto.Retorno = false;
-                    retornoDto.Mensagem = "Erro ao salvar o fornecedor: " + mensagemErro;
+                    retornoDto.Mensagem = mensagemErro;
 
-                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirFornecedor, Guid.Empty, mensagemErro);
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirFornecedor, Guid.Empty, retornoDto.Mensagem);
                     return false;
                 }
             }
@@ -132,18 +146,8 @@ namespace PizzaByteBll
                 return false;
             }
 
-            // Não deixar incluir um CNPJ repetido
-            string mensagemErro = "";
-            if (!ValidarCnpj(requisicaoDto.EntidadeDto, ref mensagemErro))
-            {
-                retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Falha ao validar o CNPJ: " + mensagemErro;
-
-                logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarFornecedor, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
-                return false;
-            }
-
             // Apenas usuários ADM podem editar fornecedores
+            string mensagemErro = "";
             if (!UtilitarioBll.ValidarUsuarioAdm(requisicaoDto.Identificacao, ref mensagemErro))
             {
                 retornoDto.Retorno = false;
@@ -154,7 +158,43 @@ namespace PizzaByteBll
                 return false;
             }
 
+            // Não deixar incluir um CNPJ repetido
             FornecedorVo fornecedorVo = new FornecedorVo();
+            if (!VerificarFornecedorExistente(requisicaoDto.EntidadeDto, ref fornecedorVo, ref mensagemErro))
+            {
+                retornoDto.Retorno = false;
+                retornoDto.Mensagem = "Falha ao validar o CNPJ: " + mensagemErro;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarFornecedor, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
+                return false;
+            }
+
+            if (fornecedorVo != null && fornecedorVo.Excluido == true)
+            {
+                if (!ExcluirDefinitivoBd(fornecedorVo.Id, ref mensagemErro))
+                {
+                    mensagemErro = $"Houve um erro ao deletar o fornecedor duplicado.";
+                    return false;
+                }
+
+                if (!pizzaByteContexto.Salvar(ref mensagemErro))
+                {
+                    retornoDto.Retorno = false;
+                    retornoDto.Mensagem = "Falha ao excluir o fornecedor duplicado: " + mensagemErro;
+
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarFornecedor, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
+                    return false;
+                }
+            }
+            else if (fornecedorVo != null && fornecedorVo.Excluido == false)
+            {
+                retornoDto.Retorno = false;
+                retornoDto.Mensagem = "Esse cadastro já existe, não é possível incluir cadastros duplicados";
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarFornecedor, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
+                return false;
+            }
+
             if (!ObterPorIdBd(requisicaoDto.EntidadeDto.Id, out fornecedorVo, ref mensagemErro))
             {
                 retornoDto.Mensagem = "Problemas para encontrar o fornecedor: " + mensagemErro;
@@ -162,28 +202,6 @@ namespace PizzaByteBll
 
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarFornecedor, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
                 return false;
-            }
-
-            // Se houver endereço preenchido e ele não existir ainda
-            if (requisicaoDto.EntidadeDto.Endereco.Id == Guid.Empty
-                && !string.IsNullOrWhiteSpace(requisicaoDto.EntidadeDto.Endereco.Cep))
-            {
-                requisicaoDto.EntidadeDto.Endereco.Id = Guid.NewGuid();
-
-                CepBll cepBll = new CepBll(this.pizzaByteContexto, false);
-                RequisicaoEntidadeDto<CepDto> requisicaoCepDto = new RequisicaoEntidadeDto<CepDto>()
-                {
-                    IdUsuario = requisicaoDto.IdUsuario,
-                    Identificacao = requisicaoDto.Identificacao,
-                    EntidadeDto = requisicaoDto.EntidadeDto.Endereco
-                };
-
-                // Incluir o endereço
-                if (!cepBll.Incluir(requisicaoCepDto, ref retornoDto))
-                {
-                    // Logado na BLL de CEP
-                    return false;
-                }
             }
 
             if (!ConverterDtoParaVo(requisicaoDto.EntidadeDto, ref fornecedorVo, ref mensagemErro))
@@ -562,6 +580,39 @@ namespace PizzaByteBll
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Valida se o CPF já existe
+        /// </summary>
+        /// <param name="fornecedorDto"></param>
+        /// <param name="mensagemErro"></param>
+        /// <returns></returns>
+        private bool VerificarFornecedorExistente(FornecedorDto fornecedorDto, ref FornecedorVo fornecedorVo, ref string mensagemErro)
+        {
+            if (fornecedorDto == null)
+            {
+                mensagemErro = "É necessário informar o fornecedor para validar o CNPJ";
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(fornecedorDto.Cnpj))
+            {
+                return true;
+            }
+
+            IQueryable<FornecedorVo> query;
+            if (!this.ObterQueryBd(out query, ref mensagemErro, true))
+            {
+                mensagemErro = $"Houve um problema ao listar os fornecedores: {mensagemErro}";
+                return false;
+            }
+
+            fornecedorDto.Cnpj = fornecedorDto.Cnpj.Replace(".", "").Replace("/", "").Replace("-", "");
+            query = query.Where(p => p.Cnpj == fornecedorDto.Cnpj.Trim() && p.Id != fornecedorDto.Id);
+            fornecedorVo = query.FirstOrDefault();
+            return true;
+
         }
     }
 }

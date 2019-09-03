@@ -34,9 +34,8 @@ namespace PizzaByteSite.Models
         [Display(Name = "Ordenar por")]
         public string CampoOrdenacao { get; set; }
 
-
         /// <summary>
-        /// Lista com as opções de tipos de produtos
+        /// Lista com as opções de tipos de funcionario
         /// </summary>
         public List<SelectListItem> ListaTipos { get; set; }
 

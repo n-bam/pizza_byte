@@ -82,3 +82,24 @@ C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteBll\obj\Debug\P
 C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteBll\obj\Debug\PizzaByteBll.csproj.CopyComplete
 C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteBll\obj\Debug\PizzaByteBll.dll
 C:\Users\jlman\Desktop\Faculdade\TCC\Software PizzaByte\PizzaByteBll\obj\Debug\PizzaByteBll.pdb
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteBll\bin\Debug\PizzaByteBll.dll.config
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteBll\bin\Debug\PizzaByteBll.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteBll\bin\Debug\PizzaByteBll.pdb
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteBll\bin\Debug\EntityFramework.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteBll\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteBll\bin\Debug\PizzaByteDal.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteBll\bin\Debug\PizzaByteDto.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteBll\bin\Debug\PizzaByteEnum.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteBll\bin\Debug\PizzaByteVo.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteBll\bin\Debug\PizzaByteDal.pdb
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteBll\bin\Debug\PizzaByteDal.dll.config
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteBll\bin\Debug\PizzaByteDto.pdb
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteBll\bin\Debug\PizzaByteEnum.pdb
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteBll\bin\Debug\PizzaByteVo.pdb
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteBll\bin\Debug\EntityFramework.xml
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteBll\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteBll\obj\Debug\PizzaByteBll.csprojAssemblyReference.cache
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteBll\obj\Debug\PizzaByteBll.csproj.CoreCompileInputs.cache
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteBll\obj\Debug\PizzaByteBll.csproj.CopyComplete
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteBll\obj\Debug\PizzaByteBll.dll
+C:\Users\jlman\Desktop\Faculdade\CloneGitHub\PizzaByteBll\obj\Debug\PizzaByteBll.pdb

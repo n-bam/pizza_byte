@@ -1,7 +1,7 @@
-﻿using PizzaByteVo;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.Infrastructure.Annotations;
 using System.Data.Entity.ModelConfiguration;
+using PizzaByteVo;
 
 namespace PizzaByteDal.Restricoes
 {
@@ -12,8 +12,8 @@ namespace PizzaByteDal.Restricoes
             ToTable("TaxasEntrega", "PizzaByte");
             HasKey(p => p.Id);
 
-            this.Property(p => p.Bairro)
-            .HasMaxLength(50)
+            this.Property(p => p.BairroCidade)
+            .HasMaxLength(101)
             .IsRequired()
             .HasColumnAnnotation(IndexAnnotation.AnnotationName, new IndexAnnotation(new IndexAttribute("IX_Bairro_TaxaEntrega", 1) { IsUnique = true }));
         }

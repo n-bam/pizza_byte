@@ -199,9 +199,9 @@ namespace PizzaByteSite.Controllers
             }
 
             //Converte para DTO
-            TaxaEntregaDto produtoDto = new TaxaEntregaDto();
+            TaxaEntregaDto taxaEntregaDto = new TaxaEntregaDto();
             string mensagemErro = "";
-            if (!model.ConverterModelParaDto(ref produtoDto, ref mensagemErro))
+            if (!model.ConverterModelParaDto(ref taxaEntregaDto, ref mensagemErro))
             {
                 ViewBag.MensagemErro = mensagemErro;
                 return View("Erro");
@@ -211,14 +211,14 @@ namespace PizzaByteSite.Controllers
             RetornoDto retorno = new RetornoDto();
             RequisicaoEntidadeDto<TaxaEntregaDto> requisicaoDto = new RequisicaoEntidadeDto<TaxaEntregaDto>()
             {
-                EntidadeDto = produtoDto,
+                EntidadeDto = taxaEntregaDto,
                 Identificacao = SessaoUsuario.SessaoLogin.Identificacao,
                 IdUsuario = SessaoUsuario.SessaoLogin.IdUsuario
             };
 
             //Consumir o serviço
-            TaxaEntregaBll produtoBll = new TaxaEntregaBll(true);
-            produtoBll.Editar(requisicaoDto, ref retorno);
+            TaxaEntregaBll taxaEntregaBll = new TaxaEntregaBll(true);
+            taxaEntregaBll.Editar(requisicaoDto, ref retorno);
 
             //Tratar o retorno
             if (retorno.Retorno == false)
@@ -232,6 +232,117 @@ namespace PizzaByteSite.Controllers
             //Voltar para o visualizar da taxa de entrega 
             return RedirectToAction("Index");
         }
+
+        /// <summary>
+        /// Chama a tela para visualizar uma aaxa de entrega
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult Visualizar(Guid id)
+        {
+            //Se não tiver login, encaminhar para a tela de login
+            if (string.IsNullOrWhiteSpace(SessaoUsuario.SessaoLogin.Identificacao))
+            {
+                return RedirectToAction("Login", "Usuario");
+            }
+
+            //Model a ser populada
+            TaxaEntregaModel model = new TaxaEntregaModel();
+            string mensagemRetorno = "";
+
+            //Obtem a taxa de entrega pelo ID
+            if (!this.ObterTaxaEntrega(id, ref model, ref mensagemRetorno))
+            {
+                ViewBag.Mensagem = mensagemRetorno;
+                return View("Erro");
+            }
+
+            TempData["Retorno"] = "VISUALIZANDO";
+
+            //Chamar a view
+            return View(model);
+        }
+
+        /// <summary>
+        /// Chama a tela para excluir uma taxa de Entrega
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult Excluir(ExclusaoModel model)
+        {
+            //Se não tiver login, encaminhar para a tela de login
+            if (string.IsNullOrWhiteSpace(SessaoUsuario.SessaoLogin.Identificacao))
+            {
+                return RedirectToAction("Login", "Usuario");
+            }
+
+            if (!SessaoUsuario.SessaoLogin.Administrador)
+            {
+                ViewBag.MensagemErro = "Para excluir uma taxa de entrega é necessário " +
+                    $"logar com um administrador.";
+                return View("SemPermissao");
+            }
+
+            TempData["Retorno"] = "EXCLUINDO";
+
+            //Chamar a view
+            return View(model);
+        }
+
+        /// <summary>
+        /// Consome o serviço para excluir uma taxa de entrega
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ExcluirTaxaEntrega(ExclusaoModel model)
+        {
+            //Se não tiver login, encaminhar para a tela de login
+            if (string.IsNullOrWhiteSpace(SessaoUsuario.SessaoLogin.Identificacao))
+            {
+                return RedirectToAction("Login", "Usuario");
+            }
+
+            if (!SessaoUsuario.SessaoLogin.Administrador)
+            {
+                ViewBag.MensagemErro = "Para excluir uma  taxa de entrega é necessário " +
+                    $"logar com um administrador.";
+                return View("SemPermissao");
+            }
+
+            if (!SessaoUsuario.SessaoLogin.Administrador)
+            {
+                ViewBag.Mensagem = "Este usuario não tem permissão para excluir outros uma taxa de entrega.";
+                return View("Erro");
+            }
+
+            //Preparar requisição e retorno
+            RetornoDto retorno = new RetornoDto();
+            RequisicaoObterDto requisicaoDto = new RequisicaoObterDto()
+            {
+                Id = model.Id,
+                Identificacao = SessaoUsuario.SessaoLogin.Identificacao,
+                IdUsuario = SessaoUsuario.SessaoLogin.IdUsuario
+            };
+
+            //Consumir o serviço
+            TaxaEntregaBll taxaEntregaBll = new TaxaEntregaBll(true);
+            taxaEntregaBll.Excluir(requisicaoDto, ref retorno);
+
+            //Tratar o retorno
+            if (retorno.Retorno == false)
+            {
+                ModelState.AddModelError("", retorno.Mensagem);
+                return View("Excluir", model);
+            }
+
+            TempData["Retorno"] = "EXCLUIDO";
+
+            //Voltar para a index de taxaEntrega
+            return RedirectToAction("Index");
+        }
+
 
         /// <summary>
         /// Obtem uma taxa de entrega  e converte em Model

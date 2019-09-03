@@ -19,7 +19,7 @@ namespace PizzaByteSite.Models
         [Required(ErrorMessage = "Por favor, preencha o bairro da taxa de entrega. Ex.: ")]
         [Display(Name = "Bairro")]
         [StringLength(50, ErrorMessage = "Informe o bairro para a taxa de entrega de 3 a 150 letras.", MinimumLength = 3)]
-        public string Bairro { get; set; }
+        public string BairroCidade { get; set; }
 
         /// <summary>
         /// Valor de entrega para o bairro correspondente
@@ -46,8 +46,8 @@ namespace PizzaByteSite.Models
         {
             try
             {
-                Bairro = string.IsNullOrWhiteSpace(taxaDto.Bairro) ? "" : taxaDto.Bairro.Trim();
-                Cidade = string.IsNullOrWhiteSpace(taxaDto.Cidade) ? "" : taxaDto.Cidade.Trim();
+                BairroCidade = string.IsNullOrWhiteSpace(taxaDto.BairroCidade) ? "" : taxaDto.BairroCidade.Trim().Split('_')[0];
+                Cidade = string.IsNullOrWhiteSpace(taxaDto.BairroCidade) ? "" : taxaDto.BairroCidade.Trim().Split('_')[1];
                 ValorTaxa = taxaDto.ValorTaxa;
                 DataAlteracao = taxaDto.DataAlteracao;
                 DataInclusao = taxaDto.DataInclusao;
@@ -73,7 +73,7 @@ namespace PizzaByteSite.Models
         {
             try
             {
-                taxaDto.Bairro = string.IsNullOrWhiteSpace(Bairro) ? "" : Bairro.Trim();
+                taxaDto.BairroCidade = string.IsNullOrWhiteSpace(BairroCidade) ? "" : BairroCidade.Trim()+"_"+Cidade.Trim();
                 taxaDto.Cidade = string.IsNullOrWhiteSpace(Cidade) ? "" : Cidade.Trim();
                 taxaDto.ValorTaxa = ValorTaxa;
                 taxaDto.DataAlteracao = this.DataAlteracao;

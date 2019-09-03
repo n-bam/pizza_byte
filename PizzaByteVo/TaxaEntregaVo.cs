@@ -10,7 +10,7 @@
         /// MIN.: 3 / MAX.: 50
         /// </summary>
 
-        public string Bairro { get; set; }
+        public string BairroCidade { get; set; }
 
         /// <summary>
         /// Valor de entrega para o bairro correspondente

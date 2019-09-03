@@ -45,21 +45,21 @@ namespace PizzaByteSite.Models
         /// <summary>
         /// Converte um cep de DTO para Model
         /// </summary>
-        /// <param name="fornecedorDto"></param>
+        /// <param name="cepDto"></param>
         /// <param name="mensagemErro"></param>
         /// <returns></returns>
-        public bool ConverterDtoParaModel(CepDto fornecedorDto, ref string mensagemErro)
+        public bool ConverterDtoParaModel(CepDto cepDto, ref string mensagemErro)
         {
             try
             {
-                this.Bairro = string.IsNullOrWhiteSpace(fornecedorDto.Bairro) ? "" : fornecedorDto.Bairro.Trim().Replace(".", "").Replace("-", "").Replace("-", "");
-                this.Cep = string.IsNullOrWhiteSpace(fornecedorDto.Cep) ? "" : fornecedorDto.Cep.Trim();
-                this.Cidade = string.IsNullOrWhiteSpace(fornecedorDto.Cidade) ? "" : fornecedorDto.Cidade.Trim();
-                this.Logradouro = string.IsNullOrWhiteSpace(fornecedorDto.Logradouro) ? "" : fornecedorDto.Logradouro.Trim();
-                this.DataAlteracao = fornecedorDto.DataAlteracao;
-                this.DataInclusao = fornecedorDto.DataInclusao;
-                this.Id = fornecedorDto.Id;
-                this.Inativo = fornecedorDto.Inativo;
+                this.Bairro = string.IsNullOrWhiteSpace(cepDto.Bairro) ? "" : cepDto.Bairro.Trim().Replace(".", "").Replace("-", "").Replace("-", "");
+                this.Cep = string.IsNullOrWhiteSpace(cepDto.Cep) ? "" : cepDto.Cep.Trim();
+                this.Cidade = string.IsNullOrWhiteSpace(cepDto.Cidade) ? "" : cepDto.Cidade.Trim();
+                this.Logradouro = string.IsNullOrWhiteSpace(cepDto.Logradouro) ? "" : cepDto.Logradouro.Trim();
+                this.DataAlteracao = cepDto.DataAlteracao;
+                this.DataInclusao = cepDto.DataInclusao;
+                this.Id = cepDto.Id;
+                this.Inativo = cepDto.Inativo;
 
                 return true;
             }
@@ -73,21 +73,21 @@ namespace PizzaByteSite.Models
         /// <summary>
         /// Converte um cep de Model para Dto
         /// </summary>
-        /// <param name="fornecedorDto"></param>
+        /// <param name="cepDto"></param>
         /// <param name="mensagemErro"></param>
         /// <returns></returns>
-        public bool ConverterModelParaDto(ref CepDto fornecedorDto, ref string mensagemErro)
+        public bool ConverterModelParaDto(ref CepDto cepDto, ref string mensagemErro)
         {
             try
             {
-                fornecedorDto.Bairro = string.IsNullOrWhiteSpace(this.Bairro) ? "" : this.Bairro.Trim();
-                fornecedorDto.Cep = string.IsNullOrWhiteSpace(this.Cep) ? "" : this.Cep.Trim().Replace("-", "");
-                fornecedorDto.Cidade = string.IsNullOrWhiteSpace(this.Cidade) ? "" : this.Cidade.Trim();
-                fornecedorDto.Logradouro = string.IsNullOrWhiteSpace(this.Logradouro) ? "" : this.Logradouro.Trim();
-                fornecedorDto.DataAlteracao = this.DataAlteracao;
-                fornecedorDto.DataInclusao = this.DataInclusao;
-                fornecedorDto.Id = this.Id;
-                fornecedorDto.Inativo = this.Inativo;
+                cepDto.Bairro = string.IsNullOrWhiteSpace(this.Bairro) ? "" : this.Bairro.Trim();
+                cepDto.Cep = string.IsNullOrWhiteSpace(this.Cep) ? "" : this.Cep.Trim().Replace("-", "");
+                cepDto.Cidade = string.IsNullOrWhiteSpace(this.Cidade) ? "" : this.Cidade.Trim();
+                cepDto.Logradouro = string.IsNullOrWhiteSpace(this.Logradouro) ? "" : this.Logradouro.Trim();
+                cepDto.DataAlteracao = this.DataAlteracao;
+                cepDto.DataInclusao = this.DataInclusao;
+                cepDto.Id = this.Id;
+                cepDto.Inativo = this.Inativo;
 
                 return true;
             }

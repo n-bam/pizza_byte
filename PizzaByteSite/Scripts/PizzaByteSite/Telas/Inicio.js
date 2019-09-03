@@ -8,8 +8,6 @@ $(document).ready(function () {
     });
     $('.connectedSortable .box-header, .connectedSortable .nav-tabs-custom').css('cursor', 'move');
 
-    $('.knob').knob();
-
     $('#chat-box').slimScroll({
         height: '250px'
     });
@@ -18,7 +16,7 @@ $(document).ready(function () {
         element: 'revenue-chart',
         resize: true,
         data: [
-            { y: 'Dom', Pizza: 26, Bebida: 12 },
+            { y: 'Dom', Pizza: 26, Bebida: 12 }, 
             { y: 'Seg', Pizza: 12, Bebida: 2 },
             { y: 'Ter', Pizza: 15, Bebida: 3 },
             { y: 'Qua', Pizza: 13, Bebida: 1 },
@@ -67,7 +65,7 @@ $(document).ready(function () {
         resize: true,
         colors: ['#3c8dbc', '#f56954', '#00a65a'],
         data: [
-            { label: 'Balc„o', value: 12 },
+            { label: 'Balc√£o', value: 12 },
             { label: 'Entrega', value: 30 },
             { label: 'Retirada', value: 20 }
         ],

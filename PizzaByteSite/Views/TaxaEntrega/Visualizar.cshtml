@@ -1,0 +1,76 @@
+﻿@model PizzaByteSite.Models.TaxaEntregaModel
+
+@{
+    ViewBag.Title = "Editar Taxas de Entrega";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="content-wrapper">
+    <div class="content-header">
+        <h1>
+            Taxas de entrega
+            <small>Visualizar</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="~/Usuario/Inicio"><i class="fa fa-home"></i> Inicio</a></li>
+            <li><a href="~/TaxaEntrega/Index"><i class="fa fa-tags"></i> Taxas de entrega</a></li>
+            <li class="active"><i class="fa fa-eye"></i> Visualizar</li>
+        </ol>
+    </div>
+
+    <div class="content">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h2 class="box-title">Informações do Taxa Entrega</h2>
+                    </div>
+                    <div class="box-body">
+                        <div class="form-horizontal">
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Inativo, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-3" })
+                                <div class="col-lg-1 col-md-1 col-sm-2 col-xs-12" style="margin-top: 5px" disabled>
+                                    @Html.EditorFor(m => m.Inativo, new { @class = "form-control checkbox", @readonly = "readonly" })
+                                    @Html.ValidationMessageFor(m => m.Inativo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Cidade, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
+                                    @Html.EditorFor(m => m.Cidade, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                    @Html.ValidationMessageFor(m => m.Cidade, "", new { @class = "text-danger" })
+                                </div>
+
+                                @Html.LabelFor(m => m.BairroCidade, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
+                                    @Html.EditorFor(m => m.BairroCidade, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                    @Html.ValidationMessageFor(m => m.BairroCidade, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ValorTaxa, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                <div class="col-lg-8 col-md-10 col-sm-9 col-xs-12">
+                                    @Html.EditorFor(m => m.ValorTaxa, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                    @Html.ValidationMessageFor(m => m.ValorTaxa, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-3">
+                                <a class="btn btn-default" href="~/TaxaEntrega/Index"><i class="fa fa-mail-reply"></i> Voltar</a>
+                                <a class="btn btn-primary" href="~/TaxaEntrega/Editar/@Model.Id"><i class="fa fa-pencil"></i> Editar</a>
+                                <a class="btn btn-danger" href="~/TaxaEntrega/Excluir/@Model.Id?Descricao=@(Model.BairroCidade)"><i class="fa fa-trash"></i> Excluir</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(".form-control").attr("readonly", "readonly");
+</script>

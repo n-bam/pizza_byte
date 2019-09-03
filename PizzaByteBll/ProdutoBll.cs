@@ -49,10 +49,9 @@ namespace PizzaByteBll
                 return false;
             }
 
-            ProdutoVo produtoVo = new ProdutoVo();
-            string mensagemErro = "";
-
             // Converte para VO a ser incluída no banco de dados
+            string mensagemErro = "";
+            ProdutoVo produtoVo = new ProdutoVo();
             if (!ConverterDtoParaVo(requisicaoDto.EntidadeDto, ref produtoVo, ref mensagemErro))
             {
                 retornoDto.Retorno = false;
@@ -64,7 +63,7 @@ namespace PizzaByteBll
 
             // Verifica se o produto já existe
             ProdutoVo produtoExistente = null;
-            if (!VerificarProdutoExistente(requisicaoDto, produtoVo.Descricao, ref produtoExistente, ref mensagemErro))
+            if (!VerificarProdutoExistente(requisicaoDto.EntidadeDto, ref produtoExistente, ref mensagemErro))
             {
                 retornoDto.Retorno = false;
                 retornoDto.Mensagem = mensagemErro;
@@ -460,8 +459,55 @@ namespace PizzaByteBll
                 return false;
             }
 
+            // Apenas usuários ADM podem editar produtoes
             string mensagemErro = "";
+            if (!UtilitarioBll.ValidarUsuarioAdm(requisicaoDto.Identificacao, ref mensagemErro))
+            {
+                retornoDto.Retorno = false;
+                retornoDto.Mensagem = "Este usuário não é administrador. Para editar os produtoes é necessário " +
+                    $"logar com um usuário administrador. {mensagemErro}";
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarProduto, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
+                return false;
+            }
+
+            // Não deixar incluir um produto repetido
             ProdutoVo produtoVo = new ProdutoVo();
+            if (!VerificarProdutoExistente(requisicaoDto.EntidadeDto, ref produtoVo, ref mensagemErro))
+            {
+                retornoDto.Retorno = false;
+                retornoDto.Mensagem = "Falha ao validar o produto: " + mensagemErro;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarProduto, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
+                return false;
+            }
+
+            if (produtoVo != null && produtoVo.Excluido == true)
+            {
+                if (!ExcluirDefinitivoBd(produtoVo.Id, ref mensagemErro))
+                {
+                    mensagemErro = $"Houve um erro ao deletar o produto duplicado.";
+                    return false;
+                }
+
+                if (!pizzaByteContexto.Salvar(ref mensagemErro))
+                {
+                    retornoDto.Retorno = false;
+                    retornoDto.Mensagem = "Falha ao excluir o produto duplicado: " + mensagemErro;
+
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarProduto, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
+                    return false;
+                }
+            }
+            else if (produtoVo != null && produtoVo.Excluido == false)
+            {
+                retornoDto.Retorno = false;
+                retornoDto.Mensagem = "Esse cadastro já existe, não é possível incluir cadastros duplicados";
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarProduto, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
+                return false;
+            }
+
             if (!ObterPorIdBd(requisicaoDto.EntidadeDto.Id, out produtoVo, ref mensagemErro))
             {
                 retornoDto.Mensagem = "Problemas para encontrar o produto: " + mensagemErro;
@@ -483,7 +529,7 @@ namespace PizzaByteBll
             if (!EditarBd(produtoVo, ref mensagemErro))
             {
                 retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Falha ao salvar os novos dados do produto: " + mensagemErro;
+                retornoDto.Mensagem = "Falha ao editar os novos dados do produto: " + mensagemErro;
 
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarProduto, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
                 return false;
@@ -495,7 +541,7 @@ namespace PizzaByteBll
                 if (!pizzaByteContexto.Salvar(ref mensagemErro))
                 {
                     retornoDto.Retorno = false;
-                    retornoDto.Mensagem = mensagemErro;
+                    retornoDto.Mensagem = "Erro ao salvar os novos dados: " + mensagemErro;
 
                     logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarProduto, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
                     return false;
@@ -508,41 +554,35 @@ namespace PizzaByteBll
         }
 
         /// <summary>
-        /// Verifica se o produto já existe com a mesma descrição
+        /// Valida se o CPF já existe
         /// </summary>
-        /// <param name="requisicaoDto"></param>
-        /// <param name="descricao"></param>
-        /// <param name="produtoExistente"></param>
+        /// <param name="produtoDto"></param>
         /// <param name="mensagemErro"></param>
         /// <returns></returns>
-        private bool VerificarProdutoExistente(BaseRequisicaoDto requisicaoDto, string descricao, ref ProdutoVo produtoExistente, ref string mensagemErro)
+        private bool VerificarProdutoExistente(ProdutoDto produtoDto, ref ProdutoVo produtoVo, ref string mensagemErro)
         {
-            if (string.IsNullOrWhiteSpace(descricao))
+            if (produtoDto == null)
             {
-                produtoExistente = null;
+                mensagemErro = "É necessário informar o produto para validar o produto";
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(produtoDto.Descricao))
+            {
                 return true;
             }
 
-            // Obter a query primária
             IQueryable<ProdutoVo> query;
             if (!this.ObterQueryBd(out query, ref mensagemErro, true))
             {
-                mensagemErro = $"Houve um problema ao verificar se o produto já existe: {mensagemErro}";
-                logBll.ResgistrarLog(requisicaoDto, LogRecursos.VerificarProdutoExistente, Guid.Empty, mensagemErro);
+                mensagemErro = $"Houve um problema ao listar os produtoes: {mensagemErro}";
                 return false;
             }
 
-            try
-            {
-                produtoExistente = query.Where(p => p.Descricao.Trim() == descricao.Trim()).FirstOrDefault();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                mensagemErro = $"Houve um problema ao verificar se o produto já existe: {ex.Message}";
-                logBll.ResgistrarLog(requisicaoDto, LogRecursos.VerificarProdutoExistente, Guid.Empty, mensagemErro);
-                return false;
-            }
+            produtoDto.Descricao = produtoDto.Descricao.Replace(".", "").Replace("/", "").Replace("-", "");
+            query = query.Where(p => p.Descricao == produtoDto.Descricao.Trim() && p.Id != produtoDto.Id);
+            produtoVo = query.FirstOrDefault();
+            return true;
 
         }
     }

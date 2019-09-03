@@ -50,20 +50,9 @@ namespace PizzaByteBll
                 return false;
             }
 
-            string mensagemErro = "";
-            if (!UtilitarioBll.ValidarUsuarioAdm(requisicaoDto.Identificacao, ref mensagemErro))
-            {
-                retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Este usuário não é administrador. Para incluir um novo usuário é necessário " +
-                    $"logar com um usuário administrador. {mensagemErro}";
-
-                logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirUsuario, Guid.Empty, retornoDto.Mensagem);
-                return false;
-            }
-
-            UsuarioVo usuarioVo = new UsuarioVo();
-
             // Converte para VO a ser incluída no banco de dados
+            string mensagemErro = "";
+            UsuarioVo usuarioVo = new UsuarioVo();
             if (!ConverterDtoParaVo(requisicaoDto.EntidadeDto, ref usuarioVo, ref mensagemErro))
             {
                 retornoDto.Retorno = false;
@@ -73,14 +62,53 @@ namespace PizzaByteBll
                 return false;
             }
 
-            // Prepara a inclusão no banco de dados
-            if (!IncluirBd(usuarioVo, ref mensagemErro))
+            // Verifica se o usuario já existe
+            UsuarioVo usuarioExistente = null;
+            if (!VerificarUsuarioExistente(requisicaoDto.EntidadeDto, ref usuarioExistente, ref mensagemErro))
             {
                 retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Falha ao converter o usuario para VO: " + mensagemErro;
-
-                logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirUsuario, Guid.Empty, retornoDto.Mensagem);
+                retornoDto.Mensagem = mensagemErro;
                 return false;
+            }
+
+            // Se estiver excluído, restaurar o cadastro antigo
+            if (usuarioExistente != null && usuarioExistente.Excluido == true)
+            {
+                usuarioExistente.Nome = usuarioVo.Nome;
+                usuarioExistente.Senha = usuarioVo.Senha;
+                usuarioExistente.Email = usuarioVo.Email;
+                usuarioExistente.Administrador = usuarioVo.Administrador;
+                usuarioExistente.Excluido = false;
+
+                if (!EditarBd(usuarioExistente, ref mensagemErro))
+                {
+                    retornoDto.Retorno = false;
+                    retornoDto.Mensagem = "Falha ao salvar os dados do produto: " + mensagemErro;
+
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirUsuario, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
+                    return false;
+                }
+            }
+            // Se não estiver excluído, não permitir incluir duplicado
+            else if (usuarioExistente != null && usuarioExistente.Excluido == false)
+            {
+                retornoDto.Retorno = false;
+                retornoDto.Mensagem = "Esse cadastro já existe, não é possível incluir cadastros duplicados.";
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirUsuario, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
+                return false;
+            }
+            else
+            {
+                // Prepara a inclusão no banco de dados
+                if (!IncluirBd(usuarioVo, ref mensagemErro))
+                {
+                    retornoDto.Retorno = false;
+                    retornoDto.Mensagem = "Falha ao converter o usuario para VO: " + mensagemErro;
+
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirUsuario, Guid.Empty, retornoDto.Mensagem);
+                    return false;
+                }
             }
 
             if (salvar)
@@ -260,7 +288,7 @@ namespace PizzaByteBll
             string identificacao = DateTime.Now.ToString("dd/MM/yyyy hh:mm") + UtilitarioBll.RetornaGuidValidação() + idUsuario.ToString() + $"Adm={(usuarioAdm ? "1" : "0")}";
             string identificacaoCriptografada = "";
 
-            if (!UtilitarioBll.CriptografarString(identificacao, ref identificacaoCriptografada))
+            if (!UtilitarioBll.CriptografarIdentificacao(identificacao, ref identificacaoCriptografada))
             {
                 retornoDto.Mensagem = "Falha ao fazer o login: Não foi possível obter a identificação.";
                 retornoDto.Retorno = false;
@@ -663,7 +691,7 @@ namespace PizzaByteBll
         }
 
         /// <summary>
-        /// Edita um usuário com a confirmação da senha atual
+        /// Edita um usuario
         /// </summary>
         /// <param name="requisicaoDto"></param>
         /// <param name="retornoDto"></param>
@@ -675,30 +703,58 @@ namespace PizzaByteBll
                 return false;
             }
 
+            // Apenas usuários ADM podem editar usuarioes
             string mensagemErro = "";
             if (!UtilitarioBll.ValidarUsuarioAdm(requisicaoDto.Identificacao, ref mensagemErro))
             {
                 retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Este usuário não é administrador. Para consultar os usuários é necessário " +
+                retornoDto.Mensagem = "Este usuário não é administrador. Para editar os usuarioes é necessário " +
                     $"logar com um usuário administrador. {mensagemErro}";
 
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarUsuario, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
                 return false;
             }
 
+            // Não deixar incluir um email repetido
             UsuarioVo usuarioVo = new UsuarioVo();
-            if (!ObterPorIdBd(requisicaoDto.EntidadeDto.Id, out usuarioVo, ref mensagemErro))
+            if (!VerificarUsuarioExistente(requisicaoDto.EntidadeDto, ref usuarioVo, ref mensagemErro))
             {
-                retornoDto.Mensagem = "Problemas para encontrar o usuário: " + mensagemErro;
                 retornoDto.Retorno = false;
+                retornoDto.Mensagem = "Falha ao validar o Email: " + mensagemErro;
 
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarUsuario, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
                 return false;
             }
 
-            if (!string.Equals(usuarioVo.Senha, requisicaoDto.EntidadeDto.SenhaAntiga))
+            if (usuarioVo != null && usuarioVo.Excluido == true)
             {
-                retornoDto.Mensagem = "A senha atual informada não está correta.";
+                if (!ExcluirDefinitivoBd(usuarioVo.Id, ref mensagemErro))
+                {
+                    mensagemErro = $"Houve um erro ao deletar o usuario duplicado.";
+                    return false;
+                }
+
+                if (!pizzaByteContexto.Salvar(ref mensagemErro))
+                {
+                    retornoDto.Retorno = false;
+                    retornoDto.Mensagem = "Falha ao excluir o usuario duplicado: " + mensagemErro;
+
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarUsuario, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
+                    return false;
+                }
+            }
+            else if (usuarioVo != null && usuarioVo.Excluido == false)
+            {
+                retornoDto.Retorno = false;
+                retornoDto.Mensagem = "Esse cadastro já existe, não é possível incluir cadastros duplicados";
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarUsuario, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
+                return false;
+            }
+
+            if (!ObterPorIdBd(requisicaoDto.EntidadeDto.Id, out usuarioVo, ref mensagemErro))
+            {
+                retornoDto.Mensagem = "Problemas para encontrar o usuario: " + mensagemErro;
                 retornoDto.Retorno = false;
 
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarUsuario, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
@@ -707,18 +763,17 @@ namespace PizzaByteBll
 
             if (!ConverterDtoParaVo(requisicaoDto.EntidadeDto, ref usuarioVo, ref mensagemErro))
             {
-                retornoDto.Mensagem = "Problemas ao converter o usuário para Vo: " + mensagemErro;
+                retornoDto.Mensagem = "Problemas ao converter o usuario para Vo: " + mensagemErro;
                 retornoDto.Retorno = false;
 
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarUsuario, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
                 return false;
             }
 
-
             if (!EditarBd(usuarioVo, ref mensagemErro))
             {
                 retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Falha ao salvar os novos dados do usuário: " + mensagemErro;
+                retornoDto.Mensagem = "Falha ao editar os novos dados do usuario: " + mensagemErro;
 
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarUsuario, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
                 return false;
@@ -730,7 +785,7 @@ namespace PizzaByteBll
                 if (!pizzaByteContexto.Salvar(ref mensagemErro))
                 {
                     retornoDto.Retorno = false;
-                    retornoDto.Mensagem = mensagemErro;
+                    retornoDto.Mensagem = "Erro ao salvar os novos dados: " + mensagemErro;
 
                     logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarUsuario, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
                     return false;
@@ -785,6 +840,39 @@ namespace PizzaByteBll
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaUsuario, Guid.Empty, retornoDto.Mensagem);
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Valida se o Email já existe
+        /// </summary>
+        /// <param name="usuarioDto"></param>
+        /// <param name="mensagemErro"></param>
+        /// <returns></returns>
+        private bool VerificarUsuarioExistente(UsuarioDto usuarioDto, ref UsuarioVo usuarioVo, ref string mensagemErro)
+        {
+            if (usuarioDto == null)
+            {
+                mensagemErro = "É necessário informar o usuario para validar o Email";
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(usuarioDto.Email))
+            {
+                return true;
+            }
+
+            IQueryable<UsuarioVo> query;
+            if (!this.ObterQueryBd(out query, ref mensagemErro, true))
+            {
+                mensagemErro = $"Houve um problema ao listar os usuarioes: {mensagemErro}";
+                return false;
+            }
+
+            usuarioDto.Email = usuarioDto.Email.Replace("/", "").Replace("-", "");
+            query = query.Where(p => p.Email == usuarioDto.Email.Trim() && p.Id != usuarioDto.Id);
+            usuarioVo = query.FirstOrDefault();
+            return true;
+
         }
     }
 }

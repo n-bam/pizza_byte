@@ -50,32 +50,56 @@ namespace PizzaByteBll
                 return false;
             }
 
-            CepVo cepVo;
+            // Converte para VO a ser incluída no banco de dados
             string mensagemErro = "";
-            if (!VerificarExistente(requisicaoDto, requisicaoDto.EntidadeDto.Cep, out cepVo, ref mensagemErro))
+            CepVo cepVo = new CepVo();
+            if (!ConverterDtoParaVo(requisicaoDto.EntidadeDto, ref cepVo, ref mensagemErro))
             {
                 retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Falha ao verificar se o CEP já existe no banco de dados: " + mensagemErro;
+                retornoDto.Mensagem = "Falha ao converter o cep para VO: " + mensagemErro;
 
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirCep, Guid.Empty, retornoDto.Mensagem);
                 return false;
             }
 
-            // Se o CEP não existir
-            if (cepVo == null)
+            // Verifica se o cep já existe
+            CepVo cepExistente = null;
+            if (!VerificarCepExistente(requisicaoDto.EntidadeDto, ref cepExistente, ref mensagemErro))
             {
-                cepVo = new CepVo();
+                retornoDto.Retorno = false;
+                retornoDto.Mensagem = mensagemErro;
+                return false;
+            }
 
-                // Converte para VO a ser incluída no banco de dados
-                if (!ConverterDtoParaVo(requisicaoDto.EntidadeDto, ref cepVo, ref mensagemErro))
+            // Se estiver excluído, restaurar o cadastro antigo
+            if (cepExistente != null && cepExistente.Excluido == true)
+            {
+                cepExistente.Logradouro = cepVo.Logradouro;
+                cepExistente.Cidade = cepVo.Cidade;
+                cepExistente.Bairro = cepVo.Bairro;
+                cepExistente.Cep = cepVo.Cep;
+                cepExistente.Excluido = false;
+
+                if (!EditarBd(cepExistente, ref mensagemErro))
                 {
                     retornoDto.Retorno = false;
-                    retornoDto.Mensagem = "Falha ao converter o cep para VO: " + mensagemErro;
+                    retornoDto.Mensagem = "Falha ao salvar os dados do Cep: " + mensagemErro;
 
-                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirCep, Guid.Empty, retornoDto.Mensagem);
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirCep, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
                     return false;
                 }
+            }
+            // Se não estiver excluído, não permitir incluir duplicado
+            else if (cepExistente != null && cepExistente.Excluido == false)
+            {
+                retornoDto.Retorno = false;
+                retornoDto.Mensagem = "Esse cadastro já existe, não é possível incluir cadastros duplicados.";
 
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirCep, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
+                return false;
+            }
+            else
+            {
                 // Prepara a inclusão no banco de dados
                 if (!IncluirBd(cepVo, ref mensagemErro))
                 {
@@ -83,32 +107,6 @@ namespace PizzaByteBll
                     retornoDto.Mensagem = "Falha ao converter o cep para VO: " + mensagemErro;
 
                     logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirCep, Guid.Empty, retornoDto.Mensagem);
-                    return false;
-                }
-            }
-            else
-            {
-                // Se existir, atualizar os dados
-                requisicaoDto.EntidadeDto.Id = cepVo.Id;
-                requisicaoDto.EntidadeDto.DataInclusao = cepVo.DataInclusao;
-                requisicaoDto.EntidadeDto.Excluido = false;
-
-                // Converte para VO a ser incluída no banco de dados
-                if (!ConverterDtoParaVo(requisicaoDto.EntidadeDto, ref cepVo, ref mensagemErro))
-                {
-                    retornoDto.Retorno = false;
-                    retornoDto.Mensagem = "Falha ao converter o cep para VO: " + mensagemErro;
-
-                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirCep, Guid.Empty, retornoDto.Mensagem);
-                    return false;
-                }
-
-                if (!EditarBd(cepVo, ref mensagemErro))
-                {
-                    retornoDto.Retorno = false;
-                    retornoDto.Mensagem = "Falha ao restaurar o CEP: " + mensagemErro;
-
-                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirCep, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
                     return false;
                 }
             }
@@ -478,8 +476,54 @@ namespace PizzaByteBll
                 return false;
             }
 
+            // Apenas usuários ADM podem editar cepes
             string mensagemErro = "";
+            if (!UtilitarioBll.ValidarUsuarioAdm(requisicaoDto.Identificacao, ref mensagemErro))
+            {
+                retornoDto.Retorno = false;
+                retornoDto.Mensagem = "Este usuário não é administrador. Para editar os cepes é necessário " +
+                    $"logar com um usuário administrador. {mensagemErro}";
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarCep, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
+                return false;
+            }
+
+            // Não deixar incluir um cep repetido
             CepVo cepVo = new CepVo();
+            if (!VerificarCepExistente(requisicaoDto.EntidadeDto, ref cepVo, ref mensagemErro))
+            {
+                retornoDto.Retorno = false;
+                retornoDto.Mensagem = "Falha ao validar o Cpf: " + mensagemErro;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarCep, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
+                return false;
+            }
+
+            if (cepVo != null && cepVo.Excluido == true)
+            {
+                if (!ExcluirDefinitivoBd(cepVo.Id, ref mensagemErro))
+                {
+                    mensagemErro = $"Houve um erro ao deletar o cep duplicado.";
+                    return false;
+                }
+
+                if (!pizzaByteContexto.Salvar(ref mensagemErro))
+                {
+                    retornoDto.Retorno = false;
+                    retornoDto.Mensagem = "Falha ao excluir o cep duplicado: " + mensagemErro;
+
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarCep, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
+                    return false;
+                }
+            }
+            else if (cepVo != null && cepVo.Excluido == false)
+            {
+                retornoDto.Retorno = false;
+                retornoDto.Mensagem = "Esse cadastro já existe, não é possível incluir cadastros duplicados";
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarCep, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
+                return false;
+            }
 
             if (!ObterPorIdBd(requisicaoDto.EntidadeDto.Id, out cepVo, ref mensagemErro))
             {
@@ -502,7 +546,7 @@ namespace PizzaByteBll
             if (!EditarBd(cepVo, ref mensagemErro))
             {
                 retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Falha ao editar os novos dados do CEP: " + mensagemErro;
+                retornoDto.Mensagem = "Falha ao editar os novos dados do cep: " + mensagemErro;
 
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarCep, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
                 return false;
@@ -514,7 +558,7 @@ namespace PizzaByteBll
                 if (!pizzaByteContexto.Salvar(ref mensagemErro))
                 {
                     retornoDto.Retorno = false;
-                    retornoDto.Mensagem = "Falha ao salvar os novos dados: " + mensagemErro;
+                    retornoDto.Mensagem = "Erro ao salvar os novos dados: " + mensagemErro;
 
                     logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarCep, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
                     return false;
@@ -672,5 +716,40 @@ namespace PizzaByteBll
                 return false;
             }
         }
+
+        /// <summary>
+        /// Valida se o Cep já existe
+        /// </summary>
+        /// <param name="cepDto"></param>
+        /// <param name="mensagemErro"></param>
+        /// <returns></returns>
+        private bool VerificarCepExistente(CepDto cepDto, ref CepVo cepVo, ref string mensagemErro)
+        {
+            if (cepDto == null)
+            {
+                mensagemErro = "É necessário informar o cep para validar o Cpf";
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(cepDto.Cep))
+            {
+                return true;
+            }
+
+            IQueryable<CepVo> query;
+            if (!this.ObterQueryBd(out query, ref mensagemErro, true))
+            {
+                mensagemErro = $"Houve um problema ao listar os CEPs: {mensagemErro}";
+                return false;
+            }
+
+            cepDto.Cep = cepDto.Cep.Replace(".", "").Replace("/", "").Replace("-", "");
+            query = query.Where(p => p.Cep == cepDto.Cep.Trim() && p.Id != cepDto.Id);
+            cepVo = query.FirstOrDefault();
+            return true;
+
+        }
+
     }
 }
+

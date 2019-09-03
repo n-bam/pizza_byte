@@ -7,7 +7,7 @@ function AlterarTipoUsuario() {
 // Busca as mensagens de suporte enviadas
 function BuscarMensagens(nPagina) {
     LimparMensagens();
-    $("#iconCarregando").show();
+    ExibirCarregando();
 
     $.ajax({
         type: "POST",
@@ -19,7 +19,7 @@ function BuscarMensagens(nPagina) {
             NaoPaginaPesquisa: false
         }),
         traditional: true,
-        success: function (dados) {
+        success: function (dados, status, request) {
 
             if (dados.Error != undefined) {
                 swal({
@@ -31,7 +31,7 @@ function BuscarMensagens(nPagina) {
                     button: "Ok"
                 });
 
-                $("#iconCarregando").hide();
+                EsconderCarregando();
                 return;
             }
 
@@ -45,7 +45,7 @@ function BuscarMensagens(nPagina) {
                     button: "Ok",
                 });
 
-                $("#iconCarregando").hide();
+                EsconderCarregando();
             } else {
 
                 if (dados.ListaEntidades.length == 0) {
@@ -66,7 +66,7 @@ function BuscarMensagens(nPagina) {
                     }
                 }
 
-                $("#iconCarregando").hide();
+                EsconderCarregando();
             }
         },
         error: function (request, status, error) {
