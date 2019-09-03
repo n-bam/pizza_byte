@@ -57,11 +57,17 @@
                     for (var i = 0; i < dados.ListaEntidades.length; i++) {
 
                         $("#tblResultados tbody").append("<tr>"
-                            + "<td>" + dados.ListaEntidades[i].Bairro + "</td>"
+                            + "<td>" + dados.ListaEntidades[i].BairroCidade.split("_")[0] + "</td>"
+                            + "<td>" + dados.ListaEntidades[i].BairroCidade.split("_")[1] + "</td>"
                             + "<td>" + dados.ListaEntidades[i].ValorTaxa.toFixed(2).replace(".", ",") + "</td>"
                             + "<td>" + ((dados.ListaEntidades[i].Inativo) ? "Sim" : "Não") + "</td>"
-                            + "<td><a class='btn btn-sm btn-info' href='../TaxaEntrega/Editar/"
+                            + "<td><a class='btn btn-sm btn-default' href='../TaxaEntrega/Visualizar/"
+                            + dados.ListaEntidades[i].Id + "'><i class='fa fa-eye'></i></a>"
+                            + " <a class='btn btn-sm btn-info' href='../TaxaEntrega/Editar/"
                             + dados.ListaEntidades[i].Id + "'><i class='fa fa-pencil'></i></a>"
+                            + " <a class='btn btn-sm btn-danger' href='../TaxaEntrega/Excluir/"
+                            + dados.ListaEntidades[i].Id + "?Descricao="
+                            + dados.ListaEntidades[i].Id + "'><i class='fa fa-trash'></i></a>"
                             + "</td></tr>");
                     }
                 }

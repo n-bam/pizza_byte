@@ -18,7 +18,7 @@ namespace PizzaByteTestesUnitarios
         {
             TaxaEntregaDto taxaEntregaDto = new TaxaEntregaDto()
             {
-                Bairro = "Bairro teste",
+                BairroCidade = "Bairro teste",
                 Id = Guid.NewGuid(),
                 Inativo = false,
                 ValorTaxa = 5.2F,
@@ -47,7 +47,7 @@ namespace PizzaByteTestesUnitarios
             Assert.AreEqual(true, retornoDto.Retorno);
 
             // Editar
-            requisicaoDto.EntidadeDto.Bairro = "Outro bairro";
+            requisicaoDto.EntidadeDto.BairroCidade = "Outro bairro";
             taxaEntregaBll.Editar(requisicaoDto, ref retornoDto);
             Assert.AreEqual(true, retornoDto.Retorno);
 

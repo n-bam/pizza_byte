@@ -70,7 +70,7 @@ namespace PizzaByteBll
                 if (taxa.Id != Guid.Empty)
                 {
                     TaxaEntregaVo taxaEntregaVo;
-                    if (!ObterPorIdBd(taxa.Id, out taxaEntregaVo, ref mensagemErro))
+                    if (!ObterPorIdBd(taxa.Id, out taxaEntregaVo, ref mensagemErro, true))
                     {
                         retornoDto.Mensagem = "Erro ao obter a taxa de entrega: " + mensagemErro;
                         retornoDto.Retorno = false;
@@ -82,7 +82,7 @@ namespace PizzaByteBll
                     if (taxaEntregaVo == null)
                     {
                         retornoDto.Retorno = false;
-                        retornoDto.Mensagem = $"Houve uma falha ao obter a taxa do bairro { taxa.Bairro}";
+                        retornoDto.Mensagem = $"Houve uma falha ao obter a taxa do bairro { taxa.BairroCidade}";
 
                         logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirAlterarListaTaxaEntrega, Guid.Empty, mensagemErro);
                         return false;
@@ -143,7 +143,7 @@ namespace PizzaByteBll
                     if (!IncluirBd(taxaEntregaVo, ref mensagemErro))
                     {
                         retornoDto.Retorno = false;
-                        retornoDto.Mensagem = $"Falha ao incluir a taxa de entrega ({taxaEntregaVo.Bairro}) para VO: " + mensagemErro;
+                        retornoDto.Mensagem = $"Falha ao incluir a taxa de entrega ({taxaEntregaVo.BairroCidade}) para VO: " + mensagemErro;
 
                         logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirAlterarListaTaxaEntrega, Guid.Empty, retornoDto.Mensagem);
                         return false;
@@ -299,7 +299,7 @@ namespace PizzaByteBll
             IQueryable<TaxaEntregaVo> query;
             List<TaxaEntregaVo> listaTaxasCadastradas;
 
-            if (!this.ObterQueryBd(out query, ref mensagemErro))
+            if (!this.ObterQueryBd(out query, ref mensagemErro, true))
             {
                 retornoDto.Mensagem = $"Houve um problema ao listar as taxas de entrega: {mensagemErro}";
                 retornoDto.Retorno = false;
@@ -310,7 +310,7 @@ namespace PizzaByteBll
 
             try
             {
-                query = query.Where(p => p.Inativo == false).OrderBy(p => p.Bairro);
+                query = query.OrderBy(p => p.BairroCidade);
                 listaTaxasCadastradas = query.ToList();
             }
             catch (Exception)
@@ -328,13 +328,13 @@ namespace PizzaByteBll
                 // Iniciar taxa
                 TaxaEntregaDto taxaDto = new TaxaEntregaDto()
                 {
-                    Bairro = bairro.Bairro,
+                    BairroCidade = bairro.Bairro + "_" + bairro.Cidade.Trim(),
                     Cidade = bairro.Cidade,
                     Id = Guid.Empty,
                     ValorTaxa = 0
                 };
 
-                TaxaEntregaVo taxaVo = listaTaxasCadastradas.Where(p => p.Bairro.Trim() == bairro.Bairro.Trim()).FirstOrDefault();
+                TaxaEntregaVo taxaVo = listaTaxasCadastradas.Where(p => p.BairroCidade.Trim() == (bairro.Bairro.Trim() + "_" + bairro.Cidade.Trim())).FirstOrDefault();
                 if (taxaVo != null)
                 {
                     if (!ConverterVoParaDto(taxaVo, ref taxaDto, ref mensagemErro))
@@ -345,12 +345,17 @@ namespace PizzaByteBll
                         logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaBairrosComTaxas, Guid.Empty, mensagemErro);
                         return false;
                     }
+
+                    if (taxaVo.Excluido)
+                    {
+                        taxaDto.ValorTaxa = 0;
+                    }
                 }
 
                 retornoDto.ListaEntidades.Add(taxaDto);
             }
 
-            retornoDto.ListaEntidades = retornoDto.ListaEntidades.OrderBy(p => p.Cidade).ThenBy(p => p.Bairro).ToList();
+            retornoDto.ListaEntidades = retornoDto.ListaEntidades.OrderBy(p => p.Cidade).ThenBy(p => p.BairroCidade).ToList();
             retornoDto.Retorno = true;
             retornoDto.Mensagem = "OK";
             return true;
@@ -388,7 +393,7 @@ namespace PizzaByteBll
                 switch (filtro.Key)
                 {
                     case "BAIRRO":
-                        query = query.Where(p => p.Bairro.Contains(filtro.Value));
+                        query = query.Where(p => p.BairroCidade.Contains(filtro.Value));
                         break;
 
                     case "VALORTAXAMAIOR":
@@ -461,19 +466,19 @@ namespace PizzaByteBll
             switch (requisicaoDto.CampoOrdem)
             {
                 case "BAIRRO":
-                    query = query.OrderBy(p => p.Bairro).ThenBy(p => p.ValorTaxa);
+                    query = query.OrderBy(p => p.BairroCidade).ThenBy(p => p.ValorTaxa);
                     break;
 
                 case "VALORTAXACRESCENTE":
-                    query = query.OrderBy(p => p.ValorTaxa).ThenBy(p => p.Bairro);
+                    query = query.OrderBy(p => p.ValorTaxa).ThenBy(p => p.BairroCidade);
                     break;
 
                 case "VALORTAXADESCRESCENTE":
-                    query = query.OrderByDescending(p => p.ValorTaxa).ThenBy(p => p.Bairro);
+                    query = query.OrderByDescending(p => p.ValorTaxa).ThenBy(p => p.BairroCidade);
                     break;
 
                 default:
-                    query = query.OrderBy(p => p.Bairro).ThenBy(p => p.ValorTaxa);
+                    query = query.OrderBy(p => p.BairroCidade).ThenBy(p => p.ValorTaxa);
                     break;
             }
 
@@ -559,7 +564,7 @@ namespace PizzaByteBll
 
             CepBll cepBll = new CepBll(false);
             string cidade = "";
-            if (!cepBll.ObterCidadePorBairro(requisicaoDto, taxaEntregaDto.Bairro, ref cidade, ref mensagemErro))
+            if (!cepBll.ObterCidadePorBairro(requisicaoDto, taxaEntregaDto.BairroCidade, ref cidade, ref mensagemErro))
             {
                 retornoDto.Mensagem = "Erro ao obter a cidade que a taxa se refere: " + mensagemErro;
                 retornoDto.Retorno = false;
@@ -586,7 +591,7 @@ namespace PizzaByteBll
 
             try
             {
-                taxaEntregaVo.Bairro = string.IsNullOrWhiteSpace(taxaEntregaDto.Bairro) ? "" : taxaEntregaDto.Bairro.Trim();
+                taxaEntregaVo.BairroCidade = string.IsNullOrWhiteSpace(taxaEntregaDto.BairroCidade) ? "" : taxaEntregaDto.BairroCidade.Trim();
                 taxaEntregaVo.ValorTaxa = taxaEntregaDto.ValorTaxa;
 
                 return true;
@@ -613,7 +618,7 @@ namespace PizzaByteBll
 
             try
             {
-                taxaEntregaDto.Bairro = string.IsNullOrWhiteSpace(taxaEntregaVo.Bairro) ? "" : taxaEntregaVo.Bairro.Trim();
+                taxaEntregaDto.BairroCidade = string.IsNullOrWhiteSpace(taxaEntregaVo.BairroCidade) ? "" : taxaEntregaVo.BairroCidade.Trim();
                 taxaEntregaDto.ValorTaxa = taxaEntregaVo.ValorTaxa;
 
                 return true;

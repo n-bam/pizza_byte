@@ -1,5 +1,6 @@
 ﻿using PizzaByteBll.Base;
 using PizzaByteDal;
+using PizzaByteDto.ClassesBase;
 using PizzaByteDto.Entidades;
 using PizzaByteDto.RetornosRequisicoes;
 using PizzaByteVo;
@@ -48,18 +49,8 @@ namespace PizzaByteBll
                 return false;
             }
 
-            // Não deixar incluir com CPF repetido
-            string mensagemErro = "";
-            if (!ValidarCpf(requisicaoDto.EntidadeDto, ref mensagemErro))
-            {
-                retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Falha ao validar o CPF: " + mensagemErro;
-
-                logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirCliente, Guid.Empty, retornoDto.Mensagem);
-                return false;
-            }
-
             // Converte para VO a ser incluída no banco de dados
+            string mensagemErro = "";
             ClienteVo clienteVo = new ClienteVo();
             if (!ConverterDtoParaVo(requisicaoDto.EntidadeDto, ref clienteVo, ref mensagemErro))
             {
@@ -70,14 +61,52 @@ namespace PizzaByteBll
                 return false;
             }
 
-            // Prepara a inclusão no banco de dados
-            if (!IncluirBd(clienteVo, ref mensagemErro))
+            // Verifica se o cliente já existe
+            ClienteVo clienteExistente = null;
+            if (!VerificarClienteExistente(requisicaoDto.EntidadeDto, ref clienteExistente, ref mensagemErro))
             {
                 retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Falha ao converter o cliente para VO: " + mensagemErro;
-
-                logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirCliente, Guid.Empty, retornoDto.Mensagem);
+                retornoDto.Mensagem = mensagemErro;
                 return false;
+            }
+
+            // Se estiver excluído, restaurar o cadastro antigo
+            if (clienteExistente != null && clienteExistente.Excluido == true)
+            {
+                clienteExistente.Cpf = clienteVo.Cpf;
+                clienteExistente.Nome = clienteVo.Nome;
+                clienteExistente.Telefone = clienteVo.Telefone;
+                clienteExistente.Excluido = false;
+
+                if (!EditarBd(clienteExistente, ref mensagemErro))
+                {
+                    retornoDto.Retorno = false;
+                    retornoDto.Mensagem = "Falha ao salvar os dados do produto: " + mensagemErro;
+
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirCliente, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
+                    return false;
+                }
+            }
+            // Se não estiver excluído, não permitir incluir duplicado
+            else if (clienteExistente != null && clienteExistente.Excluido == false)
+            {
+                retornoDto.Retorno = false;
+                retornoDto.Mensagem = "Esse cadastro já existe, não é possível incluir cadastros duplicados.";
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirCliente, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
+                return false;
+            }
+            else
+            {
+                // Prepara a inclusão no banco de dados
+                if (!IncluirBd(clienteVo, ref mensagemErro))
+                {
+                    retornoDto.Retorno = false;
+                    retornoDto.Mensagem = "Falha ao converter o cliente para VO: " + mensagemErro;
+
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirCliente, Guid.Empty, retornoDto.Mensagem);
+                    return false;
+                }
             }
 
             if (salvar)
@@ -383,18 +412,55 @@ namespace PizzaByteBll
                 return false;
             }
 
-            // Não deixar incluir um CNPJ repetido
+            // Apenas usuários ADM podem editar clientees
             string mensagemErro = "";
-            if (!ValidarCpf(requisicaoDto.EntidadeDto, ref mensagemErro))
+            if (!UtilitarioBll.ValidarUsuarioAdm(requisicaoDto.Identificacao, ref mensagemErro))
             {
                 retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Falha ao validar o CPF: " + mensagemErro;
+                retornoDto.Mensagem = "Este usuário não é administrador. Para editar os clientees é necessário " +
+                    $"logar com um usuário administrador. {mensagemErro}";
 
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarCliente, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
                 return false;
             }
 
+            // Não deixar incluir um Cpf repetido
             ClienteVo clienteVo = new ClienteVo();
+            if (!VerificarClienteExistente(requisicaoDto.EntidadeDto, ref clienteVo, ref mensagemErro))
+            {
+                retornoDto.Retorno = false;
+                retornoDto.Mensagem = "Falha ao validar o Cpf: " + mensagemErro;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarCliente, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
+                return false;
+            }
+
+            if (clienteVo != null && clienteVo.Excluido == true)
+            {
+                if (!ExcluirDefinitivoBd(clienteVo.Id, ref mensagemErro))
+                {
+                    mensagemErro = $"Houve um erro ao deletar o cliente duplicado.";
+                    return false;
+                }
+
+                if (!pizzaByteContexto.Salvar(ref mensagemErro))
+                {
+                    retornoDto.Retorno = false;
+                    retornoDto.Mensagem = "Falha ao excluir o cliente duplicado: " + mensagemErro;
+
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarCliente, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
+                    return false;
+                }
+            }
+            else if (clienteVo != null && clienteVo.Excluido == false)
+            {
+                retornoDto.Retorno = false;
+                retornoDto.Mensagem = "Esse cadastro já existe, não é possível incluir cadastros duplicados";
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarCliente, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
+                return false;
+            }
+
             if (!ObterPorIdBd(requisicaoDto.EntidadeDto.Id, out clienteVo, ref mensagemErro))
             {
                 retornoDto.Mensagem = "Problemas para encontrar o cliente: " + mensagemErro;
@@ -416,7 +482,7 @@ namespace PizzaByteBll
             if (!EditarBd(clienteVo, ref mensagemErro))
             {
                 retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Falha ao salvar os novos dados do cliente: " + mensagemErro;
+                retornoDto.Mensagem = "Falha ao editar os novos dados do cliente: " + mensagemErro;
 
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarCliente, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
                 return false;
@@ -428,7 +494,7 @@ namespace PizzaByteBll
                 if (!pizzaByteContexto.Salvar(ref mensagemErro))
                 {
                     retornoDto.Retorno = false;
-                    retornoDto.Mensagem = mensagemErro;
+                    retornoDto.Mensagem = "Erro ao salvar os novos dados: " + mensagemErro;
 
                     logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarCliente, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
                     return false;
@@ -446,11 +512,11 @@ namespace PizzaByteBll
         /// <param name="clienteDto"></param>
         /// <param name="mensagemErro"></param>
         /// <returns></returns>
-        private bool ValidarCpf(ClienteDto clienteDto, ref string mensagemErro)
+        private bool VerificarClienteExistente(ClienteDto clienteDto, ref ClienteVo clienteVo, ref string mensagemErro)
         {
             if (clienteDto == null)
             {
-                mensagemErro = "É necessário informar o cliente para validar o CPF";
+                mensagemErro = "É necessário informar o cliente para validar o Cpf";
                 return false;
             }
 
@@ -460,23 +526,17 @@ namespace PizzaByteBll
             }
 
             IQueryable<ClienteVo> query;
-            if (!this.ObterQueryBd(out query, ref mensagemErro))
+            if (!this.ObterQueryBd(out query, ref mensagemErro, true))
             {
                 mensagemErro = $"Houve um problema ao listar os clientes: {mensagemErro}";
                 return false;
             }
 
-            clienteDto.Cpf = clienteDto.Cpf.Replace(".", "").Replace("-", "");
+            clienteDto.Cpf = clienteDto.Cpf.Replace(".", "").Replace("/", "").Replace("-", "");
             query = query.Where(p => p.Cpf == clienteDto.Cpf.Trim() && p.Id != clienteDto.Id);
-
-            if (query.Count() > 0)
-            {
-                mensagemErro = $"Já existe um cliente com este CPF. Para evitar duplicidade de cadastros, " +
-                    $"não é possível incluir/editar outro cliente com este CPF.";
-                return false;
-            }
-
+            clienteVo = query.FirstOrDefault();
             return true;
+
         }
     }
 }

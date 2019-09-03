@@ -32,7 +32,7 @@
                 });
 
                 EsconderCarregando();
-                return;
+               
             }
 
             if (!dados.Retorno) {

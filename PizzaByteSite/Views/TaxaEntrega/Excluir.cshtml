@@ -1,20 +1,20 @@
 ﻿@model PizzaByteSite.Models.ExclusaoModel
 
 @{
-    ViewBag.Title = "Excluir funcionário";
+    ViewBag.Title = "Excluir Taxa de entrega";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="content-wrapper">
     <div class="content-header">
         <h1>
-            Funcionários
+            Produtos
             <small>Excluir</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="~/Usuario/Inicio"><i class="fa fa-home"></i> Inicio</a></li>
-            <li><a href="~/Funcionario/Index"><i class="fa fa-tags"></i> Funcionários</a></li>
-            <li class="active"><i class="fa fa-remove"></i> Excluir</li>
+            <li><a href="~/TaxaEntrega/Index"><i class="fa fa-tags"></i> Taxa de entrega</a></li>
+            <li class="active"><i class="fa fa-trash"></i> Excluir</li>
         </ol>
     </div>
 
@@ -23,10 +23,10 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="box">
                     <div class="box-header with-border">
-                        <h2 class="box-title">Confirme a exclusão do funcionário</h2>
+                        <h2 class="box-title">Confirme a exclusão da taxa de entrega</h2>
                     </div>
 
-                    @using (Html.BeginForm("ExcluirFuncionario", "Funcionario"))
+                    @using (Html.BeginForm("ExcluirTaxaEntrega", "TaxaEntrega"))
                     {
                         @Html.AntiForgeryToken()
 
@@ -38,7 +38,7 @@
                                         @Html.HiddenFor(model => model.Descricao)
                                         <br />
                                         <p>
-                                            Tem certeza que deseja excluir o funcionário "<b>@Model.Descricao</b>"?
+                                            Tem certeza que deseja excluir a taxa de entrega "<b>/@Model.Descricao</b>"?
                                         </p>
                                         <h4 class="text-danger">Essa operação não poderá ser desfeita.</h4>
                                         <br />
@@ -46,7 +46,7 @@
                                 </div>
 
                                 <div class="box-footer">
-                                    <a class="btn btn-default" href="~/Funcionario/Index"><i class="fa fa-mail-reply"></i> Cancelar</a>
+                                    <a class="btn btn-default" href="~/TaxaEntrega/Index"><i class="fa fa-mail-reply"></i> Cancelar</a>
                                     <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Excluir</button>
                                 </div>
                             </div>

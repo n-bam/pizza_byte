@@ -4174,13 +4174,14 @@
     <Content Include="Views\Cliente\_ListaEnderecos.cshtml" />
     <Content Include="Views\Suporte\Index.cshtml" />
     <Content Include="Views\Log\Index.cshtml" />
-    <Content Include="Views\Funcionario\Editar.cshtml" />
     <Content Include="Views\Funcionario\Excluir.cshtml" />
     <Content Include="Views\Funcionario\Incluir.cshtml" />
     <Content Include="Views\Funcionario\Index.cshtml" />
     <Content Include="Views\Funcionario\Visualizar.cshtml" />
     <Content Include="Views\Funcionario\Editar.cshtml" />
-    <Content Include="Views\TaxaEntrega\Suporte\Index.cshtml" />
+    <Content Include="Views\TaxaEntrega\Visualizar.cshtml" />
+    <Content Include="Views\TaxaEntrega\Excluir.cshtml" />
+    <Content Include="Views\Cep\Visualizar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -41,7 +41,7 @@ namespace PizzaByteDal.Base
         }
 
         /// <summary>
-        /// Exclui uma entidade do banco de dados
+        /// Marca um campo excluido igual a true no banco de dados
         /// </summary>
         /// <param name="id">Id da entidade a ser excluída</param>
         /// <param name="mensagemErro">Mensagem de erro, caso ocorra</param>
@@ -69,6 +69,44 @@ namespace PizzaByteDal.Base
                     // Apagar a entidade
                     entidade.Excluido = true;
                     pizzaByteContexto.Entry(entidade).State = EntityState.Modified;
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                mensagemErro = "Erro ao excluir a entidade: " + ex.Message;
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Exclui uma entidade do banco de dados
+        /// </summary>
+        /// <param name="id">Id da entidade a ser excluída</param>
+        /// <param name="mensagemErro">Mensagem de erro, caso ocorra</param>
+        protected bool ExcluirDefinitivoBd(Guid id, ref string mensagemErro)
+        {
+            // Validar o ID para excluir a entidade
+            if (id == null || id == Guid.Empty)
+            {
+                mensagemErro = "Para excluir um registro do banco de dados é necessário informar o ID da entidade!";
+                return false;
+            }
+
+            try
+            {
+                // Encontrar a entidade por ID e deletar do banco de dados
+                T entidade = pizzaByteContexto.Set<T>().Where(p => p.Id == id).FirstOrDefault();
+
+                if (entidade == null)
+                {
+                    mensagemErro = "Não foi encontrado nenhum registro com o ID informado. Atualize a página e tente novamente.";
+                    return false;
+                }
+                else
+                {
+                    // Apagar a entidade
+                    pizzaByteContexto.Entry(entidade).State = EntityState.Deleted;
                     return true;
                 }
             }

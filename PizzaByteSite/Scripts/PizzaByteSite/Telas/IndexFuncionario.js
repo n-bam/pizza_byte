@@ -62,11 +62,11 @@
                                 textoTipo = "Gestor";
                                 break;
 
-                            case 2:
+                            case 3:
                                 textoTipo = "Motoboy";
                                 break;
 
-                            case 2:
+                            case 4:
                                 textoTipo = "Pizzaiolo";
                                 break;
 

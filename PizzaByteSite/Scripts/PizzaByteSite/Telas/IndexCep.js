@@ -62,12 +62,13 @@
                             + "<td>" + dados.ListaEntidades[i].Bairro + "</td>"
                             + "<td>" + dados.ListaEntidades[i].Cidade + "</td>"
                             + "<td>" + ((dados.ListaEntidades[i].Inativo) ? "Sim" : "Não") + "</td>"
-                            + "<td><a class='btn btn-sm btn-info' href='../Cep/Editar/"
+                            + "<td><a class='btn btn-sm btn-default' href='../Cep/ViSualizar/"
+                            + dados.ListaEntidades[i].Id + "'><i class='fa fa-eye'></i></a>"
+                            + " <a class='btn btn-sm btn-info' href='../Cep/Editar/"
                             + dados.ListaEntidades[i].Id + "'><i class='fa fa-pencil'></i></a>"
                             + " <a class='btn btn-sm btn-danger' href='../Cep/Excluir/"
                             + dados.ListaEntidades[i].Id + "?Descricao="
-                            + dados.ListaEntidades[i].Cep + " (" + dados.ListaEntidades[i].Logradouro
-                            + ")'><i class='fa fa-trash'></i></a>"
+                            + dados.ListaEntidades[i].Cep + " (" + dados.ListaEntidades[i].Logradouro + ")'><i class='fa fa-trash'></i></a>"
                             + "</td></tr>");
                     }
                 }
