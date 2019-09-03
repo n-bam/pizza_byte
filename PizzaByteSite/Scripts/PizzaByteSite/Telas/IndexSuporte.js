@@ -5,7 +5,6 @@ function AlterarTipoUsuario() {
 } 
 
 // Busca as mensagens de suporte enviadas
-
 function BuscarMensagens(nPagina) {
     LimparMensagens();
     $("#iconCarregando").show();
