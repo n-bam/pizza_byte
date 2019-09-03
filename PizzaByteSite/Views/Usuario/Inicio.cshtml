@@ -453,3 +453,25 @@
     @Scripts.Render("~/bundles/inicio")
     @Scripts.Render("~/bundles/inicio")
 }
+
+<script>
+    $(document).ready(function () {
+        var retorno = '@TempData["Retorno"]';
+        toastr.options = {
+            "showDuration": "400",
+            "hideDuration": "600",
+            "timeOut": "3000",
+            "positionClass": "toast-top-right",
+            "preventDuplicates": "true"
+        }
+
+        switch (retorno) {
+            case "BACKUPRESTAURADO":
+                toastr.success("Backup restaurado com sucesso!", "Tudo certo!");
+                break;
+
+            default:
+                break;
+        }
+    });
+</script>

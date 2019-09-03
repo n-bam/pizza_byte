@@ -30,7 +30,7 @@ namespace PizzaByteBll.Base
         }
 
         /// <summary>
-        /// Criptografa a identificação para enviar nas requisições
+        /// Criptografa uma string para enviar nas requisições
         /// </summary>
         /// <param name="descriptografado"></param>
         /// <param name="criptografado"></param>
@@ -69,7 +69,7 @@ namespace PizzaByteBll.Base
         }
 
         /// <summary>
-        /// Decriptografa a identificação da requisição
+        /// Decriptografa uma string da requisição
         /// </summary>
         /// <param name="criptografado"></param>
         /// <param name="descriotografado"></param>
