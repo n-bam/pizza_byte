@@ -85,98 +85,6 @@
     <Reference Include="Microsoft.ReportViewer.WinForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.900.148\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.SqlServer.Assessment, Version=0.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.Assessment.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.BatchParserClient, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.BatchParserClient.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.ConnectionInfo.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.ConnectionInfoExtended, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.ConnectionInfoExtended.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Diagnostics.Strace, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.Diagnostics.Strace.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Dmf, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.Dmf.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Dmf.Common, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.Dmf.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Management.Assessment, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.Management.Assessment.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Management.Collector, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.Management.Collector.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Management.CollectorEnum, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.Management.CollectorEnum.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Management.RegisteredServers, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.Management.RegisteredServers.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Management.Sdk.Sfc, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.Management.Sdk.Sfc.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Management.SqlParser, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.Management.SqlParser.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Management.Utility, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.Management.Utility.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Management.UtilityEnum, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.Management.UtilityEnum.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Management.XEvent, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.Management.XEvent.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Management.XEventDbScoped, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.Management.XEventDbScoped.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Management.XEventDbScopedEnum, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.Management.XEventDbScopedEnum.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Management.XEventEnum, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.Management.XEventEnum.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.PolicyEnum, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.PolicyEnum.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.RegSvrEnum, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.RegSvrEnum.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.ServiceBrokerEnum, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.ServiceBrokerEnum.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Smo, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.Smo.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.SmoExtended, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.SmoExtended.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.SqlClrProvider, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.SqlClrProvider.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.SqlEnum, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.SqlEnum.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.SqlTDiagm, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.SqlTDiagm.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.SqlWmiManagement, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.SqlWmiManagement.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.SString, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.SString.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Types, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.Types.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.WmiEnum, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.WmiEnum.dll</HintPath>
     <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.1016.290\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
     </Reference>
@@ -305,7 +213,6 @@
     <Compile Include="Utilidades.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\jQuery\jquery-ui.css" />
     <Content Include="Content\jQuery\jquery-ui.min.css" />
     <Content Include="Content\PizzaByteSite\css\Personalizado.css" />
     <Content Include="Content\PizzaByteSite\css\AdminLTE.css" />
@@ -401,9 +308,20 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="Scripts\PizzaByteSite\plugins\input-mask\phone-codes\phone-be.json" />
+    <Content Include="Scripts\PizzaByteSite\plugins\input-mask\phone-codes\phone-codes.json" />
     <None Include="Properties\PublishProfiles\pizzabytesite - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\pizzabytesite - Web Deploy.pubxml" />
     <None Include="Scripts\PizzaByteSite\plugins\jQueryUI\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\PizzaByteSite\plugins\input-mask\jquery.inputmask.date.extensions.js" />
+    <Content Include="Scripts\PizzaByteSite\plugins\input-mask\jquery.inputmask.extensions.js" />
+    <Content Include="Scripts\PizzaByteSite\plugins\input-mask\jquery.inputmask.js" />
+    <Content Include="Scripts\PizzaByteSite\plugins\input-mask\jquery.inputmask.numeric.extensions.js" />
+    <Content Include="Scripts\PizzaByteSite\plugins\input-mask\jquery.inputmask.phone.extensions.js" />
+    <Content Include="Scripts\PizzaByteSite\plugins\input-mask\jquery.inputmask.regex.extensions.js" />
+    <Content Include="Scripts\PizzaByteSite\plugins\input-mask\phone-codes\readme.txt" />
+    <Content Include="Scripts\PizzaByteSite\plugins\jQueryUI\jquery.mask.js" />
+    <Content Include="Scripts\PizzaByteSite\plugins\jQueryUI\jquery.mask.min.js" />
     <Content Include="Scripts\PizzaByteSite\plugins\jQueryUI\jquery-3.3.1.js" />
     <Content Include="Scripts\PizzaByteSite\plugins\jQueryUI\jquery-3.3.1.min.js" />
     <Content Include="Scripts\PizzaByteSite\plugins\jQueryUI\jquery-3.3.1.slim.js" />
@@ -3993,6 +3911,8 @@
     <Content Include="Scripts\PizzaByteSite\components\jquery-slimscroll\jquery.slimscroll.min.js" />
     <Content Include="Scripts\PizzaByteSite\components\jquery-sparkline\dist\jquery.sparkline.js" />
     <Content Include="Scripts\PizzaByteSite\components\jquery-sparkline\dist\jquery.sparkline.min.js" />
+    <Content Include="Scripts\PizzaByteSite\components\jquery-ui\jquery-ui.js" />
+    <Content Include="Scripts\PizzaByteSite\components\jquery-ui\jquery-ui.min.js" />
     <Content Include="Scripts\PizzaByteSite\components\jquery\dist\core.js" />
     <Content Include="Scripts\PizzaByteSite\components\jquery\dist\jquery.js" />
     <Content Include="Scripts\PizzaByteSite\components\jquery\dist\jquery.min.js" />
@@ -4181,6 +4101,8 @@
     <Content Include="Scripts\PizzaByteSite\plugins\iCheck\square\_all.css" />
     <Content Include="Scripts\PizzaByteSite\plugins\jQueryUI\jquery-ui.js" />
     <Content Include="Scripts\PizzaByteSite\plugins\jQueryUI\jquery-ui.min.js" />
+    <Content Include="Scripts\PizzaByteSite\plugins\jQueryUI\jquery.maskMoney.js" />
+    <Content Include="Scripts\PizzaByteSite\plugins\jQueryUI\jquery.maskMoney.min.js" />
     <Content Include="Scripts\PizzaByteSite\plugins\jvectormap\jquery-jvectormap-1.2.2.css" />
     <Content Include="Scripts\PizzaByteSite\plugins\jvectormap\jquery-jvectormap-1.2.2.min.js" />
     <Content Include="Scripts\PizzaByteSite\plugins\jvectormap\jquery-jvectormap-usa-en.js" />
@@ -4215,7 +4137,9 @@
     <Content Include="Scripts\PizzaByteSite\Telas\IndexPedido.js" />
     <Content Include="Scripts\PizzaByteSite\Telas\Geral.js" />
     <Content Include="Scripts\PizzaByteSite\Telas\IndexProduto.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -4266,20 +4190,21 @@
     <Content Include="Views\Cliente\_ListaEnderecos.cshtml" />
     <Content Include="Views\Suporte\Index.cshtml" />
     <Content Include="Views\Log\Index.cshtml" />
+    <Content Include="Views\Funcionario\Editar.cshtml" />
     <Content Include="Views\Funcionario\Excluir.cshtml" />
     <Content Include="Views\Funcionario\Incluir.cshtml" />
     <Content Include="Views\Funcionario\Index.cshtml" />
     <Content Include="Views\Funcionario\Visualizar.cshtml" />
     <Content Include="Views\Funcionario\Editar.cshtml" />
-    <Content Include="Views\TaxaEntrega\Visualizar.cshtml" />
-    <Content Include="Views\TaxaEntrega\Excluir.cshtml" />
-    <Content Include="Views\Cep\Visualizar.cshtml" />
+    <Content Include="Views\TaxaEntrega\Suporte\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Content\PizzaByteSite\css\adminlte.css.map" />
     <Content Include="Content\PizzaByteSite\css\adminlte.min.css.map" />
     <Content Include="Content\jQuery\toastr.scss" />
@@ -4388,13 +4313,6 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\build\net45\Microsoft.SqlServer.SqlManagementObjects.targets" Condition="Exists('..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\build\net45\Microsoft.SqlServer.SqlManagementObjects.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\build\net45\Microsoft.SqlServer.SqlManagementObjects.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\build\net45\Microsoft.SqlServer.SqlManagementObjects.targets'))" />
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
