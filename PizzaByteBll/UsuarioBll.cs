@@ -288,7 +288,7 @@ namespace PizzaByteBll
             string identificacao = DateTime.Now.ToString("dd/MM/yyyy hh:mm") + UtilitarioBll.RetornaGuidValidação() + idUsuario.ToString() + $"Adm={(usuarioAdm ? "1" : "0")}";
             string identificacaoCriptografada = "";
 
-            if (!UtilitarioBll.CriptografarIdentificacao(identificacao, ref identificacaoCriptografada))
+            if (!UtilitarioBll.CriptografarString(identificacao, ref identificacaoCriptografada))
             {
                 retornoDto.Mensagem = "Falha ao fazer o login: Não foi possível obter a identificação.";
                 retornoDto.Retorno = false;

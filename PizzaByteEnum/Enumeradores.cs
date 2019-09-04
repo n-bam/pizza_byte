@@ -116,13 +116,8 @@
             ObterListaLog = 57,
             ObterListaUsuariosParaSelecao = 58,
             VerificarProdutoExistente = 59,
-            IncluirBackup = 48,
-            ExcluirBackup = 49,
-            ObterBackup = 50,
-            ObterListaBackup = 51,
-            VerificarCepExistente = 52,
-            VerificarClienteExistente = 53,
-            VerificarUsuarioExistente = 54
+            Backup = 60,
+            RestaurarBackup = 61
         }
 
         public enum TipoMensagemSuporte

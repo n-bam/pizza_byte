@@ -57,9 +57,6 @@
     <Reference Include="Microsoft.SqlServer.Dmf.Common, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.Dmf.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.SqlServer.Management.Assessment, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.Management.Assessment.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.SqlServer.Management.Collector, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.Management.Collector.dll</HintPath>
     </Reference>

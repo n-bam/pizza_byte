@@ -65,6 +65,7 @@
     <Compile Include="RetornosRequisicoes\RetornoGuidDto.cs" />
     <Compile Include="RetornosRequisicoes\RetornoDto.cs" />
     <Compile Include="RetornosRequisicoes\RetornoFazerLoginDto.cs" />
+    <Compile Include="RetornosRequisicoes\RetornoObterArquivoDto.cs" />
     <Compile Include="RetornosRequisicoes\RetornoObterDto.cs" />
     <Compile Include="RetornosRequisicoes\RetornoObterDicionarioGuidStringDto.cs" />
     <Compile Include="RetornosRequisicoes\RetornoObterListaDto.cs" />
