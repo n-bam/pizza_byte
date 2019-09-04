@@ -34,10 +34,10 @@ function MostrarMensagemRetorno(retornoMensagem, inicioMensagem) {
     }
 }
 
-// -------> Exibe a div de carregando das telas
+// -------> Exibe a div de carregando
 function ExibirCarregando() {
     $("#divCarregando").attr("class", "overlay");
-    $("#divCarregando").hide();
+    $("#divCarregando").show();
 }
 
 // -------> Esconde a div de carregando

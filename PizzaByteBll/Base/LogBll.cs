@@ -4,6 +4,7 @@ using PizzaByteDto.RetornosRequisicoes;
 using PizzaByteVo.Base;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -244,7 +245,7 @@ namespace PizzaByteBll.Base
                             return false;
                         }
 
-                        query = query.Where(p => EntityFunctions.TruncateTime(p.DataInclusao) >= filtroDataInicial);
+                        query = query.Where(p => DbFunctions.TruncateTime(p.DataInclusao) >= filtroDataInicial);
                         break;
 
                     case "DATAINCLUSAOFINAL":
@@ -258,7 +259,7 @@ namespace PizzaByteBll.Base
                             return false;
                         }
 
-                        query = query.Where(p => EntityFunctions.TruncateTime(p.DataInclusao) <= filtroDataFinal);
+                        query = query.Where(p => DbFunctions.TruncateTime(p.DataInclusao) <= filtroDataFinal);
                         break;
 
                     case "MENSAGEM":

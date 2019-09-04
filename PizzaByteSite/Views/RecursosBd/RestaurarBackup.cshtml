@@ -1,0 +1,145 @@
+﻿@model PizzaByteSite.Models.ArquivoModel
+
+@{
+    ViewBag.Title = "Restaurar backup";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="content-header">
+        <h1>
+            Banco de dados
+            <small>Restaurar cópia</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-home"></i> Inicio</a></li>
+            <li class="active"><i class="fa fa-plus"></i> Restaurar cópia</li>
+        </ol>
+    </div>
+
+    <div class="content">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                @using (Html.BeginForm("RestaurarBackup", "RecursosBd", FormMethod.Post, new { @id = "formRestaurar" }))
+                {
+                    <div class="box">
+
+                        <div class="box-header with-border">
+                            <h2 class="box-title">Restaurar uma cópia do banco de dados</h2>
+                        </div>
+
+                        <div class="box-body">
+                            <div class="form-horizontal">
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                <h3 class="text-primary">Atenção</h3>
+                                <p>
+                                    Ao restaurar uma cópia de segurança <string class="text-bold">TODOS</string> os seus dados voltarão como estavam na data do backup. Esta operação
+                                    pode causar a perda de dados.
+                                </p>
+
+                                <p>Selecione o backup desejado abaixo:</p>
+
+                                <div class="form-group">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <input id="txtArquivo" type="file" accept=".sql" />
+                                        @Html.HiddenFor(p => p.ArquivoBase64)
+                                        @Html.ValidationMessageFor(m => m.ArquivoBase64, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="box-footer">
+                                    <div class="col-lg-12">
+                                        <button type="button" id="btnImportar" class="btn btn-primary"><i class="fa fa-save"></i> Restaurar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="overlay" id="divCarregando">
+                            <i class="fa fa-refresh fa-spin"></i>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/PizzaByteSite/Telas/Geral.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        EsconderCarregando();
+
+        //Ao selecionar uma foto
+        var $txtArquivo = $("#txtArquivo");
+        if (window.FileReader) {
+            $txtArquivo.change(function () {
+                var fileReader = new FileReader(),
+                    files = this.files,
+                    file;
+                if (!files.length) {
+                    return;
+                }
+                file = files[0];
+
+                if (file.name.indexOf(".sql") < 0) {
+                    swal({
+                        title: "Arquivo com formato inválido!",
+                        text: "O formato do arquivo está incorreto, selecione um arquivo SQL.",
+                        type: "info",
+                        confirmButtonColor: "#18a689",
+                        confirmButtonText: "Ok",
+                    });
+
+                } else {
+                    fileReader.readAsDataURL(file);
+                    fileReader.onload = function () {
+                        var arquivoBase64 = fileReader.result.split("base64,");
+                        var base64 = arquivoBase64[1];
+                        $("#ArquivoBase64").val(base64);
+                    };
+                }
+            });
+        } else {
+            $txtArquivo.addClass("hide");
+        }
+
+        $("#btnImportar").on("click", function (event) {
+
+            ExibirCarregando();
+            if ($("#ArquivoBase64").val().length > 0) {
+                swal({
+                    title: "Confirmação",
+                    text: "Deseja mesmo restaurar o backup selecionado?",
+                    type: "warning",
+                    buttons: true,
+                    showCancelButton: true,
+                    buttons: ["Não!", "Sim, continue!"],
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                }).then(function (confirmed) {
+                    if (confirmed) {
+                        $("#formRestaurar").submit();
+                    } else {
+                        EsconderCarregando();
+                        swal("Cancelado", "Seus dados continuam como estavam", "info");
+                    }
+                });
+            } else {
+                EsconderCarregando();
+
+                swal({
+                    title: "Nenhum arquivo selecionado!",
+                    text: "É necessário selecionar um arquivo para restaurar o banco de dados.",
+                    type: "info",
+                });
+            }
+        });
+    });
+</script>
+

@@ -85,6 +85,7 @@
     <Reference Include="Microsoft.ReportViewer.WinForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.900.148\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.SqlServer.BatchParserClient, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.1016.290\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
     </Reference>
@@ -109,10 +110,6 @@
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\System.Web.Helpers.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
     </Reference>
@@ -169,6 +166,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\RecursosBdController.cs" />
     <Compile Include="Controllers\CepController.cs" />
     <Compile Include="Controllers\ClienteEnderecoController.cs" />
     <Compile Include="Controllers\FuncionarioController.cs" />
@@ -184,6 +182,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\HMTLHelperExtensions.cs" />
+    <Compile Include="Models\ArquivoModel.cs" />
     <Compile Include="Models\ClienteEnderecoModel.cs" />
     <Compile Include="Models\FiltrosPesquisa\FiltrosCepModel.cs" />
     <Compile Include="Models\FiltrosPesquisa\FiltrosFornecedorModel.cs" />
@@ -213,6 +212,7 @@
     <Compile Include="Utilidades.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\jQuery\jquery-ui.css" />
     <Content Include="Content\jQuery\jquery-ui.min.css" />
     <Content Include="Content\PizzaByteSite\css\Personalizado.css" />
     <Content Include="Content\PizzaByteSite\css\AdminLTE.css" />
@@ -308,20 +308,9 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\FontAwesome.otf" />
-    <Content Include="Scripts\PizzaByteSite\plugins\input-mask\phone-codes\phone-be.json" />
-    <Content Include="Scripts\PizzaByteSite\plugins\input-mask\phone-codes\phone-codes.json" />
     <None Include="Properties\PublishProfiles\pizzabytesite - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\pizzabytesite - Web Deploy.pubxml" />
     <None Include="Scripts\PizzaByteSite\plugins\jQueryUI\jquery-3.3.1.intellisense.js" />
-    <Content Include="Scripts\PizzaByteSite\plugins\input-mask\jquery.inputmask.date.extensions.js" />
-    <Content Include="Scripts\PizzaByteSite\plugins\input-mask\jquery.inputmask.extensions.js" />
-    <Content Include="Scripts\PizzaByteSite\plugins\input-mask\jquery.inputmask.js" />
-    <Content Include="Scripts\PizzaByteSite\plugins\input-mask\jquery.inputmask.numeric.extensions.js" />
-    <Content Include="Scripts\PizzaByteSite\plugins\input-mask\jquery.inputmask.phone.extensions.js" />
-    <Content Include="Scripts\PizzaByteSite\plugins\input-mask\jquery.inputmask.regex.extensions.js" />
-    <Content Include="Scripts\PizzaByteSite\plugins\input-mask\phone-codes\readme.txt" />
-    <Content Include="Scripts\PizzaByteSite\plugins\jQueryUI\jquery.mask.js" />
-    <Content Include="Scripts\PizzaByteSite\plugins\jQueryUI\jquery.mask.min.js" />
     <Content Include="Scripts\PizzaByteSite\plugins\jQueryUI\jquery-3.3.1.js" />
     <Content Include="Scripts\PizzaByteSite\plugins\jQueryUI\jquery-3.3.1.min.js" />
     <Content Include="Scripts\PizzaByteSite\plugins\jQueryUI\jquery-3.3.1.slim.js" />
@@ -3911,8 +3900,6 @@
     <Content Include="Scripts\PizzaByteSite\components\jquery-slimscroll\jquery.slimscroll.min.js" />
     <Content Include="Scripts\PizzaByteSite\components\jquery-sparkline\dist\jquery.sparkline.js" />
     <Content Include="Scripts\PizzaByteSite\components\jquery-sparkline\dist\jquery.sparkline.min.js" />
-    <Content Include="Scripts\PizzaByteSite\components\jquery-ui\jquery-ui.js" />
-    <Content Include="Scripts\PizzaByteSite\components\jquery-ui\jquery-ui.min.js" />
     <Content Include="Scripts\PizzaByteSite\components\jquery\dist\core.js" />
     <Content Include="Scripts\PizzaByteSite\components\jquery\dist\jquery.js" />
     <Content Include="Scripts\PizzaByteSite\components\jquery\dist\jquery.min.js" />
@@ -4101,8 +4088,6 @@
     <Content Include="Scripts\PizzaByteSite\plugins\iCheck\square\_all.css" />
     <Content Include="Scripts\PizzaByteSite\plugins\jQueryUI\jquery-ui.js" />
     <Content Include="Scripts\PizzaByteSite\plugins\jQueryUI\jquery-ui.min.js" />
-    <Content Include="Scripts\PizzaByteSite\plugins\jQueryUI\jquery.maskMoney.js" />
-    <Content Include="Scripts\PizzaByteSite\plugins\jQueryUI\jquery.maskMoney.min.js" />
     <Content Include="Scripts\PizzaByteSite\plugins\jvectormap\jquery-jvectormap-1.2.2.css" />
     <Content Include="Scripts\PizzaByteSite\plugins\jvectormap\jquery-jvectormap-1.2.2.min.js" />
     <Content Include="Scripts\PizzaByteSite\plugins\jvectormap\jquery-jvectormap-usa-en.js" />
@@ -4142,11 +4127,15 @@
     </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Erro.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -4196,15 +4185,13 @@
     <Content Include="Views\Funcionario\Index.cshtml" />
     <Content Include="Views\Funcionario\Visualizar.cshtml" />
     <Content Include="Views\Funcionario\Editar.cshtml" />
-    <Content Include="Views\TaxaEntrega\Suporte\Index.cshtml" />
+    <Content Include="Views\RecursosBd\RestaurarBackup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="packages.config" />
     <Content Include="Content\PizzaByteSite\css\adminlte.css.map" />
     <Content Include="Content\PizzaByteSite\css\adminlte.min.css.map" />
     <Content Include="Content\jQuery\toastr.scss" />

@@ -55,6 +55,7 @@
     <Compile Include="Entidades\UsuarioDto.cs" />
     <Compile Include="Entidades\ClienteDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RetornosRequisicoes\RequisicaoArquivoDto.cs" />
     <Compile Include="RetornosRequisicoes\RequisicaoListaEntidadesDto.cs" />
     <Compile Include="RetornosRequisicoes\RequisicaoEntidadeDto.cs" />
     <Compile Include="RetornosRequisicoes\RequisicaoFazerLoginDto.cs" />
