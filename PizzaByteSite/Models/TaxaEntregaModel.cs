@@ -1,9 +1,6 @@
 ﻿using PizzaByteDto.Entidades;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
-using static PizzaByteEnum.Enumeradores;
 
 namespace PizzaByteSite.Models
 {
@@ -35,7 +32,7 @@ namespace PizzaByteSite.Models
         /// </summary>
         [Display(Name = "Cidade")]
         public string Cidade { get; set; }
-        
+
         /// <summary>
         /// Converte uma taxa de entrega de DTO para Model
         /// </summary>
@@ -52,7 +49,6 @@ namespace PizzaByteSite.Models
                 DataAlteracao = taxaDto.DataAlteracao;
                 DataInclusao = taxaDto.DataInclusao;
                 Id = taxaDto.Id;
-                Inativo = taxaDto.Inativo;
 
                 return true;
             }
@@ -73,13 +69,12 @@ namespace PizzaByteSite.Models
         {
             try
             {
-                taxaDto.BairroCidade = string.IsNullOrWhiteSpace(BairroCidade) ? "" : BairroCidade.Trim()+"_"+Cidade.Trim();
+                taxaDto.BairroCidade = string.IsNullOrWhiteSpace(BairroCidade) ? "" : BairroCidade.Trim() + "_" + Cidade.Trim();
                 taxaDto.Cidade = string.IsNullOrWhiteSpace(Cidade) ? "" : Cidade.Trim();
                 taxaDto.ValorTaxa = ValorTaxa;
                 taxaDto.DataAlteracao = this.DataAlteracao;
                 taxaDto.DataInclusao = this.DataInclusao;
                 taxaDto.Id = this.Id;
-                taxaDto.Inativo = this.Inativo;
 
                 return true;
             }

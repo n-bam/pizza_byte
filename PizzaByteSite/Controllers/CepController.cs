@@ -356,12 +356,7 @@ namespace PizzaByteSite.Controllers
             {
                 requisicaoDto.ListaFiltros.Add("LOGRADOURO", filtros.Logradouro.Trim());
             }
-
-            if (!string.IsNullOrWhiteSpace(filtros.ObterInativos))
-            {
-                requisicaoDto.ListaFiltros.Add("INATIVO", filtros.ObterInativos.Trim());
-            }
-
+            
             if (!string.IsNullOrWhiteSpace(filtros.Bairro))
             {
                 requisicaoDto.ListaFiltros.Add("BAIRRO", filtros.Bairro.Trim());
@@ -467,7 +462,6 @@ namespace PizzaByteSite.Controllers
                 requisicaoDto.ListaFiltros.Add("LOGRADOURO", logradouro.Trim());
             }
 
-            requisicaoDto.ListaFiltros.Add("INATIVO", "false");
             CepBll cepBll = new CepBll(true);
             RetornoObterListaDto<CepDto> retornoDto = new RetornoObterListaDto<CepDto>();
             cepBll.ObterListaFiltrada(requisicaoDto, ref retornoDto);

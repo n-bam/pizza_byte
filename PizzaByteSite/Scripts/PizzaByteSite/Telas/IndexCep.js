@@ -14,7 +14,6 @@
             Logradouro: $("#Logradouro").val(),
             Bairro: $("#Bairro").val(),
             Cidade: $("#Cidade").val(),
-            ObterInativos: $("#ObterInativos").val(),
             Pagina: nPagina,
             NaoPaginaPesquisa: false
         }),
@@ -61,7 +60,6 @@
                             + "<td>" + dados.ListaEntidades[i].Logradouro + "</td>"
                             + "<td>" + dados.ListaEntidades[i].Bairro + "</td>"
                             + "<td>" + dados.ListaEntidades[i].Cidade + "</td>"
-                            + "<td>" + ((dados.ListaEntidades[i].Inativo) ? "Sim" : "Não") + "</td>"
                             + "<td><a class='btn btn-sm btn-default' href='../Cep/ViSualizar/"
                             + dados.ListaEntidades[i].Id + "'><i class='fa fa-eye'></i></a>"
                             + " <a class='btn btn-sm btn-info' href='../Cep/Editar/"

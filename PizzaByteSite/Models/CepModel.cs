@@ -59,7 +59,6 @@ namespace PizzaByteSite.Models
                 this.DataAlteracao = cepDto.DataAlteracao;
                 this.DataInclusao = cepDto.DataInclusao;
                 this.Id = cepDto.Id;
-                this.Inativo = cepDto.Inativo;
 
                 return true;
             }
@@ -87,7 +86,6 @@ namespace PizzaByteSite.Models
                 cepDto.DataAlteracao = this.DataAlteracao;
                 cepDto.DataInclusao = this.DataInclusao;
                 cepDto.Id = this.Id;
-                cepDto.Inativo = this.Inativo;
 
                 return true;
             }

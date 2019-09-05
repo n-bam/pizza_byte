@@ -154,6 +154,10 @@
     <Compile Include="Migrations\201908270022250_AlterarTabelaBairroCidade.Designer.cs">
       <DependentUpon>201908270022250_AlterarTabelaBairroCidade.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909050045450_RemoverInativoTaxaEntrega.cs" />
+    <Compile Include="Migrations\201909050045450_RemoverInativoTaxaEntrega.Designer.cs">
+      <DependentUpon>201909050045450_RemoverInativoTaxaEntrega.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PizzaByteContexto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -194,6 +198,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908270022250_AlterarTabelaBairroCidade.resx">
       <DependentUpon>201908270022250_AlterarTabelaBairroCidade.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909050045450_RemoverInativoTaxaEntrega.resx">
+      <DependentUpon>201909050045450_RemoverInativoTaxaEntrega.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
