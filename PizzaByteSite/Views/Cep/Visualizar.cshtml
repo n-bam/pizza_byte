@@ -26,16 +26,6 @@
                     </div>
                     <div class="box-body">
                         <div class="form-horizontal">
-
-
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.Inativo, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-3" })
-                                <div class="col-lg-1 col-md-1 col-sm-2 col-xs-12" style="margin-top: 5px" disabled>
-                                    @Html.EditorFor(m => m.Inativo, new { @class = "form-control checkbox", @readonly = "readonly" })
-                                    @Html.ValidationMessageFor(m => m.Inativo, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
                             <div class="form-group">
                                 @Html.LabelFor(m => m.Cep, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
                                 <div class="col-lg-9 col-md-10 col-sm-9 col-xs-12">
@@ -45,7 +35,6 @@
                             </div>
 
                             <div class="form-group">
-
                                 @Html.LabelFor(m => m.Logradouro, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
                                 <div class="col-lg-9 col-md-10 col-sm-9 col-xs-12">
                                     @Html.EditorFor(m => m.Logradouro, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
@@ -61,7 +50,7 @@
                                 </div>
 
                                 @Html.LabelFor(m => m.Cidade, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
-                                <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
+                                <div class="col-lg-3 col-md-4 col-sm-9 col-xs-12">
                                     @Html.EditorFor(m => m.Cidade, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                                     @Html.ValidationMessageFor(m => m.Cidade, "", new { @class = "text-danger" })
                                 </div>

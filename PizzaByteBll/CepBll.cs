@@ -247,7 +247,7 @@ namespace PizzaByteBll
             }
 
             requisicaoDto.Cep = requisicaoDto.Cep.Replace("-", "");
-            query = query.Where(p => p.Inativo == false && p.Cep == requisicaoDto.Cep.Trim());
+            query = query.Where(p => p.Cep == requisicaoDto.Cep.Trim());
             CepVo cepVo = query.FirstOrDefault();
 
             if (cepVo == null)
@@ -382,21 +382,6 @@ namespace PizzaByteBll
 
                     case "BAIRRO":
                         query = query.Where(p => p.Bairro.Contains(filtro.Value));
-                        break;
-
-                    case "INATIVO":
-
-                        bool filtroInativo;
-                        if (!bool.TryParse(filtro.Value, out filtroInativo))
-                        {
-                            retornoDto.Mensagem = $"Fala ao converter o filtro de 'inativo'.";
-                            retornoDto.Retorno = false;
-
-                            logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaCep, Guid.Empty, retornoDto.Mensagem);
-                            return false;
-                        }
-
-                        query = query.Where(p => p.Inativo == filtroInativo);
                         break;
 
                     default:
@@ -591,7 +576,7 @@ namespace PizzaByteBll
 
             try
             {
-                query = query.Where(p => p.Inativo == false).OrderBy(p => p.Bairro);
+                query = query.OrderBy(p => p.Bairro);
                 listaBairros = query.GroupBy(p => new { p.Cidade, p.Bairro }).Select(p => new BairroCidadeDto { Cidade = p.Key.Cidade, Bairro = p.Key.Bairro }).ToList();
                 return true;
             }

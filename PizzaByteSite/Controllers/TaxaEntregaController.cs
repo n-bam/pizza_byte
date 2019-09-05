@@ -343,7 +343,6 @@ namespace PizzaByteSite.Controllers
             return RedirectToAction("Index");
         }
 
-
         /// <summary>
         /// Obtem uma taxa de entrega  e converte em Model
         /// </summary>
@@ -412,12 +411,7 @@ namespace PizzaByteSite.Controllers
             {
                 requisicaoDto.ListaFiltros.Add("VALORTAXAMENOR", filtros.TaxaFinal.ToString());
             }
-
-            if (!string.IsNullOrWhiteSpace(filtros.ObterInativos))
-            {
-                requisicaoDto.ListaFiltros.Add("INATIVO", filtros.ObterInativos.Trim());
-            }
-
+            
             //Consumir o serviço
             TaxaEntregaBll produtoBll = new TaxaEntregaBll(true);
             RetornoObterListaDto<TaxaEntregaDto> retornoDto = new RetornoObterListaDto<TaxaEntregaDto>();

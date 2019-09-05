@@ -12,6 +12,8 @@ namespace PizzaByteDal.Restricoes
             ToTable("Ceps", "PizzaByte");
             HasKey(p => p.Id);
 
+            this.Ignore(p => p.Inativo);
+
             this.Property(p => p.Bairro)
             .HasMaxLength(50)
             .IsRequired();
