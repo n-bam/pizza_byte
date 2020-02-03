@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\ContaVo.cs" />
     <Compile Include="Base\SuporteVo.cs" />
     <Compile Include="CepVo.cs" />
     <Compile Include="Base\EntidadeBaseVo.cs" />
@@ -48,8 +49,8 @@
     <Compile Include="ClienteVo.cs" />
     <Compile Include="ContaPagarVo.cs" />
     <Compile Include="ContaReceberVo.cs" />
-    <Compile Include="Base\ContaVo.cs" />
     <Compile Include="Base\LogVo.cs" />
+    <Compile Include="MovimentoCaixaVo.cs" />
     <Compile Include="PedidoEntregaVo.cs" />
     <Compile Include="PedidoItemVo.cs" />
     <Compile Include="PedidoVo.cs" />

@@ -18,7 +18,7 @@ namespace PizzaByteVo
         /// Pontos de referência do endereço do cliente
         /// MIN: 0 / MAX: 50
         /// </summary>
-        public string ComplementeEndereco { get; set; }
+        public string ComplementoEndereco { get; set; }
 
         /// <summary>
         /// Id do cliente que possui o endereço

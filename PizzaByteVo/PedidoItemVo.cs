@@ -10,6 +10,7 @@ namespace PizzaByteVo
     {
         /// <summary>
         /// Descrição do item no momento da venda
+        /// MIN.: 3 / MAX.: 150
         /// </summary>
         public string DescricaoProduto { get; set; }
 
@@ -24,9 +25,14 @@ namespace PizzaByteVo
         public TipoProduto TipoProduto { get; set; }
 
         /// <summary>
+        /// Quantidade do produto adicionado ao pedido
+        /// </summary>
+        public float Quantidade { get; set; }
+
+        /// <summary>
         /// Indica qual é o outro sabor de uma pizza meio a meio
         /// </summary>
-        public Guid IdPedidoItem { get; set; }
+        public Guid? IdProdutoComposto { get; set; }
 
         /// <summary>
         /// Identifica o produto adicionado no pedido
@@ -39,8 +45,18 @@ namespace PizzaByteVo
         public Guid IdPedido { get; set; }
 
         /// <summary>
-        /// Quantidade do produto adicionado ao pedido
+        /// O produto que é item do pedido
         /// </summary>
-        public float Quantidade { get; set; }
+        public virtual ProdutoVo Produto { get; set; }
+
+        /// <summary>
+        /// Item que faz meio a meio
+        /// </summary>
+        public virtual ProdutoVo ProdutoComposto { get; set; }
+
+        /// <summary>
+        /// Pedido que o item pertence
+        /// </summary>
+        public virtual PedidoVo Pedido { get; set; }
     }
 }

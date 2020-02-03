@@ -34,18 +34,40 @@ namespace PizzaByteVo
         public float RecebidoDinheiro { get; set; }
 
         /// <summary>
-        /// Valor recebido em cartão
+        /// Valor recebido em cartão de crédito
         /// </summary>
-        public float RecebidoCartao { get; set; }
+        public float RecebidoCredito { get; set; }
+
+        /// <summary>
+        /// Valor recebido em cartão de débito
+        /// </summary>
+        public float RecebidoDebito { get; set; }
 
         /// <summary>
         /// Observações gerais do pedido
+        /// MIN.: - MAX.: 2000
         /// </summary>
         public string Obs { get; set; }
 
         /// <summary>
-        /// Identificação do cliente no qual o pedido pertence
+        /// Indica se o pedido foi registrado pelo IFood
         /// </summary>
-        public Guid IdCliente { get; set; }
+        public bool PedidoIfood { get; set; }
+
+        /// <summary>
+        /// Caso o pedido seja cancelado, informar o motivo
+        /// MIN.: - MAX.: 100
+        /// </summary>
+        public string JustificativaCancelamento { get; set; }
+
+        /// <summary>
+        /// Identificação do cliente do pedido
+        /// </summary>
+        public Guid? IdCliente { get; set; }
+
+        /// <summary>
+        /// Cliente do pedido
+        /// </summary>
+        public virtual ClienteVo Cliente { get; set; }
     }
 }

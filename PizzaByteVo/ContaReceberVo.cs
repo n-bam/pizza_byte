@@ -8,6 +8,6 @@ namespace PizzaByteVo
         /// <summary>
         /// Identificação do pedido no qual a conta pertence
         /// </summary>
-        public Guid IdPedido { get; set; }
+        public Guid? IdPedido { get; set; }
     }
 }

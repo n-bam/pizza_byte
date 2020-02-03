@@ -30,6 +30,26 @@ namespace PizzaByteVo
         /// <summary>
         /// Identifica o funcionário que fez a entrega
         /// </summary>
-        public Guid IdFuncionario { get; set; }
+        public Guid? IdFuncionario { get; set; }
+
+        /// <summary>
+        /// Identificação do pedido que gerou a entrega
+        /// </summary>
+        public Guid IdPedido { get; set; }
+
+        /// <summary>
+        /// Pedido que gerou a entrega
+        /// </summary>
+        public virtual PedidoVo Pedido { get; set; }
+
+        /// <summary>
+        /// Endereço da entrega
+        /// </summary>
+        public virtual ClienteEnderecoVo ClienteEndereco { get; set; }
+     
+        /// <summary>
+        /// Funcionário que fez a entrega
+        /// </summary>
+        public virtual FuncionarioVo Funcionario { get; set; }
     }
 }
