@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PizzaByteBll;
-using PizzaByteBll.Base;
 using PizzaByteDto.Entidades;
 using PizzaByteDto.RetornosRequisicoes;
 using System;
@@ -15,7 +14,7 @@ namespace PizzaByteTestesUnitarios
         /// Retorna um produto para teste
         /// </summary>
         /// <returns></returns>
-        public ProdutoDto RetornarNovoProduto()
+        public static ProdutoDto RetornarNovoProduto()
         {
             ProdutoDto entidadeDto = new ProdutoDto()
             {
@@ -72,7 +71,7 @@ namespace PizzaByteTestesUnitarios
                 IdUsuario = requisicaoDto.IdUsuario,
                 Identificacao = requisicaoDto.Identificacao,
                 NumeroItensPorPagina = 2,
-                Pagina = 1                
+                Pagina = 1
             };
 
             RetornoObterListaDto<ProdutoDto> retornoObterListaDto = new RetornoObterListaDto<ProdutoDto>();
@@ -82,6 +81,24 @@ namespace PizzaByteTestesUnitarios
             // Excluir
             produtoBll.Excluir(requisicaoObterDto, ref retornoDto);
             Assert.AreEqual(true, retornoObterDto.Retorno);
+        }
+
+        public static ProdutoDto IncluirProdutoTeste()
+        {
+            RequisicaoEntidadeDto<ProdutoDto> requisicaoDto = new RequisicaoEntidadeDto<ProdutoDto>()
+            {
+                EntidadeDto = RetornarNovoProduto()
+            };
+
+            Assert.IsTrue(Utilidades.RetornarAutenticacaoRequisicaoPreenchida(requisicaoDto));
+            ProdutoBll produtoBll = new ProdutoBll(true);
+
+            // Incluir
+            RetornoDto retornoDto = new RetornoDto();
+            produtoBll.Incluir(requisicaoDto, ref retornoDto);
+            Assert.AreEqual(true, retornoDto.Retorno);
+
+            return requisicaoDto.EntidadeDto;
         }
     }
 }
