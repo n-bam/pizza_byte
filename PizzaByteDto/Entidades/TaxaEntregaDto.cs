@@ -43,10 +43,10 @@ namespace PizzaByteDto.Entidades
                     "no campo indicado para continuar. ");
                 retorno = false;
             }
-            else if (BairroCidade.Length > 50)
+            else if (BairroCidade.Length > 101)
             {
                 sb.Append("O bairro da taxa de entrega pode ter, no máximo, 50 caracteres! " +
-                    $"O bairro inserido tem {BairroCidade.Length} caracteres, por favor remova ao menos {BairroCidade.Length - 50}" +
+                    $"O bairro inserido tem {BairroCidade.Length} caracteres, por favor remova ao menos {BairroCidade.Length - 101}" +
                     $" caracteres para continuar. ");
                 retorno = false;
             }

@@ -1,10 +1,16 @@
 ﻿using PizzaByteDto.Base;
+using System.Collections.Generic;
 using System.Text;
 
 namespace PizzaByteDto.Entidades
 {
     public class ClienteDto : BaseEntidadeDto
     {
+        public ClienteDto()
+        {
+            ListaEnderecos = new List<ClienteEnderecoDto>();
+        }
+
         /// <summary>
         /// Nome completo do cliente (obrigatório)
         /// MIN.: 3 / MAX.: 150
@@ -22,6 +28,11 @@ namespace PizzaByteDto.Entidades
         /// MIN/MAX.: 11
         /// </summary>
         public string Cpf { get; set; }
+
+        /// <summary>
+        /// Lista com os endereços do cliente
+        /// </summary>
+        public List<ClienteEnderecoDto> ListaEnderecos { get; set; }
 
         #region Métodos
 

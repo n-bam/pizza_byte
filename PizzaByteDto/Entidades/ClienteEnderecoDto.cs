@@ -21,7 +21,7 @@ namespace PizzaByteDto.Entidades
         /// Pontos de referência do endereço do cliente
         /// MIN: 0 / MAX: 50
         /// </summary>
-        public string ComplementeEndereco { get; set; }
+        public string ComplementoEndereco { get; set; }
 
         /// <summary>
         /// Id do cliente que possui o endereço
@@ -69,13 +69,13 @@ namespace PizzaByteDto.Entidades
             }
 
             // Validar o telefone
-            if (!string.IsNullOrWhiteSpace(ComplementeEndereco))
+            if (!string.IsNullOrWhiteSpace(ComplementoEndereco))
             {
-                if (ComplementeEndereco.Length > 50)
+                if (ComplementoEndereco.Length > 50)
                 {
                     sb.Append("O complemento do endereço deve ter, no máximo, 20 caracteres! " +
-                    $"O complemento inserido tem {ComplementeEndereco.Length} caracteres, por favor remova ao " +
-                    $"menos {ComplementeEndereco.Length - 20} caracteres para continuar. ");
+                    $"O complemento inserido tem {ComplementoEndereco.Length} caracteres, por favor remova ao " +
+                    $"menos {ComplementoEndereco.Length - 20} caracteres para continuar. ");
                     retorno = false;
                 }
             }

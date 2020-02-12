@@ -19,6 +19,11 @@ namespace PizzaByteDto.Entidades
         public float Preco { get; set; }
 
         /// <summary>
+        /// Detalhes do produto
+        /// </summary>
+        public string Detalhes { get; set; }
+
+        /// <summary>
         /// Indica o tipo do produto (bebida, pizza, etc.)
         /// Maior que 0
         /// </summary>
@@ -73,6 +78,14 @@ namespace PizzaByteDto.Entidades
             {
                 sb.Append("O tipo do produto não foi informado! Por favor, informe um " +
                    "tipo válido para continuar. ");
+                retorno = false;
+            }
+
+            if (!string.IsNullOrWhiteSpace(Detalhes) && Detalhes.Length > 200)
+            {
+                sb.Append("Os detalhes do produto podem ter, no máximo, 200 caracteres! " +
+                   $"O detalhe inserida tem {Detalhes.Length} caracteres, por favor remova ao menos {Detalhes.Length - 200}" +
+                   $" caracteres para continuar. ");
                 retorno = false;
             }
 
