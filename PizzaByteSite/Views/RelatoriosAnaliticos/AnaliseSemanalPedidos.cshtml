@@ -1,0 +1,82 @@
+﻿@model PizzaByteSite.Models.FiltrosListagemPedidoModel
+
+@{
+    ViewBag.Title = "Análise semanal de pedidos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="form-horizontal">
+        <div class="content-header">
+            <h1>
+                Análise de pedidos
+                <small>Semanal</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="~/Usuario/Inicio"><i class="fa fa-home"></i> Inicio</a></li>
+                <li><a class="active"><i class="fa fa-file-text"></i> Análise semanal de pedidos</a></li>
+            </ol>
+        </div>
+
+        <div class="content">
+            <div class="row">
+                @using (Html.BeginForm("AnaliseSemanalPedidos", "RelatoriosAnaliticos", FormMethod.Post, new { id = "FormPrincipal" }))
+                {
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Filtros para emissão do relatório</h3>
+                            </div>
+
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <div class="box-body">
+                                @Html.Partial("_FiltrosRelatoriosPedido", Model)
+
+                                <div class="form-group">
+                                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-5 col-lg-offset-2 col-md-offset-2">
+                                        <button class="btn btn-primary"><i class="fa fa-bar-chart"></i> Gráfico</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="overlay" id="divCarregando">
+                                <i class="fa fa-refresh fa-spin"></i>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/PizzaByteSite/plugins/jQueryUI/jquery-ui.min.js"></script>
+<script src="~/Scripts/PizzaByteSite/plugins/jQueryUI/Autocomplete.js"></script>
+<script src="~/Scripts/PizzaByteSite/Telas/Geral.js"></script>
+<script src="~/Scripts/PizzaByteSite/Telas/AutocompleteCliente.js"></script>
+<script src="~/Scripts/PizzaByteSite/plugins/mask/jquery.mask.min.js"></script>
+<script src="~/Scripts/PizzaByteSite/plugins/mask/jquery.maskMoney.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#Cpf").mask("999.999.999-99");
+        $("#DataCadastroFinal").mask("99/99/9999");
+        $("#DataCadastroInicial").mask("99/99/9999");
+        $("#Telefone").mask("(99) 9999-99999", { placeholder: "(__) _____-____" });
+        $("#TotalInicial").maskMoney({ allowZero: true, allowNegative: true, decimal: "," });
+        $("#TotalFinal").maskMoney({ allowZero: true, allowNegative: true, decimal: "," });
+        $("#TaxaEntregaInicial").maskMoney({ allowZero: true, allowNegative: true, decimal: "," });
+        $("#TaxaEntregaFinal").maskMoney({ allowZero: true, allowNegative: true, decimal: "," });
+        $("#TrocoInicial").maskMoney({ allowZero: true, allowNegative: true, decimal: "," });
+        $("#TrocoFinal").maskMoney({ allowZero: true, allowNegative: true, decimal: "," });
+
+        EsconderCarregando("divCarregando");
+
+        //Capturar o submit
+        $("#FormPrincipal").on("submit", function (event) {
+            ExibirCarregando("divCarregando");
+        });
+    });
+</script>

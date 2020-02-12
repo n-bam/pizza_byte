@@ -43,7 +43,7 @@
 
                                     @Html.LabelFor(m => m.ValorTaxa, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
                                     <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
-                                        @Html.EditorFor(m => m.ValorTaxa, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.EditorFor(m => m.ValorTaxa, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                         @Html.ValidationMessageFor(m => m.ValorTaxa, "", new { @class = "text-danger" })
                                     </div>
                                 </div>

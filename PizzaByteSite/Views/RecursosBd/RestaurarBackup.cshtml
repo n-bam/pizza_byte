@@ -12,7 +12,7 @@
             <small>Restaurar cópia</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-home"></i> Inicio</a></li>
+            <li><a href="~/Usuario/Inicio"><i class="fa fa-home"></i> Inicio</a></li>
             <li class="active"><i class="fa fa-plus"></i> Restaurar cópia</li>
         </ol>
     </div>
@@ -73,7 +73,7 @@
 <script>
     $(document).ready(function () {
 
-        EsconderCarregando();
+        EsconderCarregando("divCarregando");
 
         //Ao selecionar uma foto
         var $txtArquivo = $("#txtArquivo");
@@ -111,7 +111,7 @@
 
         $("#btnImportar").on("click", function (event) {
 
-            ExibirCarregando();
+            ExibirCarregando("divCarregando");
             if ($("#ArquivoBase64").val().length > 0) {
                 swal({
                     title: "Confirmação",
@@ -126,12 +126,12 @@
                     if (confirmed) {
                         $("#formRestaurar").submit();
                     } else {
-                        EsconderCarregando();
+                        EsconderCarregando("divCarregando");
                         swal("Cancelado", "Seus dados continuam como estavam", "info");
                     }
                 });
             } else {
-                EsconderCarregando();
+                EsconderCarregando("divCarregando");
 
                 swal({
                     title: "Nenhum arquivo selecionado!",

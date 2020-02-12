@@ -1,0 +1,126 @@
+﻿@model PizzaByteSite.Models.FiltrosListagemFornecedorModel
+
+@{
+    ViewBag.Title = "Listagem de fornecedores";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="form-horizontal">
+        <div class="content-header">
+            <h1>
+                Relatório de listagem
+                <small>Fornecedores</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="~/Usuario/Inicio"><i class="fa fa-home"></i> Inicio</a></li>
+                <li><a class="active"><i class="fa fa-file-text"></i> Listagem de fornecedores</a></li>
+            </ol>
+        </div>
+
+        <div class="content">
+            <div class="row">
+                @using (Html.BeginForm("ListagemFornecedores", "RelatoriosListagem", FormMethod.Post, new { id = "FormPrincipal" }))
+                {
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="box">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Filtros para emissão do relatório</h3>
+                            </div>
+
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <div class="box-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.NomeFantasia, new { @class = "control-label col-lg-2 col-md-3 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                        @Html.EditorFor(m => m.NomeFantasia, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.NomeFantasia, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.RazaoSocial, new { @class = "control-label col-lg-2 col-md-3 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                        @Html.EditorFor(m => m.RazaoSocial, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.RazaoSocial, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Telefone, new { @class = "control-label col-lg-2 col-md-3 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
+                                        @Html.EditorFor(m => m.Telefone, new { htmlAttributes = new { @class = "form-control Telefone" } })
+                                        @Html.ValidationMessageFor(model => model.Telefone, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    @Html.LabelFor(m => m.Cnpj, new { @class = "control-label col-lg-1 col-md-1 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
+                                        @Html.EditorFor(m => m.Cnpj, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Cnpj, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.DataCadastroInicial, new { @class = "control-label col-lg-2 col-md-3 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+                                        @Html.EditorFor(m => m.DataCadastroInicial, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                        @Html.ValidationMessageFor(model => model.DataCadastroInicial, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    @Html.LabelFor(m => m.DataCadastroFinal, new { @class = "control-label col-lg-1 col-md-1 col-sm-1 col-xs-12" })
+                                    <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+                                        @Html.EditorFor(m => m.DataCadastroFinal, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                        @Html.ValidationMessageFor(model => model.DataCadastroFinal, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    @Html.LabelFor(m => m.ObterInativos, new { @class = "control-label col-lg-1 col-md-3 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                        @Html.DropDownListFor(m => m.ObterInativos, Model.ListaInativo, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.ObterInativos, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-5 col-lg-offset-2 col-md-offset-2">
+                                        <button class="btn btn-primary" id="btnBuscarFornecedores"><i class="fa fa-search"></i> Relatório</button>
+                                    </div>
+
+                                    @Html.LabelFor(model => model.CampoOrdem, htmlAttributes: new { @class = "control-label col-lg-4 col-md-3 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-2 col-md-3 col-sm-5 col-xs-12">
+                                        @Html.DropDownListFor(model => model.CampoOrdem, Model.ListaCampoOrdem, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.CampoOrdem, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="overlay" id="divCarregando">
+                                <i class="fa fa-refresh fa-spin"></i>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/PizzaByteSite/plugins/jQueryUI/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/PizzaByteSite/Telas/Geral.js"></script>
+<script src="~/Scripts/PizzaByteSite/plugins/mask/jquery.mask.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#Cnpj").mask("99.999.999/9999-99", { placeholder: "__.___.___/____-__" });
+        $("#DataCadastroFinal").mask("99/99/9999");
+        $("#DataCadastroInicial").mask("99/99/9999");
+        $("#Telefone").mask("(99) 9999-99999", { placeholder: "(__) _____-____" });
+
+        EsconderCarregando("divCarregando");
+
+        //Capturar o submit
+        $("#FormPrincipal").on("submit", function (event) {
+            ExibirCarregando("divCarregando");
+        });
+    });
+</script>

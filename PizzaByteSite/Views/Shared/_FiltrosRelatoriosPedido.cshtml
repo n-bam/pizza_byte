@@ -1,0 +1,195 @@
+﻿@model PizzaByteSite.Models.FiltrosListagemPedidoModel
+
+<div class="form-group">
+    @Html.Label("Pedidos de ", new { @class = "control-label col-lg-2 col-md-3 col-sm-3 col-xs-12" })
+    <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+        @Html.EditorFor(m => m.DataCadastroInicial, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+        @Html.ValidationMessageFor(model => model.DataCadastroInicial, "", new { @class = "text-danger" })
+    </div>
+
+    @Html.LabelFor(m => m.DataCadastroFinal, new { @class = "control-label col-lg-1 col-md-1 col-sm-1 col-xs-12" })
+    <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+        @Html.EditorFor(m => m.DataCadastroFinal, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+        @Html.ValidationMessageFor(model => model.DataCadastroFinal, "", new { @class = "text-danger" })
+    </div>
+
+    <div id="tipoPedido">
+        @Html.LabelFor(m => m.Tipo, new { @class = "control-label col-lg-1 col-md-3 col-sm-3 col-xs-12" })
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+            @Html.DropDownListFor(m => m.Tipo, Model.ListaTipos, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Tipo, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(m => m.Obs, new { @class = "control-label col-lg-2 col-md-3 col-sm-3 col-xs-12" })
+    <div class="col-lg-5 col-md-9 col-sm-9 col-xs-12">
+        @Html.EditorFor(m => m.Obs, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+        @Html.ValidationMessageFor(model => model.Obs, "", new { @class = "text-danger" })
+    </div>
+
+    @Html.LabelFor(m => m.PedidoIfood, new { @class = "control-label col-lg-1 col-md-3 col-sm-3 col-xs-12" })
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+        @Html.DropDownListFor(m => m.PedidoIfood, Model.ListaOpcoesIFood, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.PedidoIfood, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(m => m.NomeCliente, new { @class = "control-label col-lg-2 col-md-3 col-sm-3 col-xs-12" })
+    <div class="col-lg-9 col-md-8 col-sm-7 col-xs-12">
+        <div class="input-group">
+            @Html.HiddenFor(m => m.IdCliente, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(m => m.NomeCliente, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.IdCliente, "", new { @class = "text-danger" })
+            <div class="input-group-btn">
+                <button id="btnBuscarCliente" type="button" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-1 col-md-1 col-sm-2 col-xs-12" style="margin-top:10px">
+        <div class="overlay" id="divCarregandoCliente">
+            <i class="fa fa-refresh fa-spin"></i>
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(m => m.JustificativaCancelamento, new { @class = "control-label col-lg-2 col-md-3 col-sm-3 col-xs-12" })
+    <div class="col-lg-5 col-md-9 col-sm-9 col-xs-12">
+        @Html.EditorFor(m => m.JustificativaCancelamento, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+        @Html.ValidationMessageFor(model => model.JustificativaCancelamento, "", new { @class = "text-danger" })
+    </div>
+
+    @Html.Label("Cancelado", new { @class = "control-label col-lg-1 col-md-3 col-sm-3 col-xs-12" })
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+        @Html.DropDownListFor(m => m.ObterInativos, Model.ListaInativo, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.ObterInativos, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+
+<div class="form-group">
+    @Html.LabelFor(m => m.IndicadorPromocao, new { @class = "control-label col-lg-2 col-md-3 col-sm-3 col-xs-12" })
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+        @Html.EditorFor(m => m.IndicadorPromocao, new { htmlAttributes = new { @class = "checkbox", @style = "margin-top:5px" } })
+        @Html.ValidationMessageFor(model => model.IndicadorPromocao, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<h4 class="text-blue">Dados de pagamento</h4>
+<hr class="linhaPontilhada" />
+
+<div class="form-group">
+    @Html.LabelFor(m => m.TotalInicial, new { @class = "control-label col-lg-2 col-md-3 col-sm-3 col-xs-12" })
+    <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+        @Html.EditorFor(m => m.TotalInicial, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+        @Html.ValidationMessageFor(model => model.TotalInicial, "", new { @class = "text-danger" })
+    </div>
+
+    @Html.LabelFor(m => m.TotalFinal, new { @class = "control-label col-lg-1 col-md-1 col-sm-1 col-xs-12" })
+    <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+        @Html.EditorFor(m => m.TotalFinal, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+        @Html.ValidationMessageFor(model => model.TotalFinal, "", new { @class = "text-danger" })
+    </div>
+
+    @Html.LabelFor(m => m.IndicadorDinheiro, new { @class = "control-label col-lg-3 col-md-5 col-sm-6 col-xs-10" })
+    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
+        @Html.EditorFor(m => m.IndicadorDinheiro, new { htmlAttributes = new { @class = "checkbox", @style = "margin-top:5px" } })
+        @Html.ValidationMessageFor(model => model.IndicadorDinheiro, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(m => m.TaxaEntregaInicial, new { @class = "control-label col-lg-2 col-md-3 col-sm-3 col-xs-12" })
+    <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+        @Html.EditorFor(m => m.TaxaEntregaInicial, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+        @Html.ValidationMessageFor(model => model.TaxaEntregaInicial, "", new { @class = "text-danger" })
+    </div>
+
+    @Html.LabelFor(m => m.TaxaEntregaFinal, new { @class = "control-label col-lg-1 col-md-1 col-sm-1 col-xs-12" })
+    <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+        @Html.EditorFor(m => m.TaxaEntregaFinal, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+        @Html.ValidationMessageFor(model => model.TaxaEntregaFinal, "", new { @class = "text-danger" })
+    </div>
+
+    @Html.LabelFor(m => m.IndicadorDebito, new { @class = "control-label col-lg-3 col-md-5 col-sm-6 col-xs-10" })
+    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
+        @Html.EditorFor(m => m.IndicadorDebito, new { htmlAttributes = new { @class = "checkbox", @style = "margin-top:5px" } })
+        @Html.ValidationMessageFor(model => model.IndicadorDebito, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(m => m.TrocoInicial, new { @class = "control-label col-lg-2 col-md-3 col-sm-3 col-xs-12" })
+    <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+        @Html.EditorFor(m => m.TrocoInicial, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+        @Html.ValidationMessageFor(model => model.TrocoInicial, "", new { @class = "text-danger" })
+    </div>
+
+    @Html.LabelFor(m => m.TrocoFinal, new { @class = "control-label col-lg-1 col-md-1 col-sm-1 col-xs-12" })
+    <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+        @Html.EditorFor(m => m.TrocoFinal, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+        @Html.ValidationMessageFor(model => model.TrocoFinal, "", new { @class = "text-danger" })
+    </div>
+
+    @Html.LabelFor(m => m.IndicadorCredito, new { @class = "control-label col-lg-3 col-md-5 col-sm-6 col-xs-10" })
+    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
+        @Html.EditorFor(m => m.IndicadorCredito, new { htmlAttributes = new { @class = "checkbox", @style = "margin-top:5px" } })
+        @Html.ValidationMessageFor(model => model.IndicadorCredito, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<style>
+    .checkbox {
+        margin-top: 5px !important;
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+
+        $("#divCarregandoCliente").hide();
+        if ($("#IdCliente").val() != null && $("#IdCliente").val() != "00000000-0000-0000-0000-000000000000"
+            && $("#IdCliente").val() != "") {
+            $("#NomeCliente").attr("readonly", "readonly");
+            $("#btnBuscarCliente").html("<i class='fa fa-eraser'></i> Limpar");
+        }
+
+        // Quando apertar teclas dentro do campo de cliente
+        $("#NomeCliente").keyup(function (event) {
+            // Se for a tecla enter
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+            if (keycode === '13' || keycode === 13) {
+
+                $("#btnBuscarCliente").click();
+            }
+        });
+
+        // Buscar clientes para a pesquisa
+        $("#btnBuscarCliente").click(function (event) {
+            var botao = $("#btnBuscarCliente").html();
+            if (botao.indexOf("Buscar") !== -1) {
+                // Pesquisar o endereço
+                ObterListaClientes($("#NomeCliente").val());
+                event.preventDefault();
+            } else {
+                LimparAutocompleteCliente();
+                $("#IdCliente").val("");
+                $("#NomeCliente").val("");
+                $("#NomeCliente").removeAttr("readonly");
+                $("#btnBuscarCliente").html("<i class='fa fa-search'></i> Buscar");
+            }
+        });
+
+        // Ao apertar Enter na página, não dar o post
+        $(document).keypress(function (e) {
+            if (e.keyCode === 13) {
+                e.preventDefault();
+                return false;
+            }
+        });
+    });
+</script>

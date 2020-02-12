@@ -5,7 +5,7 @@
     <div class="col-lg-4 col-md-4 col-sm-7 col-xs-12">
         <div class="input-group">
             @Html.HiddenFor(m => m.Id, new { @class = "Endereco_Id" })
-            @Html.EditorFor(m => m.Cep, new { htmlAttributes = new { @class = "form-control Endereco_Cep" } })
+            @Html.EditorFor(m => m.Cep, new { htmlAttributes = new { @class = "form-control Endereco_Cep", @autocomplete = "off" } })
             @Html.ValidationMessageFor(m => m.Cep, "", new { @class = "text-danger" })
             <div class="input-group-btn" id="divBotao">
                 <button id="btnBuscarCep" type="button" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
@@ -35,13 +35,19 @@
 <div class="form-group">
     @Html.LabelFor(m => m.Bairro, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
     <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
-        @Html.EditorFor(m => m.Bairro, new { htmlAttributes = new { @class = "form-control Endereco_Bairro" } })
+        @Html.EditorFor(m => m.Bairro, new { htmlAttributes = new { @class = "form-control Endereco_Bairro", @autocomplete = "off" } })
         @Html.ValidationMessageFor(m => m.Bairro, "", new { @class = "text-danger" })
     </div>
 
+    @{
+        List<SelectListItem> cidades = new List<SelectListItem>();
+        cidades.Add(new SelectListItem() { Text = "Americana", Value = "Americana", Selected = true });
+        cidades.Add(new SelectListItem() { Text = "Santa Bárbara D'Oeste", Value = "Santa Bárbara D'Oeste" });
+    }
+
     @Html.LabelFor(m => m.Cidade, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
     <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
-        @Html.EditorFor(m => m.Cidade, new { htmlAttributes = new { @class = "form-control Endereco_Cidade" } })
+        @Html.DropDownListFor(m => m.Cidade, cidades, new { @class = "form-control Endereco_Cidade" })
         @Html.ValidationMessageFor(m => m.Cidade, "", new { @class = "text-danger" })
     </div>
 </div>
@@ -50,6 +56,12 @@
 <script src="~/Scripts/PizzaByteSite/plugins/jQueryUI/Autocomplete.js"></script>
 <script src="~/Scripts/PizzaByteSite/Telas/Geral.js"></script>
 <script src="~/Scripts/PizzaByteSite/Telas/PesquisaEndereco.js"></script>
+
+<style>
+    .ui-front {
+        z-index: 9999999 !important;
+    }
+</style>
 
 <script>
     $(document).ready(function () {

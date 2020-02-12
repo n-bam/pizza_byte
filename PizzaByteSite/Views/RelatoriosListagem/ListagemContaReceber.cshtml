@@ -1,0 +1,129 @@
+﻿@model PizzaByteSite.Models.FiltrosListagemContaReceberModel
+
+@{
+    ViewBag.Title = "Listagem de contas a receber";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="form-horizontal">
+        <div class="content-header">
+            <h1>
+                Relatório de listagem
+                <small>Contas a receber</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="~/Usuario/Inicio"><i class="fa fa-home"></i> Inicio</a></li>
+                <li><a class="active"><i class="fa fa-file-text"></i> Listagem de contas a pagar</a></li>
+            </ol>
+        </div>
+
+        <div class="content">
+            <div class="row">
+                @using (Html.BeginForm("ListagemContaReceber", "RelatoriosListagem", FormMethod.Post, new { id = "FormPrincipal" }))
+                {
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="box">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Filtros para emissão do relatório</h3>
+                            </div>
+
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <div class="box-body">
+                                <div class="form-group">
+
+                                    @Html.LabelFor(m => m.PesquisarPor, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-2 col-md-4 col-sm-9 col-xs-12">
+                                        @Html.DropDownListFor(m => m.PesquisarPor, Model.ListaOpcaoPesquisa, new { @class = "form-control" })
+                                    </div>
+
+                                    @Html.LabelFor(m => m.DataCadastroInicial, new { @class = "control-label col-lg-2 col-md-1 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-2 col-md-4 col-sm-9 col-xs-12">
+                                        @Html.EditorFor(m => m.DataCadastroInicial, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.DataCadastroInicial, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    @Html.LabelFor(m => m.DataCadastroFinal, new { @class = "control-label col-lg-1 col-md-1 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-2 col-md-4 col-sm-9 col-xs-12">
+                                        @Html.EditorFor(m => m.DataCadastroFinal, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.DataCadastroFinal, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Descricao, new { @class = "control-label col-lg-2 col-md-3 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                        @Html.EditorFor(m => m.Descricao, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.PrecoInicio, new { @class = "control-label col-lg-2 col-md-1 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-2 col-md-4 col-sm-9 col-xs-12">
+                                        @Html.EditorFor(m => m.PrecoInicio, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.PrecoInicio, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    @Html.LabelFor(m => m.PrecoFim, new { @class = "control-label col-lg-1 col-md-1 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-2 col-md-4 col-sm-9 col-xs-12">
+                                        @Html.EditorFor(m => m.PrecoFim, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.PrecoFim, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    @Html.LabelFor(m => m.Status, new { @class = "control-label col-lg-1 col-md-2 col-sm-1 col-xs-12" })
+                                    <div class="col-lg-3 col-md-5 col-sm-5 col-xs-12">
+                                        @Html.DropDownListFor(m => m.Status, Model.ListaStatus, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.Status, "", new { @class = "text-danger" })
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-5 col-lg-offset-2 col-md-offset-2">
+                                        <button class="btn btn-primary" id="btnBuscarClientes"><i class="fa fa-search"></i> Relatório</button>
+                                    </div>
+
+                                    @Html.LabelFor(model => model.CampoOrdem, htmlAttributes: new { @class = "control-label col-lg-4 col-md-3 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-2 col-md-3 col-sm-5 col-xs-12">
+                                        @Html.DropDownListFor(model => model.CampoOrdem, Model.ListaCampoOrdem, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.CampoOrdem, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="overlay" id="divCarregando">
+                                <i class="fa fa-refresh fa-spin"></i>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/PizzaByteSite/plugins/jQueryUI/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/PizzaByteSite/plugins/jQueryUI/jquery-ui.min.js"></script>
+<script src="~/Scripts/PizzaByteSite/Telas/Geral.js"></script>
+<script src="~/Scripts/PizzaByteSite/plugins/mask/jquery.mask.min.js"></script>
+<script src="~/Scripts/PizzaByteSite/plugins/mask/jquery.maskMoney.min.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+        $("#DataCadastroInicial").mask("99/99/9999");
+        $("#DataCadastroFinal").mask("99/99/9999");
+        $("#DataPagamento").mask("99/99/9999");
+        $("#PrecoInicio").maskMoney({ allowZero: true, allowNegative: true, decimal: "," });
+        $("#PrecoFim").maskMoney({ allowZero: true, allowNegative: true, decimal: "," });
+        EsconderCarregando("divCarregando");
+
+        //Capturar o submit
+        $("#FormPrincipal").on("submit", function (event) {
+            ExibirCarregando("divCarregando");
+        });
+    });
+</script>
