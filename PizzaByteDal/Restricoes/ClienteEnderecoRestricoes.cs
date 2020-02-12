@@ -20,7 +20,7 @@ namespace PizzaByteDal.Restricoes
             .HasMaxLength(10) // Tamanho máximo
             .IsRequired(); ;
 
-            this.Property(p => p.ComplementeEndereco)
+            this.Property(p => p.ComplementoEndereco)
             .HasMaxLength(50);
 
             this.Property(p => p.IdCliente)

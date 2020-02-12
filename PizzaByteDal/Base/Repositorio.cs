@@ -27,7 +27,7 @@ namespace PizzaByteDal.Base
             try
             {
                 // Atualizar a data de atualização do registro
-                entidade.DataAlteracao = DateTime.Now;
+                entidade.DataAlteracao = DateTime.Now.AddHours(4);
 
                 // Tentar alterar o registro no banco de dados
                 pizzaByteContexto.Entry(entidade).State = EntityState.Modified;
@@ -58,6 +58,7 @@ namespace PizzaByteDal.Base
             {
                 // Encontrar a entidade por ID e deletar do banco de dados
                 T entidade = pizzaByteContexto.Set<T>().Where(p => p.Id == id).FirstOrDefault();
+                entidade.DataAlteracao = DateTime.Now.AddHours(4);
 
                 if (entidade == null)
                 {
@@ -128,7 +129,7 @@ namespace PizzaByteDal.Base
             try
             {
                 // Preencher a data de inclusão e zerar a data de alteração
-                entidade.DataInclusao = DateTime.Now;
+                entidade.DataInclusao = DateTime.Now.AddHours(4);
                 entidade.DataAlteracao = null;
                 entidade.Excluido = false;
 
@@ -148,7 +149,7 @@ namespace PizzaByteDal.Base
         /// <param name="query">Query a ser preenchida com uma conexão da entidade</param>
         /// <param name="mensagemErro">Mensagem de erro, caso ocorra</param>
         /// <returns></returns>
-        protected bool ObterQueryBd(out IQueryable<T> query, ref string mensagemErro, bool obterExcluidos = false)
+        public bool ObterQueryBd(out IQueryable<T> query, ref string mensagemErro, bool obterExcluidos = false)
         {
             try
             {

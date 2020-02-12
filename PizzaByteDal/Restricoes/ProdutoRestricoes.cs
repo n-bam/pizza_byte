@@ -17,6 +17,9 @@ namespace PizzaByteDal.Restricoes
             .IsRequired()
             .HasColumnAnnotation(IndexAnnotation.AnnotationName, new IndexAnnotation(new IndexAttribute("IX_Produto_Descricao", 1) { IsUnique = true }));
 
+            this.Property(p => p.Detalhes)
+            .HasMaxLength(200);
+
             this.Property(p => p.Id)
             .IsRequired()
             .HasColumnAnnotation(IndexAnnotation.AnnotationName, new IndexAnnotation(new IndexAttribute("IX_Produto_Id", 1) { IsUnique = true }));
