@@ -3,13 +3,17 @@
     display: block;
 }
 
-.hr-line-drashed {
-    border-top: 1px dashed #808080;
-    color: #ffffff;
+.alinhadoEsquerda {
+    text-align: left;
+    display: block;
+}
+
+.linhaPontilhada {
+    border-top: 1px dashed #7fa5d4;
+    color: #7fa5d4;
     background-color: #ffffff;
-    height: 2px;
+    height: 1px;
     margin: 20px 0;
-    opacity: 0.4;
 }
 
 .swal-footer {
@@ -18,7 +22,7 @@
 }
 
 .ui-autocomplete {
-    position: absolute; 
+    position: absolute;
     top: 100%;
     left: 0;
     z-index: 1000;
@@ -57,12 +61,7 @@
     white-space: nowrap;
 }
 
-/*.ui-state-hover, .ui-state-active {
-    color: #ffffff;
-    text-decoration: none;
-    background-color: #0088cc;
-    border-radius: 0px;
-    -webkit-border-radius: 0px;
-    -moz-border-radius: 0px;
-    background-image: none;
-}*/
+.dashed {
+    text-decoration: line-through;
+    color: #ff0000;
+}

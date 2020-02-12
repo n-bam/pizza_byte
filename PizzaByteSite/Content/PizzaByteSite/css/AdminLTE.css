@@ -371,7 +371,7 @@ a {
         margin-top: 0;
         margin-bottom: 0;
         font-size: 15px;
-        padding: 7px 5px;
+        padding: 7px 15px;
         position: absolute;
         top: 15px;
         right: 10px;
@@ -2912,9 +2912,8 @@ a {
 }
 /* NAV TABS */
 .nav-tabs-custom {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     background: #fff;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
     border-radius: 3px;
 }
 
