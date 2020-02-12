@@ -3,7 +3,6 @@
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
-    <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>
@@ -66,124 +65,41 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\MicrosoftReportViewerWebForms.11.0.0.0\lib\Microsoft.ReportViewer.Common.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.900.148\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.140.1000.523\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.ReportViewer.Design, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.900.148\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.140.1000.523\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\MicrosoftReportViewerWebForms.11.0.0.0\lib\Microsoft.ReportViewer.ProcessingObjectModel.DLL</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.ReportViewer.WebDesign, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.900.148\lib\net40\Microsoft.ReportViewer.WebDesign.dll</HintPath>
+    <Reference Include="Microsoft.ReportViewer.WebDesign, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.WebDesign.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\MicrosoftReportViewerWebForms.11.0.0.0\lib\Microsoft.ReportViewer.WebForms.DLL</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.WebForms.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.ReportViewer.WinForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.900.148\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.140.1000.523\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.SqlServer.Assessment, Version=0.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.Assessment.dll</HintPath>
+    <Reference Include="Microsoft.SqlServer.BatchParserClient, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.SqlServer\Microsoft.SqlServer.BatchParserClient.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.SqlServer.BatchParserClient, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.BatchParserClient.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.ConnectionInfo.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.ConnectionInfoExtended, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.ConnectionInfoExtended.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Diagnostics.Strace, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.Diagnostics.Strace.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Dmf, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.Dmf.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Dmf.Common, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.Dmf.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Management.Assessment, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.Management.Assessment.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Management.Collector, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.Management.Collector.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Management.CollectorEnum, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.Management.CollectorEnum.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Management.RegisteredServers, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.Management.RegisteredServers.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Management.Sdk.Sfc, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.Management.Sdk.Sfc.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Management.SqlParser, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.Management.SqlParser.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Management.Utility, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.Management.Utility.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Management.UtilityEnum, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.Management.UtilityEnum.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Management.XEvent, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.Management.XEvent.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Management.XEventDbScoped, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.Management.XEventDbScoped.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Management.XEventDbScopedEnum, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.Management.XEventDbScopedEnum.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Management.XEventEnum, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.Management.XEventEnum.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.PolicyEnum, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.PolicyEnum.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.RegSvrEnum, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.RegSvrEnum.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.ServiceBrokerEnum, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.ServiceBrokerEnum.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Smo, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.Smo.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.SmoExtended, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.SmoExtended.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.SqlClrProvider, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.SqlClrProvider.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.SqlEnum, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.SqlEnum.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.SqlTDiagm, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.SqlTDiagm.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.SqlWmiManagement, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.SqlWmiManagement.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.SString, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.SString.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Types, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.Types.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.WmiEnum, Version=15.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\lib\net45\Microsoft.SqlServer.WmiEnum.dll</HintPath>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.1016.290\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="ReportViewerForMvc, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ReportViewerForMvc.1.1.1\lib\net45\ReportViewerForMvc.dll</HintPath>
+    <Reference Include="ReportViewerForMvc, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ReportViewerForMvc.1.0.1\lib\net45\ReportViewerForMvc.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -256,6 +172,12 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\MovimentoCaixaController.cs" />
+    <Compile Include="Controllers\RelatoriosAnaliticosController.cs" />
+    <Compile Include="Controllers\RelatoriosListagemController.cs" />
+    <Compile Include="Controllers\ContaPagarControlle.cs" />
+    <Compile Include="Controllers\ContaReceberController.cs" />
+    <Compile Include="Controllers\PedidoEntregaController.cs" />
     <Compile Include="Controllers\RecursosBdController.cs" />
     <Compile Include="Controllers\CepController.cs" />
     <Compile Include="Controllers\ClienteEnderecoController.cs" />
@@ -268,23 +190,56 @@
     <Compile Include="Controllers\ProdutoController.cs" />
     <Compile Include="Controllers\FornecedorController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="DataSet\RelatoriosAnaliticosDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RelatoriosAnaliticosDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSet\RelatoriosDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RelatoriosDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\HMTLHelperExtensions.cs" />
     <Compile Include="Models\ArquivoModel.cs" />
     <Compile Include="Models\ClienteEnderecoModel.cs" />
+    <Compile Include="Models\ContaModel.cs" />
     <Compile Include="Models\FiltrosPesquisa\FiltrosCepModel.cs" />
+    <Compile Include="Models\FiltrosPesquisa\FiltrosContaModel.cs" />
     <Compile Include="Models\FiltrosPesquisa\FiltrosFornecedorModel.cs" />
+    <Compile Include="Models\FiltrosPesquisa\FiltrosContaReceberModel.cs" />
+    <Compile Include="Models\FiltrosPesquisa\FiltrosContaPagarModel .cs" />
     <Compile Include="Models\FiltrosPesquisa\FiltrosFuncionarioModel .cs" />
     <Compile Include="Models\FiltrosPesquisa\FiltrosLogModel.cs" />
+    <Compile Include="Models\FiltrosPesquisa\FiltrosPedidoEntregaModel.cs" />
     <Compile Include="Models\FiltrosPesquisa\FiltrosTaxaEntregaModel.cs" />
     <Compile Include="Models\FiltrosPesquisa\FiltrosClienteModel.cs" />
     <Compile Include="Models\FiltrosPesquisa\FiltrosUsuarioModel.cs" />
+    <Compile Include="Models\ContaReceberModel.cs" />
+    <Compile Include="Models\ContaPagarModel.cs" />
     <Compile Include="Models\FuncionarioModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\FornecedorModel.cs" />
     <Compile Include="Models\ClienteModel.cs" />
+    <Compile Include="Models\MovimentoCaixaModel.cs" />
+    <Compile Include="Models\Relatorios\EmissaoRelatorioModel.cs" />
+    <Compile Include="Models\Relatorios\FiltrosListagemContaPagarModel.cs" />
+    <Compile Include="Models\Relatorios\FiltrosListagemContaReceberModel.cs" />
+    <Compile Include="Models\Relatorios\FiltrosListagemContasModel.cs" />
+    <Compile Include="Models\Relatorios\FiltrosListagemFornecedorModel.cs" />
+    <Compile Include="Models\Relatorios\FiltrosListagemEntregaModel.cs" />
+    <Compile Include="Models\Relatorios\FiltrosRelacaoContasModel.cs" />
+    <Compile Include="Models\Relatorios\FiltrosListagemTaxaEntregaModel .cs" />
+    <Compile Include="Models\Relatorios\FiltrosListagemPedidoModel.cs" />
+    <Compile Include="Models\Relatorios\FiltrosListagemProdutoModel.cs" />
+    <Compile Include="Models\Relatorios\FiltrosMelhoresMotoboysModel.cs" />
+    <Compile Include="Models\Relatorios\FiltrosMelhoresClientesModel.cs" />
+    <Compile Include="Models\Relatorios\FiltrosMelhoresProdutosModel.cs" />
+    <Compile Include="Models\Relatorios\FiltrosListagemClienteModel.cs" />
+    <Compile Include="Models\Relatorios\BaseFiltrosRelatorioModel.cs" />
     <Compile Include="Models\TaxaEntregaModel.cs" />
     <Compile Include="Models\UsuarioModel.cs" />
     <Compile Include="Models\ExclusaoModel.cs" />
@@ -302,6 +257,140 @@
     <Compile Include="Utilidades.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Antlr3.Runtime.dll" />
+    <Content Include="bin\Antlr3.Runtime.pdb" />
+    <Content Include="bin\de\Microsoft.ReportViewer.Common.resources.dll" />
+    <Content Include="bin\de\Microsoft.ReportViewer.DataVisualization.resources.dll" />
+    <Content Include="bin\de\Microsoft.ReportViewer.Design.resources.dll" />
+    <Content Include="bin\de\Microsoft.ReportViewer.WebDesign.resources.dll" />
+    <Content Include="bin\de\Microsoft.ReportViewer.WebForms.resources.dll" />
+    <Content Include="bin\de\Microsoft.ReportViewer.WinForms.resources.dll" />
+    <Content Include="bin\EntityFramework.dll" />
+    <Content Include="bin\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\EntityFramework.xml" />
+    <Content Include="bin\EnvDTE.dll" />
+    <Content Include="bin\es\Microsoft.ReportViewer.Common.resources.dll" />
+    <Content Include="bin\es\Microsoft.ReportViewer.DataVisualization.resources.dll" />
+    <Content Include="bin\es\Microsoft.ReportViewer.Design.resources.dll" />
+    <Content Include="bin\es\Microsoft.ReportViewer.WebDesign.resources.dll" />
+    <Content Include="bin\es\Microsoft.ReportViewer.WebForms.resources.dll" />
+    <Content Include="bin\es\Microsoft.ReportViewer.WinForms.resources.dll" />
+    <Content Include="bin\fr\Microsoft.ReportViewer.Common.resources.dll" />
+    <Content Include="bin\fr\Microsoft.ReportViewer.DataVisualization.resources.dll" />
+    <Content Include="bin\fr\Microsoft.ReportViewer.Design.resources.dll" />
+    <Content Include="bin\fr\Microsoft.ReportViewer.WebDesign.resources.dll" />
+    <Content Include="bin\fr\Microsoft.ReportViewer.WebForms.resources.dll" />
+    <Content Include="bin\fr\Microsoft.ReportViewer.WinForms.resources.dll" />
+    <Content Include="bin\it\Microsoft.ReportViewer.Common.resources.dll" />
+    <Content Include="bin\it\Microsoft.ReportViewer.DataVisualization.resources.dll" />
+    <Content Include="bin\it\Microsoft.ReportViewer.Design.resources.dll" />
+    <Content Include="bin\it\Microsoft.ReportViewer.WebDesign.resources.dll" />
+    <Content Include="bin\it\Microsoft.ReportViewer.WebForms.resources.dll" />
+    <Content Include="bin\it\Microsoft.ReportViewer.WinForms.resources.dll" />
+    <Content Include="bin\ja\Microsoft.ReportViewer.Common.resources.dll" />
+    <Content Include="bin\ja\Microsoft.ReportViewer.DataVisualization.resources.dll" />
+    <Content Include="bin\ja\Microsoft.ReportViewer.Design.resources.dll" />
+    <Content Include="bin\ja\Microsoft.ReportViewer.WebDesign.resources.dll" />
+    <Content Include="bin\ja\Microsoft.ReportViewer.WebForms.resources.dll" />
+    <Content Include="bin\ja\Microsoft.ReportViewer.WinForms.resources.dll" />
+    <Content Include="bin\ko\Microsoft.ReportViewer.Common.resources.dll" />
+    <Content Include="bin\ko\Microsoft.ReportViewer.DataVisualization.resources.dll" />
+    <Content Include="bin\ko\Microsoft.ReportViewer.Design.resources.dll" />
+    <Content Include="bin\ko\Microsoft.ReportViewer.WebDesign.resources.dll" />
+    <Content Include="bin\ko\Microsoft.ReportViewer.WebForms.resources.dll" />
+    <Content Include="bin\ko\Microsoft.ReportViewer.WinForms.resources.dll" />
+    <Content Include="bin\Microsoft.AspNet.Identity.Core.dll" />
+    <Content Include="bin\Microsoft.AspNet.Identity.Core.xml" />
+    <Content Include="bin\Microsoft.AspNet.Identity.EntityFramework.dll" />
+    <Content Include="bin\Microsoft.AspNet.Identity.EntityFramework.xml" />
+    <Content Include="bin\Microsoft.MSXML.dll" />
+    <Content Include="bin\Microsoft.ReportViewer.Common.dll" />
+    <Content Include="bin\Microsoft.ReportViewer.DataVisualization.dll" />
+    <Content Include="bin\Microsoft.ReportViewer.Design.dll" />
+    <Content Include="bin\Microsoft.ReportViewer.ProcessingObjectModel.dll" />
+    <Content Include="bin\Microsoft.ReportViewer.WebDesign.dll" />
+    <Content Include="bin\Microsoft.ReportViewer.WebForms.dll" />
+    <Content Include="bin\Microsoft.ReportViewer.WinForms.dll" />
+    <Content Include="bin\Microsoft.SqlServer.BatchParser.dll" />
+    <Content Include="bin\Microsoft.SqlServer.BatchParserClient.dll" />
+    <Content Include="bin\Microsoft.SqlServer.ConnectionInfo.dll" />
+    <Content Include="bin\Microsoft.SqlServer.Management.Sdk.Sfc.dll" />
+    <Content Include="bin\Microsoft.SqlServer.Smo.dll" />
+    <Content Include="bin\Microsoft.SqlServer.SqlClrProvider.dll" />
+    <Content Include="bin\Microsoft.SqlServer.SqlEnum.dll" />
+    <Content Include="bin\Microsoft.SqlServer.Types.dll" />
+    <Content Include="bin\Microsoft.VisualStudio.OLE.Interop.dll" />
+    <Content Include="bin\Microsoft.VisualStudio.Shell.Interop.8.0.dll" />
+    <Content Include="bin\Microsoft.VisualStudio.Shell.Interop.dll" />
+    <Content Include="bin\Microsoft.VisualStudio.TextManager.Interop.8.0.dll" />
+    <Content Include="bin\Microsoft.VisualStudio.TextManager.Interop.dll" />
+    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="bin\Newtonsoft.Json.dll" />
+    <Content Include="bin\Newtonsoft.Json.pdb" />
+    <Content Include="bin\Newtonsoft.Json.xml" />
+    <Content Include="bin\PizzaByteBll.dll" />
+    <Content Include="bin\PizzaByteBll.pdb" />
+    <Content Include="bin\PizzaByteDal.dll" />
+    <Content Include="bin\PizzaByteDal.pdb" />
+    <Content Include="bin\PizzaByteDto.dll" />
+    <Content Include="bin\PizzaByteDto.pdb" />
+    <Content Include="bin\PizzaByteEnum.dll" />
+    <Content Include="bin\PizzaByteEnum.pdb" />
+    <Content Include="bin\PizzaByteSite.dll" />
+    <Content Include="bin\PizzaByteSite.pdb" />
+    <Content Include="bin\PizzaByteVo.dll" />
+    <Content Include="bin\PizzaByteVo.pdb" />
+    <Content Include="bin\pt\Microsoft.ReportViewer.Common.resources.dll" />
+    <Content Include="bin\pt\Microsoft.ReportViewer.DataVisualization.resources.dll" />
+    <Content Include="bin\pt\Microsoft.ReportViewer.Design.resources.dll" />
+    <Content Include="bin\pt\Microsoft.ReportViewer.WebDesign.resources.dll" />
+    <Content Include="bin\pt\Microsoft.ReportViewer.WebForms.resources.dll" />
+    <Content Include="bin\pt\Microsoft.ReportViewer.WinForms.resources.dll" />
+    <Content Include="bin\ReportViewerForMvc.dll" />
+    <Content Include="bin\ru\Microsoft.ReportViewer.Common.resources.dll" />
+    <Content Include="bin\ru\Microsoft.ReportViewer.DataVisualization.resources.dll" />
+    <Content Include="bin\ru\Microsoft.ReportViewer.Design.resources.dll" />
+    <Content Include="bin\ru\Microsoft.ReportViewer.WebDesign.resources.dll" />
+    <Content Include="bin\ru\Microsoft.ReportViewer.WebForms.resources.dll" />
+    <Content Include="bin\ru\Microsoft.ReportViewer.WinForms.resources.dll" />
+    <Content Include="bin\Scripts\PizzaByteSite\Telas\IndexUsuario.js" />
+    <Content Include="bin\stdole.dll" />
+    <Content Include="bin\System.Net.Http.Formatting.dll" />
+    <Content Include="bin\System.Net.Http.Formatting.xml" />
+    <Content Include="bin\System.Web.Cors.dll" />
+    <Content Include="bin\System.Web.Http.Cors.dll" />
+    <Content Include="bin\System.Web.Http.Cors.xml" />
+    <Content Include="bin\System.Web.Http.dll" />
+    <Content Include="bin\System.Web.Http.WebHost.dll" />
+    <Content Include="bin\System.Web.Http.WebHost.xml" />
+    <Content Include="bin\System.Web.Http.xml" />
+    <Content Include="bin\System.Web.Mvc.dll" />
+    <Content Include="bin\System.Web.Mvc.xml" />
+    <Content Include="bin\System.Web.Optimization.dll" />
+    <Content Include="bin\System.Web.Optimization.xml" />
+    <Content Include="bin\System.Web.Razor.dll" />
+    <Content Include="bin\System.Web.Razor.xml" />
+    <Content Include="bin\System.Web.WebPages.Deployment.dll" />
+    <Content Include="bin\System.Web.WebPages.Deployment.xml" />
+    <Content Include="bin\System.Web.WebPages.dll" />
+    <Content Include="bin\System.Web.WebPages.Razor.dll" />
+    <Content Include="bin\System.Web.WebPages.Razor.xml" />
+    <Content Include="bin\System.Web.WebPages.xml" />
+    <Content Include="bin\WebActivatorEx.dll" />
+    <Content Include="bin\WebGrease.dll" />
+    <Content Include="bin\zh-CHS\Microsoft.ReportViewer.Common.resources.dll" />
+    <Content Include="bin\zh-CHS\Microsoft.ReportViewer.DataVisualization.resources.dll" />
+    <Content Include="bin\zh-CHS\Microsoft.ReportViewer.Design.resources.dll" />
+    <Content Include="bin\zh-CHS\Microsoft.ReportViewer.WebDesign.resources.dll" />
+    <Content Include="bin\zh-CHS\Microsoft.ReportViewer.WebForms.resources.dll" />
+    <Content Include="bin\zh-CHS\Microsoft.ReportViewer.WinForms.resources.dll" />
+    <Content Include="bin\zh-CHT\Microsoft.ReportViewer.Common.resources.dll" />
+    <Content Include="bin\zh-CHT\Microsoft.ReportViewer.DataVisualization.resources.dll" />
+    <Content Include="bin\zh-CHT\Microsoft.ReportViewer.Design.resources.dll" />
+    <Content Include="bin\zh-CHT\Microsoft.ReportViewer.WebDesign.resources.dll" />
+    <Content Include="bin\zh-CHT\Microsoft.ReportViewer.WebForms.resources.dll" />
+    <Content Include="bin\zh-CHT\Microsoft.ReportViewer.WinForms.resources.dll" />
     <Content Include="Content\jQuery\jquery-ui.css" />
     <Content Include="Content\jQuery\jquery-ui.min.css" />
     <Content Include="Content\PizzaByteSite\css\Personalizado.css" />
@@ -357,6 +446,7 @@
     <Content Include="Content\PizzaByteSite\img\credit\visa.png" />
     <Content Include="Content\PizzaByteSite\img\default-50x50.gif" />
     <Content Include="Content\PizzaByteSite\img\icons.png" />
+    <Content Include="Content\PizzaByteSite\img\Logo mini.png" />
     <Content Include="Content\PizzaByteSite\img\Logo.png" />
     <Content Include="Content\PizzaByteSite\img\photo1.png" />
     <Content Include="Content\PizzaByteSite\img\photo2.png" />
@@ -398,8 +488,33 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\FontAwesome.otf" />
-    <None Include="Properties\PublishProfiles\pizzabytesite - FTP.pubxml" />
-    <None Include="Properties\PublishProfiles\pizzabytesite - Web Deploy.pubxml" />
+    <Content Include="DataSet\RelatoriosDataSet.xsc">
+      <DependentUpon>RelatoriosDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="DataSet\RelatoriosDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>RelatoriosDataSet.Designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataSet\RelatoriosDataSet.xss">
+      <DependentUpon>RelatoriosDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="DataSet\RelatoriosAnaliticosDataSet.xsc">
+      <DependentUpon>RelatoriosAnaliticosDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="bin\PizzaByteBll.dll.config" />
+    <Content Include="bin\PizzaByteDal.dll.config" />
+    <Content Include="bin\PizzaByteSite.dll.config" />
+    <Content Include="Content\PizzaByteSite\Manual.pdf" />
+    <None Include="DataSet\RelatoriosAnaliticosDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>RelatoriosAnaliticosDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="DataSet\RelatoriosAnaliticosDataSet.xss">
+      <DependentUpon>RelatoriosAnaliticosDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="Properties\PublishProfiles\pizzarianacoes.com - Web Deploy.pubxml" />
     <None Include="Scripts\PizzaByteSite\plugins\jQueryUI\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\PizzaByteSite\plugins\jQueryUI\jquery-3.3.1.js" />
     <Content Include="Scripts\PizzaByteSite\plugins\jQueryUI\jquery-3.3.1.min.js" />
@@ -4196,8 +4311,16 @@
     <Content Include="Scripts\PizzaByteSite\plugins\timepicker\bootstrap-timepicker.min.js" />
     <Content Include="Scripts\PizzaByteSite\plugins\jQueryUI\toastr.js" />
     <Content Include="Scripts\PizzaByteSite\plugins\jQueryUI\toastr.min.js" />
+    <Content Include="Scripts\PizzaByteSite\Telas\IndexMovimentoCaixa.js" />
     <Content Include="Scripts\PizzaByteSite\Telas\IndexFuncionario.js" />
     <Content Include="Scripts\PizzaByteSite\Telas\IndexLog.js" />
+    <Content Include="Scripts\PizzaByteSite\Telas\IndexContaPagar.js" />
+    <Content Include="Scripts\PizzaByteSite\Telas\IndexContaReceber.js" />
+    <Content Include="Scripts\PizzaByteSite\Telas\IncluirEditarPedido.js" />
+    <Content Include="Scripts\PizzaByteSite\Telas\AutocompleteCliente.js" />
+    <Content Include="Scripts\PizzaByteSite\Telas\IndexPedidoEntrega.js" />
+    <Content Include="Scripts\PizzaByteSite\Telas\SelecionarCliente.js" />
+    <Content Include="Scripts\PizzaByteSite\Telas\SelecionarProduto.js" />
     <Content Include="Scripts\PizzaByteSite\Telas\IndexSuporte.js" />
     <Content Include="Scripts\PizzaByteSite\Telas\VisualizarCliente.js" />
     <Content Include="Scripts\PizzaByteSite\Telas\IndexCliente.js" />
@@ -4212,20 +4335,17 @@
     <Content Include="Scripts\PizzaByteSite\Telas\IndexPedido.js" />
     <Content Include="Scripts\PizzaByteSite\Telas\Geral.js" />
     <Content Include="Scripts\PizzaByteSite\Telas\IndexProduto.js" />
+    <Content Include="Views\ContaPagar\Index.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
-      <SubType>Designer</SubType>
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
-      <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\Web.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Erro.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -4269,19 +4389,63 @@
     <Content Include="Views\Cliente\_ListaEnderecos.cshtml" />
     <Content Include="Views\Suporte\Index.cshtml" />
     <Content Include="Views\Log\Index.cshtml" />
-    <Content Include="Views\Funcionario\Editar.cshtml" />
     <Content Include="Views\Funcionario\Excluir.cshtml" />
     <Content Include="Views\Funcionario\Incluir.cshtml" />
     <Content Include="Views\Funcionario\Index.cshtml" />
     <Content Include="Views\Funcionario\Visualizar.cshtml" />
     <Content Include="Views\Funcionario\Editar.cshtml" />
     <Content Include="Views\RecursosBd\RestaurarBackup.cshtml" />
-    <Content Include="Views\Cep\Visualizar.cshtml" />
-    <Content Include="Views\TaxaEntrega\Excluir.cshtml" />
+    <Content Include="Views\Pedido\Editar.cshtml" />
+    <Content Include="Views\Pedido\Excluir.cshtml" />
+    <Content Include="Views\Pedido\Incluir.cshtml" />
+    <Content Include="Views\Pedido\Index.cshtml" />
+    <Content Include="Views\Pedido\Visualizar.cshtml" />
+    <Content Include="Views\Pedido\_SelecionarProduto.cshtml" />
+    <Content Include="Views\Pedido\_SelecionarCliente.cshtml" />
+    <Content Include="Views\ContaPagar\Editar.cshtml" />
+    <Content Include="Views\ContaPagar\Excluir.cshtml" />
+    <Content Include="Views\ContaPagar\Incluir.cshtml" />
+    <Content Include="Views\ContaPagar\Visualizar.cshtml" />
+    <Content Include="Views\ContaReceber\Editar.cshtml" />
+    <Content Include="Views\ContaReceber\Excluir.cshtml" />
+    <Content Include="Views\ContaReceber\Incluir.cshtml" />
+    <Content Include="Views\ContaReceber\Index.cshtml" />
+    <Content Include="Views\ContaReceber\Visualizar.cshtml" />
+    <Content Include="Views\PedidoEntrega\Editar.cshtml" />
+    <Content Include="Views\PedidoEntrega\Index.cshtml" />
+    <Content Include="Views\PedidoEntrega\Visualizar.cshtml" />
+    <Content Include="Views\Pedido\Cancelar.cshtml" />
+    <Content Include="Views\PedidoEntrega\_ConferirRetorno.cshtml" />
     <Content Include="Views\TaxaEntrega\Visualizar.cshtml" />
+    <Content Include="Views\Shared\EmissaoRelatorio.cshtml" />
+    <Content Include="Views\RelatoriosListagem\ListagemEntregas.cshtml" />
+    <Content Include="Views\MovimentoCaixa\Index.cshtml" />
+    <Content Include="Views\MovimentoCaixa\_IncluirMovimento.cshtml" />
+    <Content Include="Views\Cep\Visualizar.cshtml" />
+    <Content Include="Views\RelatoriosAnaliticos\MelhoresProdutos.cshtml" />
+    <Content Include="Views\RelatoriosListagem\ListagemTaxaEntrega.cshtml" />
+    <Content Include="Views\TaxaEntrega\Excluir.cshtml" />
+    <Content Include="Views\RelatoriosListagem\ListagemPedidosResumida.cshtml" />
+    <Content Include="Views\Shared\_FiltrosRelatoriosPedido.cshtml" />
+    <Content Include="Views\RelatoriosListagem\ListagemPedidosDetalhada.cshtml" />
+    <Content Include="Views\RelatoriosAnaliticos\RelacaoDiariaContas.cshtml" />
+    <Content Include="Views\RelatoriosAnaliticos\MelhoresMotoboys.cshtml" />
+    <Content Include="Views\RelatoriosAnaliticos\MelhoresClientes.cshtml" />
+    <Content Include="Views\RelatoriosListagem\ListagemProdutos.cshtml" />
+    <Content Include="Views\RelatoriosAnaliticos\RelacaoMensalContas.cshtml" />
+    <Content Include="Views\RelatoriosAnaliticos\ContasPorFornecedor.cshtml" />
+    <Content Include="Views\RelatoriosAnaliticos\PedidosPorBairro.cshtml" />
+    <Content Include="Views\RelatoriosAnaliticos\AnaliseSemanalPedidos.cshtml" />
+    <Content Include="Views\RelatoriosAnaliticos\AnaliseMensalPedidos.cshtml" />
+    <Content Include="Views\RelatoriosAnaliticos\AnaliseAnualPedidos.cshtml" />
+    <Content Include="Views\RelatoriosListagem\ListagemClientes.cshtml" />
+    <Content Include="Views\RelatoriosListagem\ListagemContaPagar.cshtml" />
+    <Content Include="Views\RelatoriosListagem\ListagemContaReceber.cshtml" />
+    <Content Include="Views\RelatoriosListagem\ListagemFornecedores.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -4365,7 +4529,54 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
+    <Content Include="Relatorios\ListagemClienteRv.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Relatorios\MelhoresProdutosRv.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Relatorios\ListagemTaxaEntregaRv.rdlc" />
+    <Content Include="Relatorios\ListagemPedidoDetalheRv.rdlc" />
+    <Content Include="Relatorios\GraficoMelhoresMotoboysRv.rdlc" />
+    <Content Include="Relatorios\GraficoMelhoresClientesRv.rdlc" />
+    <Content Include="Relatorios\ListagemPedidoResumoRv.rdlc" />
+    <Content Include="Relatorios\ListagemProdutoRv.rdlc" />
+    <EmbeddedResource Include="Relatorios\GraficoMelhoresMotoboysRv.rdlc" />
+    <EmbeddedResource Include="Relatorios\GraficoMelhoresClientesRv.rdlc" />
+    <Content Include="Relatorios\ListagemEntregasRv.rdlc" />
+    <Content Include="Relatorios\ListagemFornecedorRv.rdlc" />
+    <Content Include="Relatorios\ListagemContaPagarRv.rdlc" />
+    <Content Include="Relatorios\ListagemContaReceberRv.rdlc" />
+    <EmbeddedResource Include="Relatorios\ListagemProdutoRv.rdlc" />
+    <Content Include="Relatorios\GraficoMelhoresProdutosRv.rdlc" />
+    <Content Include="Relatorios\MelhoresClientesRv.rdlc" />
+    <Content Include="Relatorios\RelacaoContasPagarReceberRv.rdlc" />
+    <Content Include="Relatorios\MelhoresClientesRv.rdlc" />
+    <Content Include="Relatorios\MelhoresMotoboysRv.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Relatorios\GraficoRelacaoMensalContasRv.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Relatorios\GraficoContasPorFornecedorRv.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Relatorios\ContasPorFornecedorRv.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Relatorios\PedidosPorBairroRv.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Relatorios\GraficoPedidosPorBairroRv.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Relatorios\GraficoEvolucaoSemanalPedidosRv.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Relatorios\GraficoEvolucaoMensalPedidosRv.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Relatorios\GraficoEvolucaoAnualPedidosRv.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -4396,13 +4607,6 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\build\net45\Microsoft.SqlServer.SqlManagementObjects.targets" Condition="Exists('..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\build\net45\Microsoft.SqlServer.SqlManagementObjects.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\build\net45\Microsoft.SqlServer.SqlManagementObjects.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.SqlServer.SqlManagementObjects.150.18147.0\build\net45\Microsoft.SqlServer.SqlManagementObjects.targets'))" />
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
