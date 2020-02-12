@@ -21,7 +21,7 @@
         public enum TipoPedido
         {
             NaoIdentificado = 0,
-            Balcao = 1,
+            Balcão = 1,
             Retirada = 2,
             Entrega = 3
         }
@@ -36,7 +36,15 @@
             Gestor = 2,
             Motoboy = 3,
             Pizzaiolo = 4,
-            
+
+        }
+
+        public enum TipoEnderecoCidade
+        {
+            NaoIdentificado = 0,
+            Americana = 1,
+            SantaBarbara = 2,
+
         }
 
         /// <summary>
@@ -117,7 +125,78 @@
             ObterListaUsuariosParaSelecao = 58,
             VerificarProdutoExistente = 59,
             Backup = 60,
-            RestaurarBackup = 61
+            RestaurarBackup = 61,
+            IncluirPedido = 62,
+            ObterPedido = 63,
+            ObterListaPedido = 64,
+            EditarPedido = 65,
+            ExcluirPedido = 66,
+            IncluirPedidoItem = 67,
+            ObterPedidoItem = 68,
+            ObterListaPedidoItem = 69,
+            EditarPedidoItem = 70,
+            ExcluirPedidoItem = 71,
+            IncluirListaPedidoItem = 72,
+            EditarListaPedidoItem = 73,
+            ExcluirListaItensPedido = 74,
+            IncluirEditarCliente = 75,
+            IncluirEditarClienteEndereco = 76,
+            IncluirEditarCep = 77,
+            ObterTaxaPorBairro = 78,
+            IncluirEditarTaxaEntrega = 79,
+            ExcluirEnderecosPorIdCliente = 80,
+            ExcluirContaPagar = 81,
+            IncluirContaPagar = 82,
+            EditarContaPagar = 83,
+            ObterContaPagar = 84,
+            ObterListaContaPagar = 85,
+            ExcluirContaReceber = 86,
+            IncluirContaReceber = 87,
+            EditarContaReceber = 88,
+            ObterContaReceber = 89,
+            ObterListaContaReceber = 90,
+            ExcluirPedidoEntrega = 91,
+            IncluirPedidoEntrega = 92,
+            EditarPedidoEntrega = 93,
+            ObterPedidoEntrega = 94,
+            ObterListaPedidoEntrega = 95,
+            IncluirEditarPedidoEntrega = 96,
+            ObterListaEnderecosClientePorId = 97,
+            CancelarPedido = 98,
+            ObterPedidoResumido = 99,
+            ConferirEntrega = 100,
+            AlterarFuncionarioEntrega = 101,
+            ObterInformacoesDashboard = 102,
+            RelatorioListagemClientes = 103,
+            IncluirMovimentoCaixa = 104,
+            EditarMovimentoCaixa = 105,
+            ObterMovimentoCaixa = 106,
+            ObterListaMovimentoCaixa = 107,
+            ExcluirMovimentoCaixa = 108,
+            ObterTotalEntregaPorProfissional = 109,
+            IncluirListaContasReceberPedido = 110,
+            EditarListaContasReceberPedido = 111,
+            EstornarContasReceberPedido = 112,
+            ExcluirContasReceberPedido = 113,
+            RelatorioMelhoresProdutos = 114,
+            EstornarListaItensPedido = 115,
+            RelatorioListagemProdutos = 116,
+            RelatorioListagemTaxaEntrega = 117,
+            RelatorioListagemResumidaPedidos = 118,
+            RelatorioListagemDetalhadaPedidos = 119,
+            RelatorioMelhoresClientes = 120,
+            RelatorioMelhoresMotoboys = 121,
+            RelatorioListagemEntregas = 122,
+            RelatorioRelacaoDiariaContas = 123,
+            RelatorioContasPorFornecedor = 124,
+            RelatorioPedidosPorBairro = 125,
+            RelatorioEvolucaoSemanalPedidos = 126,
+            RelatorioEvolucaoMensalPedidos = 127,
+            RelatorioEvolucaoAnualPedidos = 128,
+            RelatorioListagemContaPagar = 129,
+            RelatorioListagemFornecedores = 130,
+            RelatorioListagemContaReceber = 131,
+            
         }
 
         public enum TipoMensagemSuporte
