@@ -1,6 +1,6 @@
 ﻿function BuscarFornecedores(nPagina) {
 
-    ExibirCarregando();
+    ExibirCarregando("divCarregando");
     PaginarPesquisa(0, nPagina, "BuscarFornecedores");
     $("#tblResultados tbody").empty();
 
@@ -30,7 +30,7 @@
                     button: "Ok"
                 });
 
-                EsconderCarregando();
+                EsconderCarregando("divCarregando");
                 return;
             }
 
@@ -44,7 +44,7 @@
                     button: "Ok",
                 });
 
-                EsconderCarregando();
+                EsconderCarregando("divCarregando");
             } else {
 
                 if (dados.ListaEntidades.length == 0) {
@@ -69,7 +69,7 @@
                     }
                 }
 
-                EsconderCarregando();
+                EsconderCarregando("divCarregando");
                 PaginarPesquisa(dados.NumeroPaginas, nPagina, "BuscarFornecedores");
             }
         },
@@ -78,12 +78,12 @@
                 title: "Ops...",
                 text: "Ocorreu um problema ao fazer a pesquisa de fornecedores. \n"
                     + "Se o problema continuar, entre em contato com o suporte. \n"
-                    + "Mensagem de retorno: \n" + error + " " + request.abort + " " + status,
+                    + "Mensagem de retorno: \n" + error,
                 icon: "warning",
                 button: "Ok",
             });
 
-            EsconderCarregando();
+            EsconderCarregando("divCarregando");
         }
     });
 }

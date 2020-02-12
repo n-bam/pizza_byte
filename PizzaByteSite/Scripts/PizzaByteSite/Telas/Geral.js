@@ -1,8 +1,6 @@
 ﻿// -------> Retorna o endereço do site
 function RetornarEndereco() {
-    //var enderecoServico = "http://localhost:55751";
     var enderecoServico = window.location.protocol + "//" + window.location.host;
-    //var enderecoServico = "http://pizzabyte.gearhostpreview.com";
     return enderecoServico;
 }
 
@@ -29,35 +27,41 @@ function MostrarMensagemRetorno(retornoMensagem, inicioMensagem) {
             toastr.success(inicioMensagem + " foi excluído com sucesso!", "Tudo certo!");
             break;
 
+        case "ESTORNADO":
+            toastr.success(inicioMensagem + " foi estornado com sucesso!", "Tudo certo!");
+            break;
+
         default:
             break;
     }
 }
 
 // -------> Exibe a div de carregando
-function ExibirCarregando() {
-    $("#divCarregando").attr("class", "overlay");
-    $("#divCarregando").show();
+function ExibirCarregando(nomeDiv) {
+    $("#" + nomeDiv).attr("class", "overlay");
+    $("#" + nomeDiv).show();
 }
 
 // -------> Esconde a div de carregando
-function EsconderCarregando() {
-    $("#divCarregando").removeAttr("class");
-    $("#divCarregando").hide();
+function EsconderCarregando(nomeDiv) {
+    $("#" + nomeDiv).removeAttr("class");
+    $("#" + nomeDiv).hide();
 
 }
 
 // -------> Monta a paginação de uma pesquisa com 5 botões que correm de acordo com a pg selecionada
-function PaginarPesquisa(totalPaginas, paginaSelecionado, metodoPesquisa) {
+function PaginarPesquisa(totalPaginas, paginaSelecionado, metodoPesquisa, divPaginas, paginacao) {
+    divPaginas = (divPaginas == null || divPaginas == "" || divPaginas === undefined) ? "divPaginas" : divPaginas;
+    paginacao = (paginacao == null || paginacao == "" || paginacao === undefined) ? "paginacao" : paginacao;
 
     //Remover as paginas da pesquisa anterior e adicionar uma nova paginação
-    $("#divPaginas ul").remove();
-    $("#divPaginas").append('<ul class="pagination pagination-md no-margin pull-right" id="paginacao"></ul>');
+    $("#" + divPaginas + " ul").remove();
+    $("#" + divPaginas).append('<ul class="pagination pagination-md no-margin pull-right" id="' + paginacao + '"></ul>');
 
     if (totalPaginas > 0) {
         //Adicionar botão para voltar para a 1ª pg, se não for ela a selecionadas
         if (paginaSelecionado !== 1) {
-            $("#paginacao").append('<li><a href="#" onclick="' + metodoPesquisa + '(1)">«</a>');
+            $("#" + paginacao).append('<li><a href="#" onclick="' + metodoPesquisa + '(1)">«</a>');
         }
 
         //Se tiver até 5 paginas (número máximo de botões)
@@ -66,10 +70,10 @@ function PaginarPesquisa(totalPaginas, paginaSelecionado, metodoPesquisa) {
             //Percorrer as páginas e adiconar os botões para todas
             for (var i = 1; i <= totalPaginas; i++) {
                 if (i === paginaSelecionado) {
-                    $('#paginacao').append('<li><a href="#">' + i + '</a></li>');
+                    $('#' + paginacao).append('<li><a href="#">' + i + '</a></li>');
                 }
                 else {
-                    $('#paginacao').append('<li><a href="#" onclick="' + metodoPesquisa + '(' + i + ')">' + i + '</a></li>');
+                    $('#' + paginacao).append('<li><a href="#" onclick="' + metodoPesquisa + '(' + i + ')">' + i + '</a></li>');
                 }
             }
 
@@ -80,10 +84,10 @@ function PaginarPesquisa(totalPaginas, paginaSelecionado, metodoPesquisa) {
                 //sequencia normal até a 5ª pagina
                 for (var i = 1; i <= 5; i++) {
                     if (i === paginaSelecionado) {
-                        $('#paginacao').append('<li><a href="#">' + i + '</a></li>');
+                        $('#' + paginacao).append('<li><a href="#">' + i + '</a></li>');
                     }
                     else {
-                        $('#paginacao').append('<li><a href="#" onclick="' + metodoPesquisa + '(' + i + ')">' + i + '</a></li>');
+                        $('#' + paginacao).append('<li><a href="#" onclick="' + metodoPesquisa + '(' + i + ')">' + i + '</a></li>');
                     }
                 }
 
@@ -96,10 +100,10 @@ function PaginarPesquisa(totalPaginas, paginaSelecionado, metodoPesquisa) {
                     //Mostrar a selecionada no meio, duas anteriores e próximas duas
                     for (var i = -2; i <= 2; i++) {
                         if (paginaSelecionado - i === paginaSelecionado) {
-                            $('#paginacao').append('<li><a href="#">' + paginaSelecionado + '</a></li>');
+                            $('#' + paginacao).append('<li><a href="#">' + paginaSelecionado + '</a></li>');
                         }
                         else {
-                            $('#paginacao').append('<li><a href="#" onclick="' + metodoPesquisa + '('
+                            $('#' + paginacao).append('<li><a href="#" onclick="' + metodoPesquisa + '('
                                 + (paginaSelecionado + i) + ')">' + (paginaSelecionado + i) + '</a></li>');
                         }
                     }
@@ -109,10 +113,10 @@ function PaginarPesquisa(totalPaginas, paginaSelecionado, metodoPesquisa) {
                     //Mostrar as 5 últimas pgs
                     for (var i = totalPaginas - 4; i <= totalPaginas; i++) {
                         if (i === paginaSelecionado) {
-                            $('#paginacao').append('<li><a href="#">' + i + '</a></li>');
+                            $('#' + paginacao).append('<li><a href="#">' + i + '</a></li>');
                         }
                         else {
-                            $('#paginacao').append('<li><a href="#" onclick="' + metodoPesquisa + '('
+                            $('#' + paginacao).append('<li><a href="#" onclick="' + metodoPesquisa + '('
                                 + i + ')">' + i + '</a></li>');
                         }
                     }
@@ -122,7 +126,7 @@ function PaginarPesquisa(totalPaginas, paginaSelecionado, metodoPesquisa) {
 
         //Adicionar botão para ir para a última pg, se não for ela a selecionadas
         if (paginaSelecionado != totalPaginas && totalPaginas !== 0) {
-            $("#paginacao").append('<li><a href="#" onclick="' + metodoPesquisa + '(' + totalPaginas + ')">»</a>');
+            $("#" + paginacao).append('<li><a href="#" onclick="' + metodoPesquisa + '(' + totalPaginas + ')">»</a>');
         }
     }
 }
@@ -170,7 +174,7 @@ function FormatarCpf(cpf) {
 function FormatarTelefone(telefone) {
     if (telefone !== "" && telefone != null && telefone.length > 0) {
 
-        if (telefone.length == 11) {
+        if (telefone.length == 12) {
             telefone = telefone.replace(/\D/g, '')
                 .replace(/^(\d{2})(\d{5})?(\d{4})/, "$1) $2-$3");
         } else {
@@ -186,13 +190,29 @@ function FormatarTelefone(telefone) {
 
 // -------> Converte uma data e hora vinda do JSON
 function ConverterDataHoraJson(dataJson) {
+    if (dataJson != "" && dataJson != null) {
+
+        var dataJson = new Date(parseInt(dataJson.replace("/Date(", "").replace(")/", ""), 10));
+
+        var dataConvertida = Padl(dataJson.getDate().toString(), 2, '0');
+        dataConvertida += "/" + Padl((dataJson.getMonth() + 1).toString(), 2, '0') + "/" + dataJson.getFullYear();
+        dataConvertida += " " + dataJson.toString().substring(16, 24);
+
+        return dataConvertida;
+    } else {
+
+        return "/ /    : : ";
+    }
+}
+
+// -------> Converte uma data e hora vinda do JSON
+function ConverterDataJson(dataJson) {
 
     if (dataJson != "" && dataJson != null) {
 
         var dataJson = new Date(parseInt(dataJson.replace("/Date(", "").replace(")/", ""), 10));
         var dataConvertida = Padl(dataJson.getDate().toString(), 2, '0');
         dataConvertida += "/" + Padl((dataJson.getMonth() + 1).toString(), 2, '0') + "/" + dataJson.getFullYear();
-        dataConvertida += " " + dataJson.toString().substring(16, 24);
 
         return dataConvertida;
     } else {
@@ -214,3 +234,18 @@ function Padl(texto, comprimento, caracter) {
     var resultado = textoEsquerda + texto;
     return resultado;
 }
+
+// --------> Fixa o DDD do telefone
+$(".Telefone").focusin(function () {
+    if ($(".Telefone").val().length <= 0) {
+        $(".Telefone").val("(19)");
+    }
+});
+
+// --------> Remove o DDD do telefone quando não foi preenchido
+$(".Telefone").focusout(function () {
+    var teste = $(".Telefone").val();
+    if ($(".Telefone").val() == "(19)") {
+        $(".Telefone").val("");
+    }
+});

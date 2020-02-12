@@ -1,5 +1,4 @@
 ﻿// -------> Obtém um endereço pelo CEP
-// Obtém um endereço por CEP completo
 function ObterEnderecoPorCep(cepPesquisado) {
     $("#divCarregandoEndereco").show();
     $.ajax({
@@ -40,7 +39,9 @@ function ObterEnderecoPorCep(cepPesquisado) {
                     $(".Endereco_Logradouro").val(dados.Entidade.Logradouro);
                     $(".Endereco_Cidade").val(dados.Entidade.Cidade);
                     $(".Endereco_Bairro").val(dados.Entidade.Bairro);
+                    $(".Endereco_Bairro").change();
                     $(".Endereco_Id").val(dados.Entidade.Id);
+                    $(".Endereco_Id").change();
 
                     $("#divCarregandoEndereco").hide();
                 } else {
@@ -51,9 +52,13 @@ function ObterEnderecoPorCep(cepPesquisado) {
 
                     $(".Endereco_Cep").focus();
                     $(".Endereco_Id").val("00000000-0000-0000-0000-000000000000");
+                    $(".Endereco_Id").change();
+
                     $(".Endereco_Logradouro").val("");
                     $(".Endereco_Cidade").val("Americana");
                     $(".Endereco_Bairro").val("");
+                    $(".Endereco_Bairro").change();
+
                     $("#divCarregandoEndereco").hide();
                 }
             }
@@ -138,8 +143,12 @@ function ObterListaEnderecoPorLogradouro(pesquisa, cidade) {
                                 //setar valores e desabilitar campo descrição
                                 $('.Endereco_Logradouro').val(ui.item[0]);
                                 $('.Endereco_Bairro').val(ui.item[1]);
+                                $(".Endereco_Bairro").change();
+
                                 $('.Endereco_Cidade').val(ui.item[2]);
                                 $(".Endereco_Id").val(ui.item[3]);
+                                $(".Endereco_Id").change();
+
                                 $(".Endereco_Cep").val(ui.item[4]);
                                 event.preventDefault();
                             },
@@ -164,6 +173,7 @@ function ObterListaEnderecoPorLogradouro(pesquisa, cidade) {
 
                         $(".Endereco_Logradouro").focus();
                         $(".Endereco_Id").val("00000000-0000-0000-0000-000000000000");
+                        $(".Endereco_Id").change();
                         $(".Endereco_Cep").val("");
                     }
                 }

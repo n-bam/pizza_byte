@@ -75,12 +75,12 @@ function BuscarMensagens(nPagina) {
                 title: "Ops...",
                 text: "Ocorreu um problema ao fazer a pesquisa de mensagens de suporte. \n"
                     + "Se o problema continuar, entre em contato com o suporte. \n"
-                    + "Mensagem de retorno: \n" + error + " " + request.abort + " " + status,
+                    + "Mensagem de retorno: \n" + error,
                 icon: "warning",
                 button: "Ok",
             });
 
-            EsconderCarregando();
+            EsconderCarregando("divCarregando");
         }
     });
 }
@@ -106,7 +106,7 @@ function RetornarMensagem(tipoMensagem, mensagem, id, dataInclusao) {
 // Envia uma mensagem de suporte
 function EnviarMensagem() {
 
-    ExibirCarregando();
+    ExibirCarregando("divCarregando");
     $("#btnEnviar").attr("disabled", "disabled");
     var suporteDto = new Object();
 
@@ -134,7 +134,7 @@ function EnviarMensagem() {
                     button: "Ok"
                 });
 
-                EsconderCarregando();
+                EsconderCarregando("divCarregando");
                 $("#btnEnviar").removeAttr("disabled");
                 return;
             }
@@ -149,7 +149,7 @@ function EnviarMensagem() {
                     button: "Ok",
                 });
 
-                EsconderCarregando();
+                EsconderCarregando("divCarregando");
                 $("#btnEnviar").removeAttr("disabled");
             } else {
 
@@ -170,7 +170,7 @@ function EnviarMensagem() {
                     button: "Ok",
                 });
 
-                EsconderCarregando();
+                EsconderCarregando("divCarregando");
                 $("#btnEnviar").removeAttr("disabled");
             }
         },
@@ -179,12 +179,12 @@ function EnviarMensagem() {
                 title: "Ops...",
                 text: "Ocorreu um problema ao fazer a pesquisa de mensagens de suporte. \n"
                     + "Se o problema continuar, entre em contato com o suporte. \n"
-                    + "Mensagem de retorno: \n" + error + " " + request.abort + " " + status,
+                    + "Mensagem de retorno: \n" + error,
                 icon: "warning",
                 button: "Ok",
             });
 
-            EsconderCarregando();
+            EsconderCarregando("divCarregando");
             $("#btnEnviar").removeAttr("disabled");
         }
     });
@@ -224,7 +224,7 @@ function ApagarMensagem(idSuporte) {
                         button: "Ok"
                     });
 
-                    EsconderCarregando();
+                    EsconderCarregando("divCarregando");
                     return;
                 }
 
@@ -238,11 +238,11 @@ function ApagarMensagem(idSuporte) {
                         button: "Ok",
                     });
 
-                    EsconderCarregando();
+                    EsconderCarregando("divCarregando");
                 } else {
 
                     toastr.success("A mensagem foi excluída com sucesso!", "Mensagem excluída");
-                    EsconderCarregando();
+                    EsconderCarregando("divCarregando");
                     $("#" + idSuporte).hide();
 
                 }
@@ -252,12 +252,12 @@ function ApagarMensagem(idSuporte) {
                     title: "Ops...",
                     text: "Ocorreu um problema ao excluir a mensagens de suporte. \n"
                         + "Se o problema continuar, entre em contato com o suporte. \n"
-                        + "Mensagem de retorno: \n" + error + " " + request.abort + " " + status,
+                        + "Mensagem de retorno: \n" + error,
                     icon: "warning",
                     button: "Ok",
                 });
 
-                EsconderCarregando();
+                EsconderCarregando("divCarregando");
             }
         });
     }

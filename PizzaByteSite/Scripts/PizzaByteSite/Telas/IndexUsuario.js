@@ -1,7 +1,7 @@
 ﻿function BuscarUsuarios(nPagina) {
 
     PaginarPesquisa(0, nPagina, "BuscarUsuarios");
-    ExibirCarregando();
+    ExibirCarregando("divCarregando");
     $("#tblResultados tbody").empty();
 
     $.ajax({
@@ -30,7 +30,7 @@
                     button: "Ok"
                 });
 
-                EsconderCarregando();
+                EsconderCarregando("divCarregando");
                 return;
             }
 
@@ -44,7 +44,7 @@
                     button: "Ok",
                 });
 
-                EsconderCarregando();
+                EsconderCarregando("divCarregando");
             } else {
 
                 if (retornoDto.ListaEntidades.length == 0) {
@@ -70,7 +70,7 @@
                     }
                 }
 
-                EsconderCarregando();
+                EsconderCarregando("divCarregando");
                 PaginarPesquisa(retornoDto.NumeroPaginas, nPagina, "BuscarUsuarios");
             }
         },
@@ -79,12 +79,12 @@
                 title: "Ops...",
                 text: "Ocorreu um problema ao fazer a pesquisa de usuários. \n"
                     + "Se o problema continuar, entre em contato com o suporte. \n"
-                    + "Mensagem de retorno: \n" + error + " " + request.abort + " " + status,
+                    + "Mensagem de retorno: \n" + error,
                 icon: "warning",
                 button: "Ok",
             });
 
-            EsconderCarregando();
+            EsconderCarregando("divCarregando");
         }
     });
 

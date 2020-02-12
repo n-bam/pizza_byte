@@ -1,6 +1,6 @@
 ﻿function BuscarCeps(nPagina) {
 
-    ExibirCarregando();
+    ExibirCarregando("divCarregando");
     PaginarPesquisa(0, nPagina, "BuscarCeps");
     $("#tblResultados tbody").empty();
 
@@ -30,7 +30,7 @@
                     button: "Ok"
                 });
 
-                EsconderCarregando();
+                EsconderCarregando("divCarregando");
                 return;
             }
 
@@ -44,7 +44,7 @@
                     button: "Ok",
                 });
 
-                EsconderCarregando();
+                EsconderCarregando("divCarregando");
             } else {
 
                 if (dados.ListaEntidades.length == 0) {
@@ -60,7 +60,7 @@
                             + "<td>" + dados.ListaEntidades[i].Logradouro + "</td>"
                             + "<td>" + dados.ListaEntidades[i].Bairro + "</td>"
                             + "<td>" + dados.ListaEntidades[i].Cidade + "</td>"
-                            + "<td><a class='btn btn-sm btn-default' href='../Cep/ViSualizar/"
+                            + "<td><a class='btn btn-sm btn-default' href='../Cep/Visualizar/"
                             + dados.ListaEntidades[i].Id + "'><i class='fa fa-eye'></i></a>"
                             + " <a class='btn btn-sm btn-info' href='../Cep/Editar/"
                             + dados.ListaEntidades[i].Id + "'><i class='fa fa-pencil'></i></a>"
@@ -71,7 +71,7 @@
                     }
                 }
 
-                EsconderCarregando();
+                EsconderCarregando("divCarregando");
                 PaginarPesquisa(dados.NumeroPaginas, nPagina, "BuscarCeps");
             }
         },
@@ -80,12 +80,12 @@
                 title: "Ops...",
                 text: "Ocorreu um problema ao fazer a pesquisa de CEPs. \n"
                     + "Se o problema continuar, entre em contato com o suporte. \n"
-                    + "Mensagem de retorno: \n" + error + " " + request.abort + " " + status,
+                    + "Mensagem de retorno: \n" + error,
                 icon: "warning",
                 button: "Ok",
             });
 
-            EsconderCarregando();
+            EsconderCarregando("divCarregando");
         }
     });
 }
