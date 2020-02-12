@@ -1,0 +1,242 @@
+﻿@{
+    ViewBag.Title = "Caixa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="content-header">
+        <h1>
+            Caixa
+            <small>diário</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="~/Usuario/Inicio"><i class="fa fa-home"></i> Inicio</a></li>
+            <li><a class="active"><i class="fa fa-calculator"></i> Caixa</a></li>
+        </ol>
+    </div>
+
+    <div class="content">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tabResumo" data-toggle="tab">Resumo</a></li>
+                        <li><a href="#tabMovimentos" data-toggle="tab" id="Movimentos">Movimentos</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tabResumo">
+                            <div class="box no-shadow" style="border:hidden; padding:0px">
+                                <div class="box-body">
+                                    <div class="form-horizontal">
+                                        <div class="col-lg-6 col-md-6">
+                                            @Html.Partial("_IncluirMovimento")
+
+                                            <div class="form-group">
+                                                @Html.Label("Data", new { @class = "control-label col-lg-3 col-md-3 col-sm-2 col-xs-12" })
+                                                <div class="col-lg-5 col-md-9 col-sm-8 col-xs-12">
+                                                    <input type="text" class="form-control" id="txtDataCaixa" />
+                                                </div>
+                                            </div>
+
+                                            <br />
+                                            <div class="form-group">
+                                                @Html.Label("Dinheiro", new { @class = "control-label col-lg-3 col-md-3 col-sm-2 col-xs-12" })
+                                                <div class="col-lg-5 col-md-9 col-sm-8 col-xs-12">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" id="txtDinheiro" readonly="readonly" />
+                                                        <span class="input-group-addon"><i class="fa fa-money"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                @Html.Label("Débito", new { @class = "control-label col-lg-3 col-md-3 col-sm-2 col-xs-12" })
+                                                <div class="col-lg-5 col-md-9 col-sm-8 col-xs-12">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" id="txtDebito" readonly="readonly" />
+                                                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                @Html.Label("Crédito", new { @class = "control-label col-lg-3 col-md-3 col-sm-2 col-xs-12" })
+                                                <div class="col-lg-5 col-md-9 col-sm-8 col-xs-12">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" id="txtCredito" readonly="readonly" />
+                                                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <br />
+                                            <div class="form-group">
+                                                @Html.Label("T. Entrega", new { @class = "control-label col-lg-3 col-md-3 col-sm-2 col-xs-12" })
+                                                <div class="col-lg-5 col-md-9 col-sm-8 col-xs-12">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" id="txtTaxaEntrega" readonly="readonly" />
+                                                        <span class="input-group-addon"><i class="fa fa-motorcycle"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                @Html.Label("Troco", new { @class = "control-label col-lg-3 col-md-3 col-sm-2 col-xs-12" })
+                                                <div class="col-lg-5 col-md-9 col-sm-8 col-xs-12">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" id="txtTroco" readonly="readonly" />
+                                                        <span class="input-group-addon"><i class="fa fa-money"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <br />
+                                            <div class="form-group">
+                                                @Html.Label("Entradas", new { @class = "control-label col-lg-3 col-md-3 col-sm-2 col-xs-12" })
+                                                <div class="col-lg-5 col-md-9 col-sm-8 col-xs-12">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" id="txtEntradas" readonly="readonly" />
+                                                        <div class="input-group-btn">
+                                                            <button id="btnAddEntrada" type="button" class="btn btn-primary"><i class="fa fa-plus"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                @Html.Label("Saídas", new { @class = "control-label col-lg-3 col-md-3 col-sm-2 col-xs-12" })
+                                                <div class="col-lg-5 col-md-9 col-sm-8 col-xs-12">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" id="txtSaidas" readonly="readonly" />
+                                                        <div class="input-group-btn">
+                                                            <button id="btnAddSaida" type="button" class="btn btn-primary"><i class="fa fa-plus"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br />
+
+                                            <div class="form-group">
+                                                @Html.Label("Caixa", new { @class = "control-label col-lg-3 col-md-3 col-sm-2 col-xs-12" })
+                                                <div class="col-lg-5 col-md-9 col-sm-8 col-xs-12">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" id="txtTotalEmCaixa" readonly="readonly" title="Soma dos valores em dinheiro" />
+                                                        <span class="input-group-addon"><i class="fa fa-money"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.Label("Total vendas", new { @class = "control-label col-lg-3 col-md-3 col-sm-2 col-xs-12" })
+                                                <div class="col-lg-5 col-md-9 col-sm-8 col-xs-12">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" id="txtTotalVendas" readonly="readonly" title="Soma das formas de pagamento" />
+                                                        <span class="input-group-addon"><i class="fa fa-calculator"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 col-md-6">
+                                            <h2 class="h3 text-info">Total de entregas realizadas</h2>
+                                            <div class="table-responsive" style="overflow:auto; height:500px">
+                                                <table class="table table-condensed" id="tblProfissionais">
+                                                    <thead>
+                                                        <tr>
+                                                            <td><b>Profissional</b></td>
+                                                            <td><b>Entregas (R$)</b></td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="overlay" id="divCarregando">
+                                    <i class="fa fa-refresh fa-spin"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="tabMovimentos">
+                            <div class="box-body">
+                                <h2 class="h3">Movimentos de caixa realizados</h2>
+
+                                <div class="box-body table-responsive" style="overflow:auto; height:500px">
+                                    <table class="table table-hover" id="tblMovimentos">
+                                        <thead>
+                                            <tr>
+                                                <td><b>Justificativa</b></td>
+                                                <td><b>Valor (R$)</b></td>
+                                                <td><b>Data/hora</b></td>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+
+                                <div class="overlay" id="divCarregandoMovimentacoes">
+                                    <i class="fa fa-refresh fa-spin"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/PizzaByteSite/plugins/jQueryUI/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/PizzaByteSite/plugins/jQueryUI/toastr.min.js"></script>
+<script src="~/Scripts/PizzaByteSite/Telas/Geral.js"></script>
+<script src="~/Scripts/PizzaByteSite/Telas/IndexMovimentoCaixa.js"></script>
+<script src="~/Scripts/PizzaByteSite/plugins/mask/jquery.maskMoney.min.js"></script>
+<script src="~/Scripts/PizzaByteSite/plugins/mask/jquery.mask.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        var dataHoje = new Date();
+        var data = Padl(dataHoje.getDate().toString(), 2, '0') + "/" + Padl((dataHoje.getMonth() + 1).toString(), 2, '0') + "/" + dataHoje.getFullYear().toString();
+
+        $("#txtDataCaixa").mask("99/99/9999");
+        $("#txtDataCaixa").val(data);
+
+        BuscarFormasPagamento();
+        BuscarMovimentacoes();
+        BuscarTotaisProfissionais();
+
+        EsconderCarregando("divCarregandoIncluir");
+
+        $("#btnAddEntrada").click(function () {
+            $("#txtIndicadorSaida").val("false");
+            $("#modalIncluir").modal();
+        });
+
+        $("#btnAddSaida").click(function () {
+            $("#txtIndicadorSaida").val("true");
+            $("#modalIncluir").modal();
+        });
+
+        $("#txtDataCaixa").change(function () {
+            BuscarFormasPagamento();
+            BuscarMovimentacoes();
+            BuscarTotaisProfissionais();
+
+            if ($("#txtDataCaixa").val() != data) {
+                $("#btnAddEntrada").attr("disabled", "disabled");
+                $("#btnAddSaida").attr("disabled", "disabled");
+            } else {
+                $("#btnAddEntrada").removeAttr("disabled");
+                $("#btnAddSaida").removeAttr("disabled");
+            }
+        });
+
+        $(document).keypress(function (e) {
+            if (e.keyCode === 13) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>

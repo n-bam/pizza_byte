@@ -1,0 +1,98 @@
+﻿<div class="modal fade" id="modalRetornoEntrega">
+    <div class="modal-dialog modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Conferir retorno da entrega</h4>
+            </div>
+            <div class="modal-body" style="padding-bottom:0px">
+
+                <div class="form-group">
+                    <label class="control-label col-lg-5 col-md-5 col-sm-5 col-xs-10">
+                        Pedido via IFood
+                    </label>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
+                        <input type="checkbox" id="cbPedidoIfood" class="checkbox" readonly="readonly" disabled />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                        T. Entrega (R$)
+                    </label>
+                    <div class="col-lg-8 col-md-9 col-sm-9 col-xs-12">
+                        <input type="text" id="txtTaxaEntrega" readonly="readonly" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                        Total (R$)
+                    </label>
+                    <div class="col-lg-8 col-md-9 col-sm-9 col-xs-12">
+                        <input type="text" id="txtValorTotal" readonly="readonly" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                        Dinheiro
+                    </label>
+                    <div class="col-lg-8 col-md-9 col-sm-9 col-xs-12">
+                        <input type="text" id="txtDinheiro" readonly="readonly" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                        C. Débito
+                    </label>
+                    <div class="col-lg-8 col-md-9 col-sm-9 col-xs-12">
+                        <input type="text" id="txtDebito" readonly="readonly" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                        C. Crédito
+                    </label>
+                    <div class="col-lg-8 col-md-9 col-sm-9 col-xs-12">
+                        <input type="text" id="txtCredito" readonly="readonly" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                        Troco (R$)
+                    </label>
+                    <div class="col-lg-8 col-md-9 col-sm-9 col-xs-12">
+                        <input type="text" id="txtTroco" readonly="readonly" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                        Retornado (R$)
+                    </label>
+                    <div class="col-lg-8 col-md-9 col-sm-9 col-xs-12">
+                        <input type="text" id="txtValorRetornado" class="form-control" />
+                        <input type="hidden" id="txtIdEntrega" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary pull-left" data-dismiss="modal" onclick="ConfirmarRetorno();">Concluir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#txtValorRetornado").maskMoney({ allowNegative: true, decimal: "," });
+    });
+</script>

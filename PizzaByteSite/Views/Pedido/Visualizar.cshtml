@@ -1,0 +1,292 @@
+﻿@model PizzaByteSite.Models.PedidoModel
+
+@{
+    ViewBag.Title = "Visualizar Pedido";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="content-header">
+        <h1>
+            Pedido
+            <small>Visualizar</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="~/Usuario/Inicio"><i class="fa fa-home"></i> Inicio</a></li>
+            <li><a href="~/Pedido/Index"><i class="fa fa-files-o"></i> Pedidos</a></li>
+            <li class="active"><i class="fa fa-eye"></i> Visualizar</li>
+        </ol>
+    </div>
+
+    <div class="content">
+        <div class="row">
+            @using (Html.BeginForm())
+            {
+                if (Model.Inativo)
+                {
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="box box-danger">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Pedido cancelado</h3>
+                            </div>
+
+                            <div class="box-body">
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.JustificativaCancelamento, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-3" })
+                                        <div class="col-lg-10 col-md-10 col-sm-9 col-xs-9">
+                                            @Html.EditorFor(m => m.JustificativaCancelamento, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                            @Html.ValidationMessageFor(m => m.JustificativaCancelamento, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Itens do pedido: @Model.Cliente.Nome</h3>
+                        </div>
+
+                        <div class="box-body">
+                            <div class="form-horizontal">
+                                @Html.AntiForgeryToken()
+                                @Html.HiddenFor(m => m.Id)
+                                @Html.HiddenFor(m => m.IdCliente)
+                                @Html.HiddenFor(m => m.Cliente.Id)
+                                @Html.HiddenFor(m => m.Entrega.IdEndereco)
+                                @Html.HiddenFor(m => m.Entrega.ClienteEndereco.Id)
+                                @Html.HiddenFor(m => m.Entrega.ClienteEndereco.IdCep)
+                                @Html.HiddenFor(m => m.Entrega.ClienteEndereco.Endereco.Id, new { @class = "Endereco_Id" })
+                                @Html.Partial("_SelecionarCliente", Model)
+
+                                <div class="form-group">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                        <center disabled>
+                                            @for (int i = 0; i < Model.ListaTipos.Count; i++)
+                                            {
+                                                @Html.Label(Model.ListaTipos[i].Text, new { @class = "control-label", @style = "margin-right:20px;" })
+                                                if (((int)Model.Tipo).ToString() == Model.ListaTipos[i].Value)
+                                                {
+                                                    @Html.RadioButtonFor(model => model.Tipo, Model.ListaTipos[i].Value, new { @style = "margin-right:50px;", @checked = "checked" })
+                                                }
+                                                else
+                                                {
+                                                    @Html.RadioButtonFor(model => model.Tipo, Model.ListaTipos[i].Value, new { @style = "margin-right:50px;" })
+                                                }
+                                            }
+                                            @Html.ValidationMessageFor(m => m.Tipo, "", new { @class = "text-danger" })
+                                        </center>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <center>
+                                            <button type="button" class="btn btn-info" id="btnAddCliente" title="Visualizar o cliente do pedido"><i class="fa fa-user-circle"></i> Cliente</button>
+                                            @if (!Model.Inativo)
+                                            {
+                                                <a class="btn btn-warning" href="~/Pedido/Cancelar/@Model.Id?Descricao=@(Model.Cliente.Nome + ", feito no dia " + Model.DataInclusao)"><i class="fa fa-ban"></i> Estornar</a>
+                                            }
+                                            <button type="button" class="btn btn-default" id="btnReimprimirPedido" title="Reimprimir pedido"><i class="fa fa-print"></i> Imprimir</button>
+                                        </center>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="table-responsive" style="overflow:auto; max-height:400px">
+                                            <table class="table table-condensed" id="tblItensPedido">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="col-lg-6">Descrição</th>
+                                                        <th class="col-lg-3">Quantidade</th>
+                                                        <th class="col-lg-3">Unitário (R$)</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tblCorpoItens">
+                                                    @{
+                                                        for (int i = 0; i < Model.ListaItens.Count; i++)
+                                                        {
+                                                            string mostrar = "";
+                                                            if (Model.ListaItens[i].Quantidade == 0)
+                                                            {
+                                                                mostrar = "display:none;";
+                                                            }
+
+                                                            <tr id="@("Linha"+i)" style="@mostrar">
+                                                                <td>
+                                                                    @Html.EditorFor(model => model.ListaItens[i].DescricaoProduto, new { htmlAttributes = new { @class = "form-control", @style = "display:none" } })
+                                                                    @Model.ListaItens[i].DescricaoProduto
+                                                                </td>
+                                                                <td>
+                                                                    @Html.EditorFor(model => model.ListaItens[i].Quantidade, new { htmlAttributes = new { @class = "form-control quantidade", @readonly = "readonly" } })
+                                                                </td>
+                                                                <td>
+                                                                    @Html.EditorFor(model => model.ListaItens[i].PrecoProduto, new { htmlAttributes = new { @class = "form-control preco", @readonly = "readonly" } })
+                                                                </td>
+                                                                <td style="display:none">
+                                                                    @Html.EditorFor(model => model.ListaItens[i].TipoProduto, new { htmlAttributes = new { @class = "form-control" } })
+                                                                </td>
+                                                                <td style="display:none">
+                                                                    @Html.EditorFor(model => model.ListaItens[i].Id, new { htmlAttributes = new { @class = "form-control" } })
+                                                                </td>
+                                                                <td style="display:none">
+                                                                    @Html.EditorFor(model => model.ListaItens[i].IdProduto, new { htmlAttributes = new { @class = "form-control" } })
+                                                                </td>
+                                                                <td style="display:none">
+                                                                    @Html.EditorFor(model => model.ListaItens[i].IdProdutoComposto, new { htmlAttributes = new { @class = "form-control" } })
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Obs, new { @class = "control-label col-lg-2 col-md-3 col-sm-3 col-xs-12 pull-left" })
+                                    <div class="col-lg-12 col-md-9 col-sm-9 col-xs-12">
+                                        @Html.EditorFor(m => m.Obs, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @lines = "2" } })
+                                        @Html.ValidationMessageFor(m => m.Obs, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Valores do pedido</h3>
+                        </div>
+
+                        <div class="box-body">
+                            <div class="form-horizontal">
+                                <div class="form-group" disabled>
+                                    @Html.LabelFor(m => m.PedidoIfood, new { @class = "control-label col-lg-7 col-md-7 col-sm-7 col-xs-12" })
+                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                                        @Html.EditorFor(m => m.PedidoIfood, new { htmlAttributes = new { @class = "checkbox", @style = "margin-top:10px" } })
+                                        @Html.ValidationMessageFor(m => m.PedidoIfood, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.TaxaEntrega, new { @class = "control-label col-lg-2 col-md-3 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-10 col-md-9 col-sm-9 col-xs-12">
+                                        @Html.EditorFor(m => m.TaxaEntrega, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @autocomplete = "off" } })
+                                        @Html.ValidationMessageFor(m => m.TaxaEntrega, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Total, new { @class = "control-label col-lg-2 col-md-3 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-10 col-md-9 col-sm-9 col-xs-12">
+                                        @Html.EditorFor(m => m.Total, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @autocomplete = "off" } })
+                                        @Html.ValidationMessageFor(m => m.Total, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Formas de pagamento</h3>
+                        </div>
+
+                        <div class="box-body">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.RecebidoDinheiro, new { @class = "control-label col-lg-2 col-md-3 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-10 col-md-9 col-sm-9 col-xs-12">
+                                        @Html.EditorFor(m => m.RecebidoDinheiro, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @autocomplete = "off" } })
+                                        @Html.ValidationMessageFor(m => m.RecebidoDinheiro, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.RecebidoDebito, new { @class = "control-label col-lg-2 col-md-3 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-10 col-md-9 col-sm-9 col-xs-12">
+                                        @Html.EditorFor(m => m.RecebidoDebito, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @autocomplete = "off" } })
+                                        @Html.ValidationMessageFor(m => m.RecebidoDebito, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.RecebidoCredito, new { @class = "control-label col-lg-2 col-md-3 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-10 col-md-9 col-sm-9 col-xs-12">
+                                        @Html.EditorFor(m => m.RecebidoCredito, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @autocomplete = "off" } })
+                                        @Html.ValidationMessageFor(m => m.RecebidoCredito, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Troco, new { @class = "control-label col-lg-2 col-md-3 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-10 col-md-9 col-sm-9 col-xs-12">
+                                        @Html.EditorFor(m => m.Troco, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @autocomplete = "off" } })
+                                        @Html.ValidationMessageFor(m => m.Troco, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="box-footer">
+                                    <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-3">
+                                        <a class="btn btn-default" href="~/Pedido/Index"><i class="fa fa-mail-reply"></i> Cancelar</a>
+                                        @if (!Model.Inativo)
+                                        {
+                                            <a class="btn btn-primary" href="~/Pedido/Editar/@Model.Id"><i class="fa fa-pencil"></i> Editar</a>
+                                            <a class="btn btn-danger" href="~/Pedido/Excluir/@Model.Id?Descricao=@(Model.Cliente.Nome + ", feito no dia " + Model.DataInclusao)"><i class="fa fa-trash"></i> Excluir</a>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/PizzaByteSite/plugins/mask/jquery.mask.min.js"></script>
+<script src="~/Scripts/PizzaByteSite/Telas/Geral.js"></script>
+<script src="~/Scripts/PizzaByteSite/Telas/IndexPedido.js"></script>
+<script src="~/Scripts/PizzaByteSite/Telas/SelecionarCliente.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        $(".form-control").attr("disabled", "disabled");
+        $(".form-control").attr("readonly", "readonly");
+        $("#btnBuscarEndereco").attr("disabled", "disabled");
+        $("#btnBuscarCep").attr("disabled", "disabled");
+        $('#PesquisaClienteTab').remove();
+        var impr = '@Html.Raw(TempData["Impressao"])';
+
+        // Carregar os endereços se houver cliente selecionado
+        if ($("#Entrega_ClienteEndereco_Id").val() == "" || $("#Entrega_ClienteEndereco_Id").val() == null
+            || $("#Entrega_ClienteEndereco_Id").val() == "00000000-0000-0000-0000-000000000000") {
+
+            $("#optEnderecoCliente option").remove();
+            $("#optEnderecoCliente").append("<option selected>Nenhum endereço selecionado</option>");
+        }
+
+        // Chama a modal para selecionar o cliente
+        $("#btnAddCliente").click(function () {
+            $('#ClienteSelecionadoTab').click();
+            $("#modalCliente").modal();
+        });
+
+        $("#btnReimprimirPedido").click(function () {
+            ImprimirPedido(impr);
+        });
+    });
+</script>
+

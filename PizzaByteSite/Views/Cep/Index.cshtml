@@ -30,26 +30,26 @@
                             <div class="form-group">
                                 @Html.LabelFor(m => m.Cep, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
                                 <div class="col-lg-4 col-md-5 col-sm-9 col-xs-12">
-                                    @Html.EditorFor(m => m.Cep, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.EditorFor(m => m.Cep, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                 </div>
 
                                 @Html.LabelFor(m => m.Cidade, new { @class = "control-label col-lg-1 col-md-2 col-sm-3 col-xs-12" })
                                 <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
-                                    @Html.EditorFor(m => m.Cidade, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.EditorFor(m => m.Cidade, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 @Html.LabelFor(m => m.Logradouro, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
                                 <div class="col-lg-9 col-md-10 col-sm-9 col-xs-12">
-                                    @Html.EditorFor(m => m.Logradouro, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.EditorFor(m => m.Logradouro, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 @Html.LabelFor(m => m.Bairro, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
                                 <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
-                                    @Html.EditorFor(m => m.Bairro, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.EditorFor(m => m.Bairro, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                 </div>
                             </div>
 
@@ -96,7 +96,6 @@
                         </div>
 
                         <div class="box-footer clearfix" id="divPaginas">
-                            <a class="btn btn-primary" href="Incluir"><i class="fa fa-plus"></i> Novo CEP</a>
                             @*Paginação da pesquisa*@
                         </div>
                     </div>

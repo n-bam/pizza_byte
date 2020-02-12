@@ -1,0 +1,149 @@
+﻿@model PizzaByteSite.Models.FiltrosPedidoEntregaModel
+
+@{
+    ViewBag.Title = "Entregas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="form-horizontal">
+        <div class="content-header">
+            <h1>
+                Entregas
+                <small>Listagem</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="~/Usuario/Inicio"><i class="fa fa-home"></i> Inicio</a></li>
+                <li><a class="active"><i class="fa fa-cubes"></i> Entregas</a></li>
+            </ol>
+        </div>
+
+        <div class="content">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Pesquisa de entregas</h3>
+                        </div>
+
+                        <div class="box-body">
+                            @Html.Partial("_ConferirRetorno")
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.DataInicio, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+                                    @Html.EditorFor(m => m.DataInicio, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                </div>
+
+                                @Html.LabelFor(m => m.DataFim, new { @class = "control-label col-lg-1 col-md-1 col-sm-1 col-xs-12" })
+                                <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+                                    @Html.EditorFor(m => m.DataFim, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.IdFuncionario, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                <div class="col-lg-3 col-md-4 col-sm-9 col-xs-12">
+                                    @Html.DropDownListFor(m => m.IdFuncionario, Model.ListaFuncionarios, new { @class = "form-control" })
+                                </div>
+
+                                @Html.LabelFor(m => m.Conferido, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                <div class="col-lg-3 col-md-4 col-sm-9 col-xs-12">
+                                    @Html.DropDownListFor(m => m.Conferido, Model.ListaConferidos, new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("Obter estornados", new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                <div class="col-lg-3 col-md-4 col-sm-9 col-xs-12">
+                                    @Html.DropDownListFor(m => m.ObterInativos, Model.ListaInativo, new { @class = "form-control" })
+                                </div>
+
+                                @Html.LabelFor(m => m.ValorRetorno, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                <div class="col-lg-2 col-md-4 col-sm-9 col-xs-12">
+                                    @Html.EditorFor(m => m.ValorRetorno, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-3 col-lg-10 col-md-10 col-sm-9 col-xs-12">
+                                    <button class="btn btn-primary" id="btnBuscarEntregas"><i class="fa fa-search"></i> Buscar</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="overlay" id="divCarregando">
+                            <i class="fa fa-refresh fa-spin"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <h3 class="box-title">Lista de entregas cadastradas</h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="box-body table-responsive">
+                            <table class="table table-hover" id="tblResultados">
+                                <thead>
+                                    <tr>
+                                        <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">Data/hora</th>
+                                        <th class="col-lg-5 col-md-4 col-sm-4 col-xs-4">Endereço</th>
+                                        <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">Funcionário</th>
+                                        <th>Retornado (R$)</th>
+                                        <th>Opções</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+
+                        <div class="box-footer clearfix" id="divPaginas">
+
+                            @*Paginação da pesquisa*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/PizzaByteSite/plugins/jQueryUI/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/PizzaByteSite/plugins/jQueryUI/toastr.min.js"></script>
+<script src="~/Scripts/PizzaByteSite/Telas/Geral.js"></script>
+<script src="~/Scripts/PizzaByteSite/Telas/IndexPedidoEntrega.js"></script>
+<script src="~/Scripts/PizzaByteSite/plugins/mask/jquery.mask.min.js"></script>
+<script src="~/Scripts/PizzaByteSite/plugins/mask/jquery.maskMoney.min.js"></script>
+
+<script>
+    var funcionarios = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.ListaFuncionarios));
+    PreencherComboFuncionarios(funcionarios);
+
+    $(document).ready(function () {
+        $("#ValorRetorno").maskMoney({ allowNegative: false, decimal: "," });
+        $("#DataInicio").mask("99/99/9999");
+        $("#DataFim").mask("99/99/9999");
+
+        var retorno = '@TempData["Retorno"]';
+        MostrarMensagemRetorno(retorno, "A entrega");
+        BuscarEntregas(1);
+
+        $("#btnBuscarEntregas").click(function () {
+            BuscarEntregas(1);
+        });
+
+        $(document).keypress(function (e) {
+            if (e.keyCode === 13) {
+                $("#btnBuscarEntregas").click();
+            }
+        });
+    });
+</script>

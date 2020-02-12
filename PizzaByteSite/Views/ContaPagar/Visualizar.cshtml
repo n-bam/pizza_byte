@@ -1,0 +1,118 @@
+﻿@model PizzaByteSite.Models.ContaPagarModel
+
+@{
+    ViewBag.Title = "Editar Contas a Pagar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="content-wrapper">
+    <div class="content-header">
+        <h1>
+            Contas a pagar
+            <small>Visualizar</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="~/Usuario/Inicio"><i class="fa fa-home"></i> Inicio</a></li>
+            <li><a href="~/ContaPagar/Index"><i class="fa fa-tags"></i> Contas a Pagar</a></li>
+            <li class="active"><i class="fa fa-eye"></i> Visualizar</li>
+        </ol>
+    </div>
+
+    <div class="content">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h2 class="box-title">Informações da conta</h2>
+                    </div>
+                    <div class="box-body">
+                        <div class="form-horizontal">
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Descricao, new { @class = "control-label col-lg-2 col-md-3 col-sm-3 col-xs-12" })
+                                <div class="col-lg-10 col-md-9 col-sm-9 col-xs-12">
+                                    @Html.EditorFor(m => m.Descricao, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                    @Html.ValidationMessageFor(m => m.Descricao, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.DataCompetencia, new { @class = "control-label col-lg-2 col-md-3 col-sm-3 col-xs-12" })
+                                <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+                                    @Html.EditorFor(m => m.DataCompetencia, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled", @autocomplete = "off" } })
+                                    @Html.ValidationMessageFor(m => m.DataCompetencia, "", new { @class = "text-danger" })
+                                </div>
+
+                                @Html.LabelFor(m => m.DataVencimento, new { @class = "control-label col-lg-2 col-md-3 col-sm-3 col-xs-12" })
+                                <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+                                    @Html.EditorFor(m => m.DataVencimento, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled", @autocomplete = "off" } })
+                                    @Html.ValidationMessageFor(m => m.DataVencimento, "", new { @class = "text-danger" })
+                                </div>
+
+                                @Html.LabelFor(m => m.DataPagamento, new { @class = "control-label col-lg-2 col-md-3 col-sm-3 col-xs-12" })
+                                <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+                                    @Html.EditorFor(m => m.DataPagamento, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled", @autocomplete = "off" } })
+                                    @Html.ValidationMessageFor(m => m.DataPagamento, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Valor, new { @class = "control-label col-lg-2 col-md-3 col-sm-3 col-xs-12" })
+                                <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+                                    @Html.EditorFor(m => m.Valor, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled", @autocomplete = "off" } })
+                                    @Html.ValidationMessageFor(m => m.Valor, "", new { @class = "text-danger" })
+                                </div>
+
+                                @Html.LabelFor(m => m.Status, new { @class = "control-label col-lg-2 col-md-1 col-sm-1 col-xs-12" })
+                                <div class="col-lg-2 col-md-5 col-sm-5 col-xs-12">
+                                    @Html.DropDownListFor(m => m.Status, Model.ListaStatus, new { @class = "form-control", @disabled = "disabled" })
+                                    @Html.ValidationMessageFor(m => m.Status, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <hr class="hr-line-drashed" />
+                            <h4 class="box-title">Dados do fornecedor</h4>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.NomeFantasia, new { @class = "control-label col-lg-2 col-md-3 col-sm-3 col-xs-12" })
+                                <div class="col-lg-6 col-md-6 col-sm-9 col-xs-12">
+                                    @Html.EditorFor(m => m.NomeFantasia, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                    @Html.ValidationMessageFor(m => m.IdFornecedor, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.DataInclusao, new { @class = "col-lg-4 col-md-3 col-sm-3 col-xs-12 alinhadoDireita small" })
+                                <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12 alinhadoDireita small">
+                                    @Html.HiddenFor(m => m.DataInclusao)
+                                    @Html.DisplayFor(m => m.DataInclusao, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.DataInclusao, "", new { @class = "text-danger" })
+                                </div>
+
+                                @Html.LabelFor(m => m.DataAlteracao, new { @class = "col-lg-4 col-md-3 col-sm-3 col-xs-12 alinhadoDireita small" })
+                                <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12 alinhadoDireita small">
+                                    @Html.HiddenFor(m => m.DataAlteracao)
+                                    @Html.DisplayFor(m => m.DataAlteracao, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.DataAlteracao, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="box-footer">
+                                <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-3">
+                                    <a class="btn btn-default" href="~/ContaPagar/Index"><i class="fa fa-mail-reply"></i> Voltar</a>
+                                    <a class="btn btn-primary" href="~/ContaPagar/Editar/@Model.Id"><i class="fa fa-pencil"></i> Editar</a>
+                                    <a class="btn btn-danger" href="~/ContaPagar/Excluir/@Model.Id?@(Model.Descricao)"><i class="fa fa-trash"></i> Excluir</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/PizzaByteSite/plugins/mask/jquery.mask.min.js"></script>
+
+<script>
+    $(".form-control").attr("readonly", "readonly");
+</script>

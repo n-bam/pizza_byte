@@ -1,0 +1,95 @@
+﻿<div class="modal fade" id="modalProduto">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Incluir produto ao pedido</h4>
+            </div>
+            <div class="modal-body">
+                <div class="box" style="border:hidden">
+                    <div class="box-body">
+                        <div class="form-group">
+                            @Html.Label("Descrição", new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                            <div class="col-lg-9 col-md-10 col-sm-9 col-xs-12">
+                                <input type="text" id="txtDescricaoProduto" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("Tipo", new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                            <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
+                                <select id="optTipo" class="form-control">
+                                    <option value="0" selected>Todos</option>
+                                    <option value="1">Pizza</option>
+                                    <option value="2">Bebida</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("Preço de", new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                            <div class="col-lg-2 col-md-3 col-sm-9 col-xs-12">
+                                <input type="text" id="txtPrecoInicial" class="form-control" />
+                            </div>
+
+                            @Html.Label("até", new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                            <div class="col-lg-2 col-md-3 col-sm-9 col-xs-12">
+                                <input type="text" id="txtPrecoFinal" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-3 col-lg-10 col-md-10 col-sm-9 col-xs-12">
+                                <button type="button" class="btn btn-primary" id="btnBuscarProdutosSelecao"><i class="fa fa-search"></i> Buscar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="overlay" id="divCarregandoProduto">
+                        <i class="fa fa-refresh fa-spin"></i>
+                    </div>
+                </div>
+
+                <div class="table-responsive" style="overflow:auto; height:300px">
+                    <table class="table table-condensed" id="tblPesquisaProdutos">
+                        <thead>
+                            <tr>
+                                <th>Descrição</th>
+                                <th>Preço</th>
+                                <th>Opções</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div class="box-footer clearfix" id="divPaginasProduto">
+                    @*Paginação da pesquisa*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        BuscarProdutosSelecao(1);
+
+        $("#txtPrecoInicial").maskMoney({ allowNegative: false, decimal: "," });
+        $("#txtPrecoFinal").maskMoney({ allowNegative: false, decimal: "," });
+
+        $("#btnBuscarProdutosSelecao").click(function () {
+            BuscarProdutosSelecao(1);
+        });
+
+        $(document).keypress(function (e) {
+            if (e.keyCode === 13) {
+                $("#btnBuscarProdutosSelecao").click();
+            }
+        });
+    });
+</script>

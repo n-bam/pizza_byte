@@ -1,0 +1,183 @@
+﻿@model PizzaByteSite.Models.ContaPagarModel
+
+@{
+    ViewBag.Title = "Editar Contas a pagar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="content-wrapper">
+    <div class="content-header">
+        <h1>
+            Contas a pagar
+            <small>Editar</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="~/Usuario/Inicio"><i class="fa fa-home"></i> Inicio</a></li>
+            <li><a href="~/ContaPagar/Index"><i class="fa fa-tags"></i> Contas a pagar</a></li>
+            <li class="active"><i class="fa fa-pencil"></i> Editar</li>
+        </ol>
+    </div>
+
+    <div class="content">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h2 class="box-title">Editar informações da conta</h2>
+                    </div>
+
+                    @using (Html.BeginForm())
+                    {
+                        <div class="box-body">
+                            <div class="form-horizontal">
+
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(m => m.Id)
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Descricao, new { @class = "control-label col-lg-2 col-md-3 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-10 col-md-9 col-sm-9 col-xs-12">
+                                        @Html.EditorFor(m => m.Descricao, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                        @Html.ValidationMessageFor(m => m.Descricao, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.DataCompetencia, new { @class = "control-label col-lg-2 col-md-3 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+                                        @Html.EditorFor(m => m.DataCompetencia, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                        @Html.ValidationMessageFor(m => m.DataCompetencia, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    @Html.LabelFor(m => m.DataVencimento, new { @class = "control-label col-lg-2 col-md-3 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+                                        @Html.EditorFor(m => m.DataVencimento, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                        @Html.ValidationMessageFor(m => m.DataVencimento, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    @Html.LabelFor(m => m.DataPagamento, new { @class = "control-label col-lg-2 col-md-3 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+                                        @Html.EditorFor(m => m.DataPagamento, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                        @Html.ValidationMessageFor(m => m.DataPagamento, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Valor, new { @class = "control-label col-lg-2 col-md-3 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+                                        @Html.EditorFor(m => m.Valor, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                        @Html.ValidationMessageFor(m => m.Valor, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    @Html.LabelFor(m => m.Status, new { @class = "control-label col-lg-2 col-md-1 col-sm-1 col-xs-12" })
+                                    <div class="col-lg-2 col-md-5 col-sm-5 col-xs-12">
+                                        @Html.DropDownListFor(m => m.Status, Model.ListaStatus, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.Status, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <hr class="hr-line-drashed" />
+                                <h4 class="box-title">Dados do fornecedor</h4>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.NomeFantasia, new { @class = "control-label col-lg-2 col-md-3 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-6 col-md-6 col-sm-9 col-xs-12">
+                                        <div class="input-group">
+                                            @Html.HiddenFor(m => m.IdFornecedor, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.EditorFor(m => m.NomeFantasia, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                            <div class="input-group-btn">
+                                                <button id="btnBuscarFornecedor" type="button" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                                            </div>
+                                        </div>
+                                        @Html.ValidationMessageFor(m => m.IdFornecedor, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <div class="col-lg-1 col-md-2 col-sm-2 col-xs-12" style="margin-top:10px">
+                                        <div class="overlay" id="divCarregandoFornecedor">
+                                            <i class="fa fa-refresh fa-spin"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.DataInclusao, new { @class = "col-lg-4 col-md-3 col-sm-3 col-xs-12 alinhadoDireita small" })
+                                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12 alinhadoDireita small">
+                                        @Html.HiddenFor(m => m.DataInclusao)
+                                        @Html.DisplayFor(m => m.DataInclusao, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.DataInclusao, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    @Html.LabelFor(m => m.DataAlteracao, new { @class = "col-lg-4 col-md-3 col-sm-3 col-xs-12 alinhadoDireita small" })
+                                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12 alinhadoDireita small">
+                                        @Html.HiddenFor(m => m.DataAlteracao)
+                                        @Html.DisplayFor(m => m.DataAlteracao, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.DataAlteracao, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="box-footer">
+                                    <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-3">
+                                        <a class="btn btn-default" href="~/ContaPagar/Index"><i class="fa fa-mail-reply"></i> Cancelar</a>
+                                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Gravar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/PizzaByteSite/plugins/jQueryUI/jquery-ui.min.js"></script>
+<script src="~/Scripts/PizzaByteSite/plugins/jQueryUI/Autocomplete.js"></script>
+<script src="~/Scripts/PizzaByteSite/Telas/Geral.js"></script>
+<script src="~/Scripts/PizzaByteSite/Telas/IndexContaPagar.js"></script>
+<script src="~/Scripts/PizzaByteSite/plugins/mask/jquery.mask.min.js"></script>
+<script src="~/Scripts/PizzaByteSite/plugins/mask/jquery.maskMoney.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#Valor").maskMoney({ allowNegative: false, decimal: ",", thousands: "" });
+        $("#divCarregandoFornecedor").hide();
+        $("#DataCompetencia").mask("99/99/9999", { placeholder: "__ /__ /____" });
+        $("#DataVencimento").mask("99/99/9999", { placeholder: "__ /__ /____" });
+        $("#DataPagamento").mask("99/99/9999", { placeholder: "__ /__ /____" });
+        IniciarAutoComplete();
+
+        // Quando apertar teclas dentro do campo de cliente
+        $("#NomeFantasia").keyup(function (event) {
+            // Se for a tecla enter
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+            if (keycode === '13' || keycode === 13) {
+
+                $("#btnBuscarFornecedor").click();
+            }
+        });
+
+        // Buscar clientes para a pesquisa
+        $("#btnBuscarFornecedor").click(function (event) {
+            var botao = $("#btnBuscarFornecedor").html();
+            if (botao.indexOf("Buscar") !== -1) {
+                // Pesquisar o endereço
+                ObterListaFornecedores($("#NomeFantasia").val());
+                event.preventDefault();
+            } else {
+                LimparAutocompleteFornecedor();
+                $("#IdFornecedor").val("");
+                $("#NomeFantasia").val("");
+                $("#NomeFantasia").removeAttr("readonly");
+                $("#btnBuscarFornecedor").html("<i class='fa fa-search'></i> Buscar");
+            }
+        });
+
+        // Ao apertar Enter na página, não dar o post
+        $(document).keypress(function (e) {
+            if (e.keyCode === 13) {
+                e.preventDefault();
+                return false;
+            }
+        });
+    });
+</script>

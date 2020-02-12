@@ -1,0 +1,198 @@
+﻿@model PizzaByteSite.Models.FiltrosPedidoModel
+
+@{
+    ViewBag.Title = "Pedidos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="form-horizontal">
+        <div class="content-header">
+            <h1>
+                Pedidos
+                <small>Listagem</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="~/Usuario/Inicio"><i class="fa fa-home"></i> Inicio</a></li>
+                <li><a class="active"><i class="fa fa-files-o"></i> Pedidos</a></li>
+            </ol>
+        </div>
+
+        <div class="content">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Pesquisa de pedidos</h3>
+                        </div>
+
+                        <div class="box-body">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.DataInicio, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+                                    @Html.EditorFor(m => m.DataInicio, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                </div>
+
+                                @Html.LabelFor(m => m.DataFim, new { @class = "control-label col-lg-1 col-md-1 col-sm-1 col-xs-12" })
+                                <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+                                    @Html.EditorFor(m => m.DataFim, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.IdCliente, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                <div class="col-lg-7 col-md-6 col-sm-9 col-xs-12">
+                                    <div class="input-group">
+                                        @Html.HiddenFor(m => m.IdCliente, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.EditorFor(m => m.NomeCliente, new { htmlAttributes = new { @class = "form-control" } })
+                                        <div class="input-group-btn">
+                                            <button id="btnBuscarCliente" type="button" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-1 col-md-2 col-sm-2 col-xs-12" style="margin-top:10px">
+                                    <div class="overlay" id="divCarregandoCliente">
+                                        <i class="fa fa-refresh fa-spin"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Tipo, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+                                    @Html.DropDownListFor(m => m.Tipo, Model.ListaTipos, new { @class = "form-control" })
+                                </div>
+
+                                @Html.Label("Obter estornados", new { @class = "control-label col-lg-2 col-md-3 col-sm-2 col-xs-12" })
+                                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                                    @Html.DropDownListFor(m => m.ObterInativos, Model.ListaInativo, new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.PedidoIfood, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+                                    @Html.DropDownListFor(m => m.PedidoIfood, Model.ListaIFood, new { @class = "form-control" })
+                                </div>
+
+                                @Html.LabelFor(m => m.Total, new { @class = "control-label control-label col-lg-2 col-md-3 col-sm-2 col-xs-12" })
+                                <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+                                    @Html.EditorFor(m => m.Total, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-3 col-lg-10 col-md-10 col-sm-9 col-xs-12">
+                                    <button class="btn btn-primary" id="btnBuscarPedidos"><i class="fa fa-search"></i> Buscar</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="overlay" id="divCarregando">
+                            <i class="fa fa-refresh fa-spin"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <h3 class="box-title">Lista de pedidos cadastrados</h3>
+                                </div>
+                                <div class="col-md-6 alinhadoDireita">
+                                    <a class="btn btn-primary" href="Incluir"><i class="fa fa-plus"></i> Novo pedido</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="box-body table-responsive">
+                            <table class="table table-hover" id="tblResultados">
+                                <thead>
+                                    <tr>
+                                        <th>Data</th>
+                                        <th>Cliente</th>
+                                        <th>Tipo</th>
+                                        <th>Total</th>
+                                        <th>IFood</th>
+                                        <th>Opções</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+
+                        <div class="box-footer clearfix" id="divPaginas">
+                            @*Paginação da pesquisa*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/PizzaByteSite/plugins/jQueryUI/jquery-ui.min.js"></script>
+<script src="~/Scripts/PizzaByteSite/plugins/jQueryUI/Autocomplete.js"></script>
+<script src="~/Scripts/PizzaByteSite/Telas/Geral.js"></script>
+<script src="~/Scripts/PizzaByteSite/Telas/IndexPedido.js"></script>
+<script src="~/Scripts/PizzaByteSite/Telas/AutocompleteCliente.js"></script>
+<script src="~/Scripts/PizzaByteSite/plugins/mask/jquery.mask.min.js"></script>
+<script src="~/Scripts/PizzaByteSite/plugins/mask/jquery.maskMoney.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        var retorno = '@TempData["Retorno"]';
+        $("#divCarregandoCliente").hide();
+        MostrarMensagemRetorno(retorno, "O pedido");
+        BuscarPedidos(1);
+
+        var impr = '@Html.Raw(TempData["Impressao"])';
+        ImprimirPedido(impr);
+
+        $("#Total").maskMoney({ allowNegative: false, decimal: "," });
+        $("#DataInicio").mask("99/99/9999");
+        $("#DataFim").mask("99/99/9999");
+
+        $("#btnBuscarPedidos").click(function () {
+            BuscarPedidos(1);
+        });
+
+        // Quando apertar teclas dentro do campo de cliente
+        $("#NomeCliente").keyup(function (event) {
+            // Se for a tecla enter
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+            if (keycode === '13' || keycode === 13) {
+
+                $("#btnBuscarCliente").click();
+            }
+        });
+
+        // Buscar clientes para a pesquisa
+        $("#btnBuscarCliente").click(function (event) {
+            var botao = $("#btnBuscarCliente").html();
+            if (botao.indexOf("Buscar") !== -1) {
+                // Pesquisar o endereço
+                ObterListaClientes($("#NomeCliente").val());
+                event.preventDefault();
+            } else {
+                LimparAutocompleteCliente();
+                $("#IdCliente").val("");
+                $("#NomeCliente").val("");
+                $("#NomeCliente").removeAttr("readonly");
+                $("#btnBuscarCliente").html("<i class='fa fa-search'></i> Buscar");
+            }
+        });
+
+        $(document).keypress(function (e) {
+            if (e.keyCode === 13) {
+                $("#btnBuscarPedidos").click();
+            }
+        });
+    });
+</script>

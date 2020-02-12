@@ -29,12 +29,12 @@
                     @using (Html.BeginForm("ExcluirCep", "Cep"))
                     {
                         @Html.AntiForgeryToken()
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                         <div class="box-body">
                             <div class="form-horizontal">
                                 <div class="form-group">
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                         @Html.HiddenFor(model => model.Id)
                                         @Html.HiddenFor(model => model.Descricao)
                                         <br />

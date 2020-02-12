@@ -11,7 +11,7 @@
             <small>Incluir</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-home"></i> Inicio</a></li>
+            <li><a href="~/Usuario/Inicio"><i class="fa fa-home"></i> Inicio</a></li>
             <li><a href="~/Fornecedor/Index"><i class="fa fa-truck"></i> Fornecedores</a></li>
             <li class="active"><i class="fa fa-plus"></i> Incluir</li>
         </ol>
@@ -36,7 +36,7 @@
                                 <div class="form-group">
                                     @Html.LabelFor(m => m.NomeFantasia, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
                                     <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
-                                        @Html.EditorFor(m => m.NomeFantasia, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.EditorFor(m => m.NomeFantasia, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                         @Html.ValidationMessageFor(m => m.NomeFantasia, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -44,7 +44,7 @@
                                 <div class="form-group">
                                     @Html.LabelFor(m => m.RazaoSocial, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
                                     <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
-                                        @Html.EditorFor(m => m.RazaoSocial, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.EditorFor(m => m.RazaoSocial, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                         @Html.ValidationMessageFor(m => m.RazaoSocial, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -52,13 +52,13 @@
                                 <div class="form-group">
                                     @Html.LabelFor(m => m.Cnpj, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
                                     <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
-                                        @Html.EditorFor(m => m.Cnpj, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.EditorFor(m => m.Cnpj, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                         @Html.ValidationMessageFor(m => m.Cnpj, "", new { @class = "text-danger" })
                                     </div>
 
                                     @Html.LabelFor(m => m.Telefone, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
                                     <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
-                                        @Html.EditorFor(m => m.Telefone, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.EditorFor(m => m.Telefone, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                         @Html.ValidationMessageFor(m => m.Telefone, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -66,7 +66,7 @@
                                 <div class="form-group">
                                     @Html.LabelFor(m => m.Obs, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
                                     <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
-                                        @Html.EditorFor(m => m.Obs, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.EditorFor(m => m.Obs, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                         @Html.ValidationMessageFor(m => m.Obs, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -79,13 +79,13 @@
                                 <div class="form-group">
                                     @Html.LabelFor(m => m.NumeroEndereco, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
                                     <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
-                                        @Html.EditorFor(m => m.NumeroEndereco, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.EditorFor(m => m.NumeroEndereco, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                         @Html.ValidationMessageFor(m => m.NumeroEndereco, "", new { @class = "text-danger" })
                                     </div>
 
                                     @Html.LabelFor(m => m.ComplementoEndereco, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
                                     <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
-                                        @Html.EditorFor(m => m.ComplementoEndereco, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.EditorFor(m => m.ComplementoEndereco, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                         @Html.ValidationMessageFor(m => m.ComplementoEndereco, "", new { @class = "text-danger" })
                                     </div>
                                 </div>

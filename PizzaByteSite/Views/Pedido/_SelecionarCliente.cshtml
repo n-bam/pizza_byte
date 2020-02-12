@@ -1,0 +1,186 @@
+﻿@model PizzaByteSite.Models.PedidoModel
+
+<div class="modal fade" id="modalCliente">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Identificar o cliente do pedido</h4>
+            </div>
+            <div class="modal-body" style="padding-bottom:0px">
+                <div class="nav-tabs-custom" style="padding-bottom:0px">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tabDados" data-toggle="tab" id="PesquisaClienteTab">Pesquisa</a></li>
+                        <li><a href="#tabClienteSelecionado" data-toggle="tab" id="ClienteSelecionadoTab">Cliente selecionado</a></li>
+                    </ul>
+                    <div class="tab-content" style="padding:10px; padding-bottom:0px">
+                        <div class="tab-pane active no-shadow" id="tabDados">
+                            <div class="box no-shadow" style="border:hidden; padding:0px">
+                                <div class="form-group">
+                                    @Html.Label("Nome", new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-9 col-md-10 col-sm-9 col-xs-12">
+                                        <input type="text" id="txtNomeCliente" class="form-control" autocomplete="off" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label("Telefone", new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
+                                        <input type="text" id="txtTelefoneCliente" class="form-control" autocomplete="off" />
+                                    </div>
+
+                                    @Html.Label("CPF", new { @class = "control-label col-lg-1 col-md-2 col-sm-3 col-xs-12" })
+                                    <div class="col-lg-3 col-md-3 col-sm-9 col-xs-12">
+                                        <input type="text" id="txtCpfCliente" class="form-control" autocomplete="off" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-3 col-lg-10 col-md-10 col-sm-9 col-xs-12">
+                                        <button type="button" class="btn btn-primary" id="btnBuscarClientesSelecao"><i class="fa fa-search"></i> Buscar</button>
+                                        <button type="button" class="btn btn-default" id="btnNovoCliente"><i class="fa fa-plus"></i> Novo</button>
+                                    </div>
+                                </div>
+
+                                <div class="table-responsive" style="overflow:auto; height:300px">
+                                    <table class="table table-condensed" id="tblPesquisaClientes">
+                                        <thead>
+                                            <tr>
+                                                <th>Nome</th>
+                                                <th>Telefone</th>
+                                                <th>CPF</th>
+                                                <th>Opções</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+
+                                <div class="clearfix" id="divPaginasCliente">
+                                    @*Paginação da pesquisa*@
+                                </div>
+
+                                <div class="overlay" id="divCarregandoCliente">
+                                    <i class="fa fa-refresh fa-spin"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane no-shadow" id="tabClienteSelecionado">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Cliente.Nome, new { @class = "control-label col-lg-1 col-md-1 col-sm-2 col-xs-12" })
+                                <div class="col-lg-11 col-md-11 col-sm-10 col-xs-12">
+                                    @Html.EditorFor(m => m.Cliente.Nome, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                    @Html.ValidationMessageFor(m => m.Cliente.Nome, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("Tel", new { @class = "control-label col-lg-1 col-md-1 col-sm-2 col-xs-12" })
+                                <div class="col-lg-5 col-md-5 col-sm-10 col-xs-12">
+                                    @Html.EditorFor(m => m.Cliente.Telefone, new { htmlAttributes = new { @class = "form-control Telefone", @autocomplete = "off" } })
+                                    @Html.ValidationMessageFor(m => m.Cliente.Telefone, "", new { @class = "text-danger" })
+                                </div>
+
+                                @Html.LabelFor(m => m.Cliente.Cpf, new { @class = "control-label col-lg-1 col-md-1 col-sm-2 col-xs-12" })
+                                <div class="col-lg-5 col-md-5 col-sm-10 col-xs-12">
+                                    @Html.EditorFor(m => m.Cliente.Cpf, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                    @Html.ValidationMessageFor(m => m.Cliente.Cpf, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <hr class="hr-line-drashed" />
+
+                            <div class="form-group">
+                                @Html.Label("Endereços", new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
+                                    <select class="form-control" id="optEnderecoCliente" disabled="disabled">
+                                        <option>Nenhum endereço encontrado</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            @Html.Partial("_Endereco", Model.Entrega.ClienteEndereco.Endereco, new ViewDataDictionary(Html.ViewData) { TemplateInfo = new System.Web.Mvc.TemplateInfo { HtmlFieldPrefix = "Entrega.ClienteEndereco.Endereco" } })
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Entrega.ClienteEndereco.NumeroEndereco, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
+                                    @Html.EditorFor(m => m.Entrega.ClienteEndereco.NumeroEndereco, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                    @Html.ValidationMessageFor(m => m.Entrega.ClienteEndereco.NumeroEndereco, "", new { @class = "text-danger" })
+                                </div>
+
+                                @Html.LabelFor(m => m.Entrega.ClienteEndereco.ComplementoEndereco, new { @class = "control-label col-lg-2 col-md-2 col-sm-3 col-xs-12" })
+                                <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
+                                    @Html.EditorFor(m => m.Entrega.ClienteEndereco.ComplementoEndereco, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                    @Html.ValidationMessageFor(m => m.Entrega.ClienteEndereco.ComplementoEndereco, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary pull-left" data-dismiss="modal">Concluir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        BuscarClientesSelecao(1);
+
+        $("#Cliente_Telefone").mask("(99) 9999-99999", { placeholder: "(__) _____-____" });
+        $("#Cliente_Cpf").mask("999.999.999-99", { placeholder: "___.___.___-__" });
+        $("#txtTelefoneCliente").mask("(99) 9999-99999", { placeholder: "(__) _____-____" });
+        $("#txtCpfCliente").mask("999.999.999-99", { placeholder: "___.___.___-__" });
+
+        // Buscar clientes
+        $("#btnBuscarClientesSelecao").click(function () {
+            BuscarClientesSelecao(1);
+        });
+
+        // Incluir um novo cliente
+        $("#btnNovoCliente").click(function () {
+            $("#ClienteSelecionadoTab").html("Incluir novo cliente");
+            LimparCliente();
+
+            $("#Cliente_Nome").val($("#txtNomeCliente").val());
+            $("#Cliente_Telefone").val($("#txtTelefoneCliente").val());
+            $("#Cliente_Cpf").val($("#txtCpfCliente").val());
+
+            $('#ClienteSelecionadoTab').click();
+            $('#Cliente_Nome').focus();
+        });
+
+        // Ao alterar de endereço
+        $("#optEnderecoCliente").change(function () {
+            SelecionarEndereco($("#optEnderecoCliente").val());
+        });
+        
+        // Preencher a taxa de entrega ao alterar o bairro
+        $("#Entrega_ClienteEndereco_Endereco_Bairro").change(function () {
+            // Pegar o valor do readio button marcado
+            var radio = $('[name="Tipo"]:checked').val();
+            if (radio == "3" && $("#Entrega_ClienteEndereco_Endereco_Bairro").val() != "" && $("#Entrega_ClienteEndereco_Endereco_Bairro").val() != null) {
+                ObterTaxaEntregaBairro();
+            } else {
+                $("#TaxaEntrega").val("0,00");
+                $("#TaxaEntrega").change();
+            }
+        });
+
+        $('#modalCliente').on('hidden.bs.modal', function () {
+            $("#tituloPedido").html("Itens do pedido: <b>" + $("#Cliente_Nome").val() + "</b>");
+        })
+
+        $(document).keypress(function (e) {
+            if (e.keyCode === 13) {
+                $("#btnBuscarClientesSelecao").click();
+            }
+        });
+    });
+</script>
