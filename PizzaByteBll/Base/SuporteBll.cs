@@ -183,17 +183,7 @@ namespace PizzaByteBll.Base
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterSuporte, requisicaoDto.Id, retornoDto.Mensagem);
                 return false;
             }
-
-            retornoDto.Mensagem = "Ok";
-            if (suporteVo == null)
-            {
-                retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Suporte não encontrado";
-
-                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterSuporte, requisicaoDto.Id, retornoDto.Mensagem);
-                return false;
-            }
-
+           
             SuporteDto suporteDto = new SuporteDto();
             if (!ConverterVoParaDto(suporteVo, ref suporteDto, ref mensagemErro))
             {
@@ -205,6 +195,7 @@ namespace PizzaByteBll.Base
             }
 
             retornoDto.Entidade = suporteDto;
+            retornoDto.Mensagem = "Ok";
             retornoDto.Retorno = true;
             return true;
         }
@@ -304,18 +295,19 @@ namespace PizzaByteBll.Base
             }
 
             double totalItens = query.Count();
+            if (totalItens == 0)
+            {
+                retornoDto.NumeroPaginas = 0;
+                retornoDto.Mensagem = "Nenhum resultado encontrado.";
+                retornoDto.Retorno = true;
+                return true;
+            }
+
             double paginas = totalItens <= requisicaoDto.NumeroItensPorPagina ? 1 : totalItens / requisicaoDto.NumeroItensPorPagina;
             retornoDto.NumeroPaginas = (int)Math.Ceiling(paginas);
 
             int pular = (requisicaoDto.Pagina - 1) * requisicaoDto.NumeroItensPorPagina;
             query = query.Skip(pular).Take(requisicaoDto.NumeroItensPorPagina);
-
-            if (totalItens == 0)
-            {
-                retornoDto.Mensagem = "Nenhum resultado encontrado.";
-                retornoDto.Retorno = true;
-                return true;
-            }
 
             List<SuporteVo> listaVo = query.ToList();
             foreach (var suporte in listaVo)

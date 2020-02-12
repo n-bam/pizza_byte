@@ -259,5 +259,147 @@ namespace PizzaByteBll.Base
             return new Guid("F93C1FC2-A836-4FC7-A061-C48806DD0F69");
         }
 
+        /// <summary>
+        /// Retorna o id do produto da promoção
+        /// </summary>
+        /// <returns></returns>
+        public static Guid RetornaIdProdutoPromocao()
+        {
+            return new Guid("E6219299-E232-43C8-B07E-C7B1CAD8C19D");
+        }
+
+        /// <summary>
+        /// 0 = Dom, 1 = Seg ... 6 = Sex
+        /// </summary>
+        /// <param name="dia"></param>
+        /// <returns></returns>
+        public static string RetornaDiaSemana(int dia)
+        {
+            switch (dia)
+            {
+                case 0:
+                    return "Dom";
+                case 1:
+                    return "Seg";
+                case 2:
+                    return "Ter";
+                case 3:
+                    return "Qua";
+                case 4:
+                    return "Qui";
+                case 5:
+                    return "Sex";
+                case 6:
+                    return "Sáb";
+                default:
+                    return "Dia não reconhecido";
+            }
+        }
+
+        /// <summary>
+        /// 0 = Jan, 1 = Fev ... 12 = Dez
+        /// </summary>
+        /// <param name="dia"></param>
+        /// <returns></returns>
+        public static string RetornaMes(int mes)
+        {
+            switch (mes)
+            {
+                case 0:
+                    return "Jan";
+                case 1:
+                    return "Fev";
+                case 2:
+                    return "Mar";
+                case 3:
+                    return "Abr";
+                case 4:
+                    return "Mai";
+                case 5:
+                    return "Jun";
+                case 6:
+                    return "Jul";
+                case 7:
+                    return "Ago";
+                case 8:
+                    return "Set";
+                case 9:
+                    return "Out";
+                case 10:
+                    return "Nov";
+                case 11:
+                    return "Dez";
+                default:
+                    return "Mês não reconhecido";
+            }
+        }
+
+        /// <summary>
+        /// Retorna o telefone preenchido com pontuação
+        /// </summary>
+        /// <param name="telefone"></param>
+        /// <returns></returns>
+        public static string RetornarTelefoneFormatado(string telefone)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(telefone))
+                {
+                    return "( )  -   ";
+                }
+                else
+                {
+                    if (telefone.Length == 12)
+                    {
+                        telefone = "(" + telefone.Substring(0, 2) + ") " + telefone.Substring(2, 6) + "-" + telefone.Substring(8, 4);
+                    }
+                    else
+                    {
+                        telefone = "(" + telefone.Substring(0, 2) + ") " + telefone.Substring(2, 5) + "-" + telefone.Substring(7, 4);
+                    }
+
+                    return telefone;
+                }
+            }
+            catch (Exception)
+            {
+                return telefone;
+            }
+
+        }
+
+        /// <summary>
+        /// Retorna o CPF preenchido com pontuação
+        /// </summary>
+        /// <param name="cpf"></param>
+        /// <returns></returns>
+        public static string RetornarCpfFormatado(string cpf)
+        {
+            if (string.IsNullOrWhiteSpace(cpf))
+            {
+                return "";
+            }
+            else
+            {
+                return cpf.Substring(0, 3) + "." + cpf.Substring(3, 3) + "." + cpf.Substring(6, 3) + "-" + cpf.Substring(9, 2);
+            }
+        }
+
+        /// <summary>
+        /// Retorna o CNPJ preenchido com pontuação
+        /// </summary>
+        /// <param name="cnpj"></param>
+        /// <returns></returns>
+        public static string RetornarCnpjFormatado(string cnpj)
+        {
+            if (string.IsNullOrWhiteSpace(cnpj))
+            {
+                return "";
+            }
+            else
+            {
+                return cnpj.Substring(0, 2) + "." + cnpj.Substring(2, 3) + "." + cnpj.Substring(5, 3) + "/" + cnpj.Substring(8, 4) + "-" + cnpj.Substring(12, 2);
+            }
+        }
     }
 }

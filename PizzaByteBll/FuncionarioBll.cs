@@ -126,6 +126,7 @@ namespace PizzaByteBll
                 }
             }
 
+            logBll.ResgistrarLog(requisicaoDto, LogRecursos.ExcluirFuncionario, requisicaoDto.Id, "Funcionário excluído.");
             retornoDto.Retorno = true;
             retornoDto.Mensagem = "OK";
             return true;
@@ -156,16 +157,6 @@ namespace PizzaByteBll
                 return false;
             }
 
-            retornoDto.Mensagem = "Ok";
-            if (funcionarioVo == null)
-            {
-                retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Funcionario não encontrado";
-
-                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterFuncionario, requisicaoDto.Id, retornoDto.Mensagem);
-                return false;
-            }
-
             FuncionarioDto funcionarioDto = new FuncionarioDto();
             if (!ConverterVoParaDto(funcionarioVo, ref funcionarioDto, ref mensagemErro))
             {
@@ -177,6 +168,7 @@ namespace PizzaByteBll
             }
 
             retornoDto.Entidade = funcionarioDto;
+            retornoDto.Mensagem = "Ok";
             retornoDto.Retorno = true;
             return true;
         }
@@ -329,17 +321,20 @@ namespace PizzaByteBll
             }
 
             double totalItens = query.Count();
-            double paginas = totalItens <= requisicaoDto.NumeroItensPorPagina ? 1 : totalItens / requisicaoDto.NumeroItensPorPagina;
-            retornoDto.NumeroPaginas = (int)Math.Ceiling(paginas);
-
-            int pular = (requisicaoDto.Pagina - 1) * requisicaoDto.NumeroItensPorPagina;
-            query = query.Skip(pular).Take(requisicaoDto.NumeroItensPorPagina);
-
             if (totalItens == 0)
             {
                 retornoDto.Mensagem = "Nenhum resultado encontrado.";
                 retornoDto.Retorno = true;
                 return true;
+            }
+
+            if (!requisicaoDto.NaoPaginarPesquisa)
+            {
+                double paginas = totalItens <= requisicaoDto.NumeroItensPorPagina ? 1 : totalItens / requisicaoDto.NumeroItensPorPagina;
+                retornoDto.NumeroPaginas = (int)Math.Ceiling(paginas);
+
+                int pular = (requisicaoDto.Pagina - 1) * requisicaoDto.NumeroItensPorPagina;
+                query = query.Skip(pular).Take(requisicaoDto.NumeroItensPorPagina);
             }
 
             List<FuncionarioVo> listaVo = query.ToList();

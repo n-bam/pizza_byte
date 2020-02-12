@@ -91,7 +91,7 @@ namespace PizzaByteBll
             else if (clienteExistente != null && clienteExistente.Excluido == false)
             {
                 retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Esse cadastro já existe, não é possível incluir cadastros duplicados.";
+                retornoDto.Mensagem = "Esse cadastro (cliente) já existe, não é possível incluir cadastros duplicados.";
 
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirCliente, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
                 return false;
@@ -151,6 +151,14 @@ namespace PizzaByteBll
                 return false;
             }
 
+            // Excluir os endereços
+            ClienteEnderecoBll clienteEnderecoBll = new ClienteEnderecoBll(pizzaByteContexto, false);
+            if (!clienteEnderecoBll.ExcluirPorIdCliente(requisicaoDto, ref retornoDto))
+            {
+                retornoDto.Retorno = false;
+                return false;
+            }
+
             if (salvar)
             {
                 // Salva as alterações
@@ -164,6 +172,7 @@ namespace PizzaByteBll
                 }
             }
 
+            logBll.ResgistrarLog(requisicaoDto, LogRecursos.ExcluirCliente, requisicaoDto.Id, "Cliente excluído.");
             retornoDto.Retorno = true;
             retornoDto.Mensagem = "OK";
             return true;
@@ -193,17 +202,7 @@ namespace PizzaByteBll
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterCliente, requisicaoDto.Id, retornoDto.Mensagem);
                 return false;
             }
-
-            retornoDto.Mensagem = "Ok";
-            if (clienteVo == null)
-            {
-                retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Cliente não encontrado";
-
-                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterCliente, requisicaoDto.Id, retornoDto.Mensagem);
-                return false;
-            }
-
+           
             ClienteDto clienteDto = new ClienteDto();
             if (!ConverterVoParaDto(clienteVo, ref clienteDto, ref mensagemErro))
             {
@@ -215,6 +214,7 @@ namespace PizzaByteBll
             }
 
             retornoDto.Entidade = clienteDto;
+            retornoDto.Mensagem = "Ok";
             retornoDto.Retorno = true;
             return true;
         }
@@ -306,6 +306,10 @@ namespace PizzaByteBll
             {
                 switch (filtro.Key)
                 {
+                    case "NOMETELEFONE":
+                        query = query.Where(p => p.Nome.Contains(filtro.Value) || p.Telefone.Contains(filtro.Value));
+                        break;
+
                     case "NOME":
                         query = query.Where(p => p.Nome.Contains(filtro.Value));
                         break;
@@ -365,17 +369,20 @@ namespace PizzaByteBll
             }
 
             double totalItens = query.Count();
-            double paginas = totalItens <= requisicaoDto.NumeroItensPorPagina ? 1 : totalItens / requisicaoDto.NumeroItensPorPagina;
-            retornoDto.NumeroPaginas = (int)Math.Ceiling(paginas);
-
-            int pular = (requisicaoDto.Pagina - 1) * requisicaoDto.NumeroItensPorPagina;
-            query = query.Skip(pular).Take(requisicaoDto.NumeroItensPorPagina);
-
             if (totalItens == 0)
             {
                 retornoDto.Mensagem = "Nenhum resultado encontrado.";
                 retornoDto.Retorno = true;
                 return true;
+            }
+
+            if (!requisicaoDto.NaoPaginarPesquisa)
+            {
+                double paginas = totalItens <= requisicaoDto.NumeroItensPorPagina ? 1 : totalItens / requisicaoDto.NumeroItensPorPagina;
+                retornoDto.NumeroPaginas = (int)Math.Ceiling(paginas);
+
+                int pular = (requisicaoDto.Pagina - 1) * requisicaoDto.NumeroItensPorPagina;
+                query = query.Skip(pular).Take(requisicaoDto.NumeroItensPorPagina);
             }
 
             List<ClienteVo> listaVo = query.ToList();
@@ -417,7 +424,7 @@ namespace PizzaByteBll
             if (!UtilitarioBll.ValidarUsuarioAdm(requisicaoDto.Identificacao, ref mensagemErro))
             {
                 retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Este usuário não é administrador. Para editar os clientees é necessário " +
+                retornoDto.Mensagem = "Este usuário não é administrador. Para editar os clientes é necessário " +
                     $"logar com um usuário administrador. {mensagemErro}";
 
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarCliente, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
@@ -455,7 +462,7 @@ namespace PizzaByteBll
             else if (clienteVo != null && clienteVo.Excluido == false)
             {
                 retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Esse cadastro já existe, não é possível incluir cadastros duplicados";
+                retornoDto.Mensagem = "Esse cadastro (cliente) já existe, não é possível incluir cadastros duplicados";
 
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarCliente, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
                 return false;
@@ -507,6 +514,72 @@ namespace PizzaByteBll
         }
 
         /// <summary>
+        /// Inclui ou atualiza os dados de um cliente
+        /// </summary>
+        /// <param name="requisicaoDto"></param>
+        /// <param name="clienteDto"></param>
+        /// <param name="mensagemErro"></param>
+        /// <returns></returns>
+        internal bool IncluirEditar(BaseRequisicaoDto requisicaoDto, ClienteDto clienteDto, ref string mensagemErro)
+        {
+            if (clienteDto == null)
+            {
+                mensagemErro = "Preencha o cliente que deseja incluir/editar.";
+                return false;
+            }
+
+            ClienteVo clienteVo;
+            if (!ObterPorIdBd(clienteDto.Id, out clienteVo, ref mensagemErro) && mensagemErro != "Cadastro não encontrado")
+            {
+                mensagemErro = "Problemas para encontrar o cliente: " + mensagemErro;
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirEditarCliente, clienteDto.Id, mensagemErro);
+                return false;
+            }
+
+            // Incluir se não existir
+            if (clienteVo == null)
+            {
+                RequisicaoEntidadeDto<ClienteDto> requisicaoIncluirDto = new RequisicaoEntidadeDto<ClienteDto>()
+                {
+                    EntidadeDto = clienteDto,
+                    Identificacao = requisicaoDto.Identificacao,
+                    IdUsuario = requisicaoDto.IdUsuario
+                };
+
+                RetornoDto retornoDto = new RetornoDto();
+                if (!Incluir(requisicaoIncluirDto, ref retornoDto))
+                {
+                    mensagemErro = retornoDto.Mensagem;
+                    return false;
+                }
+            }
+            else
+            {
+                // verificar se precisa editar
+                if ((string.IsNullOrWhiteSpace(clienteDto.Cpf) ? "" : clienteDto.Cpf.Trim()) != (string.IsNullOrWhiteSpace(clienteVo.Cpf) ? "" : clienteVo.Cpf.Trim())
+                    || (string.IsNullOrWhiteSpace(clienteDto.Nome) ? "" : clienteDto.Nome.Trim()) != (string.IsNullOrWhiteSpace(clienteVo.Nome) ? "" : clienteVo.Nome.Trim())
+                    || (string.IsNullOrWhiteSpace(clienteDto.Telefone) ? "" : clienteDto.Telefone.Trim().Replace("(", "").Replace(")", "").Replace("-", "")) != (string.IsNullOrWhiteSpace(clienteVo.Telefone) ? "" : clienteVo.Telefone.Trim()))
+                {
+                    RequisicaoEntidadeDto<ClienteDto> requisicaoEditarDto = new RequisicaoEntidadeDto<ClienteDto>()
+                    {
+                        EntidadeDto = clienteDto,
+                        Identificacao = requisicaoDto.Identificacao,
+                        IdUsuario = requisicaoDto.IdUsuario
+                    };
+
+                    RetornoDto retornoDto = new RetornoDto();
+                    if (!Editar(requisicaoEditarDto, ref retornoDto))
+                    {
+                        mensagemErro = retornoDto.Mensagem;
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
         /// Valida se o CPF já existe
         /// </summary>
         /// <param name="clienteDto"></param>
@@ -522,6 +595,7 @@ namespace PizzaByteBll
 
             if (string.IsNullOrWhiteSpace(clienteDto.Cpf))
             {
+                clienteVo = null;
                 return true;
             }
 

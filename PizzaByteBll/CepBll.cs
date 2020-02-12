@@ -93,7 +93,7 @@ namespace PizzaByteBll
             else if (cepExistente != null && cepExistente.Excluido == false)
             {
                 retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Esse cadastro já existe, não é possível incluir cadastros duplicados.";
+                retornoDto.Mensagem = "Esse cadastro (CEP) já existe, não é possível incluir cadastros duplicados.";
 
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirCep, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
                 return false;
@@ -156,6 +156,7 @@ namespace PizzaByteBll
                 }
             }
 
+            logBll.ResgistrarLog(requisicaoDto, LogRecursos.ExcluirCep, requisicaoDto.Id, "CEP excluído.");
             retornoDto.Retorno = true;
             retornoDto.Mensagem = "OK";
             return true;
@@ -185,17 +186,7 @@ namespace PizzaByteBll
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterCep, requisicaoDto.Id, retornoDto.Mensagem);
                 return false;
             }
-
-            retornoDto.Mensagem = "Ok";
-            if (cepVo == null)
-            {
-                retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Cep não encontrado";
-
-                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterCep, requisicaoDto.Id, retornoDto.Mensagem);
-                return false;
-            }
-
+            
             CepDto cepDto = new CepDto();
             if (!ConverterVoParaDto(cepVo, ref cepDto, ref mensagemErro))
             {
@@ -207,6 +198,7 @@ namespace PizzaByteBll
             }
 
             retornoDto.Entidade = cepDto;
+            retornoDto.Mensagem = "Ok";
             retornoDto.Retorno = true;
             return true;
         }
@@ -414,18 +406,19 @@ namespace PizzaByteBll
             }
 
             double totalItens = query.Count();
+            if (totalItens == 0)
+            {
+                retornoDto.NumeroPaginas = 0;
+                retornoDto.Mensagem = "Nenhum resultado encontrado.";
+                retornoDto.Retorno = true;
+                return true;
+            }
+
             double paginas = totalItens <= requisicaoDto.NumeroItensPorPagina ? 1 : totalItens / requisicaoDto.NumeroItensPorPagina;
             retornoDto.NumeroPaginas = (int)Math.Ceiling(paginas);
 
             int pular = (requisicaoDto.Pagina - 1) * requisicaoDto.NumeroItensPorPagina;
             query = query.Skip(pular).Take(requisicaoDto.NumeroItensPorPagina);
-
-            if (totalItens == 0)
-            {
-                retornoDto.Mensagem = "Nenhum resultado encontrado.";
-                retornoDto.Retorno = true;
-                return true;
-            }
 
             List<CepVo> listaVo = query.ToList();
             foreach (var cep in listaVo)
@@ -504,7 +497,7 @@ namespace PizzaByteBll
             else if (cepVo != null && cepVo.Excluido == false)
             {
                 retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Esse cadastro já existe, não é possível incluir cadastros duplicados";
+                retornoDto.Mensagem = "Esse cadastro (CEP) já existe, não é possível incluir cadastros duplicados";
 
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarCep, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
                 return false;
@@ -733,6 +726,73 @@ namespace PizzaByteBll
             cepVo = query.FirstOrDefault();
             return true;
 
+        }
+
+        /// <summary>
+        /// Inclui ou atualiza os dados de um CEP
+        /// </summary>
+        /// <param name="requisicaoDto"></param>
+        /// <param name="cepDto"></param>
+        /// <param name="mensagemErro"></param>
+        /// <returns></returns>
+        internal bool IncluirEditar(BaseRequisicaoDto requisicaoDto, CepDto cepDto, ref string mensagemErro)
+        {
+            if (cepDto == null)
+            {
+                mensagemErro = "Preencha o CEP que deseja incluir/editar.";
+                return false;
+            }
+
+            CepVo cepVo;
+            if (!ObterPorIdBd(cepDto.Id, out cepVo, ref mensagemErro) && mensagemErro != "Cadastro não encontrado")
+            {
+                mensagemErro = "Problemas para encontrar o cep: " + mensagemErro;
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirEditarCep, cepDto.Id, mensagemErro);
+                return false;
+            }
+
+            // Incluir se não existir
+            if (cepVo == null)
+            {
+                RequisicaoEntidadeDto<CepDto> requisicaoIncluirDto = new RequisicaoEntidadeDto<CepDto>()
+                {
+                    EntidadeDto = cepDto,
+                    Identificacao = requisicaoDto.Identificacao,
+                    IdUsuario = requisicaoDto.IdUsuario
+                };
+
+                RetornoDto retornoDto = new RetornoDto();
+                if (!Incluir(requisicaoIncluirDto, ref retornoDto))
+                {
+                    mensagemErro = retornoDto.Mensagem;
+                    return false;
+                }
+            }
+            else
+            {
+                // verificar se precisa editar
+                if ((string.IsNullOrWhiteSpace(cepDto.Cep) ? "" : cepDto.Cep.Trim()) != (string.IsNullOrWhiteSpace(cepVo.Cep) ? "" : cepVo.Cep.Trim())
+                    || (string.IsNullOrWhiteSpace(cepDto.Logradouro) ? "" : cepDto.Logradouro.Trim()) != (string.IsNullOrWhiteSpace(cepVo.Logradouro) ? "" : cepVo.Logradouro.Trim())
+                    || (string.IsNullOrWhiteSpace(cepDto.Bairro) ? "" : cepDto.Bairro.Trim()) != (string.IsNullOrWhiteSpace(cepVo.Bairro) ? "" : cepVo.Bairro.Trim())
+                    || (string.IsNullOrWhiteSpace(cepDto.Cidade) ? "" : cepDto.Cidade.Trim()) != (string.IsNullOrWhiteSpace(cepVo.Cidade) ? "" : cepVo.Cidade.Trim()))
+                {
+                    RequisicaoEntidadeDto<CepDto> requisicaoEditarDto = new RequisicaoEntidadeDto<CepDto>()
+                    {
+                        EntidadeDto = cepDto,
+                        Identificacao = requisicaoDto.Identificacao,
+                        IdUsuario = requisicaoDto.IdUsuario
+                    };
+
+                    RetornoDto retornoDto = new RetornoDto();
+                    if (!Editar(requisicaoEditarDto, ref retornoDto))
+                    {
+                        mensagemErro = retornoDto.Mensagem;
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
 
     }

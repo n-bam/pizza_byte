@@ -79,15 +79,6 @@ namespace PizzaByteBll
                         return false;
                     }
 
-                    if (taxaEntregaVo == null)
-                    {
-                        retornoDto.Retorno = false;
-                        retornoDto.Mensagem = $"Houve uma falha ao obter a taxa do bairro { taxa.BairroCidade}";
-
-                        logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirAlterarListaTaxaEntrega, Guid.Empty, mensagemErro);
-                        return false;
-                    }
-
                     if (!taxa.ValidarEntidade(ref mensagemErro))
                     {
                         retornoDto.Retorno = false;
@@ -164,8 +155,8 @@ namespace PizzaByteBll
                 }
             }
 
-            retornoDto.Retorno = true;
             retornoDto.Mensagem = "OK";
+            retornoDto.Retorno = true;
             return true;
         }
 
@@ -232,11 +223,6 @@ namespace PizzaByteBll
         /// <returns></returns>
         public override bool Excluir(RequisicaoObterDto requisicaoDto, ref RetornoDto retornoDto)
         {
-            if (!base.Excluir(requisicaoDto, ref retornoDto))
-            {
-                return false;
-            }
-
             string mensagemErro = "";
             if (!UtilitarioBll.ValidarUsuarioAdm(requisicaoDto.Identificacao, ref mensagemErro))
             {
@@ -245,6 +231,11 @@ namespace PizzaByteBll
                     $"logar com um usuário administrador. {mensagemErro}";
 
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.ExcluirTaxaEntrega, requisicaoDto.Id, retornoDto.Mensagem);
+                return false;
+            }
+
+            if (!base.Excluir(requisicaoDto, ref retornoDto))
+            {
                 return false;
             }
 
@@ -261,6 +252,7 @@ namespace PizzaByteBll
                 }
             }
 
+            logBll.ResgistrarLog(requisicaoDto, LogRecursos.ExcluirTaxaEntrega, requisicaoDto.Id, "Taxa de entrega excluída.");
             retornoDto.Retorno = true;
             retornoDto.Mensagem = "OK";
             return true;
@@ -483,18 +475,19 @@ namespace PizzaByteBll
             }
 
             double totalItens = query.Count();
+            if (totalItens == 0)
+            {
+                retornoDto.NumeroPaginas = 0;
+                retornoDto.Mensagem = "Nenhum resultado encontrado.";
+                retornoDto.Retorno = true;
+                return true;
+            }
+
             double paginas = totalItens <= requisicaoDto.NumeroItensPorPagina ? 1 : totalItens / requisicaoDto.NumeroItensPorPagina;
             retornoDto.NumeroPaginas = (int)Math.Ceiling(paginas);
 
             int pular = (requisicaoDto.Pagina - 1) * requisicaoDto.NumeroItensPorPagina;
             query = query.Skip(pular).Take(requisicaoDto.NumeroItensPorPagina);
-
-            if (totalItens == 0)
-            {
-                retornoDto.Mensagem = "Nenhum resultado encontrado.";
-                retornoDto.Retorno = true;
-                return true;
-            }
 
             List<TaxaEntregaVo> listaVo = query.ToList();
             foreach (var taxaEntrega in listaVo)
@@ -541,17 +534,7 @@ namespace PizzaByteBll
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterTaxaEntrega, requisicaoDto.Id, retornoDto.Mensagem);
                 return false;
             }
-
-            retornoDto.Mensagem = "Ok";
-            if (taxaEntregaVo == null)
-            {
-                retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Taxa de entrega não encontrado";
-
-                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterTaxaEntrega, requisicaoDto.Id, retornoDto.Mensagem);
-                return false;
-            }
-
+                       
             TaxaEntregaDto taxaEntregaDto = new TaxaEntregaDto();
             if (!ConverterVoParaDto(taxaEntregaVo, ref taxaEntregaDto, ref mensagemErro))
             {
@@ -572,6 +555,8 @@ namespace PizzaByteBll
 
             taxaEntregaDto.Cidade = cidade;
             retornoDto.Entidade = taxaEntregaDto;
+
+            retornoDto.Mensagem = "Ok";
             retornoDto.Retorno = true;
             return true;
         }
@@ -689,5 +674,134 @@ namespace PizzaByteBll
             retornoDto.Mensagem = "OK";
             return true;
         }
+
+        /// <summary>
+        /// Obtém uma taxa de entrega pelo bairro, se não existir, retorna nulo
+        /// </summary>
+        /// <param name="requisicaoDto"></param>
+        /// <param name="retornoDto"></param>
+        /// <returns></returns>
+        public bool ObterTaxaPorBairro(RequisicaoObterTaxaPorBairroDto requisicaoDto, ref RetornoObterDto<TaxaEntregaDto> retornoDto)
+        {
+            string mensagemErro = "";
+            if (!UtilitarioBll.ValidarIdentificacao(requisicaoDto.Identificacao, requisicaoDto.IdUsuario, ref mensagemErro))
+            {
+                retornoDto.Retorno = false;
+                retornoDto.Mensagem = mensagemErro;
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterTaxaPorBairro, Guid.Empty, mensagemErro);
+                return false;
+            }
+
+            // Obter a query primária
+            IQueryable<TaxaEntregaVo> query;
+            if (!this.ObterQueryBd(out query, ref mensagemErro))
+            {
+                retornoDto.Mensagem = $"Houve um problema ao listar as taxas de entrega: {mensagemErro}";
+                retornoDto.Retorno = false;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterTaxaPorBairro, Guid.Empty, retornoDto.Mensagem);
+                return false;
+            }
+
+            string bairro = string.IsNullOrWhiteSpace(requisicaoDto.BairroCidade) ? "" : requisicaoDto.BairroCidade.Trim();
+            query = query.Where(p => p.BairroCidade == bairro);
+
+            TaxaEntregaVo taxaEntregaVo = query.FirstOrDefault();
+            if (taxaEntregaVo != null)
+            {
+                TaxaEntregaDto taxaEntregaDto = new TaxaEntregaDto();
+                if (!ConverterVoParaDto(taxaEntregaVo, ref taxaEntregaDto, ref mensagemErro))
+                {
+                    retornoDto.Mensagem = mensagemErro;
+                    retornoDto.Retorno = false;
+
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterTaxaPorBairro, Guid.Empty, retornoDto.Mensagem);
+                    return false;
+                }
+
+                retornoDto.Entidade = taxaEntregaDto;
+            }
+            else
+            {
+                retornoDto.Entidade = null;
+            }
+
+            retornoDto.Retorno = true;
+            return true;
+        }
+
+        /// <summary>
+        /// Inclui ou atualiza os dados de uma taxa de entrega
+        /// </summary>
+        /// <param name="requisicaoDto"></param>
+        /// <param name="taxaEntregaDto"></param>
+        /// <param name="mensagemErro"></param>
+        /// <returns></returns>
+        internal bool IncluirEditar(BaseRequisicaoDto requisicaoDto, TaxaEntregaDto taxaEntregaDto, ref string mensagemErro)
+        {
+            if (taxaEntregaDto == null)
+            {
+                mensagemErro = "Preencha os dados da taxa que deseja incluir/editar.";
+                return false;
+            }
+
+            RequisicaoObterTaxaPorBairroDto requisicaoObterDto = new RequisicaoObterTaxaPorBairroDto()
+            {
+                Identificacao = requisicaoDto.Identificacao,
+                IdUsuario = requisicaoDto.IdUsuario,
+                BairroCidade = taxaEntregaDto.BairroCidade
+            };
+
+            RetornoObterDto<TaxaEntregaDto> retornoObterDto = new RetornoObterDto<TaxaEntregaDto>();
+            if (!ObterTaxaPorBairro(requisicaoObterDto, ref retornoObterDto))
+            {
+                mensagemErro = retornoObterDto.Mensagem;
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirEditarTaxaEntrega, taxaEntregaDto.Id, mensagemErro);
+                return false;
+            }
+
+            // Incluir se não existir
+            if (retornoObterDto.Entidade == null)
+            {
+                taxaEntregaDto.Id = Guid.NewGuid();
+                RequisicaoEntidadeDto<TaxaEntregaDto> requisicaoIncluirDto = new RequisicaoEntidadeDto<TaxaEntregaDto>()
+                {
+                    EntidadeDto = taxaEntregaDto,
+                    Identificacao = requisicaoDto.Identificacao,
+                    IdUsuario = requisicaoDto.IdUsuario
+                };
+
+                RetornoDto retornoDto = new RetornoDto();
+                if (!Incluir(requisicaoIncluirDto, ref retornoDto))
+                {
+                    mensagemErro = retornoDto.Mensagem;
+                    return false;
+                }
+            }
+            else
+            {
+                // verificar se precisa editar
+                if (taxaEntregaDto.ValorTaxa != retornoObterDto.Entidade.ValorTaxa)
+                {
+                    retornoObterDto.Entidade.ValorTaxa = taxaEntregaDto.ValorTaxa;
+                    RequisicaoEntidadeDto<TaxaEntregaDto> requisicaoEditarDto = new RequisicaoEntidadeDto<TaxaEntregaDto>()
+                    {
+                        EntidadeDto = retornoObterDto.Entidade,
+                        Identificacao = requisicaoDto.Identificacao,
+                        IdUsuario = requisicaoDto.IdUsuario
+                    };
+
+                    RetornoDto retornoDto = new RetornoDto();
+                    if (!Editar(requisicaoEditarDto, ref retornoDto))
+                    {
+                        mensagemErro = retornoDto.Mensagem;
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
     }
 }

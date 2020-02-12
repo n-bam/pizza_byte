@@ -5,7 +5,6 @@ using PizzaByteVo.Base;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using static PizzaByteEnum.Enumeradores;
@@ -25,25 +24,6 @@ namespace PizzaByteBll.Base
         {
             this.classeOrigem = bllOrigem;
         }
-
-        ///// <summary>
-        ///// Iniciar com um novo contexto, indicando se deve salvar ou não as alterações
-        ///// </summary>
-        ///// <param name="salvarAlteracoes"></param>
-        //public LogBll(bool salvarAlteracoes) : base()
-        //{
-        //    salvar = salvarAlteracoes;
-        //}
-
-        ///// <summary>
-        ///// Iniciar com um contexto existente, indicando se deve ou não salvar as alterações
-        ///// </summary>
-        ///// <param name="contexto"></param>
-        ///// <param name="salvarAlteracoes"></param>
-        //public LogBll(PizzaByteContexto contexto, bool salvarAlteracoes) : base(contexto)
-        //{
-        //    salvar = salvarAlteracoes;
-        //}
 
         ///// <summary>
         ///// Inclui um log no banco de dados
@@ -326,18 +306,19 @@ namespace PizzaByteBll.Base
             }
 
             double totalItens = query.Count();
+            if (totalItens == 0)
+            {
+                retornoDto.NumeroPaginas = 0;
+                retornoDto.Mensagem = "Nenhum resultado encontrado.";
+                retornoDto.Retorno = true;
+                return true;
+            }
+
             double paginas = totalItens <= requisicaoDto.NumeroItensPorPagina ? 1 : totalItens / requisicaoDto.NumeroItensPorPagina;
             retornoDto.NumeroPaginas = (int)Math.Ceiling(paginas);
 
             int pular = (requisicaoDto.Pagina - 1) * requisicaoDto.NumeroItensPorPagina;
             query = query.Skip(pular).Take(requisicaoDto.NumeroItensPorPagina);
-
-            if (totalItens == 0)
-            {
-                retornoDto.Mensagem = "Nenhum resultado encontrado.";
-                retornoDto.Retorno = true;
-                return true;
-            }
 
             List<LogVo> listaVo = query.ToList();
             foreach (var log in listaVo)

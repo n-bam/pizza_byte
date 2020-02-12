@@ -1,6 +1,7 @@
 ﻿using PizzaByteBll.Base;
 using PizzaByteDal;
 using PizzaByteDto.Base;
+using PizzaByteDto.ClassesBase;
 using PizzaByteDto.Entidades;
 using PizzaByteDto.RetornosRequisicoes;
 using PizzaByteVo;
@@ -230,7 +231,7 @@ namespace PizzaByteBll
                 }
             }
 
-            logBll.ResgistrarLog(requisicaoDto, LogRecursos.ExcluirClienteEndereco, requisicaoDto.Id, "endereço excluído.");
+            logBll.ResgistrarLog(requisicaoDto, LogRecursos.ExcluirClienteEndereco, requisicaoDto.Id, "Endereço excluído.");
             retornoDto.Retorno = true;
             retornoDto.Mensagem = "OK";
             return true;
@@ -254,15 +255,6 @@ namespace PizzaByteBll
             {
                 retornoDto.Mensagem = "Erro ao obter o endereço do cliente: " + mensagemErro;
                 retornoDto.Retorno = false;
-
-                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterClienteEndereco, requisicaoDto.Id, retornoDto.Mensagem);
-                return false;
-            }
-
-            if (clienteEnderecoVo == null)
-            {
-                retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Endereço não encontrado";
 
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterClienteEndereco, requisicaoDto.Id, retornoDto.Mensagem);
                 return false;
@@ -301,8 +293,8 @@ namespace PizzaByteBll
             }
 
             retornoDto.Entidade = clienteEnderecoDto;
-            retornoDto.Retorno = true;
             retornoDto.Mensagem = "Ok";
+            retornoDto.Retorno = true;
             return true;
         }
 
@@ -398,18 +390,19 @@ namespace PizzaByteBll
             }
 
             double totalItens = query.Count();
-            double paginas = totalItens <= requisicaoDto.NumeroItensPorPagina ? 1 : (totalItens / requisicaoDto.NumeroItensPorPagina);
-            retornoDto.NumeroPaginas = (int)Math.Ceiling(paginas);
-
-            int pular = (requisicaoDto.Pagina - 1) * requisicaoDto.NumeroItensPorPagina;
-            query = query.Skip(pular).Take(requisicaoDto.NumeroItensPorPagina);
-
             if (totalItens == 0)
             {
+                retornoDto.NumeroPaginas = 0;
                 retornoDto.Mensagem = "Nenhum resultado encontrado.";
                 retornoDto.Retorno = true;
                 return true;
             }
+
+            double paginas = totalItens <= requisicaoDto.NumeroItensPorPagina ? 1 : totalItens / requisicaoDto.NumeroItensPorPagina;
+            retornoDto.NumeroPaginas = (int)Math.Ceiling(paginas);
+
+            int pular = (requisicaoDto.Pagina - 1) * requisicaoDto.NumeroItensPorPagina;
+            query = query.Skip(pular).Take(requisicaoDto.NumeroItensPorPagina);
 
             List<ClienteEnderecoVo> listaVo = query.ToList();
             List<CepVo> listaCepsVo = new List<CepVo>();
@@ -472,7 +465,7 @@ namespace PizzaByteBll
             {
                 clienteEnderecoVo.IdCep = clienteEnderecoDto.Endereco.Id;
                 clienteEnderecoVo.NumeroEndereco = string.IsNullOrWhiteSpace(clienteEnderecoDto.NumeroEndereco) ? "" : clienteEnderecoDto.NumeroEndereco.Trim();
-                clienteEnderecoVo.ComplementeEndereco = string.IsNullOrWhiteSpace(clienteEnderecoDto.ComplementeEndereco) ? "" : clienteEnderecoDto.ComplementeEndereco.Trim();
+                clienteEnderecoVo.ComplementoEndereco = string.IsNullOrWhiteSpace(clienteEnderecoDto.ComplementoEndereco) ? "" : clienteEnderecoDto.ComplementoEndereco.Trim();
                 clienteEnderecoVo.IdCliente = clienteEnderecoDto.IdCliente;
 
                 return true;
@@ -501,7 +494,7 @@ namespace PizzaByteBll
             {
                 clienteEnderecoDto.IdCep = clienteEnderecoVo.IdCep;
                 clienteEnderecoDto.NumeroEndereco = string.IsNullOrWhiteSpace(clienteEnderecoVo.NumeroEndereco) ? "" : clienteEnderecoVo.NumeroEndereco.Trim();
-                clienteEnderecoDto.ComplementeEndereco = string.IsNullOrWhiteSpace(clienteEnderecoVo.ComplementeEndereco) ? "" : clienteEnderecoVo.ComplementeEndereco.Trim();
+                clienteEnderecoDto.ComplementoEndereco = string.IsNullOrWhiteSpace(clienteEnderecoVo.ComplementoEndereco) ? "" : clienteEnderecoVo.ComplementoEndereco.Trim();
                 clienteEnderecoDto.IdCliente = clienteEnderecoVo.IdCliente;
 
                 return true;
@@ -513,5 +506,212 @@ namespace PizzaByteBll
             }
         }
 
+        /// <summary>
+        /// Inclui ou atualiza os dados de um endereço de cliente
+        /// </summary>
+        /// <param name="requisicaoDto"></param>
+        /// <param name="clienteEnderecoDto"></param>
+        /// <param name="mensagemErro"></param>
+        /// <returns></returns>
+        internal bool IncluirEditar(BaseRequisicaoDto requisicaoDto, ClienteEnderecoDto clienteEnderecoDto, ref string mensagemErro)
+        {
+            if (clienteEnderecoDto == null)
+            {
+                mensagemErro = "Preencha o endereço que deseja incluir/editar.";
+                return false;
+            }
+
+            ClienteEnderecoVo clienteEnderecoVo;
+            if (!ObterPorIdBd(clienteEnderecoDto.Id, out clienteEnderecoVo, ref mensagemErro) && mensagemErro != "Cadastro não encontrado")
+            {
+                mensagemErro = "Problemas para encontrar o endereço do cliente: " + mensagemErro;
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirEditarClienteEndereco, clienteEnderecoDto.Id, mensagemErro);
+                return false;
+            }
+
+            // Incluir se não existir
+            if (clienteEnderecoVo == null)
+            {
+                RequisicaoEntidadeDto<ClienteEnderecoDto> requisicaoIncluirDto = new RequisicaoEntidadeDto<ClienteEnderecoDto>()
+                {
+                    EntidadeDto = clienteEnderecoDto,
+                    Identificacao = requisicaoDto.Identificacao,
+                    IdUsuario = requisicaoDto.IdUsuario
+                };
+
+                RetornoDto retornoDto = new RetornoDto();
+                if (!Incluir(requisicaoIncluirDto, ref retornoDto))
+                {
+                    mensagemErro = retornoDto.Mensagem;
+                    return false;
+                }
+            }
+            else
+            {
+                // verificar se precisa editar
+                if ((string.IsNullOrWhiteSpace(clienteEnderecoDto.ComplementoEndereco) ? "" : clienteEnderecoDto.ComplementoEndereco.Trim()) != (string.IsNullOrWhiteSpace(clienteEnderecoVo.ComplementoEndereco) ? "" : clienteEnderecoVo.ComplementoEndereco.Trim())
+                    || (string.IsNullOrWhiteSpace(clienteEnderecoDto.NumeroEndereco) ? "" : clienteEnderecoDto.NumeroEndereco.Trim()) != (string.IsNullOrWhiteSpace(clienteEnderecoVo.NumeroEndereco) ? "" : clienteEnderecoVo.NumeroEndereco.Trim())
+                    || clienteEnderecoDto.IdCep != clienteEnderecoVo.IdCep)
+                {
+                    RequisicaoEntidadeDto<ClienteEnderecoDto> requisicaoEditarDto = new RequisicaoEntidadeDto<ClienteEnderecoDto>()
+                    {
+                        EntidadeDto = clienteEnderecoDto,
+                        Identificacao = requisicaoDto.Identificacao,
+                        IdUsuario = requisicaoDto.IdUsuario
+                    };
+
+                    RetornoDto retornoDto = new RetornoDto();
+                    if (!Editar(requisicaoEditarDto, ref retornoDto))
+                    {
+                        mensagemErro = retornoDto.Mensagem;
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Exclui os endereços de um cliente pelo seu ID
+        /// </summary>
+        /// <param name="requisicaoDto"></param>
+        /// <param name="retornoDto"></param>
+        /// <returns></returns>
+        public bool ExcluirPorIdCliente(RequisicaoObterDto requisicaoDto, ref RetornoDto retornoDto)
+        {
+            if (requisicaoDto.Id == Guid.Empty)
+            {
+                retornoDto.Mensagem = "Informe o ID do cliente para excluir seus endereços.";
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ExcluirEnderecosPorIdCliente, requisicaoDto.Id, retornoDto.Mensagem);
+                return false;
+            }
+
+            string mensagemErro = "";
+            if (!UtilitarioBll.ValidarIdentificacao(requisicaoDto.Identificacao, requisicaoDto.IdUsuario, ref mensagemErro))
+            {
+                retornoDto.Mensagem = mensagemErro;
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ExcluirEnderecosPorIdCliente, requisicaoDto.Id, mensagemErro);
+                return false;
+            }
+
+            if (!UtilitarioBll.ValidarUsuarioAdm(requisicaoDto.Identificacao, ref mensagemErro))
+            {
+                retornoDto.Retorno = false;
+                retornoDto.Mensagem = "Este usuário não é administrador. Para excluir endereços de clientes é necessário " +
+                    $"logar com um usuário administrador. {mensagemErro}";
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ExcluirEnderecosPorIdCliente, requisicaoDto.Id, retornoDto.Mensagem);
+                return false;
+            }
+
+            // Obter a query primária
+            IQueryable<ClienteEnderecoVo> query;
+            if (!this.ObterQueryBd(out query, ref mensagemErro))
+            {
+                retornoDto.Mensagem = $"Houve um problema ao listar os endereços de clientes: {mensagemErro}";
+                retornoDto.Retorno = false;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ExcluirEnderecosPorIdCliente, Guid.Empty, retornoDto.Mensagem);
+                return false;
+            }
+
+            query = query.Where(p => p.IdCliente == requisicaoDto.Id);
+            List<ClienteEnderecoVo> enderecosEncontrados = query.ToList();
+
+            // Excluir os endereços encontrados
+            foreach (var enderecoVo in enderecosEncontrados)
+            {
+                if (!ExcluirBd(enderecoVo.Id, ref mensagemErro))
+                {
+                    retornoDto.Mensagem = $"Houve um problema ao excluir o endereço do cliente: {mensagemErro}";
+                    retornoDto.Retorno = false;
+
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.ExcluirEnderecosPorIdCliente, Guid.Empty, retornoDto.Mensagem);
+                    return false;
+                }
+
+                if (salvar)
+                {
+                    // Salva as alterações
+                    if (!pizzaByteContexto.Salvar(ref mensagemErro))
+                    {
+                        retornoDto.Retorno = false;
+                        retornoDto.Mensagem = "Houve um problema ao excluir o endereço do cliente: " + mensagemErro;
+                        logBll.ResgistrarLog(requisicaoDto, LogRecursos.ExcluirEnderecosPorIdCliente, requisicaoDto.Id, mensagemErro);
+                        return false;
+                    }
+                }
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ExcluirEnderecosPorIdCliente, requisicaoDto.Id, "endereço excluído.");
+            }
+
+            retornoDto.Retorno = true;
+            retornoDto.Mensagem = "OK";
+            return true;
+        }
+
+        /// <summary>
+        /// Obtem uma lista de endereços de cliente pelos IDs
+        /// </summary>
+        /// <param name="requisicaoDto"></param>
+        /// <param name="retornoDto"></param>
+        /// <returns></returns>
+        internal bool ObterListaPorId(RequisicaoListaGuidsDto requisicaoDto, ref RetornoObterListaDto<ClienteEnderecoDto> retornoDto)
+        {
+            // Obter a query primária
+            string mensagemErro = ""; IQueryable<ClienteEnderecoVo> query;
+            if (!this.ObterQueryBd(out query, ref mensagemErro))
+            {
+                retornoDto.Mensagem = $"Houve um problema ao listar os endereços de clientes: {mensagemErro}";
+                retornoDto.Retorno = false;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaEnderecosClientePorId, Guid.Empty, retornoDto.Mensagem);
+                return false;
+            }
+
+            List<ClienteEnderecoVo> listaVo = query.Where(p => requisicaoDto.ListaGuids.Contains(p.Id)).ToList();
+            List<CepVo> listaCepsVo = new List<CepVo>();
+
+            // Obter CEPs
+            CepBll cepBll = new CepBll(false);
+            if (!cepBll.ObterListaEnderecosPorId(listaVo.Select(p => p.IdCep).ToList(), ref listaCepsVo, ref mensagemErro))
+            {
+                retornoDto.Mensagem = mensagemErro;
+                retornoDto.Retorno = false;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaEnderecosClientePorId, Guid.Empty, retornoDto.Mensagem);
+                return false;
+            }
+
+            // Converter
+            foreach (var clienteEndereco in listaVo)
+            {
+                CepVo cepDto = listaCepsVo.Where(p => p.Id == clienteEndereco.IdCep).FirstOrDefault();
+                ClienteEnderecoDto clienteEnderecoDto = new ClienteEnderecoDto();
+                if (!ConverterVoParaDto(clienteEndereco, ref clienteEnderecoDto, ref mensagemErro))
+                {
+                    retornoDto.Mensagem = "Erro ao converter para DTO: " + mensagemErro;
+                    retornoDto.Retorno = false;
+
+                    logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterListaEnderecosClientePorId, clienteEndereco.Id, retornoDto.Mensagem);
+                    return false;
+                }
+
+                //Preencher dados do endereço
+                clienteEnderecoDto.Endereco = new CepDto()
+                {
+                    Bairro = cepDto == null ? "" : cepDto.Bairro,
+                    Cep = cepDto == null ? "" : cepDto.Cep,
+                    Cidade = cepDto == null ? "" : cepDto.Cidade,
+                    Logradouro = cepDto == null ? "" : cepDto.Logradouro,
+                    Id = cepDto == null ? Guid.Empty : cepDto.Id
+                };
+
+                retornoDto.ListaEntidades.Add(clienteEnderecoDto);
+            }
+
+            return true;
+        }
     }
 }

@@ -93,7 +93,7 @@ namespace PizzaByteBll
             else if (usuarioExistente != null && usuarioExistente.Excluido == false)
             {
                 retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Esse cadastro já existe, não é possível incluir cadastros duplicados.";
+                retornoDto.Mensagem = "Esse cadastro (usuário) já existe, não é possível incluir cadastros duplicados.";
 
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirUsuario, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
                 return false;
@@ -166,6 +166,7 @@ namespace PizzaByteBll
                 }
             }
 
+            logBll.ResgistrarLog(requisicaoDto, LogRecursos.ExcluirUsuario, requisicaoDto.Id, "Usuário excluído.");
             retornoDto.Retorno = true;
             retornoDto.Mensagem = "OK";
             return true;
@@ -464,17 +465,7 @@ namespace PizzaByteBll
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterUsuario, requisicaoDto.Id, retornoDto.Mensagem);
                 return false;
             }
-
-            retornoDto.Mensagem = "Ok";
-            if (usuarioVo == null)
-            {
-                retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Usuário não encontrado";
-
-                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterUsuario, usuarioVo.Id, retornoDto.Mensagem);
-                return false;
-            }
-
+            
             UsuarioDto usuarioDto = new UsuarioDto();
             if (!ConverterVoParaDto(usuarioVo, ref usuarioDto, ref mensagemErro))
             {
@@ -487,6 +478,7 @@ namespace PizzaByteBll
 
             retornoDto.Entidade = usuarioDto;
             retornoDto.Entidade.Senha = "";
+            retornoDto.Mensagem = "Ok";
             retornoDto.Retorno = true;
             return true;
         }
@@ -655,18 +647,19 @@ namespace PizzaByteBll
             }
 
             double totalItens = query.Count();
+            if (totalItens == 0)
+            {
+                retornoDto.NumeroPaginas = 0;
+                retornoDto.Mensagem = "Nenhum resultado encontrado.";
+                retornoDto.Retorno = true;
+                return true;
+            }
+
             double paginas = totalItens <= requisicaoDto.NumeroItensPorPagina ? 1 : totalItens / requisicaoDto.NumeroItensPorPagina;
             retornoDto.NumeroPaginas = (int)Math.Ceiling(paginas);
 
             int pular = (requisicaoDto.Pagina - 1) * requisicaoDto.NumeroItensPorPagina;
             query = query.Skip(pular).Take(requisicaoDto.NumeroItensPorPagina);
-
-            if (totalItens == 0)
-            {
-                retornoDto.Mensagem = "Nenhum resultado encontrado.";
-                retornoDto.Retorno = true;
-                return true;
-            }
 
             List<UsuarioVo> listaVo = query.ToList();
             foreach (var usuario in listaVo)
@@ -746,7 +739,7 @@ namespace PizzaByteBll
             else if (usuarioVo != null && usuarioVo.Excluido == false)
             {
                 retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Esse cadastro já existe, não é possível incluir cadastros duplicados";
+                retornoDto.Mensagem = "Esse cadastro (usuário) já existe, não é possível incluir cadastros duplicados";
 
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarUsuario, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
                 return false;

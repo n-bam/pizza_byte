@@ -97,7 +97,7 @@ namespace PizzaByteBll
             else if (fornecedorExistente != null && fornecedorExistente.Excluido == false)
             {
                 retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Esse cadastro já existe, não é possível incluir cadastros duplicados.";
+                retornoDto.Mensagem = "Esse cadastro (fornecedor) já existe, não é possível incluir cadastros duplicados.";
 
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirFornecedor, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
                 return false;
@@ -159,7 +159,7 @@ namespace PizzaByteBll
             }
 
             // Não deixar incluir um CNPJ repetido
-            FornecedorVo fornecedorVo = new FornecedorVo();
+            FornecedorVo fornecedorVo = null;
             if (!VerificarFornecedorExistente(requisicaoDto.EntidadeDto, ref fornecedorVo, ref mensagemErro))
             {
                 retornoDto.Retorno = false;
@@ -189,7 +189,7 @@ namespace PizzaByteBll
             else if (fornecedorVo != null && fornecedorVo.Excluido == false)
             {
                 retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Esse cadastro já existe, não é possível incluir cadastros duplicados";
+                retornoDto.Mensagem = "Esse cadastro (fornecedor) já existe, não é possível incluir cadastros duplicados";
 
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarFornecedor, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
                 return false;
@@ -307,15 +307,6 @@ namespace PizzaByteBll
                 return false;
             }
 
-            if (fornecedorVo == null)
-            {
-                retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Fornecedor não encontrado";
-
-                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterFornecedor, requisicaoDto.Id, retornoDto.Mensagem);
-                return false;
-            }
-
             FornecedorDto fornecedorDto = new FornecedorDto();
             if (!ConverterVoParaDto(fornecedorVo, ref fornecedorDto, ref mensagemErro))
             {
@@ -416,6 +407,10 @@ namespace PizzaByteBll
                         query = query.Where(p => p.Inativo == filtroInativo);
                         break;
 
+                    case "NOMEFANTASIACNPJ":
+                        query = query.Where(p => p.NomeFantasia.Contains(filtro.Value) || p.Cnpj.Contains(filtro.Value));
+                        break;
+
                     default:
                         retornoDto.Mensagem = $"O filtro {filtro.Key} não está definido para esta pesquisa.";
                         retornoDto.Retorno = false;
@@ -442,17 +437,20 @@ namespace PizzaByteBll
             }
 
             double totalItens = query.Count();
-            double paginas = totalItens <= requisicaoDto.NumeroItensPorPagina ? 1 : (totalItens / requisicaoDto.NumeroItensPorPagina);
-            retornoDto.NumeroPaginas = (int)Math.Ceiling(paginas);
-
-            int pular = (requisicaoDto.Pagina - 1) * requisicaoDto.NumeroItensPorPagina;
-            query = query.Skip(pular).Take(requisicaoDto.NumeroItensPorPagina);
-
             if (totalItens == 0)
             {
                 retornoDto.Mensagem = "Nenhum resultado encontrado.";
                 retornoDto.Retorno = true;
                 return true;
+            }
+
+            if (!requisicaoDto.NaoPaginarPesquisa)
+            {
+                double paginas = totalItens <= requisicaoDto.NumeroItensPorPagina ? 1 : totalItens / requisicaoDto.NumeroItensPorPagina;
+                retornoDto.NumeroPaginas = (int)Math.Ceiling(paginas);
+
+                int pular = (requisicaoDto.Pagina - 1) * requisicaoDto.NumeroItensPorPagina;
+                query = query.Skip(pular).Take(requisicaoDto.NumeroItensPorPagina);
             }
 
             List<FornecedorVo> listaVo = query.ToList();

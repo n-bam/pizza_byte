@@ -1,6 +1,5 @@
 ﻿using PizzaByteBll.Base;
 using PizzaByteDal;
-using PizzaByteDto.ClassesBase;
 using PizzaByteDto.Entidades;
 using PizzaByteDto.RetornosRequisicoes;
 using PizzaByteVo;
@@ -91,7 +90,7 @@ namespace PizzaByteBll
             else if (produtoExistente != null && produtoExistente.Excluido == false)
             {
                 retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Esse cadastro já existe, não é possível incluir cadastros duplicados.";
+                retornoDto.Mensagem = "Esse cadastro (produto) já existe, não é possível incluir cadastros duplicados.";
 
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.IncluirProduto, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
                 return false;
@@ -151,6 +150,15 @@ namespace PizzaByteBll
                 return false;
             }
 
+            if (requisicaoDto.Id == UtilitarioBll.RetornaIdProdutoPromocao())
+            {
+                retornoDto.Mensagem = "Erro ao obter o produto: Cadastro não encontrado";
+                retornoDto.Retorno = false;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ExcluirProduto, requisicaoDto.Id, retornoDto.Mensagem + " (Produto promoção)");
+                return false;
+            }
+
             if (salvar)
             {
                 // Salva as alterações
@@ -164,6 +172,7 @@ namespace PizzaByteBll
                 }
             }
 
+            logBll.ResgistrarLog(requisicaoDto, LogRecursos.ExcluirProduto, requisicaoDto.Id, "Produto excluído.");
             retornoDto.Retorno = true;
             retornoDto.Mensagem = "OK";
             return true;
@@ -182,6 +191,15 @@ namespace PizzaByteBll
                 return false;
             }
 
+            if (requisicaoDto.Id == UtilitarioBll.RetornaIdProdutoPromocao())
+            {
+                retornoDto.Mensagem = "Erro ao obter o produto: Cadastro não encontrado";
+                retornoDto.Retorno = false;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterProduto, requisicaoDto.Id, retornoDto.Mensagem + " (Produto promoção)");
+                return false;
+            }
+
             string mensagemErro = "";
             ProdutoVo produtoVo;
 
@@ -189,16 +207,6 @@ namespace PizzaByteBll
             {
                 retornoDto.Mensagem = "Erro ao obter o produto: " + mensagemErro;
                 retornoDto.Retorno = false;
-
-                logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterProduto, requisicaoDto.Id, retornoDto.Mensagem);
-                return false;
-            }
-
-            retornoDto.Mensagem = "Ok";
-            if (produtoVo == null)
-            {
-                retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Produto não encontrado";
 
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.ObterProduto, requisicaoDto.Id, retornoDto.Mensagem);
                 return false;
@@ -215,6 +223,7 @@ namespace PizzaByteBll
             }
 
             retornoDto.Entidade = produtoDto;
+            retornoDto.Mensagem = "Ok";
             retornoDto.Retorno = true;
             return true;
         }
@@ -235,6 +244,7 @@ namespace PizzaByteBll
             try
             {
                 produtoVo.Descricao = string.IsNullOrWhiteSpace(produtoDto.Descricao) ? "" : produtoDto.Descricao.Trim();
+                produtoVo.Detalhes = string.IsNullOrWhiteSpace(produtoDto.Detalhes) ? "" : produtoDto.Detalhes.Trim();
                 produtoVo.Preco = produtoDto.Preco;
                 produtoVo.Tipo = produtoDto.Tipo;
 
@@ -263,6 +273,7 @@ namespace PizzaByteBll
             try
             {
                 produtoDto.Descricao = string.IsNullOrWhiteSpace(produtoVo.Descricao) ? "" : produtoVo.Descricao.Trim();
+                produtoDto.Detalhes = string.IsNullOrWhiteSpace(produtoVo.Detalhes) ? "" : produtoVo.Detalhes.Trim();
                 produtoDto.Preco = produtoVo.Preco;
                 produtoDto.Tipo = produtoVo.Tipo;
 
@@ -301,6 +312,9 @@ namespace PizzaByteBll
                 return false;
             }
 
+            Guid idProdutoPromocao = UtilitarioBll.RetornaIdProdutoPromocao();
+            query = query.Where(p => p.Id != idProdutoPromocao);
+
             // Aplicar os filtros
             foreach (var filtro in requisicaoDto.ListaFiltros)
             {
@@ -308,6 +322,10 @@ namespace PizzaByteBll
                 {
                     case "DESCRICAO":
                         query = query.Where(p => p.Descricao.Contains(filtro.Value));
+                        break;
+
+                    case "DETALHES":
+                        query = query.Where(p => p.Detalhes.Contains(filtro.Value));
                         break;
 
                     case "PRECOMAIOR":
@@ -412,17 +430,21 @@ namespace PizzaByteBll
             }
 
             double totalItens = query.Count();
-            double paginas = totalItens <= requisicaoDto.NumeroItensPorPagina ? 1 : totalItens / requisicaoDto.NumeroItensPorPagina;
-            retornoDto.NumeroPaginas = (int)Math.Ceiling(paginas);
-
-            int pular = (requisicaoDto.Pagina - 1) * requisicaoDto.NumeroItensPorPagina;
-            query = query.Skip(pular).Take(requisicaoDto.NumeroItensPorPagina);
-
             if (totalItens == 0)
             {
+                retornoDto.NumeroPaginas = 0;
                 retornoDto.Mensagem = "Nenhum resultado encontrado.";
                 retornoDto.Retorno = true;
                 return true;
+            }
+
+            if (!requisicaoDto.NaoPaginarPesquisa)
+            {
+                double paginas = totalItens <= requisicaoDto.NumeroItensPorPagina ? 1 : totalItens / requisicaoDto.NumeroItensPorPagina;
+                retornoDto.NumeroPaginas = (int)Math.Ceiling(paginas);
+
+                int pular = (requisicaoDto.Pagina - 1) * requisicaoDto.NumeroItensPorPagina;
+                query = query.Skip(pular).Take(requisicaoDto.NumeroItensPorPagina);
             }
 
             List<ProdutoVo> listaVo = query.ToList();
@@ -471,6 +493,15 @@ namespace PizzaByteBll
                 return false;
             }
 
+            if (requisicaoDto.EntidadeDto.Id == UtilitarioBll.RetornaIdProdutoPromocao())
+            {
+                retornoDto.Mensagem = "Erro ao obter o produto: Cadastro não encontrado";
+                retornoDto.Retorno = false;
+
+                logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarProduto, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem + " (Produto promoção)");
+                return false;
+            }
+
             // Não deixar incluir um produto repetido
             ProdutoVo produtoVo = new ProdutoVo();
             if (!VerificarProdutoExistente(requisicaoDto.EntidadeDto, ref produtoVo, ref mensagemErro))
@@ -502,7 +533,7 @@ namespace PizzaByteBll
             else if (produtoVo != null && produtoVo.Excluido == false)
             {
                 retornoDto.Retorno = false;
-                retornoDto.Mensagem = "Esse cadastro já existe, não é possível incluir cadastros duplicados";
+                retornoDto.Mensagem = "Esse cadastro (produto) já existe, não é possível incluir cadastros duplicados";
 
                 logBll.ResgistrarLog(requisicaoDto, LogRecursos.EditarProduto, requisicaoDto.EntidadeDto.Id, retornoDto.Mensagem);
                 return false;
@@ -579,8 +610,8 @@ namespace PizzaByteBll
                 return false;
             }
 
-            produtoDto.Descricao = produtoDto.Descricao.Replace(".", "").Replace("/", "").Replace("-", "");
-            query = query.Where(p => p.Descricao == produtoDto.Descricao.Trim() && p.Id != produtoDto.Id);
+            produtoDto.Descricao = string.IsNullOrWhiteSpace(produtoDto.Descricao) ? "" : produtoDto.Descricao.Trim();
+            query = query.Where(p => p.Descricao == produtoDto.Descricao && p.Id != produtoDto.Id);
             produtoVo = query.FirstOrDefault();
             return true;
 
