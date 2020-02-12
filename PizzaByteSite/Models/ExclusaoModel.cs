@@ -24,5 +24,12 @@ namespace PizzaByteSite.Models
         /// Caso a entidade deletada venha de um cadastro pai
         /// </summary>
         public string IdPai { get; set; }
+
+        /// <summary>
+        /// Justificatuva para a ação
+        /// </summary>
+        [Display(Name = "Justificativa")]
+        public string Justificativa { get; set; }
+
     }
 }

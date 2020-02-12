@@ -24,5 +24,10 @@ namespace PizzaByteSite.Models
         /// </summary>
         [Display(Name = "CNPJ")]
         public string Cnpj { get; set; }
+
+        /// <summary>
+        /// Pesquisar um fornecedor por nome fantasia ou Cnpj
+        /// </summary>
+        public string NomeFantasiaCnpj { get; set; }
     }
 }

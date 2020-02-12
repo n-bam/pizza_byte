@@ -34,12 +34,14 @@ namespace PizzaByteSite.Models
         /// Faixa inicial de preço
         /// </summary>
         [Display(Name = "Taxa de")]
+        [DisplayFormat(DataFormatString = "{0:n2}", ApplyFormatInEditMode = true)]
         public float TaxaInicial { get; set; }
 
         /// <summary>
         /// Faixa inicial de preço
         /// </summary>
         [Display(Name = "até")]
+        [DisplayFormat(DataFormatString = "{0:n2}", ApplyFormatInEditMode = true)]
         public float TaxaFinal { get; set; }
         
         /// <summary>

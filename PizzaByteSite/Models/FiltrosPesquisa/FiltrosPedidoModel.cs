@@ -13,7 +13,17 @@ namespace PizzaByteSite.Models
     {
         public FiltrosPedidoModel()
         {
-            ListaTipos = Utilidades.RetornarListaTiposPedido();
+            ListaTipos = new List<SelectListItem>();
+            ListaTipos.Add(new SelectListItem() { Value = "0", Text = "Todos", Selected = true });
+            ListaTipos.AddRange(Utilidades.RetornarListaTiposPedido());
+
+            ListaInativo = Utilidades.RetornarListaOpcaoInativo();
+            ListaInativo[2].Text = "Apenas cancelados";
+
+            ListaIFood = new List<SelectListItem>();
+            ListaIFood.Add(new SelectListItem() { Text = "Todos", Value = "" });
+            ListaIFood.Add(new SelectListItem() { Text = "Apenas da pizzaria", Value = "false", Selected = true });
+            ListaIFood.Add(new SelectListItem() { Text = "Apenas IFood", Value = "true" });
         }
 
         /// <summary>
@@ -42,26 +52,31 @@ namespace PizzaByteSite.Models
         public string NomeCliente { get; set; }
 
         /// <summary>
-        /// Pesquisar pedido por CEP
-        /// </summary>
-        [Display(Name = "CEP")]
-        public string Cep { get; set; }
-
-        /// <summary>
         /// Pesquisar pela data do pedido
         /// </summary>
         [Display(Name = "De")]
-        public DateTime? DataInicio { get; set; }
+        public DateTime DataInicio { get; set; }
 
         /// <summary>
         /// Pesquisar pela data do pedido
         /// </summary>
         [Display(Name = "até")]
-        public DateTime? DataFim { get; set; }
+        public DateTime DataFim { get; set; }
+
+        /// <summary>
+        /// Trazer pedidos apenas do IFood
+        /// </summary>
+        [Display(Name = "IFood")]
+        public string PedidoIfood { get; set; }
 
         /// <summary>
         /// Lista com as opções de tipos de pedidos
         /// </summary>
         public List<SelectListItem> ListaTipos { get; set; }
+
+        /// <summary>
+        /// Lista com as opções de pedidos do IFood
+        /// </summary>
+        public List<SelectListItem> ListaIFood { get; set; }
     }
 }

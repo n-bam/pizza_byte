@@ -9,17 +9,17 @@ namespace PizzaByteSite.Models
     /// Classe que representa as opções de pesquisa de funcionarios
     /// </summary>
     public class FiltrosFuncionarioModel : BaseFiltrosModel
+    {
+        public FiltrosFuncionarioModel()
         {
-            public FiltrosFuncionarioModel()
-            {
-                ListaTipos = Utilidades.RetornarListaTiposFuncionario();
-               
-            }
+            ListaTipos = Utilidades.RetornarListaTiposFuncionario();
 
-            /// <summary>
-            /// Pesquisar um funcionario por nome
-            /// </summary>
-            [Display(Name = "Nome")]
+        }
+
+        /// <summary>
+        /// Pesquisar um funcionario por nome
+        /// </summary>
+        [Display(Name = "Nome")]
         public string Nome { get; set; }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace PizzaByteSite.Models
         /// </summary>
         [Display(Name = "Tipo")]
         public TipoFuncionario Tipo { get; set; }
-        
+
         /// <summary>
         /// Indica o campo que a pesquisa será ordenada
         /// </summary>
@@ -43,7 +43,5 @@ namespace PizzaByteSite.Models
         /// Lista com as opções de ordenação da pesquisa
         /// </summary>
         public List<SelectListItem> ListaOrdenacao { get; set; }
-
-
     }
 }

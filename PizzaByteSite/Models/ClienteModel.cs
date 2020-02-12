@@ -72,7 +72,7 @@ namespace PizzaByteSite.Models
             try
             {
                 clienteDto.Nome = string.IsNullOrWhiteSpace(Nome) ? "" : Nome.Trim();
-                clienteDto.Telefone = string.IsNullOrWhiteSpace(Telefone) ? "" : Telefone.Trim().Replace("-", "");
+                clienteDto.Telefone = string.IsNullOrWhiteSpace(Telefone) ? "" : Telefone.Trim().Replace("(", "").Replace(")", "").Replace("-", "");
                 clienteDto.Cpf = string.IsNullOrWhiteSpace(Cpf) ? "" : Cpf.Trim().Replace(".", "").Replace("-", "");
                 clienteDto.DataAlteracao = this.DataAlteracao;
                 clienteDto.DataInclusao = this.DataInclusao;

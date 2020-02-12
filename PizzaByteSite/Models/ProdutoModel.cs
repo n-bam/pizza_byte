@@ -26,6 +26,14 @@ namespace PizzaByteSite.Models
         public string Descricao { get; set; }
 
         /// <summary>
+        /// Mais detalhes sobre o produto
+        /// </summary>
+        [Display(Name = "Detalhes")]
+        [StringLength(200, ErrorMessage = "Informe os detalhes para o produto de 3 a 200 letras.", MinimumLength = 3)]
+        [DataType(DataType.MultilineText)]
+        public string Detalhes { get; set; }
+
+        /// <summary>
         /// Preço de venda do produto
         /// </summary>
         [Required(ErrorMessage = "Por favor, preencha o preço de venda do produto")]
@@ -57,6 +65,7 @@ namespace PizzaByteSite.Models
             try
             {
                 Descricao = string.IsNullOrWhiteSpace(produtoDto.Descricao) ? "" : produtoDto.Descricao.Trim();
+                Detalhes = string.IsNullOrWhiteSpace(produtoDto.Detalhes) ? "" : produtoDto.Detalhes.Trim();
                 Preco = produtoDto.Preco;
                 Tipo = produtoDto.Tipo;
                 DataAlteracao = produtoDto.DataAlteracao;
@@ -84,6 +93,7 @@ namespace PizzaByteSite.Models
             try
             {
                 produtoDto.Descricao = string.IsNullOrWhiteSpace(Descricao) ? "" : Descricao.Trim();
+                produtoDto.Detalhes = string.IsNullOrWhiteSpace(Detalhes) ? "" : Detalhes.Trim();
                 produtoDto.Preco = Preco;
                 produtoDto.Tipo = Tipo;
                 produtoDto.DataAlteracao = this.DataAlteracao;

@@ -67,7 +67,7 @@ namespace PizzaByteSite.Models
             try
             {
                 this.NumeroEndereco = string.IsNullOrWhiteSpace(enderecoDto.NumeroEndereco) ? "" : enderecoDto.NumeroEndereco.Trim();
-                this.ComplementoEndereco = string.IsNullOrWhiteSpace(enderecoDto.ComplementeEndereco) ? "" : enderecoDto.ComplementeEndereco.Trim();
+                this.ComplementoEndereco = string.IsNullOrWhiteSpace(enderecoDto.ComplementoEndereco) ? "" : enderecoDto.ComplementoEndereco.Trim();
                 this.DataAlteracao = enderecoDto.DataAlteracao;
                 this.DataInclusao = enderecoDto.DataInclusao;
                 this.Id = enderecoDto.Id;
@@ -79,7 +79,7 @@ namespace PizzaByteSite.Models
                 Endereco.Cep = string.IsNullOrWhiteSpace(enderecoDto.Endereco.Cep) ? "" : enderecoDto.Endereco.Cep.Trim();
                 Endereco.Cidade = string.IsNullOrWhiteSpace(enderecoDto.Endereco.Cidade) ? "" : enderecoDto.Endereco.Cidade.Trim();
                 Endereco.Logradouro = string.IsNullOrWhiteSpace(enderecoDto.Endereco.Logradouro) ? "" : enderecoDto.Endereco.Logradouro.Trim();
-                Endereco.Id = Endereco.Id;
+                Endereco.Id = enderecoDto.Endereco.Id;
 
                 return true;
             }
@@ -101,7 +101,7 @@ namespace PizzaByteSite.Models
             try
             {
                 enderecoDto.NumeroEndereco = string.IsNullOrWhiteSpace(NumeroEndereco) ? "" : NumeroEndereco.Trim();
-                enderecoDto.ComplementeEndereco = string.IsNullOrWhiteSpace(ComplementoEndereco) ? "" : ComplementoEndereco.Trim();
+                enderecoDto.ComplementoEndereco = string.IsNullOrWhiteSpace(ComplementoEndereco) ? "" : ComplementoEndereco.Trim();
                 enderecoDto.DataAlteracao = DataAlteracao;
                 enderecoDto.DataInclusao = DataInclusao;
                 enderecoDto.Id = Id;

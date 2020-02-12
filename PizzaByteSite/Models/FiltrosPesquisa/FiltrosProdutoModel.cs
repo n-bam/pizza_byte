@@ -26,6 +26,12 @@ namespace PizzaByteSite.Models
         public string Descricao { get; set; }
 
         /// <summary>
+        /// Pesquisar produtos com detalhe
+        /// </summary>
+        [Display(Name = "Detalhes")]
+        public string Detalhes { get; set; }
+
+        /// <summary>
         /// Filtrar por tipo de produto (bebida, pizza, etc.)
         /// </summary>
         [Display(Name = "Tipo")]
@@ -41,12 +47,14 @@ namespace PizzaByteSite.Models
         /// Faixa inicial de preço
         /// </summary>
         [Display(Name = "Preço de")]
+        [DisplayFormat(DataFormatString = "{0:n2}", ApplyFormatInEditMode = true)]
         public float PrecoInicial { get; set; }
 
         /// <summary>
         /// Faixa inicial de preço
         /// </summary>
         [Display(Name = "até")]
+        [DisplayFormat(DataFormatString = "{0:n2}", ApplyFormatInEditMode = true)]
         public float PrecoFinal { get; set; }
 
         /// <summary>

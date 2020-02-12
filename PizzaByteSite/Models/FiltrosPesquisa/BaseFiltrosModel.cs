@@ -8,10 +8,7 @@ namespace PizzaByteSite.Models
     {
         public BaseFiltrosModel()
         {
-            ListaInativo = new List<SelectListItem>();
-            ListaInativo.Add(new SelectListItem() { Text = "Todos", Value = "" });
-            ListaInativo.Add(new SelectListItem() { Text = "Apenas ativos", Value = "false", Selected = true });
-            ListaInativo.Add(new SelectListItem() { Text = "Apenas inativos", Value = "true" });
+            ListaInativo = Utilidades.RetornarListaOpcaoInativo();
         }
 
         /// <summary>
@@ -29,6 +26,11 @@ namespace PizzaByteSite.Models
         /// </summary>
         [Display(Name = "Inativos")]
         public string ObterInativos { get; set; }
+
+        /// <summary>
+        /// Número de itens que terá em cada página
+        /// </summary>
+        public int NumeroItensPagina { get; set; }
 
         /// <summary>
         /// Lista com as opções de pesquisa de entidades ativas/inativas
