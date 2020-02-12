@@ -1,5 +1,6 @@
 ﻿using PizzaByteBll;
 using PizzaByteBll.Base;
+using PizzaByteDto.ClassesBase;
 using PizzaByteDto.Entidades;
 using PizzaByteDto.RetornosRequisicoes;
 using PizzaByteSite.Models;
@@ -53,6 +54,27 @@ namespace PizzaByteSite.Controllers
             }
 
             return View();
+        }
+
+        /// <summary>
+        /// Obtem os para exibir do dashboard
+        /// </summary>
+        /// <param name="filtros"></param>
+        /// <returns></returns>
+        public string ObterInformacoesDashboard(FiltrosProdutoModel filtros)
+        {
+            RetornoObterInformacoesDashboardDto retornoDto = new RetornoObterInformacoesDashboardDto();
+            BaseRequisicaoDto requisicaoDto = new BaseRequisicaoDto()
+            {
+                Identificacao = SessaoUsuario.SessaoLogin.Identificacao,
+                IdUsuario = SessaoUsuario.SessaoLogin.IdUsuario
+            };
+
+            RelatoriosBll relatoriosBll = new RelatoriosBll();
+            relatoriosBll.ObterDadosDashboard(requisicaoDto, ref retornoDto);
+
+            string retorno = new JavaScriptSerializer().Serialize(retornoDto);
+            return retorno;
         }
 
         /// <summary>
@@ -523,7 +545,7 @@ namespace PizzaByteSite.Controllers
             }
 
             TempData["Retorno"] = "SENHAALTERADA";
-          
+
             //Chamar a view
             return RedirectToAction("Login", "Usuario");
         }

@@ -1,33 +1,63 @@
 ﻿using PizzaByteBll;
+using PizzaByteBll.Base;
 using PizzaByteDto.Entidades;
 using PizzaByteDto.RetornosRequisicoes;
 using PizzaByteSite.Models;
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using static PizzaByteEnum.Enumeradores;
 
 namespace PizzaByteSite.Controllers
 {
-    public class ClienteEnderecoController : Controller
+    public class ContaPagarController : BaseController
     {
+        private LogBll logBll = new LogBll("ContaPagarController");
+
         /// <summary>
-        /// Chama a tela para incluir um endereço de cliente
+        /// Chama a tela com a listagem de conta pagar
         /// </summary>
         /// <returns></returns>
-        public ActionResult Incluir(Guid Id, string nomeCliente)
+        public ActionResult Index()
+        {
+            // Se não tiver login, encaminhar para a tela de login
+            if (string.IsNullOrWhiteSpace(SessaoUsuario.SessaoLogin.Identificacao))
+            {
+                return RedirectToAction("Login", "Usuario");
+            }
+
+            // Filtros da página inicial
+            FiltrosContaPagarModel model = new FiltrosContaPagarModel()
+            {
+                Pagina = 1,
+                DataInicio = DateTime.Now,
+                DataFim = DateTime.Now,
+                PesquisarPor = "DATAVENCIMENTO"
+            };
+
+            //Chamar a view
+            return View(model);
+        }
+
+        /// <summary>
+        /// Chama a tela para incluir uma conta a pagar
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Incluir()
         {
             //Se não tiver login, encaminhar para a tela de login
             if (string.IsNullOrWhiteSpace(SessaoUsuario.SessaoLogin.Identificacao))
             {
                 return RedirectToAction("Login", "Usuario");
             }
-
-            //Cliente a ser incluído
-            ClienteEnderecoModel model = new ClienteEnderecoModel()
+            
+            //conta a ser incluída
+            ContaPagarModel model = new ContaPagarModel()
             {
                 Id = Guid.NewGuid(),
-                IdCliente = Id,
-                NomeCliente = nomeCliente
+                DataCompetencia = DateTime.Now,
+                DataVencimento = DateTime.Now
             };
 
             TempData["Retorno"] = "INCLUINDO";
@@ -37,13 +67,13 @@ namespace PizzaByteSite.Controllers
         }
 
         /// <summary>
-        /// Consome o serviço para incluir um novo cliente
+        /// Consome o serviço para incluir uma nova conta
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Incluir(ClienteEnderecoModel model)
+        public ActionResult Incluir(ContaPagarModel model)
         {
             //Se não tiver login, encaminhar para a tela de login
             if (string.IsNullOrWhiteSpace(SessaoUsuario.SessaoLogin.Identificacao))
@@ -58,28 +88,28 @@ namespace PizzaByteSite.Controllers
             }
 
             //Converter para DTO
-            ClienteEnderecoDto clienteEnderecoDto = new ClienteEnderecoDto();
+            ContaPagarDto contaPagarDto = new ContaPagarDto();
             string mensagemErro = "";
-            if (!model.ConverterModelParaDto(ref clienteEnderecoDto, ref mensagemErro))
+            if (!model.ConverterModelParaDto(ref contaPagarDto, ref mensagemErro))
             {
-                ModelState.AddModelError("", $"Erro ao converter para Dto: {mensagemErro}");
+                ModelState.AddModelError("Servico", $"Erro ao converter para Dto: {mensagemErro}");
                 return View(model);
             }
 
-            clienteEnderecoDto.Id = Guid.NewGuid();
+            contaPagarDto.Id = Guid.NewGuid();
 
             //Preparar requisição e retorno
             RetornoDto retorno = new RetornoDto();
-            RequisicaoEntidadeDto<ClienteEnderecoDto> requisicaoDto = new RequisicaoEntidadeDto<ClienteEnderecoDto>()
+            RequisicaoEntidadeDto<ContaPagarDto> requisicaoDto = new RequisicaoEntidadeDto<ContaPagarDto>()
             {
-                EntidadeDto = clienteEnderecoDto,
+                EntidadeDto = contaPagarDto,
                 Identificacao = SessaoUsuario.SessaoLogin.Identificacao,
                 IdUsuario = SessaoUsuario.SessaoLogin.IdUsuario
             };
 
             //Consumir o serviço
-            ClienteEnderecoBll clienteEnderecoBll = new ClienteEnderecoBll(true);
-            clienteEnderecoBll.Incluir(requisicaoDto, ref retorno);
+            ContaPagarBll ContaPagarBll = new ContaPagarBll(true);
+            ContaPagarBll.Incluir(requisicaoDto, ref retorno);
 
             //Verificar o retorno 
             if (retorno.Retorno == false)
@@ -91,16 +121,16 @@ namespace PizzaByteSite.Controllers
 
             TempData["Retorno"] = "INCLUIDO";
 
-            //Retornar para o cliente
-            return RedirectToAction("Visualizar", "Cliente", new { id = model.IdCliente });
+            //Retornar para index
+            return RedirectToAction("Index");
         }
 
         /// <summary>
-        /// Chama a tela para visualizar um fornecedor
+        /// Chama a tela para visualizar da conta
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public ActionResult Visualizar(Guid id, string nomeCliente)
+        public ActionResult Visualizar(Guid id)
         {
             //Se não tiver login, encaminhar para a tela de login
             if (string.IsNullOrWhiteSpace(SessaoUsuario.SessaoLogin.Identificacao))
@@ -109,30 +139,28 @@ namespace PizzaByteSite.Controllers
             }
 
             //Model a ser populada
-            ClienteEnderecoModel model = new ClienteEnderecoModel();
+            ContaPagarModel model = new ContaPagarModel();
             string mensagemRetorno = "";
 
-            //Obtem o fornecedor pelo ID
-            if (!this.ObterClienteEndereco(id, ref model, ref mensagemRetorno))
+            //Obtem o contaPagar pelo ID
+            if (!this.ObterContaPagar(id, ref model, ref mensagemRetorno))
             {
-                ViewBag.MensagemErro = mensagemRetorno;
+                ViewBag.Mensagem = mensagemRetorno;
                 return View("Erro");
             }
 
-            model.NomeCliente = nomeCliente;
-
-            TempData["Retorno"] = "VISUALIZANDOENDERECO";
+            TempData["Retorno"] = "VISUALIZANDO";
 
             //Chamar a view
             return View(model);
         }
 
         /// <summary>
-        /// Chama a tela para editar um endereço de cliente
+        /// Chama a tela para editar uma conta
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public ActionResult Editar(Guid id, string nomeCliente)
+        public ActionResult Editar(Guid id)
         {
             //Se não tiver login, encaminhar para a tela de login
             if (string.IsNullOrWhiteSpace(SessaoUsuario.SessaoLogin.Identificacao))
@@ -140,18 +168,23 @@ namespace PizzaByteSite.Controllers
                 return RedirectToAction("Login", "Usuario");
             }
 
-            //Model a ser populada
-            ClienteEnderecoModel model = new ClienteEnderecoModel();
-            string mensagemRetorno = "";
-
-            //Obtem o cliente pelo ID
-            if (!this.ObterClienteEndereco(id, ref model, ref mensagemRetorno))
+            if (!SessaoUsuario.SessaoLogin.Administrador)
             {
-                ViewBag.MensagemErro = mensagemRetorno;
-                return View("Erro");
+                ViewBag.MensagemErro = "Para editar uma conta é necessário " +
+                    $"logar com um contaPagar administrador.";
+                return View("SemPermissao");
             }
 
-            model.NomeCliente = nomeCliente;
+            //Model a ser populada
+            ContaPagarModel model = new ContaPagarModel();
+            string mensagemRetorno = "";
+
+            //Obtem o contaPagar pelo ID
+            if (!this.ObterContaPagar(id, ref model, ref mensagemRetorno))
+            {
+                ViewBag.Mensagem = mensagemRetorno;
+                return View("Erro");
+            }
 
             TempData["Retorno"] = "EDITANDO";
 
@@ -160,18 +193,25 @@ namespace PizzaByteSite.Controllers
         }
 
         /// <summary>
-        /// Consome o serviço para salvar os dados do cliente
+        /// Consome o serviço para salvar os dados da conta
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Editar(ClienteEnderecoModel model)
+        public ActionResult Editar(ContaPagarModel model)
         {
             //Se não tiver login, encaminhar para a tela de login
             if (string.IsNullOrWhiteSpace(SessaoUsuario.SessaoLogin.Identificacao))
             {
                 return RedirectToAction("Login", "Usuario");
+            }
+
+            if (!SessaoUsuario.SessaoLogin.Administrador)
+            {
+                ViewBag.MensagemErro = "Para editar uma conta é necessário " +
+                    $"logar com um contaPagar administrador.";
+                return View("SemPermissao");
             }
 
             //Valida a entidade recebida
@@ -181,26 +221,26 @@ namespace PizzaByteSite.Controllers
             }
 
             //Converte para DTO
-            ClienteEnderecoDto clienteDto = new ClienteEnderecoDto();
+            ContaPagarDto contaPagarDto = new ContaPagarDto();
             string mensagemErro = "";
-            if (!model.ConverterModelParaDto(ref clienteDto, ref mensagemErro))
+            if (!model.ConverterModelParaDto(ref contaPagarDto, ref mensagemErro))
             {
-                ViewBag.MensagemErro = mensagemErro;
+                ViewBag.Mensagem = mensagemErro;
                 return View("Erro");
             }
 
             //Preparar requisição e retorno
             RetornoDto retorno = new RetornoDto();
-            RequisicaoEntidadeDto<ClienteEnderecoDto> requisicaoDto = new RequisicaoEntidadeDto<ClienteEnderecoDto>()
+            RequisicaoEntidadeDto<ContaPagarDto> requisicaoDto = new RequisicaoEntidadeDto<ContaPagarDto>()
             {
-                EntidadeDto = clienteDto,
+                EntidadeDto = contaPagarDto,
                 Identificacao = SessaoUsuario.SessaoLogin.Identificacao,
                 IdUsuario = SessaoUsuario.SessaoLogin.IdUsuario
             };
 
             //Consumir o serviço
-            ClienteEnderecoBll clienteBll = new ClienteEnderecoBll(true);
-            clienteBll.Editar(requisicaoDto, ref retorno);
+            ContaPagarBll contaPagarBll = new ContaPagarBll(true);
+            contaPagarBll.Editar(requisicaoDto, ref retorno);
 
             //Tratar o retorno
             if (retorno.Retorno == false)
@@ -211,12 +251,12 @@ namespace PizzaByteSite.Controllers
 
             TempData["Retorno"] = "ALTERADO";
 
-            //Retornar para o cliente
-            return RedirectToAction("Visualizar", "Cliente", new { id = model.IdCliente });
+            //Voltar para o visualizar uma conta
+            return RedirectToAction("Index");
         }
 
         /// <summary>
-        /// Chama a tela para excluir um endereço de cliente
+        /// Chama a tela para excluir uma conta
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -230,8 +270,8 @@ namespace PizzaByteSite.Controllers
 
             if (!SessaoUsuario.SessaoLogin.Administrador)
             {
-                ViewBag.MensagemErro = "Para excluir um endereço de cliente é necessário " +
-                    $"logar com um usuário administrador.";
+                ViewBag.MensagemErro = "Para excluir um contaPagar é necessário " +
+                    $"logar com um contaPagar administrador.";
                 return View("SemPermissao");
             }
 
@@ -242,13 +282,13 @@ namespace PizzaByteSite.Controllers
         }
 
         /// <summary>
-        /// Consome o serviço para excluir o cliente
+        /// Consome o serviço para excluir uma conta
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ExcluirClienteEndereco(ExclusaoModel model)
+        public ActionResult ExcluirContaPagar(ExclusaoModel model)
         {
             //Se não tiver login, encaminhar para a tela de login
             if (string.IsNullOrWhiteSpace(SessaoUsuario.SessaoLogin.Identificacao))
@@ -258,9 +298,15 @@ namespace PizzaByteSite.Controllers
 
             if (!SessaoUsuario.SessaoLogin.Administrador)
             {
-                ViewBag.MensagemErro = "Para excluir um endereço de cliente é necessário " +
-                    $"logar com um usuário administrador.";
+                ViewBag.MensagemErro = "Para excluir uma conta é necessário " +
+                    $"logar com um contaPagar administrador.";
                 return View("SemPermissao");
+            }
+
+            if (!SessaoUsuario.SessaoLogin.Administrador)
+            {
+                ViewBag.Mensagem = "Esta usuario não tem permissão para excluir uma conta.";
+                return View("Erro");
             }
 
             //Preparar requisição e retorno
@@ -273,8 +319,8 @@ namespace PizzaByteSite.Controllers
             };
 
             //Consumir o serviço
-            ClienteEnderecoBll clienteBll = new ClienteEnderecoBll(true);
-            clienteBll.Excluir(requisicaoDto, ref retorno);
+            ContaPagarBll contaPagarBll = new ContaPagarBll(true);
+            contaPagarBll.Excluir(requisicaoDto, ref retorno);
 
             //Tratar o retorno
             if (retorno.Retorno == false)
@@ -285,21 +331,21 @@ namespace PizzaByteSite.Controllers
 
             TempData["Retorno"] = "EXCLUIDO";
 
-            //Retornar para o cliente
-            return RedirectToAction("Visualizar", "Cliente", new { id = model.IdPai });
+            //Voltar para a index de contas a pagar
+            return RedirectToAction("Index");
         }
 
         /// <summary>
-        /// Obtem um endereço de cliente e converte em Model
+        /// Obtem uma conta e converte em Model
         /// </summary>
         /// <param name="id"></param>
         /// <param name="model"></param>
         /// <param name="mensagemErro"></param>
         /// <returns></returns>
-        private bool ObterClienteEndereco(Guid id, ref ClienteEnderecoModel model, ref string mensagemErro)
+        private bool ObterContaPagar(Guid id, ref ContaPagarModel model, ref string mensagemErro)
         {
             //Preparar a requisição e o retorno
-            RetornoObterDto<ClienteEnderecoDto> retorno = new RetornoObterDto<ClienteEnderecoDto>();
+            RetornoObterDto<ContaPagarDto> retorno = new RetornoObterDto<ContaPagarDto>();
             RequisicaoObterDto requisicaoDto = new RequisicaoObterDto()
             {
                 Id = id,
@@ -308,8 +354,8 @@ namespace PizzaByteSite.Controllers
             };
 
             //Consumir o serviço
-            ClienteEnderecoBll clienteBll = new ClienteEnderecoBll(true);
-            clienteBll.Obter(requisicaoDto, ref retorno);
+            ContaPagarBll contaPagarBll = new ContaPagarBll(true);
+            contaPagarBll.Obter(requisicaoDto, ref retorno);
 
             //Tratar o retorno
             if (retorno.Retorno == false)
@@ -325,71 +371,50 @@ namespace PizzaByteSite.Controllers
         }
 
         /// <summary>
-        /// Obtem uma listra filtrada de clientes
+        /// Obtem uma listra filtrada de contas a pagar
         /// </summary>
         /// <param name="filtros"></param>
         /// <returns></returns>
-        public string ObterListaEnderecosCliente(Guid idCliente, int pagina = 1)
+        public string ObterListaFiltrada(FiltrosContaPagarModel filtros)
         {
-            RetornoObterListaDto<ClienteEnderecoDto> retornoDto = new RetornoObterListaDto<ClienteEnderecoDto>();
-
             //Requisição para obter a lista
             RequisicaoObterListaDto requisicaoDto = new RequisicaoObterListaDto()
             {
-                CampoOrdem = "",
+                CampoOrdem = "DESCRIÇÂO",
                 IdUsuario = SessaoUsuario.SessaoLogin.IdUsuario,
                 Identificacao = SessaoUsuario.SessaoLogin.Identificacao,
-                NaoPaginarPesquisa = false,
-                Pagina = pagina,
+                NaoPaginarPesquisa = filtros.NaoPaginaPesquisa,
+                Pagina = filtros.Pagina,
                 NumeroItensPorPagina = 20
             };
 
             //Adicionar filtros utilizados
-            if (idCliente == Guid.Empty)
+            if (!string.IsNullOrWhiteSpace(filtros.Descricao))
             {
-                retornoDto.Mensagem = "O id do cliente é obrigatório para obter a lista de endereços";
-                retornoDto.Retorno = false;
-            }
-            else
-            {
-                requisicaoDto.ListaFiltros.Add("IDCLIENTE", idCliente.ToString());
-
-                //Consumir o serviço
-                ClienteEnderecoBll clienteEnderecoBll = new ClienteEnderecoBll(true);
-                clienteEnderecoBll.ObterListaFiltrada(requisicaoDto, ref retornoDto);
+                requisicaoDto.ListaFiltros.Add("DESCRIÇÂO", filtros.Descricao.Trim());
             }
 
-            string retorno = new JavaScriptSerializer().Serialize(retornoDto);
-            return retorno;
-        }
-
-        /// <summary>
-        /// Obtem um endereço por id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public string Obter(Guid id)
-        {
-            //Preparar a requisição e o retorno
-            RetornoObterDto<ClienteEnderecoDto> retornoDto = new RetornoObterDto<ClienteEnderecoDto>();
-            if (id == Guid.Empty)
+            if (filtros.Status!= StatusConta.NaoIdentificado)
             {
-                retornoDto.Mensagem = "O id do endereço é obrigatório para obter o endereço.";
-                retornoDto.Retorno = false;
+                requisicaoDto.ListaFiltros.Add("STATUS", ((int)filtros.Status).ToString());
             }
-            else
+            if (filtros.PrecoInicial > 0)
             {
-                RequisicaoObterDto requisicaoDto = new RequisicaoObterDto()
-                {
-                    Id = id,
-                    Identificacao = SessaoUsuario.SessaoLogin.Identificacao,
-                    IdUsuario = SessaoUsuario.SessaoLogin.IdUsuario
-                };
-
-                //Consumir o serviço
-                ClienteEnderecoBll clienteBll = new ClienteEnderecoBll(true);
-                clienteBll.Obter(requisicaoDto, ref retornoDto);
+                requisicaoDto.ListaFiltros.Add("PRECOMAIOR", filtros.PrecoInicial.ToString());
             }
+
+            if (filtros.PrecoFinal > 0)
+            {
+                requisicaoDto.ListaFiltros.Add("PRECOMENOR", filtros.PrecoFinal.ToString());
+            }
+
+            requisicaoDto.ListaFiltros.Add("DATAINICIO" + filtros.PesquisarPor, filtros.DataInicio.Date.ToString());
+            requisicaoDto.ListaFiltros.Add("DATAFIM" + filtros.PesquisarPor, filtros.DataFim.Date.ToString());
+
+            //Consumir o serviço
+            ContaPagarBll contaPagarBll = new ContaPagarBll(true);
+            RetornoObterListaDto<ContaPagarDto> retornoDto = new RetornoObterListaDto<ContaPagarDto>();
+            contaPagarBll.ObterListaFiltrada(requisicaoDto, ref retornoDto);
 
             string retorno = new JavaScriptSerializer().Serialize(retornoDto);
             return retorno;

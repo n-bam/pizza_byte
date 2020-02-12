@@ -353,7 +353,7 @@ namespace PizzaByteSite.Controllers
                 Identificacao = SessaoUsuario.SessaoLogin.Identificacao,
                 NaoPaginarPesquisa = filtros.NaoPaginaPesquisa,
                 Pagina = filtros.Pagina,
-                NumeroItensPorPagina = 20
+                NumeroItensPorPagina = (filtros.NumeroItensPagina == 0) ? 20 : filtros.NumeroItensPagina
             };
 
             //Adicionar filtros utilizados
@@ -380,6 +380,45 @@ namespace PizzaByteSite.Controllers
             //Consumir o serviço
             ClienteBll clienteBll = new ClienteBll(true);
             RetornoObterListaDto<ClienteDto> retornoDto = new RetornoObterListaDto<ClienteDto>();
+            clienteBll.ObterListaFiltrada(requisicaoDto, ref retornoDto);
+
+            string retorno = new JavaScriptSerializer().Serialize(retornoDto);
+            return retorno;
+        }
+
+        /// <summary>
+        /// Obtem uma listra filtrada de clientes
+        /// </summary>
+        /// <param name="filtros"></param>
+        /// <returns></returns>
+        public string ObterListaNomeTelefone(string nomeTelefone)
+        {
+            //Requisição para obter a lista
+            RequisicaoObterListaDto requisicaoDto = new RequisicaoObterListaDto()
+            {
+                CampoOrdem = "NOME",
+                IdUsuario = SessaoUsuario.SessaoLogin.IdUsuario,
+                Identificacao = SessaoUsuario.SessaoLogin.Identificacao,
+                NaoPaginarPesquisa = true,
+                NumeroItensPorPagina = 20
+            };
+
+            RetornoObterListaDto<ClienteDto> retornoDto = new RetornoObterListaDto<ClienteDto>();
+
+            //Adicionar filtros utilizados
+            if (!string.IsNullOrWhiteSpace(nomeTelefone))
+            {
+                requisicaoDto.ListaFiltros.Add("NOMETELEFONE", nomeTelefone.Trim());
+            }
+            else
+            {
+                retornoDto.Retorno = false;
+                retornoDto.Mensagem = "Nenhum filtro informado. Informe " +
+                    "um nome ou telefone para pesquisar os clientes.";
+            }
+
+            //Consumir o serviço
+            ClienteBll clienteBll = new ClienteBll(true);
             clienteBll.ObterListaFiltrada(requisicaoDto, ref retornoDto);
 
             string retorno = new JavaScriptSerializer().Serialize(retornoDto);

@@ -413,6 +413,11 @@ namespace PizzaByteSite.Controllers
                 requisicaoDto.ListaFiltros.Add("CNPJ", filtros.Cnpj.Trim());
             }
 
+            if (!string.IsNullOrWhiteSpace(filtros.NomeFantasiaCnpj))
+            {
+                requisicaoDto.ListaFiltros.Add("NOMEFANTASIACNPJ", filtros.NomeFantasiaCnpj.Trim());
+            }
+
             //Consumir o serviço
             FornecedorBll fornecedorBll = new FornecedorBll(true);
             RetornoObterListaDto<FornecedorDto> retornoDto = new RetornoObterListaDto<FornecedorDto>();

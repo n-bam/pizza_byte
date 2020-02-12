@@ -356,13 +356,18 @@ namespace PizzaByteSite.Controllers
                 Identificacao = SessaoUsuario.SessaoLogin.Identificacao,
                 NaoPaginarPesquisa = filtros.NaoPaginaPesquisa,
                 Pagina = filtros.Pagina,
-                NumeroItensPorPagina = 20
+                NumeroItensPorPagina = (filtros.NumeroItensPagina == 0) ? 20 : filtros.NumeroItensPagina
             };
 
             //Adicionar filtros utilizados
             if (!string.IsNullOrWhiteSpace(filtros.Descricao))
             {
                 requisicaoDto.ListaFiltros.Add("DESCRICAO", filtros.Descricao.Trim());
+            }
+
+            if (!string.IsNullOrWhiteSpace(filtros.Detalhes))
+            {
+                requisicaoDto.ListaFiltros.Add("DETALHES", filtros.Detalhes.Trim());
             }
 
             if (filtros.PrecoInicial > 0)

@@ -119,7 +119,7 @@ namespace PizzaByteSite.Controllers
 
                 listaDtos.Add(produtoDto);
             }
-            
+
             //Preparar requisição e retorno
             RetornoDto retorno = new RetornoDto();
             RequisicaoListaEntidadesDto<TaxaEntregaDto> requisicaoDto = new RequisicaoListaEntidadesDto<TaxaEntregaDto>()
@@ -411,15 +411,37 @@ namespace PizzaByteSite.Controllers
             {
                 requisicaoDto.ListaFiltros.Add("VALORTAXAMENOR", filtros.TaxaFinal.ToString());
             }
-            
+
             //Consumir o serviço
-            TaxaEntregaBll produtoBll = new TaxaEntregaBll(true);
+            TaxaEntregaBll taxaEntregaBll = new TaxaEntregaBll(true);
             RetornoObterListaDto<TaxaEntregaDto> retornoDto = new RetornoObterListaDto<TaxaEntregaDto>();
-            produtoBll.ObterListaFiltrada(requisicaoDto, ref retornoDto);
+            taxaEntregaBll.ObterListaFiltrada(requisicaoDto, ref retornoDto);
 
             string retorno = new JavaScriptSerializer().Serialize(retornoDto);
             return retorno;
         }
 
+        /// <summary>
+        /// Obtem a taxa de entrega de um bairro
+        /// </summary>
+        /// <param name="bairro"></param>
+        /// <returns></returns>
+        public string ObterTaxaPorBairro(string bairroCidade)
+        {
+            RequisicaoObterTaxaPorBairroDto requisicaoDto = new RequisicaoObterTaxaPorBairroDto()
+            {
+                IdUsuario = SessaoUsuario.SessaoLogin.IdUsuario,
+                Identificacao = SessaoUsuario.SessaoLogin.Identificacao,
+                BairroCidade = bairroCidade
+            };
+
+            // Consumir o serviço
+            RetornoObterDto<TaxaEntregaDto> retornoDto = new RetornoObterDto<TaxaEntregaDto>();
+            TaxaEntregaBll taxaEntregaBll = new TaxaEntregaBll(true);
+            taxaEntregaBll.ObterTaxaPorBairro(requisicaoDto, ref retornoDto);
+
+            string retorno = new JavaScriptSerializer().Serialize(retornoDto);
+            return retorno;
+        }
     }
 }
